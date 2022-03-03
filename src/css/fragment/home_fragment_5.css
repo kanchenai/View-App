@@ -1,0 +1,609 @@
+.item .pic{
+    background: green;
+}
+
+.item .focus{
+    background: red;
+}
+
+.item .pic{
+    display: block;
+}
+
+.nav_area .item_focus .pic{
+    display: none;
+}
+
+.r_287x33,
+.r_287x33 .item{
+    width: 297px;
+    height: 43px;
+}
+
+.r_287x33 .focus{
+    width: 287px;
+    height: 33px;
+}
+.r_287x33 .item .focus{
+    border: red 5px solid;
+}
+
+.r_287x33 .pic,
+.r_287x33 .pic img{
+    width: 287px;
+    height: 33px;
+}
+
+.r_287x33 .pic{
+    left: 5px;
+    top: 5px;
+}
+
+.r_121x33,
+.r_121x33 .item{
+    width: 131px;
+    height: 43px;
+}
+
+.r_121x33 .focus{
+    width: 121px;
+    height: 33px;
+}
+.r_121x33 .item .focus{
+    border: red 5px solid;
+}
+
+.r_121x33 .pic,
+.r_121x33 .pic img{
+    width: 121px;
+    height: 33px;
+}
+
+.r_121x33 .pic{
+    left: 5px;
+    top: 5px;
+}
+
+.r_87x33,
+.r_87x33 .item{
+    width: 97px;
+    height: 43px;
+}
+
+.r_87x33 .focus{
+    width: 87px;
+    height: 33px;
+}
+.r_87x33 .item .focus{
+    border: red 5px solid;
+}
+
+.r_87x33 .pic,
+.r_87x33 .pic img{
+    width: 87px;
+    height: 33px;
+}
+
+.r_87x33 .pic{
+    left: 5px;
+    top: 5px;
+}
+
+.top_area{
+    width: 1280px;
+    height: 84px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.r_163x45,
+.r_163x45 .item,
+.r_163x45 .pic,
+.r_163x45 .pic img,
+.r_163x45 .focus,
+.r_163x45 .focus img,
+.r_163x45 .txt{
+    width: 163px;
+    height: 45px;
+}
+
+.r_163x45 .txt{
+    white-space: nowrap;
+    color: white;
+    font-size: 22px;
+    line-height: 45px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.nav_area{
+    width: 1280px;
+    height: 60px;
+    left: 0px;
+    top: 79px;
+    overflow: hidden;
+}
+
+.r_565x316,
+.r_565x316 .item{
+    width: 609px;
+    height: 360px;
+}
+
+.r_565x316 .focus,
+.r_565x316 .focus img{
+    width: 609px;
+    height: 360px;
+}
+
+.r_565x316 .pic,
+.r_565x316 .pic img{
+    width: 565px;
+    height: 316px;
+}
+
+.r_565x316 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.r_565x316 .txt{
+    width: 565px;
+    height: 35px;
+    left: 22px;
+    top: 303px;
+    color: red;
+    font-size: 24px;
+    text-align: center;
+    background: gray;
+    overflow: hidden;
+    /*white-space: nowrap;*/
+    line-height: 35px;
+}
+
+.r_271x316,
+.r_271x316 .item{
+    width: 315px;
+    height: 360px;
+}
+
+.r_271x316 .focus,
+.r_271x316 .focus img{
+    width: 315px;
+    height: 360px;
+}
+
+.r_271x316 .pic,
+.r_271x316 .pic img{
+    width: 271px;
+    height: 316px;
+}
+
+.r_271x316 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.r_271x152,
+.r_271x152 .item{
+    width: 315px;
+    height: 196px;
+}
+
+.r_271x152 .focus,
+.r_271x152 .focus img{
+    width: 315px;
+    height: 196px;
+}
+
+.r_271x152 .pic,
+.r_271x152 .pic img{
+    width: 271px;
+    height: 152px;
+}
+
+.r_271x152 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.horizontal_scroll_0_0{
+    width: 1280px;
+    height: 532px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.r_1148x148,
+.r_1148x148 .item{
+    width: 1192px;
+    height: 192px;
+}
+
+.r_1148x148 .focus,
+.r_1148x148 .focus img{
+    width: 1192px;
+    height: 192px;
+}
+
+.r_1148x148 .pic,
+.r_1148x148 .pic img{
+    width: 1148px;
+    height: 148px;
+}
+
+.r_1148x148 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.horizontal_scroll_0_1{
+    width: 1280px;
+    height: 553px;
+    left: 0px;
+    top: 530px;
+    overflow: hidden;
+}
+
+.r_174x174,
+.r_174x174 .item{
+    width: 218px;
+    height: 218px;
+}
+
+.r_174x174 .focus,
+.r_174x174 .focus img{
+    width: 218px;
+    height: 218px;
+}
+
+.r_174x174 .pic,
+.r_174x174 .pic img{
+    width: 174px;
+    height: 174px;
+}
+
+.r_174x174 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.r_174x228,
+.r_174x228 .item{
+    width: 218px;
+    height: 272px;
+}
+
+.r_174x228 .focus,
+.r_174x228 .focus img{
+    width: 218px;
+    height: 272px;
+}
+
+.r_174x228 .pic,
+.r_174x228 .pic img{
+    width: 174px;
+    height: 228px;
+}
+
+.r_174x228 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.r_123x33,
+.r_123x33 .item{
+    width: 123px;
+    height: 33px;
+}
+
+.r_123x33 .focus,
+.r_123x33 .focus img{
+    width: 123px;
+    height: 33px;
+}
+
+.r_123x33 .pic,
+.r_123x33 .pic img{
+    width: 123px;
+    height: 33px;
+}
+
+.r_123x33 .pic{
+    left: 0px;
+    top: 0px;
+}
+
+.horizontal_scroll_0_2{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 1085px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_0{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.r_272x80,
+.r_272x80 .item{
+    width: 272px;
+    height: 80px;
+}
+
+.r_272x80 .focus,
+.r_272x80 .focus img{
+    width: 272px;
+    height: 80px;
+}
+
+.r_272x80 .pic,
+.r_272x80 .pic img{
+    width: 272px;
+    height: 80px;
+}
+
+.r_272x80 .pic{
+    left: 0px;
+    top: 0px;
+}
+
+.r_210x64,
+.r_210x64 .item{
+    width: 210px;
+    height: 64px;
+}
+
+.r_210x64 .focus,
+.r_210x64 .focus img{
+    width: 210px;
+    height: 64px;
+}
+
+.r_210x64 .pic,
+.r_210x64 .pic img{
+    width: 210px;
+    height: 64px;
+}
+
+.r_210x64 .pic{
+    left: 0px;
+    top: 0px;
+}
+
+.horizontal_scroll_1_0{
+    width: 1280px;
+    height: 422px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.r_272x152,
+.r_272x152 .item{
+    width: 316px;
+    height: 196px;
+}
+
+.r_272x152 .focus,
+.r_272x152 .focus img{
+    width: 316px;
+    height: 196px;
+}
+
+.r_272x152 .pic,
+.r_272x152 .pic img{
+    width: 272px;
+    height: 152px;
+}
+
+.r_272x152 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.horizontal_scroll_1_1{
+    width: 1280px;
+    height: 554px;
+    left: 0px;
+    top: 446px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_1_2{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 999px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_1{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_2_0{
+    width: 1280px;
+    height: 443px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_2_1{
+    width: 1280px;
+    height: 382px;
+    left: 0px;
+    top: 444px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_2_2{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 826px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_2{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.r_186x80,
+.r_186x80 .item{
+    width: 230px;
+    height: 124px;
+}
+
+.r_186x80 .focus,
+.r_186x80 .focus img{
+    width: 230px;
+    height: 124px;
+}
+
+.r_186x80 .pic,
+.r_186x80 .pic img{
+    width: 186px;
+    height: 80px;
+}
+
+.r_186x80 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.horizontal_scroll_3_0{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_3_1{
+    width: 1280px;
+    height: 381px;
+    left: 0px;
+    top: 618px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_3_2{
+    width: 1280px;
+    height: 577px;
+    left: 0px;
+    top: 1085px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_3{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_4_0{
+    width: 1280px;
+    height: 420px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.r_370x208,
+.r_370x208 .item{
+    width: 414px;
+    height: 252px;
+}
+
+.r_370x208 .focus,
+.r_370x208 .focus img{
+    width: 414px;
+    height: 252px;
+}
+
+.r_370x208 .pic,
+.r_370x208 .pic img{
+    width: 370px;
+    height: 208px;
+}
+
+.r_370x208 .pic{
+    left: 22px;
+    top: 22px;
+}
+
+.horizontal_scroll_4_1{
+    width: 1280px;
+    height: 478px;
+    left: 0px;
+    top: 440px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_4_2{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 926px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_4{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_5_0{
+    width: 1280px;
+    height: 528px;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_5_1{
+    width: 1280px;
+    height: 553px;
+    left: 0px;
+    top: 530px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_5_2{
+    width: 1280px;
+    height: 580px;
+    left: 0px;
+    top: 1085px;
+    overflow: hidden;
+}
+
+.horizontal_scroll_5{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.horizontal_scroll{
+    width: 1280px;
+    height: 580px;
+    overflow: hidden;
+}
+
+.page_area{
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+}
+

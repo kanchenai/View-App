@@ -1,0 +1,90 @@
+/* S= CSS Reset
+----------------------------------------------- */
+body, div, table, caption, tbody, tfoot, thead, tr, th, td, ul, li, p, h1 { margin:0px; padding:0px; border:0px; }
+body { font-size: 24px; font-family: Microsoft YaHei,sans-serif; line-height: 100%; }
+ul, ol { list-style: none; }
+table { border-collapse:collapse; border-spacing:0; }
+a { text-decoration: none; }
+img { border: 0; }
+/* E= CSS Reset */
+
+/* S= Global
+----------------------------------------------- */
+body{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+body {
+    color: #ffffff;
+    background: transparent;
+    position: absolute;
+}
+
+.img {
+    display: block; /* clear some space 对于html5中背景图比原高度多出3PX的问题*/
+}
+.item, .link, .txt-wrap, .txt, .btn, .icon, .pic, .pic-shade, .cover, .num {
+    position:absolute;
+}
+
+img{
+    position: absolute;
+    border-radius: 7px;
+}
+
+div{
+    position: absolute;
+}
+
+#app{
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    background: gray;
+    overflow: hidden;
+}
+
+.page{
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+}
+
+/* E= Global */
+
+
+.bg img{
+    position: absolute;
+    border-radius: 0px;
+}
+
+.item .focus {
+    display: none;
+}
+
+.item_focus .focus{
+    display: block;
+}
+
+.item_focus{
+    z-index: 100;
+}
+
+.log_view{
+    position: absolute;
+    z-index: 199;
+    width: 1280px;
+    height: 480px;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+view,
+view-item,
+view-group,
+view-frame{
+    position: absolute;
+}
