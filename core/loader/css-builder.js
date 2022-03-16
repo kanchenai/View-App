@@ -11,7 +11,7 @@ module.exports = function (css, style_tag) {
     css = css.replace(new RegExp(",", "gmi"), divLeft);
 
     var divLeft = "[" + style_tag + "]{" ;
-    css = css.replace(new RegExp("{", "gmi"), divLeft);
+    css = css.replace(new RegExp("{| {", "gmi"), divLeft);
 
     return css;
 }
