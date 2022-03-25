@@ -11,8 +11,8 @@ export default class ScrollView extends View {
     //对应的ele滚动到结束（横向居右/纵向居底）
     static scrollEnd;
 
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
         /**
          *
          * @type {ImageView[]}

@@ -1,87 +1,90 @@
-.item .pic{
+.item .pic {
     display: block;
 }
 
-.nav_area .item_focus .pic{
+.nav_area .item_focus .pic {
     display: none;
 }
 
 .r_287x33,
-.r_287x33 .item{
+.r_287x33 .item {
     width: 297px;
     height: 43px;
 }
 
-.r_287x33 .focus{
+.r_287x33 .focus {
     width: 287px;
     height: 33px;
 }
-.r_287x33 .item .focus{
+
+.r_287x33 .item .focus {
     border: red 5px solid;
 }
 
 .r_287x33 .pic,
-.r_287x33 .pic img{
+.r_287x33 .pic img {
     width: 287px;
     height: 33px;
 }
 
-.r_287x33 .pic{
+.r_287x33 .pic {
     left: 5px;
     top: 5px;
 }
 
 .r_121x33,
-.r_121x33 .item{
+.r_121x33 .item {
     width: 131px;
     height: 43px;
 }
 
-.r_121x33 .focus{
+.r_121x33 .focus {
     width: 121px;
     height: 33px;
 }
-.r_121x33 .item .focus{
+
+.r_121x33 .item .focus {
     border: red 5px solid;
 }
 
 .r_121x33 .pic,
-.r_121x33 .pic img{
+.r_121x33 .pic img {
     width: 121px;
     height: 33px;
 }
 
-.r_121x33 .pic{
+.r_121x33 .pic {
     left: 5px;
     top: 5px;
 }
 
 .r_87x33,
-.r_87x33 .item{
+.r_87x33 .item {
     width: 97px;
     height: 43px;
 }
 
-.r_87x33 .focus{
+.r_87x33 .focus {
     width: 87px;
     height: 33px;
 }
-.r_87x33 .item .focus{
+
+.r_87x33 .item .focus {
     border: red 5px solid;
 }
 
 .r_87x33 .pic,
-.r_87x33 .pic img{
+.r_87x33 .pic img {
     width: 87px;
     height: 33px;
 }
 
-.r_87x33 .pic{
+.r_87x33 .pic {
     left: 5px;
     top: 5px;
 }
 
-.top_area{
+.top_area {
     width: 1280px;
     height: 84px;
     left: 0px;
@@ -105,15 +108,15 @@
 .r_163x45 .item .select,
 .r_163x45 .item_focus .select,
 .r_163x45 .item_select .pic,
-.r_163x45 .item_select .focus{
+.r_163x45 .item_select .focus {
     display: none;
 }
 
-.r_163x45 .item_select .select{
+.r_163x45 .item_select .select {
     display: block;
 }
 
-.r_163x45 .txt{
+.r_163x45 .txt {
     white-space: nowrap;
     color: white;
     font-size: 22px;
@@ -122,7 +125,7 @@
     overflow: hidden;
 }
 
-.nav_area{
+.nav_area {
     width: 1280px;
     height: 60px;
     left: 0px;
@@ -130,7 +133,7 @@
     overflow: hidden;
 }
 
-.horizontal_scroll{
+.horizontal_scroll {
     width: 1280px;
     height: 580px;
     overflow: hidden;
@@ -142,14 +145,14 @@
     height: 720px;
 }
 
-.dialog .bg img{
+.dialog .bg img {
     width: 480px;
     height: 270px;
     left: 400px;
     top: 225px;
 }
 
-.dialog .shadow{
+.dialog .shadow {
     width: 1280px;
     height: 720px;
     background: gray;

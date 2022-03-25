@@ -3,8 +3,8 @@ import Fragment from "./Fragment";
 import State from "../../util/State";
 
 export default class FrameView extends GroupView {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
         delete this.selectView;
 
         /**
@@ -19,6 +19,12 @@ export default class FrameView extends GroupView {
         this.foregroundView = null;
         //切换碎片的方式
         this.switchType = "";
+    }
+
+    requestFocus() {
+        if(!this.isScrolling){
+            super.requestFocus();
+        }
     }
 
     /**

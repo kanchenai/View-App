@@ -10,7 +10,8 @@ require("../../css/style.css");
 
 export default class Application extends GroupView {
     constructor(id) {
-        super(id);
+        super();
+        this.id = id;
         delete this.fatherView;
         delete this.frontView;
         delete this.select;

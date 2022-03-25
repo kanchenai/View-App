@@ -3,9 +3,8 @@ import VSize from "../../util/VSize";
 import Application from "../../app/Application";
 
 export default class View {
-    constructor(id) {
-        this.id = id || "";
-        this.componentId = "";
+    constructor() {
+        this.id = "";
         /**
          * View对应的节点
          * @type {HTMLElement}
@@ -88,7 +87,7 @@ export default class View {
         var left = this.left;
         var top = this.top;
 
-        if (!this.fatherView) {//兼容，正常请款不会出现
+        if (!this.fatherView) {//兼容，正常情况不会出现
             return new VPosition(left, top);
         }
 
@@ -149,6 +148,10 @@ export default class View {
      */
     set html(html) {
         this.ele.innerHTML = html;
+    }
+
+    get html(){
+        return this.ele.innerHTML;
     }
 
     /**
@@ -255,11 +258,6 @@ export default class View {
         var id = View.parseAttribute("view-id", this.ele);
         if (id) {
             this.id = id;
-        }
-
-        var componentId = View.parseAttribute("component-id", this.ele);
-        if (componentId) {
-            this.componentId = componentId;
         }
 
         var visible = View.parseAttribute("view-visible", this.ele);//滚动
@@ -534,6 +532,17 @@ export default class View {
         view.setAttributeParam();
         viewManager.addView(view);
         return view;
+    }
+
+    /**
+     *
+     * @param{String} html
+     * @returns {HTMLCollection}
+     */
+    static parseEle(html) {
+        var ele = document.createElement("div");
+        ele.innerHTML = html;
+        return ele.children;
     }
 };
 

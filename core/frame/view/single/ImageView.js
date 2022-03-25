@@ -1,8 +1,8 @@
 import View from "@core/frame/view/base/View";
 
 export default class ImageView extends View {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
         //是否已加载
         this.isLoaded = false;
         //加载图片的timer，用于节省isShowing和isDisplayRange属性获取的时间

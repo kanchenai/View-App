@@ -3,8 +3,8 @@ import ImageView from "@core/frame/view/single/ImageView";
 import TextView from "@core/frame/view/single/TextView";
 
 export default class ItemView extends View {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
         //上焦的className
         this.focusStyle = "item item_focus";
         //选中的className

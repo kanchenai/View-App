@@ -3,8 +3,8 @@ import View from "@core/frame/view/base/View";
 import State from "@core/frame/util/State";
 
 export default class TextView extends View {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
 
         delete this._imageList;
 

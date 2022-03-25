@@ -17,17 +17,22 @@ export default class Fragment_0 extends Fragment{
 
     onPause() {
         console.log("Fragment_0","-onPause");
-        var page = this;
-        setTimeout(function (){
-            page.hide();
+        var fragment = this;
+        if(this.timer){
+            clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(function (){
+            if(!fragment.isForeground){
+                fragment.hide();
+            }
         },1000);
     }
 
     onStop() {
-        console.log("Fragment_0","-onStop");
+        // console.log("Fragment_0","-onStop");
     }
 
     onDestroy() {
-        console.log("Fragment_0","-onDestroy");
+        // console.log("Fragment_0","-onDestroy");
     }
 }

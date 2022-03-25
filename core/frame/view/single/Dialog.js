@@ -1,8 +1,8 @@
 import GroupView from "../base/GroupView";
 
 export default class Dialog extends GroupView {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
         //page的返回事件
         this.pageKeyBack = null;
     }

@@ -5,8 +5,8 @@ import View from "@core/frame/view/base/View";
 import ItemView from "@core/frame/view/base/ItemView";
 
 export default class GroupView extends ScrollView {
-    constructor(id) {
-        super(id);
+    constructor() {
+        super();
 
         this._data = [];
         /**
@@ -36,16 +36,16 @@ export default class GroupView extends ScrollView {
             return;
         }
 
-        var focusView = this.viewManager.focusView;
-        if (focusView && focusView != this) {//焦点存在，并且和当前不是同一个
-            focusView.requestUnFocus();
-            this.frontView = focusView;
-        }
+        var frontView = this.viewManager.focusView;
 
         if (this.select && this.selectView) {
             this.selectView.requestFocus();
         } else {
             GroupView.focusViewGroup(this.page.focusView, this);
+        }
+
+        if (frontView && frontView != this) {//焦点存在，并且和当前不是同一个
+            this.frontView = frontView;
         }
     }
 
@@ -662,24 +662,28 @@ export default class GroupView extends ScrollView {
         for (var i = 0; i < groupView.childViews.length; i++) {
             var child = groupView.childViews[i];
 
+            if(!child.isShowing){//不显示
+                continue;
+            }
+
             var position = child.positionByFather;
 
-            if (position.top + child.height / 2 >= groupView.height) {//在显示范围下
+            if (position.top >= groupView.height / 2) {//在显示范围下
                 // console.log(child.id+"超过一半在显示范围下");
                 continue;
             }
 
-            if (position.top + child.height / 2 <= 0) {//在显示范围上
+            if (position.top <= 0 - child.height / 2) {//在显示范围上
                 // console.log(child.id+"超过一半在显示范围上");
                 continue;
             }
 
-            if (position.left + child.width / 2 >= groupView.width) {//在显示范围右
+            if (position.left >= groupView.width / 2) {//在显示范围右
                 // console.log(child.id+"超过一半在显示范围右");
                 continue;
             }
 
-            if (position.left + child.width / 2 <= 0) {//在显示范围上
+            if (position.left <= 0 - child.width / 2) {//在显示范围上
                 // console.log(child.id+"超过一半在显示范围左");
                 continue;
             }
