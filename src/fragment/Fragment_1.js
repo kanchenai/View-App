@@ -9,18 +9,18 @@ export default class Fragment_1 extends Fragment{
     }
 
     onResume() {
-        console.log("Fragment_1","-onResume");
+        // console.log("Fragment_1","-onResume");
     }
 
     onPause() {
-        console.log("Fragment_1","-onPause");
+        // console.log("Fragment_1","-onPause");
     }
 
     onStop() {
-        console.log("Fragment_1","-onStop");
+        // console.log("Fragment_1","-onStop");
     }
 
     onDestroy() {
-        console.log("Fragment_1","-onDestroy");
+        // console.log("Fragment_1","-onDestroy");
     }
 }

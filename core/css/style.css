@@ -65,16 +65,13 @@ div {
 
 #app {
     position: absolute;
-    width: 1280px;
-    height: 720px;
-    background: gray;
     overflow: hidden;
 }
 
 .page {
     position: absolute;
-    width: 1280px;
-    height: 720px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -101,8 +98,8 @@ div {
 .log_view {
     position: absolute;
     z-index: 199;
-    width: 1280px;
-    height: 480px;
+    width: 100%;
+    height: 35%;
     overflow: hidden;
     opacity: 0.8;
 }
@@ -110,6 +107,9 @@ div {
 view,
 view-item,
 view-group,
-view-frame {
+view-frame,
+view-scroll,
+view-dialog,
+view-recycle{
     position: absolute;
 }

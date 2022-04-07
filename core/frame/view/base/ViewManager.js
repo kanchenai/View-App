@@ -1,11 +1,10 @@
 import View from './View'
-import GroupView from "./GroupView";
+import GroupView from "../group/GroupView";
 import ScrollView from "./ScrollView";
 import FrameView from "../group/FrameView";
-import ImageView from "../single/ImageView";
 import ItemView from "./ItemView";
-import TextView from "../single/TextView";
-import Dialog from "@core/frame/view/single/Dialog";
+import Dialog from "@core/frame/view/group/Dialog";
+import RecycleView from "@core/frame/view/group/RecycleView";
 
 /**
  * @constructor
@@ -35,7 +34,7 @@ export default class ViewManager {
 
     clear() {
         this.viewMap = new Map();
-        this._focusId = "";
+        this.focusId = "";
         this.focusView = null;
     }
 
@@ -87,6 +86,10 @@ export default class ViewManager {
                 case "VIEW-DIALOG":
                     var dialog = Dialog.parseByEle(child_ele,this);
                     groupView.addChild(dialog);
+                    break;
+                case "VIEW-RECYCLE":
+                    var recycleView = RecycleView.parseByEle(child_ele,this);
+                    groupView.addChild(recycleView);
                     break;
                 default:
                     this.eleToObject(child_ele, groupView);

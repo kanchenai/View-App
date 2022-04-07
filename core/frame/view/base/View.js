@@ -544,6 +544,28 @@ export default class View {
         ele.innerHTML = html;
         return ele.children;
     }
+
+    /**
+     * 获取ele中view-id值为id的节点
+     * @param{String} id
+     * @param{Element} ele
+     * @returns {Element}
+     */
+    static findEleBy(id,ele){
+        var viewId = ele.getAttribute("view-id");
+        if(viewId == id){
+            return ele
+        }
+
+        var ele_list = ele.children;
+        for (var child_ele of ele_list) {
+            var foundEle = View.findEleBy(id,child_ele);
+            if(foundEle){
+                return foundEle;
+            }
+        }
+
+    }
 };
 
 /**

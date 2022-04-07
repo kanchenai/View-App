@@ -9,6 +9,7 @@ import HomeFragment_4 from "@fragment/HomeFragment_4";
 import HomeFragment_5 from "@fragment/HomeFragment_5";
 
 import html from "@html/home.html"
+import TestPage from "@page/TestPage";
 
 export default class HomePage extends Page {
     constructor() {

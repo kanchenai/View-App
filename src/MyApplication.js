@@ -1,9 +1,12 @@
 import Application from "../core/frame/app/Application";
 import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
-// import TestPage from "./test/TestPage"
-import State from "../core/frame/util/State";
+import TestPage from "./page/TestPage"
+// import State from "../core/frame/util/State";
 import IptvPlayer from "@src/util/IptvPlayer";
+import FramePage from "@page/FramePage";
+
+require('./global_style.css')
 
 export default class MyApplication extends Application {
     constructor(id) {
@@ -17,9 +20,9 @@ export default class MyApplication extends Application {
                 case "ListPage":
                     page = new ListPage();
                     break;
-                // case "TestPage":
-                //     page = new TestPage();
-                //     break;
+                case "TestPage":
+                    page = new TestPage();
+                    break;
             }
             return page;
         }
@@ -34,7 +37,7 @@ export default class MyApplication extends Application {
                 firstPage = new HomePage();
                 break;
             default:
-                firstPage = new HomePage();
+                firstPage = new TestPage();
                 break;
         }
         return {firstPage, param};
@@ -50,6 +53,7 @@ export default class MyApplication extends Application {
 
     onDestroy() {
         // console.log("MyApplication onDestroy")
+        // 如果是app+epg，在这里（或exitUrl()）调用退出app的方法
     }
 
     exitUrl() {
@@ -62,7 +66,7 @@ export default class MyApplication extends Application {
         return url;
     }
 
-    getPlayInstance() {
+    getPlayerInstance() {
         var player = {};
         try{
             player = new IptvPlayer(this.keyboard);

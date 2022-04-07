@@ -11,7 +11,7 @@ module.exports = function (original_html, style_tag) {
     var str = original_html;
     if (start >= 0) {
         start += +'<template>'.length;
-        var end = original_html.indexOf('</template>');
+        var end = original_html.lastIndexOf('</template>');
         str = original_html.substring(start, end);
     }
 
@@ -23,6 +23,9 @@ module.exports = function (original_html, style_tag) {
     var html = str;
     for (var i = 0; i < tags.length; i++) {
         var tagLeft = tags[i];
+        if(tagLeft == "template"){
+            continue;
+        }
         // var tagRight = "</" + view_types[i] + ">";
         // var divLeft = "<div data-" + style_tag;
         var divLeft = "";

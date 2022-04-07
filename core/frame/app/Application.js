@@ -1,6 +1,6 @@
 import Keyboard from "@core/frame/app/Keyboard";
 import State from "@core/frame/util/State";
-import GroupView from "@core/frame/view/base/GroupView";
+import GroupView from "@core/frame/view/group/GroupView";
 import PageManager from "@core/frame/page/PageManager";
 import {Scroller} from "@core/frame/view/base/ScrollView";
 import View from "@core/frame/view/base/View";
@@ -221,7 +221,7 @@ export default class Application extends GroupView {
      * 在子类中重写，返回一个全局方法器
      * @returns{VideoPlayer}
      */
-    getPlayInstance(){
+    getPlayerInstance(){
         console.error("获取播放器方法（getPlayInstance）未重写")
         return this._player;
     }
@@ -275,7 +275,7 @@ export default class Application extends GroupView {
 
     get player(){
         if(!this._player){
-            var player = this.getPlayInstance();
+            var player = this.getPlayerInstance();
             if(player){
                 this._player = player;
             }

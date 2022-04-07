@@ -1,0 +1,17 @@
+.recycle_view{
+    width: 600px;
+    height: 400px;
+    left: 340px;
+    top: 160px;
+}
+
+.component .item,
+.component .focus,
+.component .pic {
+    width: 300px;
+    height: 200px;
+}
+
+.component .pic{
+    background: red;
+}

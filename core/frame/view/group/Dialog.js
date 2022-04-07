@@ -1,4 +1,4 @@
-import GroupView from "../base/GroupView";
+import GroupView from "./GroupView";
 
 export default class Dialog extends GroupView {
     constructor() {

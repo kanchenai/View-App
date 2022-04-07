@@ -1,7 +1,11 @@
 import View from "@core/frame/view/base/View";
 import ImageView from "@core/frame/view/single/ImageView";
 
-//TODO ScrollView不能继承ItemView，Scroller报错
+/**
+ * ScrollView不能继承ItemView，Scroller报错
+ * 子类在new之后要执行scrollView.scroller.init(),把滚动器创建起来
+ */
+
 export default class ScrollView extends View {
     static scrollNormal;
     //对应的ele滚动到居中

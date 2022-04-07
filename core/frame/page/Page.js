@@ -1,17 +1,10 @@
 import ViewManager from "../view/base/ViewManager";
 import State from "../util/State";
-import GroupView from "../view/base/GroupView";
+import GroupView from "../view/group/GroupView";
 
 export default class Page extends GroupView {
     constructor() {
         super("");
-
-        delete this.onClickListener;
-        delete this.onFocusChangeListener;
-        delete this.onVisibleChangeListener;
-        delete this.onScrollStartListener;
-        delete this.onScrollingListener;
-        delete this.onScrollEndListener;
 
         delete this.data;
 

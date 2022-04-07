@@ -1,4 +1,4 @@
-import GroupView from "../base/GroupView";
+import GroupView from "./GroupView";
 import Fragment from "./Fragment";
 import State from "../../util/State";
 

@@ -1,4 +1,4 @@
-import GroupView from "../base/GroupView";
+import GroupView from "./GroupView";
 import State from "../../util/State";
 
 export default class Fragment extends GroupView {
