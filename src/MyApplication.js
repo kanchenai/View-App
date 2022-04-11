@@ -3,7 +3,7 @@ import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
 import TestPage from "./page/TestPage"
 // import State from "../core/frame/util/State";
-import IptvPlayer from "@src/util/IptvPlayer";
+import IptvPlayer from "@core/frame/player/IptvPlayer";
 import FramePage from "@page/FramePage";
 
 require('./global_style.css')
@@ -37,7 +37,7 @@ export default class MyApplication extends Application {
                 firstPage = new HomePage();
                 break;
             default:
-                firstPage = new TestPage();
+                firstPage = new HomePage();
                 break;
         }
         return {firstPage, param};

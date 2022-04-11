@@ -11,12 +11,12 @@ export default class ListPage extends Page {
     }
 
     onCreate(param) {
-        console.log("ListPage", this.id, "onCreate", "传入参数", param);
+        console.log("ListPage", this.pageName, "onCreate", "传入参数", param);
         this.html = html;
     }
 
     onClickListener() {
-        console.log(this.id + "-key_ok_event");
+        console.log(this.pageName + "-key_ok_event");
         // var testPage = new TestPage();
         // this.startPage(testPage, {data: "tttttt"});
 
@@ -29,19 +29,19 @@ export default class ListPage extends Page {
     }
 
     onResume() {
-        console.log(this.id + "-onResume");
+        console.log(this.pageName + "-onResume");
     }
 
     onPause() {
-        console.log(this.id + "-onPause");
+        console.log(this.pageName + "-onPause");
     }
 
     onStop() {
-        console.log(this.id + "-onStop");
+        console.log(this.pageName + "-onStop");
     }
 
     onDestroy() {
-        console.log(this.id + "-onDestroy");
+        console.log(this.pageName + "-onDestroy");
     }
 
     key_back_event() {

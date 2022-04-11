@@ -52,7 +52,7 @@ export default class HomePage extends Page {
     }
 
     onClickListener(view) {
-        console.log(view.id, "-onClickListener", view);
+        console.log(view.pageName, "-onClickListener", view);
         var listPage = new ListPage();
         this.startPage(listPage, {data: "llllll"});
     }

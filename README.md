@@ -61,7 +61,7 @@
                     firstPage = new HomePage();
                     break;
                 default:
-                    firstPage = new TestPage();
+                    firstPage = new TestPage();//默认第一个Page
                     break;
             }
             return {firstPage, param};//返回第一个Page，及对应的参数
@@ -81,7 +81,7 @@
         //应用停止，一般在跳转到外部，和销毁应用时调用
         onStop(){}
     
-        //应用销毁，跳转到外部不会调用改方法，只有销毁时会调用
+        //应用销毁，跳转到外部不会调用该方法，只有销毁时会调用
         //如果是android混合模式，可以在这里调用关闭WebView或关闭android app
         onDestroy(){}
     }
@@ -92,6 +92,7 @@
 
 ```javascript
     export default class MyApplication extends Application {
+        //如果是android混合模式，也可以在这里调用关闭WebView或关闭android app
         exitUrl() {
             var url = "";//退出应用跳转的地址，这地址可以自定义，一般由启动应用时，地址栏中的参数，比如：backUrl、returnUrl等
             return url;
@@ -117,7 +118,8 @@
 ```
 
 * 跳转到外部，返回应用时
-这里主要是味蕾跳转到外部返回应用后，所显示的Page
+
+  这里主要是为跳转到外部返回应用后，所显示的Page
 ```javascript
     export default class MyApplication extends Application {
         constructor(id) {
@@ -153,3 +155,20 @@
 
 #### Page构建
 未完待续，暂时可以参考/src/page下的样例
+
+
+
+
+
+
+
+
+#### 开发者须知
+
+* 1.该框架的运行环境 node，使用webpack打包
+* 2.当前版在适配中需要调整编译的es版本，在必要时需要舍弃某些写法
+* 3.开发者有任何疑问，可以留言
+* 4.如果有建议，也可留言
+* 5.目前作者只有一人，在IPTV行业有者5年开发经验，熟悉各种盒子的设配
+* 6.该框架之前有一个前置版本，但在原公司深度使用，不便公开，但适配经验在本框架中适应，在2年时间里已落地50个左右的项目，在全国不同地区、运营商落地
+

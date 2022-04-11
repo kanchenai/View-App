@@ -570,7 +570,7 @@ export default class View {
 
 /**
  * 将data绑定到Page中
- * 双向绑定，先不做，没有应用场景
+ * 双向绑定，先不做，应用场景比较单一
  * @param{Page} page
  */
 var definedPageData = function (page) {

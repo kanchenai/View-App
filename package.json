@@ -1,6 +1,6 @@
 {
   "name": "view-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.5",

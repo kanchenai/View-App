@@ -83,7 +83,7 @@ export default class VideoPlayer {
             this.playInfo = playInfo;
         }
         //需要被重写，并调用父类方法，调用之后，补充对应播放器的实际功能
-        //TODO 在子类中续写实际播放功能，然后调用this.startRefreshPlayerState()方法
+        //在子类中续写实际播放功能，然后调用this.startRefreshPlayerState()方法
         //this.startRefreshPlayerState();//开始刷新播放转台
     }
 

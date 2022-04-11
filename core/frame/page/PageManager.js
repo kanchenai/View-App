@@ -1,5 +1,9 @@
 import LocalData from "../util/LocalData";
 
+/**
+ * Page的管理者
+ * 操作Page在内存中的动作，对应信息的本地交互
+ */
 export default class PageManager {
     constructor(application) {
         this.application = application;
@@ -62,6 +66,10 @@ export default class PageManager {
         return this.pageInfoList.peek();
     }
 
+    /**
+     * 把param对应的pageInfo从pageInfoList中删除
+     * @param param
+     */
     removePageInfo(param) {
         for (var i = 0; i < this.pageInfoList.length; i++) {
             var pageInfo = this.pageInfoList[i];
@@ -88,6 +96,10 @@ export default class PageManager {
         this.savePageInfo();
     }
 
+    /**
+     * 从LocalData获取PageInfo
+     * @returns {*[]}
+     */
     getPageInfo() {
         var data = LocalData.getData(this.pageInfoKey);
         // data = '[{"pageName":"HomePage","param":{}},{"pageName":"ListPage","param":{"data":"llllll"}},{"pageName":"TestPage","param":{"data":"tttttt"}}]';
@@ -102,10 +114,16 @@ export default class PageManager {
         return pageInfoList;
     }
 
+    /**
+     * 清除PageInfo
+     */
     clearPageInfo() {
         LocalData.setData(this.pageInfoKey, "");
     }
 
+    /**
+     * 把pageInfoList保存到LocalData
+     */
     savePageInfo(){
         LocalData.setDataByJson(this.pageInfoKey, this.pageInfoList);
     }
@@ -119,7 +137,11 @@ export default class PageManager {
     }
 }
 
-class PageInfo {
+/**
+ * pageName和对应Page的参数
+ * 用于LocalData，获取或存储
+ */
+export class PageInfo {
     constructor(pageName, param) {
         this.pageName = pageName;
         this.param = param;
@@ -132,7 +154,5 @@ class PageInfo {
     static parse(object){
         return new PageInfo(object.pageName,object.param);
     }
-    //
-    // parseLocalData(){
-    // }
+
 }
