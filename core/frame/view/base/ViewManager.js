@@ -69,25 +69,31 @@ export default class ViewManager {
                     View.parseByEle(child_ele, this);
                     break;
                 case "VIEW-ITEM":
+                case "ITEM":
                     var itemView = ItemView.parseByEle(child_ele,this);
                     groupView.addChild(itemView);
                     break;
                 case "VIEW-SCROLL":
+                case "SCROLL":
                     ScrollView.parseByEle(child_ele,this);
                     break;
                 case "VIEW-GROUP":
+                case "GROUP":
                     var _groupView = GroupView.parseByEle(child_ele,this);
                     groupView.addChild(_groupView);
                     break;
                 case "VIEW-FRAME":
+                case "FRAME":
                     var frameView = FrameView.parseByEle(child_ele,this);
                     groupView.addChild(frameView);
                     break;
                 case "VIEW-DIALOG":
+                case "DIALOG":
                     var dialog = Dialog.parseByEle(child_ele,this);
                     groupView.addChild(dialog);
                     break;
                 case "VIEW-RECYCLE":
+                case "RECYCLE":
                     var recycleView = RecycleView.parseByEle(child_ele,this);
                     groupView.addChild(recycleView);
                     break;
