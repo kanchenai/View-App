@@ -1,4 +1,5 @@
 import './src/css'
+import "./src/images-js"
 
 import MyApplication from "./src/MyApplication";
 

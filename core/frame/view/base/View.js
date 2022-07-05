@@ -1,9 +1,14 @@
 import VPosition from "../../util/VPosition";
 import VSize from "../../util/VSize";
 import Application from "../../app/Application";
+import ViewManager from "@core/frame/view/base/ViewManager";
 
 export default class View {
-    constructor() {
+    /**
+     *
+     * @param{ViewManager} viewManager
+     */
+    constructor(viewManager) {
         this.id = "";
         /**
          * View对应的节点
@@ -11,11 +16,23 @@ export default class View {
          */
         this._ele = null;
         //绑定的viewManager
-        this.viewManager = null;
+        this.viewManager = viewManager;
         //绑定的数据
         this._data = null;
         //所属父控件
         this.fatherView = null;
+        //包含的子控件
+        this.childViews = [];
+        /**
+         * 使用id做key，子控件做value，主要用于findViewById
+         * @type {Map<string, View>}
+         */
+        this.viewMap = new Map();
+        /**
+         * 能否上焦
+         * @type {boolean}
+         */
+        this.focusable = false;
 
 
         /**
@@ -25,6 +42,46 @@ export default class View {
          * @param isShowing
          */
         this.onVisibleChangeListener = "";
+    }
+
+    addChild(view){
+        if(!view instanceof View){
+            return;
+        }
+        if(view.fatherView){
+            view.fatherView.removeChild(view);
+        }
+        view.fatherView = this;
+        if(view.id){
+            this.viewMap.set(view.id,view);
+        }
+        this.childViews.push(view);
+    }
+
+    /**
+     * 从childViews移除
+     * @param view
+     */
+    removeChild(view) {
+        this.childViews.removeEle(view);
+        if(view.id){
+            this.viewMap.set(view.id,undefined);
+        }
+    }
+
+    findViewById(id) {
+        var view = this.viewMap.get(id);
+        if(!view){//不存在
+            for(var i=0;i<this.childViews.length;i++){
+                var child = this.childViews[i];
+                view = child.findViewById(id);
+                if(view){
+                    break;
+                }
+            }
+        }
+
+        return view;
     }
 
     callVisibleChangeListener(view, isShowing) {
@@ -267,7 +324,6 @@ export default class View {
         return false;
     }
 
-
     static parseAttribute(key, ele) {
         var value = ele.getAttribute(key);
         if (!value || value == "undefined" || value == "null") {
@@ -292,6 +348,8 @@ export default class View {
 
     /**
      * 是否显示
+     * 现在只能判断view及其子类，
+     * TODO 待优化，方向判断在某一父ele下，对应的ele是否显示，可以减少向父节点迭代次数
      * @param{View|ImageView}
      * @return {boolean|boolean}
      */
@@ -527,15 +585,14 @@ export default class View {
      * @returns {View}
      */
     static parseByEle(ele, viewManager) {
-        var view = new View();
+        var view = new View(viewManager);
         view.ele = ele;
         view.setAttributeParam();
-        viewManager.addView(view);
         return view;
     }
 
     /**
-     *
+     * 将字符串转化为ele
      * @param{String} html
      * @returns {HTMLCollection}
      */

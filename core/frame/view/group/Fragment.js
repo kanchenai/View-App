@@ -2,8 +2,8 @@ import GroupView from "./GroupView";
 import State from "../../util/State";
 
 export default class Fragment extends GroupView {
-    constructor() {
-        super("");
+    constructor(viewManager) {
+        super(viewManager);
         this.isForeground = false;
         this.lifeState = State.LifeState.BEFORE_CREATE;
     }

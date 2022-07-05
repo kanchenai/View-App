@@ -63,15 +63,12 @@ div {
     position: absolute;
 }
 
-#app {
-    position: absolute;
-    overflow: hidden;
-}
-
+#app,
 .page {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    /*不要使用%，在或宽高时生效较晚*/
+    width: 1280px;
+    height: 720px;
     overflow: hidden;
 }
 

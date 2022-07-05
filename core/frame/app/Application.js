@@ -11,7 +11,9 @@ require("../../css/style.css");
 export default class Application extends GroupView {
     constructor(id) {
         super();
+        this.focusable = false;
         this.id = id;
+        delete this.viewManager;
         delete this.fatherView;
         delete this.frontView;
         delete this.select;
@@ -343,11 +345,9 @@ Array.prototype.peek = function () {
  * @param ele
  */
 Array.prototype.removeEle = function (ele) {
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] === ele) {
-            this.splice(i, 1);
-            break;
-        }
+    var index = this.indexOf(ele);
+    if(index >= 0){
+        this.splice(index, 1);
     }
 }
 

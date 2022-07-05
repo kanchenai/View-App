@@ -4,8 +4,8 @@ import GroupView from "../view/group/GroupView";
 
 export default class Page extends GroupView {
     constructor() {
-        super("");
-
+        super(null);
+        this.focusable = false;
         delete this.data;
 
         //在子类中设置这个pageName，用以恢复页面时使用
@@ -221,14 +221,13 @@ export default class Page extends GroupView {
         this.application.finishPage(this);
     }
 
-    findViewById(id) {
-        //从ViewManager中获取
-        return this.viewManager.getView(id);
-    }
-
     set html(html) {
         this.viewManager.clear();
         super.html = html;
+    }
+
+    get html(){
+        return super.html;
     }
 
     get focusView() {

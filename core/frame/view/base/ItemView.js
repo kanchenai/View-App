@@ -3,8 +3,9 @@ import ImageView from "@core/frame/view/single/ImageView";
 import TextView from "@core/frame/view/single/TextView";
 
 export default class ItemView extends View {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
+        this.focusable = true;
         //上焦的className
         this.focusStyle = "item item_focus";
         //选中的className
@@ -53,7 +54,7 @@ export default class ItemView extends View {
      * 去上焦,每一个Page都有且只有一个焦点
      */
     requestFocus() {
-        if(!this.isShowing){
+        if (!this.isShowing) {
             return;
         }
         var focusView = this.viewManager.focusView;
@@ -182,7 +183,7 @@ export default class ItemView extends View {
      */
     bindText() {
         this._textList = [];//置空
-        TextView.bindTextByEle(this.ele,this);
+        TextView.bindTextByEle(this.ele, this);
     }
 
     /**
@@ -197,6 +198,10 @@ export default class ItemView extends View {
         text.fatherView = this;
         //添加跑马灯
         this._textList.push(text);
+
+        if(text.id){
+            this.viewMap.set(text.id,text);
+        }
     }
 
     /**
@@ -247,6 +252,9 @@ export default class ItemView extends View {
         image.fatherView = this;
         //绑定图片
         this._imageList.push(image);
+        if (image.id) {
+            this.viewMap.set(image.id, image);
+        }
     }
 
     /**
@@ -340,13 +348,11 @@ export default class ItemView extends View {
      * @returns {ItemView}
      */
     static parseByEle(ele, viewManager) {
-        var itemView = new ItemView();
+        var itemView = new ItemView(viewManager);
         itemView.ele = ele;
-        itemView.setAttributeParam();
-        var viewFocus = itemView.setAttributeParam(ele);
-        viewManager.addView(itemView);
-        itemView.bindText();//必须在this.addView之后执行
-        itemView.bindImage();//必须在this.addView之后执行
+        var viewFocus = itemView.setAttributeParam();
+        itemView.bindText();//必须在addView之后执行
+        itemView.bindImage();//必须在addView之后执行
         if (viewFocus) {
             viewManager.focusView = itemView;
         }

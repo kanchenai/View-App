@@ -1,5 +1,7 @@
-#app {
-    width: 1280px;
-    height: 720px;
-    background: gray;
+#app{
+    background: white;
+}
+
+.page{
+    background: black;
 }

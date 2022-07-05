@@ -311,6 +311,12 @@ presets配置不填，如果有配置项，报错
     }
 ```
 
+打包成es5
+* 将webpack.config.js中的"devtool: 'source-map'"注释掉
+```javascript
+    devtool: 'source-map'
+```
+
 ### 11.使用Flow检查代码
 由于presets问题，flow不使用
 

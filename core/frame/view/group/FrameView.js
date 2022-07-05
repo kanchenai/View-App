@@ -3,8 +3,8 @@ import Fragment from "./Fragment";
 import State from "../../util/State";
 
 export default class FrameView extends GroupView {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
         delete this.selectView;
 
         /**
@@ -175,13 +175,12 @@ export default class FrameView extends GroupView {
      * @returns {FrameView}
      */
     static parseByEle(ele,viewManager){
-        var frameView = new FrameView();
+        var frameView = new FrameView(viewManager);
         frameView.ele = ele;
         frameView.setAttributeParam(ele);
         frameView.scroller.init();
-        viewManager.addView(frameView);
-        frameView.bindPageLife();//必须在this.addView之后执行
-        frameView.bindImage();//必须在this.addView之后执行
+        frameView.bindPageLife();//必须在addView之后执行
+        frameView.bindImage();//必须在addView之后执行
         //TODO 需要考虑FrameView是否需要默认焦点功能
         return frameView;
     }

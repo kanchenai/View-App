@@ -11,25 +11,13 @@ import RecycleView from "@core/frame/view/group/RecycleView";
  */
 export default class ViewManager {
     constructor(page) {
-        this.viewMap = new Map();
         this.page = page;
         this._focusId = "";
         this._focusView = null;
     }
 
-    addView(view) {
-        if (!view instanceof View) {
-            return;
-        }
+    findViewById(id,fatherView){
 
-        view.viewManager = this;
-        if (view.id) {//没设置id的不添加到viewMap中
-            this.viewMap.set(view.id, view);
-        }
-    }
-
-    getView(id) {
-        return this.viewMap.get(id);
     }
 
     clear() {
@@ -66,7 +54,8 @@ export default class ViewManager {
             var viewType = View.getViewType(child_ele);
             switch (viewType) {
                 case "VIEW":
-                    View.parseByEle(child_ele, this);
+                    var view = View.parseByEle(child_ele, this);
+                    groupView.addChild(view);
                     break;
                 case "VIEW-ITEM":
                 case "ITEM":
@@ -75,7 +64,8 @@ export default class ViewManager {
                     break;
                 case "VIEW-SCROLL":
                 case "SCROLL":
-                    ScrollView.parseByEle(child_ele,this);
+                    var scrollView = ScrollView.parseByEle(child_ele,this);
+                    groupView.addChild(scrollView);
                     break;
                 case "VIEW-GROUP":
                 case "GROUP":
@@ -145,7 +135,7 @@ export default class ViewManager {
         }
         if (_next instanceof Function) {
             (_next)();
-        } else if (_next instanceof ItemView || _next instanceof GroupView) {//ItemView和GroupView都是View的子类，且只有这两类的对象可以执行上焦操作
+        } else if (_next.focusable) {//ItemView和GroupView都是View的子类，且只有这两类的对象可以执行上焦操作
             _next.requestFocus();
         } else {
             console.warn("操作值错误！", _next)

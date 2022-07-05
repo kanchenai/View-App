@@ -3,20 +3,24 @@ import Keyboard from "@core/frame/app/Keyboard";
 import VPosition from "@core/frame/util/VPosition";
 import View from "@core/frame/view/base/View";
 import ItemView from "@core/frame/view/base/ItemView";
+import ViewUtils from "@core/frame/util/ViewUtils";
 
 export default class GroupView extends ScrollView {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
+        this.focusable = true;
 
         this._data = [];
-        /**
-         * @type {ItemView[]}
-         */
-        this.childViews = [];
         this.selectView = null;
         //上焦前的焦点
         this.frontView = null;
         this.select = false;
+
+        /**
+         * @type{string|object}
+         * @private
+         */
+        this._scrollLocate = ScrollNormal;
 
         //焦点向上的view或方法的命名
         this.nextUp = "";
@@ -29,7 +33,7 @@ export default class GroupView extends ScrollView {
     }
 
     requestFocus() {
-        if(!this.isShowing){
+        if (!this.isShowing) {
             return;
         }
         if (this.childViews.length == 0) {
@@ -186,12 +190,11 @@ export default class GroupView extends ScrollView {
 
     /**
      * TODO 待优化，网格原则，和内部焦点变化规则方法合并
-     * @param{ItemView|GroupView} view
+     * @param{View} view
      */
     addChild(view) {
+        super.addChild(view);
         if (view && (view instanceof ItemView || view instanceof GroupView)) {
-            view.fatherView = this;
-            this.childViews.push(view);
             var groupView = this;
             if (!view.nextUp) {
                 view.nextUp = function () {
@@ -232,20 +235,45 @@ export default class GroupView extends ScrollView {
         }
     }
 
+    set scrollLocate(value) {
+        this._scrollLocate = value;
+    }
+
+    get scrollLocate() {
+        return this._scrollLocate;
+    }
+
     /**
      * 滚动到对应子控件
      * @param{View} childView
-     * @param{number} scrollLocate 滚动位置
+     * @param{string|object} scrollLocate 滚动位置
      */
     scrollToChild(childView, scrollLocate) {
-        this.scrollVerticalToChild(childView, scrollLocate);
-        this.scrollHorizontalToChild(childView, scrollLocate);
+        if (scrollLocate instanceof Object) {
+            var vertical = scrollLocate.vertical;
+
+            if (ViewUtils.isEmpty(vertical)) {
+                vertical = ScrollNormal;
+            }
+            this.scrollVerticalToChild(childView, vertical);
+
+            var horizontal = scrollLocate.horizontal;
+
+            if (ViewUtils.isEmpty(vertical)) {
+                horizontal = ScrollNormal;
+            }
+            this.scrollHorizontalToChild(childView, horizontal);
+
+        } else {
+            this.scrollVerticalToChild(childView, scrollLocate);
+            this.scrollHorizontalToChild(childView, scrollLocate);
+        }
     }
 
     /**
      * 纵向滑动到childView
      * @param {View} childView 目标控件
-     * @param {number} scrollLocate 滚动位置
+     * @param {string} scrollLocate 滚动位置
      */
     scrollVerticalToChild(childView, scrollLocate) {
         if (this.childViews.indexOf(childView) < 0) {
@@ -254,27 +282,31 @@ export default class GroupView extends ScrollView {
 
         if (typeof scrollLocate == "undefined") {
             scrollLocate = this.scrollLocate;
+            if(scrollLocate instanceof Object){
+                scrollLocate = scrollLocate.vertical;
+            }
         }
 
         var top = childView.positionByFather.top;
+
         if (this.height < childView.height) {
             this.scrollVertical(top);
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollCenter) {
+        if (scrollLocate == ScrollCenter) {
             var scrollTop = top - (this.height - childView.height) / 2;
 
             this.scrollVertical(scrollTop);
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollStart) {
+        if (scrollLocate == ScrollStart) {
             this.scrollVertical(top);
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollEnd) {
+        if (scrollLocate == ScrollEnd) {
             var scrollTop = top - this.height + childView.height;
             this.scrollVertical(scrollTop);
             return;
@@ -291,7 +323,7 @@ export default class GroupView extends ScrollView {
     /**
      * 横向滑动到childView
      * @param {View} childView 目标控件
-     * @param {number} scrollLocate 滚动位置
+     * @param {string} scrollLocate 滚动位置
      */
     scrollHorizontalToChild(childView, scrollLocate) {
         if (this.childViews.indexOf(childView) < 0) {
@@ -300,6 +332,9 @@ export default class GroupView extends ScrollView {
 
         if (typeof scrollLocate == "undefined") {
             scrollLocate = this.scrollLocate;
+            if(scrollLocate instanceof Object){
+                scrollLocate = scrollLocate.horizontal;
+            }
         }
 
         var left = childView.positionByFather.left;
@@ -308,18 +343,18 @@ export default class GroupView extends ScrollView {
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollCenter) {
+        if (scrollLocate == ScrollCenter) {
             var scrollLeft = left - (this.width - childView.width) / 2;
             this.scrollHorizontal(scrollLeft);
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollStart) {
+        if (scrollLocate == ScrollStart) {
             this.scrollHorizontal(left);
             return;
         }
 
-        if (scrollLocate == ScrollView.scrollEnd) {
+        if (scrollLocate == ScrollEnd) {
             var scrollLeft = left - this.width + childView.width;
             this.scrollHorizontal(scrollLeft);
             return;
@@ -346,7 +381,9 @@ export default class GroupView extends ScrollView {
     }
 
     setAttributeParam() {
-        var viewFocus = super.setAttributeParam();
+        super.setAttributeParam();
+
+        var viewFocus = this.ele.hasAttribute("view-focus");
 
         var select = View.parseAttribute("view-select", this.ele);//开始滚动
 
@@ -380,12 +417,15 @@ export default class GroupView extends ScrollView {
                 continue;
             }
 
-            var nextUpMiddle = GroupView.getUpMiddlePosition(child);
-            if (upMiddlePosition.top <= nextUpMiddle.top) {//在当前的下方
+            if (!child.focusable) {
                 continue;
             }
 
             if (!child.isShowing) {
+                continue;
+            }
+            var nextUpMiddle = GroupView.getUpMiddlePosition(child);
+            if (upMiddlePosition.top <= nextUpMiddle.top) {//在当前的下方
                 continue;
             }
 
@@ -429,6 +469,10 @@ export default class GroupView extends ScrollView {
             }
 
             if (child == currentChild) {
+                continue;
+            }
+
+            if (!child.focusable) {
                 continue;
             }
 
@@ -484,6 +528,10 @@ export default class GroupView extends ScrollView {
                 continue;
             }
 
+            if (!child.focusable) {
+                continue;
+            }
+
             if (!child.isShowing) {
                 continue;
             }
@@ -536,6 +584,10 @@ export default class GroupView extends ScrollView {
                 continue;
             }
 
+            if (!child.focusable) {
+                continue;
+            }
+
             if (!child.isShowing) {
                 continue;
             }
@@ -548,7 +600,7 @@ export default class GroupView extends ScrollView {
             var nextLeftMiddle = GroupView.getLeftMiddlePosition(child);
 
             if (nextRight && nextRightMiddle.top == GroupView.getLeftMiddlePosition(nextRight).top) {//中点在同一水平线时
-                if (nextRightMiddle.left < GroupView.getLeftMiddlePosition(nextRight).left) {//越靠左的优先级越高
+                if (nextLeftMiddle.left < GroupView.getLeftMiddlePosition(nextRight).left) {//越靠左的优先级越高
                     nextRight = child;
                     distance = GroupView.getDistance(rightMiddlePosition, nextLeftMiddle);
                 }
@@ -559,6 +611,8 @@ export default class GroupView extends ScrollView {
                     distance = distance_1;
                 }
             }
+
+
         }
 
         return nextRight;
@@ -662,7 +716,7 @@ export default class GroupView extends ScrollView {
         for (var i = 0; i < groupView.childViews.length; i++) {
             var child = groupView.childViews[i];
 
-            if(!child.isShowing){//不显示
+            if (!child.isShowing) {//不显示
                 continue;
             }
 
@@ -741,11 +795,10 @@ export default class GroupView extends ScrollView {
      * @returns {GroupView}
      */
     static parseByEle(ele, viewManager) {
-        var groupView = new GroupView();
+        var groupView = new GroupView(viewManager);
         groupView.ele = ele;
         var viewDefault = groupView.setAttributeParam(ele);
-        viewManager.addView(groupView);
-        groupView.bindImage();//必须在this.addView之后执行
+        groupView.bindImage();//必须在addView之后执行
         groupView.scroller.init();
         viewManager.eleToObject(groupView.scroller.ele, groupView);//往内部执行
         if (viewDefault) {
@@ -754,3 +807,11 @@ export default class GroupView extends ScrollView {
         return groupView;
     }
 }
+
+export var ScrollNormal = "normal";
+//对应的ele滚动到居中
+export var ScrollCenter = "center";
+//对应的ele滚动到开始（横向居左/纵向居顶）
+export var ScrollStart = "start";
+//对应的ele滚动到结束（横向居右/纵向居底）
+export var ScrollEnd = "end";

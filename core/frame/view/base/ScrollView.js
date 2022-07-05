@@ -7,16 +7,9 @@ import ImageView from "@core/frame/view/single/ImageView";
  */
 
 export default class ScrollView extends View {
-    static scrollNormal;
-    //对应的ele滚动到居中
-    static scrollCenter;
-    //对应的ele滚动到开始（横向居左/纵向居顶）
-    static scrollStart;
-    //对应的ele滚动到结束（横向居右/纵向居底）
-    static scrollEnd;
-
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
+        this.focusable = false;
         /**
          *
          * @type {ImageView[]}
@@ -26,8 +19,6 @@ export default class ScrollView extends View {
         this.animation = true;
         //生成滚动器
         this.scroller = new Scroller(this);
-
-        this.scrollLocate = ScrollView.scrollCenter;
 
         /**
          * 滚动开始监听
@@ -74,6 +65,10 @@ export default class ScrollView extends View {
         }, 50);
     }
 
+    get html() {
+        return this.scroller.html;
+    }
+
     /**
      * 绑定ImageView
      * 用于懒加载图片
@@ -90,6 +85,23 @@ export default class ScrollView extends View {
     loadImageResource() {
         for (var image of this.imageList) {
             image.loadImageResource();
+        }
+    }
+
+    /**
+     * 绑定图片
+     * @param{ImageView} image
+     */
+    set image(image) {
+        if (!image instanceof ImageView) {
+            console.warn("ItemView 的图片绑定异常！")
+            return;
+        }
+        image.fatherView = this;
+        //绑定图片
+        this._imageList.push(image);
+        if (image.id) {
+            this.viewMap.set(image.id, image);
         }
     }
 
@@ -258,13 +270,19 @@ export default class ScrollView extends View {
                 console.error("开始滚动监听设置错误");
                 return;
             }
-            this.loadImageResource();//这个方法会向子控件迭代加载图片
+
             onScrollEndListener.call(this.page, scrollView, x, y);
         } else {
             if (this.fatherView) {
                 this.fatherView.callScrollEndListener(scrollView, x, y);
             }
         }
+        this.loadImageResource();//这个方法会向子控件迭代加载图片
+    }
+
+    appendChild(ele) {
+        this.scroller.ele.appendChild(ele);
+        this.measure();
     }
 
     get scrollSpeed() {
@@ -292,7 +310,7 @@ export default class ScrollView extends View {
     }
 
     set scrollTop(value) {
-        this.scroller.top = value;
+        this.scroller.top = 0 - value;
     }
 
     get scrollLeft() {
@@ -300,7 +318,7 @@ export default class ScrollView extends View {
     }
 
     set scrollLeft(value) {
-        this.scroller.left = value;
+        this.scroller.left = 0 - value;
     }
 
     get scrollHeight() {
@@ -337,20 +355,15 @@ export default class ScrollView extends View {
      * @returns {ScrollView}
      */
     static parseByEle(ele, viewManager) {
-        var scrollView = new ScrollView();
+        var scrollView = new ScrollView(viewManager);
         scrollView.ele = ele;
         scrollView.setAttributeParam(ele);
-        viewManager.addView(scrollView);
-        scrollView.bindImage();//必须在this.addView之后执行
+        scrollView.bindImage();//必须在addView之后执行
         scrollView.scroller.init();
         return scrollView;
     }
 }
 
-ScrollView.scrollNormal = 0;
-ScrollView.scrollCenter = 1;
-ScrollView.scrollStart = 2;
-ScrollView.scrollEnd = 3;
 
 /**
  * 滚动器类
@@ -358,7 +371,7 @@ ScrollView.scrollEnd = 3;
  */
 export class Scroller extends View {
     constructor(fatherView) {
-        super("");
+        super(null);
         this.fatherView = fatherView;
         //最小滚动速度
         this.speed = 1;

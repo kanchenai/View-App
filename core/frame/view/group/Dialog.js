@@ -1,8 +1,8 @@
 import GroupView from "./GroupView";
 
 export default class Dialog extends GroupView {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
         //page的返回事件
         this.pageKeyBack = null;
     }
@@ -61,12 +61,11 @@ export default class Dialog extends GroupView {
      * @returns {Dialog}
      */
     static parseByEle(ele, viewManager) {
-        var dialog = new Dialog();
+        var dialog = new Dialog(viewManager);
         dialog.ele = ele;
         dialog.setAttributeParam(ele);
         dialog.scroller.init();
-        viewManager.addView(dialog);
-        dialog.bindImage();//必须在this.addView之后执行
+        dialog.bindImage();//必须在addView之后执行
         dialog.scroller.init();
         viewManager.eleToObject(dialog.scroller.ele, dialog);//往内部执行
         return dialog;

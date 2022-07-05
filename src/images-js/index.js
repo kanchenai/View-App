@@ -1,0 +1,1 @@
+require.context('./',true,/\.(png|jpg|jpeg|gif)$/);

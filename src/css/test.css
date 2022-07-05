@@ -1,17 +1,35 @@
 .recycle_view{
-    width: 600px;
-    height: 400px;
-    left: 340px;
-    top: 160px;
+    width: 220px;
+    height: 105px;
+    left: 50px;
+    top: 250px;
+    background: gray;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.component .item,
-.component .focus,
-.component .pic {
-    width: 300px;
-    height: 200px;
+.recycle_view .item,
+.recycle_view .focus{
+    width: 100px;
+    height: 68px;
 }
 
-.component .pic{
-    background: red;
+.recycle_view .pic,
+.recycle_view .pic img{
+    width: 80px;
+    height: 48px;
+}
+
+.recycle_view .pic{
+    left: 10px;
+    top: 10px;
+}
+
+.recycle_view .item{
+    /*background: white;*/
+}
+
+.recycle_view .item_focus{
+    background: #f87f41;
 }

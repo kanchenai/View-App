@@ -1,8 +1,9 @@
 import View from "@core/frame/view/base/View";
 
 export default class ImageView extends View {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
+        delete this.childViews;
         //是否已加载
         this.isLoaded = false;
         //加载图片的timer，用于节省isShowing和isDisplayRange属性获取的时间
@@ -23,11 +24,17 @@ export default class ImageView extends View {
         var that = this;
         this.timer = setTimeout(function () {
             if (that.isShowing && that.isDisplayRange) {
-                console.log("ImageView", "图片载入", that.src);
-                that.ele.src = that.src;
-                that.isLoaded = true;
+                that.loadImageImmediate();
             }
         }, 10);
+    }
+
+    loadImageImmediate(){
+        if(this.src){
+            console.log("ImageView", "图片载入", this.src);
+        }
+        this.ele.src = this.src;
+        this.isLoaded = true;
     }
 
     /**
@@ -78,9 +85,13 @@ export default class ImageView extends View {
         }
 
         this._data = value;
-        this.isLoaded = false;
-        this.ele.src = "";//置空
-        this.loadImageResource();//加载图片
+        if (this.isShowing && this.isDisplayRange) {//在需要显示
+            this.loadImageImmediate();
+        }else{
+            this.isLoaded = false;
+            this.ele.src = "";//置空
+            this.loadImageResource();//加载图片
+        }
     }
 
     get src() {
@@ -98,11 +109,7 @@ export default class ImageView extends View {
             this.ele.removeAttribute("src");//置空，避免直接加载
         }
 
-        var visible = View.parseAttribute("view-visible", this.ele);
-
-        this.onVisibleChangeListener = visible;
-
-        return false;
+        return super.setAttributeParam();
     }
 
     /**
@@ -112,10 +119,9 @@ export default class ImageView extends View {
      * @returns {ImageView}
      */
     static parseByEle(ele, viewManager) {
-        var imageView = new ImageView();
+        var imageView = new ImageView(viewManager);
         imageView.ele = ele;
         imageView.setAttributeParam();
-        viewManager.addView(imageView);
         return imageView;
     }
 
@@ -126,7 +132,7 @@ export default class ImageView extends View {
      * @param ele 图片节点
      * @param view 图片绑定的控件
      */
-    static bindImageByEle(ele,view) {
+    static bindImageByEle(ele, view) {
         var ele_list = ele.children;
         if (ele_list.length == 0) {
             return [];
@@ -145,10 +151,9 @@ export default class ImageView extends View {
             } else {
                 if (!viewType
                     || viewType == "DIV"
-                    || (viewType.indexOf("VIEW") > -1 //控件，除了View和ScrollView不能绑定图片，需要父控件穿透绑定
-                        &&(viewType == "VIEW"
-                            || viewType == "VIEW-SCROLL"))) {
-                    ImageView.bindImageByEle(child_ele,view);
+                    || (viewType != "VIEW"
+                        && viewType.indexOf("SCROLL") < 0)) {
+                    ImageView.bindImageByEle(child_ele, view);
                 }
             }
         }

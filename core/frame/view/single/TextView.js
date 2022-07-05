@@ -3,10 +3,10 @@ import View from "@core/frame/view/base/View";
 import State from "@core/frame/util/State";
 
 export default class TextView extends View {
-    constructor() {
-        super();
+    constructor(viewManager) {
+        super(viewManager);
 
-        delete this._imageList;
+        delete this.childViews;
 
         this.scroller = new TextScroller(this);
 
@@ -168,10 +168,9 @@ export default class TextView extends View {
      * @returns {TextView}
      */
     static parseByEle(ele, viewManager) {
-        var textView = new TextView();
+        var textView = new TextView(viewManager);
         textView.ele = ele;
         textView.setAttributeParam();
-        viewManager.addView(textView);
         return textView;
     }
 
