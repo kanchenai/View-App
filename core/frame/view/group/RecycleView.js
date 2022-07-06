@@ -747,6 +747,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
 
     var minNum = 0;
     var scrollLocate = recycleView.scrollLocate;
+    var canCirculate = false;//数量是否够循环
     if (recycleView.orientation == VERTICAL) {
         minNum = recycleView.col;
         if (scrollLocate == ScrollEnd) {
@@ -755,6 +756,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
             minNum = minNum * Math.ceil(recycleView.visibleRow / 2);
         }
         minNum += baseIndex % recycleView.col;
+        canCirculate = Math.ceil(data.length / recycleView.col) >= recycleView.visibleRow;
     } else {
         minNum = recycleView.row;
         if (scrollLocate == ScrollEnd) {
@@ -763,6 +765,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
             minNum = minNum * Math.ceil(recycleView.visibleCol / 2);
         }
         minNum += baseIndex % recycleView.row;
+        canCirculate = Math.ceil(data.length / recycleView.row) >= recycleView.visibleCol;
     }
     // console.log("renderSmaller minNum",minNum);
     var index = baseIndex;
@@ -775,7 +778,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
         }
 
         var realIndex = index;
-        if (recycleView.circulate) {
+        if (recycleView.circulate && canCirculate) {
             realIndex = (realIndex + data.length) % data.length;
         } else {
             if (realIndex >= data.length || realIndex < 0) {
@@ -828,6 +831,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
 
     var minNum = 0;
     var scrollLocate = recycleView.scrollLocate;
+    var canCirculate = false;//数量是否够循环
     if (recycleView.orientation == VERTICAL) {
         minNum = recycleView.col;
         if (scrollLocate == ScrollStart) {
@@ -837,6 +841,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
         }
 
         minNum += (recycleView.col - baseIndex % recycleView.col - 1);
+        canCirculate = Math.ceil(data.length / recycleView.col) >= recycleView.visibleRow;
     } else {
         minNum = recycleView.row;
         if (scrollLocate == ScrollStart) {
@@ -846,6 +851,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
         }
 
         minNum += (recycleView.row - baseIndex % recycleView.row - 1);
+        canCirculate = Math.ceil(data.length / recycleView.row) >= recycleView.visibleCol;
     }
 
     // console.log("renderBigger minNum",minNum);
@@ -858,7 +864,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
             break;
         }
         var realIndex = index;
-        if (recycleView.circulate) {
+        if (recycleView.circulate && canCirculate) {
             realIndex = (realIndex + data.length) % data.length;
         } else {
             if (index >= data.length || index < 0) {
