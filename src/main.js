@@ -1,7 +1,7 @@
-import './src/css'
-import "./src/images-js"
+import '@css'
+import "@images-js"
 
-import MyApplication from "./src/MyApplication";
+import MyApplication from "./MyApplication";
 
 var start = new Date().getTime();
 window.onload = function () {
