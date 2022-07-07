@@ -44,6 +44,7 @@ export default class IptvPlayer extends VideoPlayer {
      * @returns {null}
      */
     play(startTime, playInfo) {
+        super.play(startTime, playInfo)
         if (this.playInfo.playUrl) {//使用播放地址播放
             this.playByUrl(startTime, playInfo);
         } else if (this.playInfo.code && this.playInfo.epgDomain) {
@@ -55,14 +56,11 @@ export default class IptvPlayer extends VideoPlayer {
     }
 
     playByUrl(startTime, playInfo) {
-        super.play(startTime, playInfo);
-
         var json = buildPlayJson(); //组装播放json
         this.playByJson(json);
     }
 
     playByCode(startTime, playInfo) {
-        super.play(startTime, playInfo);
         var player = this;
 
         var callback = function (json) {
@@ -114,29 +112,11 @@ export default class IptvPlayer extends VideoPlayer {
             this.mp.setMuteFlag(1);
         }
 
-        this.isMute = !this.isMute;
-
-        if (this.isMute) {
-            this.callVolumeChangeListener(-1);
-        }else{
-            this.callVolumeChangeListener(this.volume);
-        }
+        super.mute();
     }
 
-    set volume(value){
-        if (value > 100) {
-            value = 100;
-        }
-
-        if (value < 0) {
-            value = 0;
-        }
+    set realVolume(value){
         this.mp.setVolume(value);
-        super.volume = value;
-    }
-
-    get volume(){
-        return this._volume;
     }
 
     get realPosition() {

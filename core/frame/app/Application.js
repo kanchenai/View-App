@@ -11,6 +11,11 @@ require("../../css/style.css");
 export default class Application extends GroupView {
     constructor(id) {
         super();
+        /**
+         * view-app的版本号
+         * @type {string}
+         */
+        this.viewVersion = "0.2.0(2022-07-06)";
         this.focusable = false;
         this.id = id;
         delete this.viewManager;
@@ -45,7 +50,7 @@ export default class Application extends GroupView {
     }
 
     launch() {
-        console.log("app-launch");
+        console.log("app-launch view-app version：" + this.viewVersion);
         this.scroller.init();
         //获取页面参数信息数据
         var pageInfoList = this.pageManager.pageInfoList;
@@ -80,7 +85,7 @@ export default class Application extends GroupView {
 
     create(page, param) {
         this.onCreate(page, param);
-        this.startPage(page,param);
+        this.startPage(page, param);
     }
 
     stop() {
@@ -136,7 +141,7 @@ export default class Application extends GroupView {
         this.keyboard.page = null;//保护，防止异常触发按键
         this.player.page = null;//保护，防止异常触发
 
-        if(param){
+        if (param) {
             param = param.clone();//避免移除ViewManager中的pageInfoList异常
         }
 
@@ -223,7 +228,7 @@ export default class Application extends GroupView {
      * 在子类中重写，返回一个全局方法器
      * @returns{VideoPlayer}
      */
-    getPlayerInstance(){
+    getPlayerInstance() {
         console.error("获取播放器方法（getPlayInstance）未重写")
         return this._player;
     }
@@ -264,8 +269,8 @@ export default class Application extends GroupView {
         this.pageManager.clearPageInfo();
     }
 
-    get ele(){
-        if(!this._ele){
+    get ele() {
+        if (!this._ele) {
             this._ele = document.getElementById(this.id);
         }
         return this._ele;
@@ -275,10 +280,10 @@ export default class Application extends GroupView {
         return this.childViews;
     }
 
-    get player(){
-        if(!this._player){
+    get player() {
+        if (!this._player) {
             var player = this.getPlayerInstance();
-            if(player){
+            if (player) {
                 this._player = player;
             }
         }
@@ -290,10 +295,10 @@ export default class Application extends GroupView {
         var e = "";//获取参数string: 格式 a=b&c=d
         if (url) {//解析传入的url
             var index = url.indexOf("?");
-            if(index >= 0){
+            if (index >= 0) {
                 e = url.substring(index);
             }
-        }else{
+        } else {
             e = window.location.search.substring(1);
         }
 
@@ -311,7 +316,7 @@ export default class Application extends GroupView {
     }
 }
 
-class ApplicationScroller extends Scroller{
+class ApplicationScroller extends Scroller {
     /**
      * 测量宽、高
      */
@@ -319,10 +324,10 @@ class ApplicationScroller extends Scroller{
         this.size = this.fatherView.size;
         //根据子节点计算
         var size = View.getVisibleSize(this.ele);
-        if(size.width > this.width){
+        if (size.width > this.width) {
             this.width = size.width;
         }
-        if(size.height > this.height){
+        if (size.height > this.height) {
             this.height = size.height;
         }
     }
@@ -346,7 +351,7 @@ Array.prototype.peek = function () {
  */
 Array.prototype.removeEle = function (ele) {
     var index = this.indexOf(ele);
-    if(index >= 0){
+    if (index >= 0) {
         this.splice(index, 1);
     }
 }

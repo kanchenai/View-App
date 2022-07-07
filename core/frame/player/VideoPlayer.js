@@ -1,3 +1,21 @@
+/**
+ * 在子类中必需要重写的方法,具体的写法在各个方法中都有注释，
+ * 以下方法需要重写：
+ * 1.play
+ * 2.playByTime
+ * 3.pause
+ * 4.resume
+ * 5.stop
+ * 6.destroy
+ * 7.mute
+ * 8.get realPosition
+ * 9.get realDuration
+ * 10.set realVolume
+ *
+ * 按需重写的方法有：
+ * 1.startRefreshPlayerState
+ *
+ */
 export default class VideoPlayer {
     constructor() {
         this.page = null;
@@ -71,6 +89,11 @@ export default class VideoPlayer {
         this.onPlayByTime = "";
     }
 
+    /**
+     * 需要重写，并在方法头部调用super.play方法
+     * @param startTime
+     * @param playInfo
+     */
     play(startTime, playInfo) {
         //触发播放开始
         this.isOnStart = false;
@@ -91,13 +114,23 @@ export default class VideoPlayer {
         this.play(0);
     }
 
+    /**
+     * 需要重写，并在方法结尾调用super.playByTime方法
+     * @param time
+     */
     playByTime(time) {
+        if(!this.isPlaying){
+            this.resume();
+        }
         if (this.completeTimer) {
             clearTimeout(this.completeTimer);//取消触发播放结束
         }
         this.callPlayByTime(time);
     }
 
+    /**
+     * 需要重写，并在方法结尾调用super.pause方法
+     */
     pause() {
         this.isPlaying = false;
         if (this.completeTimer) {
@@ -106,11 +139,17 @@ export default class VideoPlayer {
         this.callPlayPause();
     }
 
+    /**
+     * 需要重写，并在方法结尾调用super.resume方法
+     */
     resume() {
         this.isPlaying = true;
         this.callPlayResume();
     }
 
+    /**
+     * 需要重写，并在方法结尾调用super.stop方法
+     */
     stop() {
         this.isPlaying = false;
         if (this.completeTimer) {
@@ -119,6 +158,9 @@ export default class VideoPlayer {
         this.callPlayStop();
     }
 
+    /**
+     * 需要重写，并在方法结尾调用super.destroy方法
+     */
     destroy() {
         this.isPlaying = false;
         if (this.completeTimer) {
@@ -136,6 +178,19 @@ export default class VideoPlayer {
 
     volumeDown() {
         this.volume -= this.volumeCell;
+    }
+
+    /**
+     * 需要重写，并在方法结尾调用super.mute方法
+     */
+    mute() {
+        this.isMute = !this.isMute;
+
+        if (this.isMute) {
+            this.callVolumeChangeListener(-1);
+        }else{
+            this.callVolumeChangeListener(this.volume);
+        }
     }
 
     /**
@@ -157,6 +212,13 @@ export default class VideoPlayer {
     }
 
     /**
+     * 在子类中重写
+     */
+    set realVolume(value){
+        console.error("set realVolume未在子类中实现")
+    }
+
+    /**
      * 开始刷新播放器状态
      * 如果需要主动触发播放异常，请重写改方法
      */
@@ -167,24 +229,23 @@ export default class VideoPlayer {
             clearTimeout(this.timer);
         }
 
+        // 1.获取真实的当前进度，*这里在适配过程中可以加播放异常判断
+        // 2.对比进度是否变化,有变化设置
+        // 3.获取总时长，*这里在适配过程中可以加播放异常判断
+        // 4.主动触发播放开始
+        // 5.判断播放进度，在最后3/5秒主动触发播放结束
         this.timer = setInterval(function () {
-            // 1.获取真实的当前进度，*这里在适配过程中可以加播放异常判断
-            // 2.对比进度是否变化,有变化设置
-            // 3.获取总时长，*这里在适配过程中可以加播放异常判断
-            // 4.主动触发播放开始
-            // 5.判断播放进度，在最后3/5秒主动触发播放结束
-
             var currentPosition = player.realPosition;// 1.获取真实的当前进度
             if (player.currentPosition == currentPosition) {//2.对比进度是否变化
                 return;
             }
 
             player.currentPosition = currentPosition;//设置进度
-            var duration = 0;// 3.获取总时长
+            var duration = player.realDuration;// 3.获取总时长
             if (duration <= 0) {
                 return;
             }
-            player._duration = player.realDuration;
+            player.duration = duration;
 
             if (!player.isOnStart) {//未触发开始播放时
                 player.callPlayStart();
@@ -366,16 +427,20 @@ export default class VideoPlayer {
         }
     }
 
-    mute() {
-
-    }
-
     get currentPosition() {
         return this._currentPosition;
     }
 
+    set currentPosition(value) {
+        this._currentPosition = value;
+    }
+
     get duration() {
         return this._duration;
+    }
+
+    set duration(value){
+        this._duration = value;
     }
 
     set volume(value) {
@@ -387,7 +452,7 @@ export default class VideoPlayer {
             value = 0;
         }
         this._volume = value;
-
+        this.realVolume = value;//实际设置
         this.callVolumeChangeListener(this._volume);
     }
 
@@ -396,6 +461,9 @@ export default class VideoPlayer {
     }
 }
 
+/**
+ * 按需继承
+ */
 export class PlayInfo {
     constructor(playUrl, left, top, width, height) {
         this.playUrl = playUrl || "";

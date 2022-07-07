@@ -2,9 +2,10 @@ import Application from "../core/frame/app/Application";
 import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
 import TestPage from "./page/TestPage"
-// import State from "../core/frame/util/State";
 import IptvPlayer from "@core/frame/player/IptvPlayer";
 import FramePage from "@page/FramePage";
+import WebPlayer from "@src/util/WebPlayer";
+import {PlayInfo} from "@core/frame/player/VideoPlayer";
 
 require('./global_style.css')
 
@@ -74,8 +75,7 @@ export default class MyApplication extends Application {
         try{
             player = new IptvPlayer(this.keyboard);
         }catch (e){
-            //TODO 其他播放器创建
-            console.warn("播放器创建失败")
+            player = new WebPlayer();
         }
         return player;
     }
