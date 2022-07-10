@@ -3,8 +3,6 @@ import VMargin from "@core/frame/util/VMargin";
 import VSize from "@core/frame/util/VSize";
 import View from "@core/frame/view/base/View";
 import VPosition from "@core/frame/util/VPosition";
-import ItemView from "@core/frame/view/base/ItemView";
-import ImageView from "@core/frame/view/single/ImageView";
 
 /**
  *
@@ -44,6 +42,7 @@ export default class RecycleView extends GroupView {
         this.loop = false;
         /**
          * 外边距
+         * TODO 最后一个上焦时，会不符常理的滚动
          * @type {VMargin}
          */
         this.margin = new VMargin(0, 0, 0, 0);
@@ -100,8 +99,6 @@ export default class RecycleView extends GroupView {
     measure() {
         this.scrollHeight = this.height * 3;
         this.scrollWidth = this.width * 3;
-        // this.scroller.ele.style.background = "red";
-        // this.scroller.ele.style.opacity = 0.3;
     }
 
     set data(value) {
@@ -138,6 +135,16 @@ export default class RecycleView extends GroupView {
         }
 
         render(this, 0);
+    }
+
+    /**
+     * TODO 当index对应的component未渲染时，缺少动画
+     * @param index
+     */
+    scrollByIndex(index){
+        render(this,index);
+        var child = this.activeHolderMap.get(index).component;
+        this.scrollToChild(child);
     }
 
     /**
@@ -510,6 +517,8 @@ export class Holder {
         this.recycleView.activeHolderMap.set(index, this);//添加到活动map中
 
         this.recycleView.addChild(this.component);
+
+        this.component.data = this.recycleView.data[index];
     }
 
     /**
@@ -522,6 +531,7 @@ export class Holder {
         this.index = -1;
         this.component.hide();
         this.isActive = false;
+        this.data = null;
         return this;
     }
 
@@ -576,6 +586,7 @@ export class Holder {
 export class Component extends GroupView {
     constructor(viewManager) {
         super(viewManager);
+        this._data = null;
         this.ele = document.createElement("div");
         this.holder = null;
         /**
@@ -583,6 +594,11 @@ export class Component extends GroupView {
          * @type {Map<String, Element>}
          */
         this.eleMap = new Map();
+    }
+
+    addChild(view) {
+        super.addChild(view);
+        view.data = this.data;
     }
 
     callFocusChangeListener(view, hasFocus) {
@@ -606,6 +622,21 @@ export class Component extends GroupView {
         }
 
         return ele;
+    }
+
+    /**
+     * 数据绑定
+     * @param{Object} data
+     */
+    set data(value) {
+        this._data = value;
+        for (var i = 0; i < this.childViews.length; i++) {
+            this.childViews[i].data = this._data;
+        }
+    }
+
+    get data() {
+        return this._data;
     }
 }
 
@@ -673,6 +704,7 @@ var render = function (recycleView, index) {
 
     var obj = renderBase(recycleView, index);
     index = obj.index;
+    recycleView.selectIndex = index;
     let position = obj.position;
 
     var renderIndexList = [index];
@@ -688,7 +720,7 @@ var render = function (recycleView, index) {
                 value.recycle();
             }
         }
-    })
+    });
 }
 
 /**

@@ -158,7 +158,7 @@ export default class TextView extends View {
         var text = this.ele.innerText;//  类似"\n"这样的符号也会被获取并生效
         this.text = text;
 
-        return false;
+        return super.setAttributeParam();
     }
 
     /**
@@ -191,7 +191,7 @@ export default class TextView extends View {
                     viewType = viewType.toUpperCase();
                 }
             }
-            if (viewType == "VIEW-TEXT") {
+            if (viewType == "VIEW-TEXT" || viewType == "TEXT") {
                 view.text = TextView.parseByEle(child_ele, view.viewManager);
             } else {
                 if (!viewType

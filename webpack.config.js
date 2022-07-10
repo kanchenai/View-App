@@ -43,11 +43,12 @@ module.exports = {
                 test: [/\.png$/, /\.jpg$/, /\.jpeg$/, /\.gif$/],
                 include: path.resolve(__dirname, 'src/images-js/'),//exclude：可以显示在html中的图片；include:不能显示html的图片,可以使用import导入
                 use: {
-                    loader:"file-loader",
+                    loader: "file-loader",
                     options: {
-                        name:"[name].[ext]",
+                        name: "[name].[ext]",
                         output: "imgs",
-                    }},
+                    }
+                },
             }
         ],
         // noParse: /jquery/
@@ -84,8 +85,8 @@ module.exports = {
 
     performance: {
         hints: 'error',//提示等级
-        maxAssetSize: 1000000, // 文件大小提示阈值，整数类型（以字节为单位）1M，超过这个大小，会提示
-        maxEntrypointSize: 1000000 // 文件大小性能阈值，整数类型（以字节为单位）1M，超过这个大小，打包失败
+        maxAssetSize: 2 * 1024 * 1024, // 文件大小提示阈值，整数类型（以字节为单位）1M，超过这个大小，会提示
+        maxEntrypointSize: 2 * 1024 * 1024 // 文件大小性能阈值，整数类型（以字节为单位）1M，超过这个大小，打包失败
     },
     resolveLoader: {
         modules: [path.resolve(__dirname, "./core/loader"), 'node_modules']

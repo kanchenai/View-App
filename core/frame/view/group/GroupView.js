@@ -193,6 +193,9 @@ export default class GroupView extends ScrollView {
      * @param{View} view
      */
     addChild(view) {
+        if(this.data && this.data.length > this.childViews.length){
+            view.data = this.data[this.childViews.length];
+        }
         super.addChild(view);
         if (view && (view instanceof ItemView || view instanceof GroupView)) {
             var groupView = this;

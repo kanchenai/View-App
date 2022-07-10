@@ -329,7 +329,7 @@ export default class View {
         if (!value || value == "undefined" || value == "null") {
             return null;
         }
-        if (key != "view-id" || key != "view-type" || key != "component-id") {
+        if (key != "view-id" && key != "view-type") {
             ele.removeAttribute(key);
         }
         return value;
