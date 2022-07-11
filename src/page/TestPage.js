@@ -57,7 +57,8 @@ adapter.bindHolder = function (holder, data) {
     test_div.innerText = index;
 
     var item = holder.findViewById("post");
-    var image = holder.findViewById("pic");
+    // var image = holder.findViewById("pic");//懒加载，存在已加载的图片，还需要再加载
+    var image = holder.findEleById("pic");//这个可以，但不是懒加载
     image.src = pic_001;
 
     // holder.findEleById("pic").style.background = data.color

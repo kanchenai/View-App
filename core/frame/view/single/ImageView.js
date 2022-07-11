@@ -103,12 +103,12 @@ export default class ImageView extends View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
-        this.src = this.ele.src;//将图片地址赋值给src
+        var src = this.ele.src;//将图片地址赋值给src
         this.ele.src = "";
         if (this.ele.hasAttribute("src")) {
             this.ele.removeAttribute("src");//置空，避免直接加载
         }
-
+        this.src = src;
         return super.setAttributeParam();
     }
 
