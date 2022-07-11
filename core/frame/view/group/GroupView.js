@@ -801,7 +801,7 @@ export default class GroupView extends ScrollView {
         var groupView = new GroupView(viewManager);
         groupView.ele = ele;
         var viewDefault = groupView.setAttributeParam(ele);
-        groupView.bindImage();//必须在addView之后执行
+        groupView.bindImage();
         groupView.scroller.init();
         viewManager.eleToObject(groupView.scroller.ele, groupView);//往内部执行
         if (viewDefault) {

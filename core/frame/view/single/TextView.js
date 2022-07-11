@@ -47,7 +47,7 @@ export default class TextView extends View {
         if (this.scroller.isMarquee) {
             this.scroller.clearMarquee();//停止跑马灯
             this.html = "";//置kong
-            this.ele.appendChild(this.span);//恢复原油文字
+            this.ele.appendChild(this.span);//恢复原文字
             this.scroller.ele = null;//置空滚动器
         }
     }
@@ -316,8 +316,6 @@ var startVerticalScroll = function (scroller, h, y, speed) {
         top -= h;
         scroller.smoothVerticalTo(top);
     }
-
-    scroller.smoothVerticalTo(top);
 
     scroller.marqueeTimer = setTimeout(function () {
         if (scroller && scroller.isMarquee) {

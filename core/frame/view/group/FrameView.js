@@ -179,8 +179,8 @@ export default class FrameView extends GroupView {
         frameView.ele = ele;
         frameView.setAttributeParam(ele);
         frameView.scroller.init();
-        frameView.bindPageLife();//必须在addView之后执行
-        frameView.bindImage();//必须在addView之后执行
+        frameView.bindPageLife();
+        frameView.bindImage();
         //TODO 需要考虑FrameView是否需要默认焦点功能
         return frameView;
     }

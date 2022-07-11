@@ -1,6 +1,6 @@
 .recycle_view{
-    width: 220px;
-    height: 105px;
+    width: 100px;
+    height: 205px;
     left: 50px;
     top: 250px;
     background: gray;
@@ -11,14 +11,14 @@
 
 .recycle_view .item,
 .recycle_view .focus{
-    width: 100px;
-    height: 68px;
+    width: 60px;
+    height: 44px;
 }
 
 .recycle_view .pic,
 .recycle_view .pic img{
-    width: 80px;
-    height: 48px;
+    width: 40px;
+    height: 24px;
 }
 
 .recycle_view .pic{
@@ -27,9 +27,17 @@
 }
 
 .recycle_view .item{
-    /*background: white;*/
+    background: blue;
 }
 
 .recycle_view .item_focus{
     background: #f87f41;
+}
+
+.dialog{
+    width: 480px;
+    height: 270px;
+    left: 400px;
+    top: 225px;
+    display: none;
 }
