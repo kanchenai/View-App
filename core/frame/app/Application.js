@@ -7,15 +7,17 @@ import View from "@core/frame/view/base/View";
 
 require("../../css/style.css");
 
+/**
+ * view-app的版本号
+ * @type {string}
+ */
+export var version = "0.2.0(2022-07-14)";
 
 export default class Application extends GroupView {
     constructor(id) {
-        super();
-        /**
-         * view-app的版本号
-         * @type {string}
-         */
-        this.viewVersion = "0.2.0(2022-07-06)";
+        super(null, null);
+        this.listenerLocation = this;
+        this.viewVersion = version;
         this.focusable = false;
         this.id = id;
         delete this.viewManager;

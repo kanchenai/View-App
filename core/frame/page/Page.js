@@ -4,7 +4,8 @@ import GroupView from "../view/group/GroupView";
 
 export default class Page extends GroupView {
     constructor() {
-        super(null);
+        super(null,null);
+        this.listenerLocation = this;
         this.focusable = false;
         delete this.data;
 
@@ -188,9 +189,12 @@ export default class Page extends GroupView {
      * 触发焦点变化监听器
      * 去除调用application的callFocusChangeListener调用
      */
-    callFocusChangeListener(view, hasFocus, scrollAimView) {
+    callFocusChangeListener(view, hasFocus, intercept) {
+        if(intercept){
+            return;
+        }
         if (this.onFocusChangeListener && typeof this.onFocusChangeListener == "string") {
-            this.onFocusChangeListener = this.page[this.onFocusChangeListener];
+            this.onFocusChangeListener = this[this.onFocusChangeListener];
         }
         if (this.onFocusChangeListener) {
             this.onFocusChangeListener(view, hasFocus);
@@ -226,7 +230,7 @@ export default class Page extends GroupView {
         super.html = html;
     }
 
-    get html(){
+    get html() {
         return super.html;
     }
 

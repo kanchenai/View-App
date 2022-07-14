@@ -3,8 +3,8 @@ import View from "@core/frame/view/base/View";
 import State from "@core/frame/util/State";
 
 export default class TextView extends View {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager,listenerLocation) {
+        super(viewManager,listenerLocation);
 
         delete this.childViews;
 
@@ -165,10 +165,11 @@ export default class TextView extends View {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {TextView}
      */
-    static parseByEle(ele, viewManager) {
-        var textView = new TextView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var textView = new TextView(viewManager, listenerLocation);
         textView.ele = ele;
         textView.setAttributeParam();
         return textView;
@@ -192,7 +193,7 @@ export default class TextView extends View {
                 }
             }
             if (viewType == "VIEW-TEXT" || viewType == "TEXT") {
-                view.text = TextView.parseByEle(child_ele, view.viewManager);
+                view.text = TextView.parseByEle(child_ele, view.viewManager,view.listenerLocation);
             } else {
                 if (!viewType
                     || (viewType.indexOf("VIEW") == -1

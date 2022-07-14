@@ -3,7 +3,8 @@ import State from "../../util/State";
 
 export default class Fragment extends GroupView {
     constructor(viewManager) {
-        super(viewManager);
+        super(viewManager, null);
+        this.listenerLocation = this;
         this.isForeground = false;
         this.lifeState = State.LifeState.BEFORE_CREATE;
     }
@@ -77,7 +78,7 @@ export default class Fragment extends GroupView {
             this.ele = ele;
             this.width = this.fatherView.width;
             this.height = this.fatherView.height;
-            this.setStyle("overflow","hidden");
+            this.setStyle("overflow", "hidden");
         }
     }
 }

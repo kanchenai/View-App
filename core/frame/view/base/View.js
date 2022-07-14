@@ -7,21 +7,39 @@ export default class View {
     /**
      *
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      */
-    constructor(viewManager) {
+    constructor(viewManager, listenerLocation) {
         this.id = "";
         /**
          * View对应的节点
          * @type {HTMLElement}
          */
         this._ele = null;
-        //绑定的viewManager
+        /**
+         * 绑定的viewManager
+         */
         this.viewManager = viewManager;
-        //绑定的数据
+        /**
+         * 监听触发的对象
+         * 监听器内部this的指向
+         */
+        this._listenerLocation = listenerLocation;
+        /**
+         * 绑定的数据
+         * @type {object}
+         * @private
+         */
         this._data = null;
-        //所属父控件
+        /**
+         * 所属父控件
+         * @type {View}
+         */
         this.fatherView = null;
-        //包含的子控件
+        /**
+         * 包含的子控件
+         * @type {View[]}
+         */
         this.childViews = [];
         /**
          * 使用id做key，子控件做value，主要用于findViewById
@@ -34,7 +52,6 @@ export default class View {
          */
         this.focusable = false;
 
-
         /**
          * Page默认的显示变化监听
          * Page的 监听的方法
@@ -44,16 +61,16 @@ export default class View {
         this.onVisibleChangeListener = "";
     }
 
-    addChild(view){
-        if(!view instanceof View){
+    addChild(view) {
+        if (!view instanceof View) {
             return;
         }
-        if(view.fatherView){
+        if (view.fatherView) {
             view.fatherView.removeChild(view);
         }
         view.fatherView = this;
-        if(view.id){
-            this.viewMap.set(view.id,view);
+        if (view.id) {
+            this.viewMap.set(view.id, view);
         }
         this.childViews.push(view);
     }
@@ -64,18 +81,18 @@ export default class View {
      */
     removeChild(view) {
         this.childViews.removeEle(view);
-        if(view.id){
-            this.viewMap.set(view.id,undefined);
+        if (view.id) {
+            this.viewMap.set(view.id, undefined);
         }
     }
 
     findViewById(id) {
         var view = this.viewMap.get(id);
-        if(!view){//不存在
-            for(var i=0;i<this.childViews.length;i++){
+        if (!view) {//不存在
+            for (var i = 0; i < this.childViews.length; i++) {
                 var child = this.childViews[i];
                 view = child.findViewById(id);
-                if(view){
+                if (view) {
                     break;
                 }
             }
@@ -88,14 +105,14 @@ export default class View {
         var onVisibleChangeListener = null;
         if (this.onVisibleChangeListener) {
             if (typeof this.onVisibleChangeListener == "string") {
-                onVisibleChangeListener = this.page[this.onVisibleChangeListener];
+                onVisibleChangeListener = this.listenerLocation[this.onVisibleChangeListener];
             } else if (this.onVisibleChangeListener instanceof Function) {
                 onVisibleChangeListener = this.onVisibleChangeListener;
             } else {
                 console.error("显示变化监听设置错误");
                 return;
             }
-            onVisibleChangeListener.call(this.page, view, isShowing);
+            onVisibleChangeListener.call(this.listenerLocation, view, isShowing);
         } else {
             if (this.fatherView) {
                 this.fatherView.callVisibleChangeListener(view, isShowing);
@@ -119,6 +136,18 @@ export default class View {
         this.setStyle("visibility", "");
         this.setStyle("display", "none");
         this.callVisibleChangeListener(this, false);
+    }
+
+    get listenerLocation(){
+        var value = this._listenerLocation;
+        if(!value){
+            value = this;
+        }
+        return value;
+    }
+
+    set listenerLocation(value){
+        this._listenerLocation = value;
     }
 
     /**
@@ -207,7 +236,7 @@ export default class View {
         this.ele.innerHTML = html;
     }
 
-    get html(){
+    get html() {
         return this.ele.innerHTML;
     }
 
@@ -315,6 +344,11 @@ export default class View {
         var id = View.parseAttribute("view-id", this.ele);
         if (id) {
             this.id = id;
+        } else {
+            if (this.ele.hasAttribute("id")) {
+                console.warn("id的属性名是错误,请查看ele:");
+                console.warn("\t\t", this.ele);
+            }
         }
 
         var visible = View.parseAttribute("view-visible", this.ele);//滚动
@@ -335,10 +369,10 @@ export default class View {
         return value;
     }
 
-    static getViewType(ele){
+    static getViewType(ele) {
         var viewType = ele.tagName;
         if (viewType == "DIV") {
-            viewType = View.parseAttribute("view-type",ele);
+            viewType = View.parseAttribute("view-type", ele);
             if (viewType) {
                 viewType = viewType.toUpperCase();
             }
@@ -530,7 +564,7 @@ export default class View {
         }
 
         var viewType = View.getViewType(ele);
-        if(viewType == "VIEW" || viewType == "VIEW_ITEM"){
+        if (viewType == "VIEW" || viewType == "VIEW_ITEM") {
             return size;
         }
 
@@ -582,10 +616,11 @@ export default class View {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {View}
      */
-    static parseByEle(ele, viewManager) {
-        var view = new View(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var view = new View(viewManager, listenerLocation);
         view.ele = ele;
         view.setAttributeParam();
         return view;
@@ -608,16 +643,16 @@ export default class View {
      * @param{Element} ele
      * @returns {Element}
      */
-    static findEleBy(id,ele){
+    static findEleBy(id, ele) {
         var viewId = ele.getAttribute("view-id");
-        if(viewId == id){
+        if (viewId == id) {
             return ele
         }
 
         var ele_list = ele.children;
         for (var child_ele of ele_list) {
-            var foundEle = View.findEleBy(id,child_ele);
-            if(foundEle){
+            var foundEle = View.findEleBy(id, child_ele);
+            if (foundEle) {
                 return foundEle;
             }
         }

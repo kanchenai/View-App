@@ -3,8 +3,8 @@ import Fragment from "./Fragment";
 import State from "../../util/State";
 
 export default class FrameView extends GroupView {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         delete this.selectView;
 
         /**
@@ -22,7 +22,7 @@ export default class FrameView extends GroupView {
     }
 
     requestFocus() {
-        if(!this.isScrolling){
+        if (!this.isScrolling) {
             super.requestFocus();
         }
     }
@@ -172,10 +172,11 @@ export default class FrameView extends GroupView {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {FrameView}
      */
-    static parseByEle(ele,viewManager){
-        var frameView = new FrameView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var frameView = new FrameView(viewManager, listenerLocation);
         frameView.ele = ele;
         frameView.setAttributeParam(ele);
         frameView.scroller.init();

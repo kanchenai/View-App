@@ -27,12 +27,12 @@ export default class HomePage extends Page {
     initView() {
         this.frame_view = this.findViewById("frame_view");
         this.frame_view.addFragmentList([
-            new HomeFragment_0(),
-            new HomeFragment_1(),
-            new HomeFragment_2(),
-            new HomeFragment_3(),
-            new HomeFragment_4(),
-            new HomeFragment_5()
+            new HomeFragment_0(this.viewManager),
+            new HomeFragment_1(this.viewManager),
+            new HomeFragment_2(this.viewManager),
+            new HomeFragment_3(this.viewManager),
+            new HomeFragment_4(this.viewManager),
+            new HomeFragment_5(this.viewManager)
         ]);
         this.nav_area = this.findViewById("nav_area");
         this.nav_area.selectView = this.nav_area.childViews[0];

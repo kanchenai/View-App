@@ -3,8 +3,8 @@ import ImageView from "@core/frame/view/single/ImageView";
 import TextView from "@core/frame/view/single/TextView";
 
 export default class ItemView extends View {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         this.focusable = true;
         //上焦的className
         this.focusStyle = "item item_focus";
@@ -80,18 +80,21 @@ export default class ItemView extends View {
     }
 
     callVisibleChangeListener(view, isShowing) {
+        if(isShowing){
+            this.loadImageResource();//这个方法会向子控件迭代加载图片
+        }
         var onVisibleChangeListener = null;
         if (this.onVisibleChangeListener) {
             if (typeof this.onVisibleChangeListener == "string") {
-                onVisibleChangeListener = this.page[this.onVisibleChangeListener];
+                onVisibleChangeListener = this.listenerLocation[this.onVisibleChangeListener];
             } else if (this.onVisibleChangeListener instanceof Function) {
                 onVisibleChangeListener = this.onVisibleChangeListener;
             } else {
                 console.error("显示变化监听设置错误");
                 return;
             }
-            this.loadImageResource();//这个方法会向子控件迭代加载图片
-            onVisibleChangeListener.call(this.page, view, isShowing);
+
+            onVisibleChangeListener.call(this.listenerLocation, view, isShowing);
         } else {
             if (this.fatherView) {
                 this.fatherView.callVisibleChangeListener(view, isShowing);
@@ -104,22 +107,25 @@ export default class ItemView extends View {
      * 当前控件上焦/失焦
      */
     callFocusChangeListener(view, hasFocus) {
+        this.loadImageResource();//这个方法会向子控件迭代加载图片
         var onFocusChangeListener = null;
+        var intercept = false;
         if (this.onFocusChangeListener) {
             if (typeof this.onFocusChangeListener == "string") {
-                onFocusChangeListener = this.page[this.onFocusChangeListener];
+                onFocusChangeListener = this.listenerLocation[this.onFocusChangeListener];
             } else if (this.onFocusChangeListener instanceof Function) {
                 onFocusChangeListener = this.onFocusChangeListener;
             } else {
                 console.error("焦点变化监听设置错误");
                 return;
             }
-            this.loadImageResource();//这个方法会向子控件迭代加载图片
-            onFocusChangeListener.call(this.page, view, hasFocus);
-        } else {
-            if (this.fatherView) {
-                this.fatherView.callFocusChangeListener(view, hasFocus);
-            }
+
+            onFocusChangeListener.call(this.listenerLocation, view, hasFocus);
+            intercept = true;
+        }
+
+        if (this.fatherView) {
+            this.fatherView.callFocusChangeListener(view, hasFocus, intercept);
         }
 
         if (this.fatherView && hasFocus) {//不能instanceof GroupView
@@ -131,14 +137,14 @@ export default class ItemView extends View {
         var onClickListener = null;
         if (this.onClickListener) {
             if (typeof this.onClickListener == "string") {
-                onClickListener = this.page[this.onClickListener];
+                onClickListener = this.listenerLocation[this.onClickListener];
             } else if (this.onClickListener instanceof Function) {
                 onClickListener = this.onClickListener;
             } else {
                 console.error("点击监听设置错误");
                 return;
             }
-            onClickListener.call(this.page, view);
+            onClickListener.call(this.listenerLocation, view);
         } else {
             if (this.fatherView) {
                 this.fatherView.callClickListener(view);
@@ -199,8 +205,8 @@ export default class ItemView extends View {
         //添加跑马灯
         this._textList.push(text);
 
-        if(text.id){
-            this.viewMap.set(text.id,text);
+        if (text.id) {
+            this.viewMap.set(text.id, text);
         }
     }
 
@@ -345,10 +351,11 @@ export default class ItemView extends View {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {ItemView}
      */
-    static parseByEle(ele, viewManager) {
-        var itemView = new ItemView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var itemView = new ItemView(viewManager, listenerLocation);
         itemView.ele = ele;
         var viewFocus = itemView.setAttributeParam();
         itemView.bindText();//必须在addView之后执行

@@ -8,8 +8,8 @@ import VPosition from "@core/frame/util/VPosition";
  *
  */
 export default class RecycleView extends GroupView {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         /**
          * 滚动位置
          * @type {object}
@@ -101,8 +101,11 @@ export default class RecycleView extends GroupView {
     }
 
     set data(value) {
-        //TODO 重写this._data的数组相关方法，实现改变数组刷新控件
         this._data = value;
+        if (this._data) {
+            // watchData(this._data,this);//重写this._data的数组相关方法，实现改变数组刷新控件
+        }
+
         render(this, 0);
     }
 
@@ -141,62 +144,62 @@ export default class RecycleView extends GroupView {
      * 通过index滚动
      * @param index
      */
-    scrollByIndex(index){
+    scrollByIndex(index) {
         if (index >= this.data.length) {
             index = this.data.length - 1;
         }
 
-        if(index < 0){
+        if (index < 0) {
             index = 0;
         }
 
         var holder = this.activeHolderMap.get(index);
-        if(holder){
+        if (holder) {
+            render(this, index);
             this.scrollToChild(holder.component);
-            render(this,index);
             return;
         }
 
-        render(this,index);
+        render(this, index);
         var child = this.activeHolderMap.get(index).component;
-        if(this.selectIndex < 0){//这种情况不存在
+        if (this.selectIndex < 0) {//这种情况不存在
 
-        }else{
-            if(this.circulate){
+        } else {
+            if (this.circulate) {
                 var disIndexStart = -1;
                 var disIndexEnd = -1;
-                if(this.selectIndex < index){
+                if (this.selectIndex < index) {
                     disIndexStart = this.selectIndex - (index - this.data.length);
                     disIndexEnd = index - this.selectIndex;
-                }else{
+                } else {
                     disIndexStart = this.selectIndex - index;
                     disIndexEnd = index + this.data.length - this.selectIndex;
                 }
-                if(disIndexStart > disIndexEnd){//跨过0更近
-                    if(this.orientation == VERTICAL){
+                if (disIndexStart > disIndexEnd) {//跨过0更近
+                    if (this.orientation == VERTICAL) {
                         this.scrollTop = 0;
-                    }else{
+                    } else {
                         this.scrollLeft = 0;
                     }
-                }else{
-                    if(this.orientation == VERTICAL){
+                } else {
+                    if (this.orientation == VERTICAL) {
                         this.scrollTop = this.scrollHeight - this.height;
-                    }else{
-                        this.scrollLeft = this.scrollWidth-this.width;
+                    } else {
+                        this.scrollLeft = this.scrollWidth - this.width;
                     }
                 }
-            }else{
-                if(this.selectIndex < index){
-                    if(this.orientation == VERTICAL){
+            } else {
+                if (this.selectIndex < index) {
+                    if (this.orientation == VERTICAL) {
                         this.scrollTop = 0;
-                    }else{
+                    } else {
                         this.scrollLeft = 0;
                     }
-                }else{
-                    if(this.orientation == VERTICAL){
+                } else {
+                    if (this.orientation == VERTICAL) {
                         this.scrollTop = this.scrollHeight - this.height;
-                    }else{
-                        this.scrollLeft = this.scrollWidth-this.width;
+                    } else {
+                        this.scrollLeft = this.scrollWidth - this.width;
                     }
                 }
             }
@@ -209,7 +212,7 @@ export default class RecycleView extends GroupView {
      * 通过index上焦
      * @param index
      */
-    focusByIndex(index){
+    focusByIndex(index) {
         this.scrollByIndex(index);
         this.activeHolderMap.get(index).component.requestFocus();
     }
@@ -481,8 +484,8 @@ export default class RecycleView extends GroupView {
         return super.setAttributeParam();
     }
 
-    static parseByEle(ele, viewManager) {
-        var recycleView = new RecycleView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var recycleView = new RecycleView(viewManager, listenerLocation);
         recycleView.ele = ele;
         var viewDefault = recycleView.setAttributeParam();
 
@@ -651,11 +654,11 @@ export class Holder {
  * 用于RecycleView的每一个子控件的组件
  */
 export class Component extends GroupView {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation, holder) {
+        super(viewManager, listenerLocation);
         this._data = null;
         this.ele = document.createElement("div");
-        this.holder = null;
+        this.holder = holder;
         /**
          * 内部节点
          * @type {Map<String, Element>}
@@ -668,14 +671,40 @@ export class Component extends GroupView {
         view.data = this.data;
     }
 
-    callFocusChangeListener(view, hasFocus) {
+    set html(html) {
+        //初始化滚动器
+        this.scroller.init();
+        //将html设置到节点中
+        this.scroller.html = html;
+        //业务层触发的，listenerLocation为this
+        this.listenerLocation = this.holder.recycleView.listenerLocation;
+        //构建控件
+        this.viewManager.buildView(this);
+        //测量滚动器实际大小，并设置
+        this.measure();
+        //绑定ImageView
+        this.bindImage();
+
+        var that = this;
+        setTimeout(function () {
+            if (that.isShowing) {//显示
+                that.loadImageResource();//加载图片
+            }
+        }, 50);
+    }
+
+    get html() {
+        return this.scroller.html;
+    }
+
+    callFocusChangeListener(view, hasFocus, intercept) {
         if (hasFocus) {
             var index = this.holder.index;
             this.fatherView.selectIndex = index;
             render(this.fatherView, index);
         }
 
-        super.callFocusChangeListener(view, hasFocus);
+        super.callFocusChangeListener(view, hasFocus, intercept);
     }
 
     findEleById(id) {
@@ -713,8 +742,7 @@ export class Component extends GroupView {
  * @returns {Component}
  */
 var buildComponent = function (holder) {
-    var component = new Component(holder.recycleView.viewManager);
-    component.holder = holder;
+    var component = new Component(holder.recycleView.viewManager, holder.recycleView.listenerLocation, holder);
     if (!holder.recycleView.ele.contains(component.ele)) {//如果该ele未被渲染
         holder.recycleView.appendChild(component.ele);//渲染
     }
@@ -1093,7 +1121,7 @@ var setChildPosition = function (recycleView, childView, position) {
         for (var child of recycleView.childViews) {
             child.top = child.top - top;//将child复位
         }
-    }else if(top > recycleView.scrollHeight - recycleView.scrollTop){//childView已经在recycleView.scroller的范围外的下边了，需要校准
+    } else if (top > recycleView.scrollHeight - recycleView.scrollTop) {//childView已经在recycleView.scroller的范围外的下边了，需要校准
         recycleView.scrollHeight = top + recycleView.scrollTop;//将recycleView拉高
     }
 
@@ -1103,7 +1131,7 @@ var setChildPosition = function (recycleView, childView, position) {
         for (var child of recycleView.childViews) {
             child.left = child.left - left;//将child复位
         }
-    }else if(left > recycleView.scrollWidth - recycleView.scrollLeft){//childView已经在recycleView.scroller的范围外的右边了，需要校准
+    } else if (left > recycleView.scrollWidth - recycleView.scrollLeft) {//childView已经在recycleView.scroller的范围外的右边了，需要校准
         recycleView.scrollWidth = left + recycleView.scrollLeft;//将recycleView拉高
     }
 }
@@ -1162,4 +1190,23 @@ export var getRowAndCol = function (recycleView, index) {
     }
 
     return {row: row, col: col}
+}
+
+
+/**
+ * TODO 重写this._data的数组相关方法，实现改变数组刷新控件
+ * @param data
+ */
+var watchData = function (data, recycleView) {
+    var funNames = ['push', 'pop', 'unshift', 'shift', 'splice', 'sort', 'reverse']
+
+    for (var i = 0; i < funNames.length; i++) {
+        var funName = funNames[i];
+        var func = data[funName];
+
+        data[funName] = function () {
+            func.call(data, arguments);
+            render(recycleView, recycleView.selectIndex);
+        }
+    }
 }

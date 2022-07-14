@@ -16,7 +16,7 @@ export default class ViewManager {
         this._focusView = null;
     }
 
-    findViewById(id,fatherView){
+    findViewById(id, fatherView) {
 
     }
 
@@ -28,17 +28,18 @@ export default class ViewManager {
 
     /**
      * 构建控件
+     * 这个方法一般是业务层主动设置html是被调用
      * 内部存在ScrollView及子类时,
-     * 因为子控件还未,
+     * 因为子控件还未创建及测量,
      * scroller（滚动器）的大小无法被测量
      * @param html
      * @returns {Element[]|null}
      */
     buildView(view) {
-        if(view instanceof GroupView){
-            this.eleToObject(view.scroller.ele, view);
-        }else if(view instanceof View){
-            this.eleToObject(view.ele, view);
+        if (view instanceof GroupView) {
+            this.eleToObject(view.scroller.ele, view, view.listenerLocation);
+        } else if (view instanceof View) {
+            this.eleToObject(view.ele, view, view.listenerLocation);
         }
 
     }
@@ -47,48 +48,49 @@ export default class ViewManager {
      *
      * @param{Element} ele
      * @param{GroupView} groupView
+     * @param{View} listenerLocation
      */
-    eleToObject(ele, groupView) {
+    eleToObject(ele, groupView,listenerLocation) {
         var ele_list = ele.children;
         for (var child_ele of ele_list) {
             var viewType = View.getViewType(child_ele);
             switch (viewType) {
                 case "VIEW":
-                    var view = View.parseByEle(child_ele, this);
+                    var view = View.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(view);
                     break;
                 case "VIEW-ITEM":
                 case "ITEM":
-                    var itemView = ItemView.parseByEle(child_ele,this);
+                    var itemView = ItemView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(itemView);
                     break;
                 case "VIEW-SCROLL":
                 case "SCROLL":
-                    var scrollView = ScrollView.parseByEle(child_ele,this);
+                    var scrollView = ScrollView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(scrollView);
                     break;
                 case "VIEW-GROUP":
                 case "GROUP":
-                    var _groupView = GroupView.parseByEle(child_ele,this);
+                    var _groupView = GroupView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(_groupView);
                     break;
                 case "VIEW-FRAME":
                 case "FRAME":
-                    var frameView = FrameView.parseByEle(child_ele,this);
+                    var frameView = FrameView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(frameView);
                     break;
                 case "VIEW-DIALOG":
                 case "DIALOG":
-                    var dialog = Dialog.parseByEle(child_ele,this);
+                    var dialog = Dialog.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(dialog);
                     break;
                 case "VIEW-RECYCLE":
                 case "RECYCLE":
-                    var recycleView = RecycleView.parseByEle(child_ele,this);
+                    var recycleView = RecycleView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(recycleView);
                     break;
                 default:
-                    this.eleToObject(child_ele, groupView);
+                    this.eleToObject(child_ele, groupView, listenerLocation);
                     break;
             }
         }
@@ -126,7 +128,7 @@ export default class ViewManager {
             }
             var page = this.page;
             //获取对应的控件
-            var nextView = page.viewManager.getView(_next);
+            var nextView = page.findViewById(_next);
             if (nextView) {//不是控件或绑定的是方法
                 _next = nextView;
             } else {

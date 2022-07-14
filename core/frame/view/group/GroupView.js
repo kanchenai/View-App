@@ -6,8 +6,8 @@ import ItemView from "@core/frame/view/base/ItemView";
 import ViewUtils from "@core/frame/util/ViewUtils";
 
 export default class GroupView extends ScrollView {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         this.focusable = true;
 
         this._data = [];
@@ -30,6 +30,32 @@ export default class GroupView extends ScrollView {
         this.nextLeft = "";
         //焦点向右的view或方法
         this.nextRight = "";
+    }
+
+    set html(html) {
+        //初始化滚动器
+        this.scroller.init();
+        //将html设置到节点中
+        this.scroller.html = html;
+        //业务层触发的，listenerLocation为this
+        this.listenerLocation = this;
+        //构建控件
+        this.viewManager.buildView(this);
+        //测量滚动器实际大小，并设置
+        this.measure();
+        //绑定ImageView
+        this.bindImage();
+
+        var that = this;
+        setTimeout(function () {
+            if (that.isShowing) {//显示
+                that.loadImageResource();//加载图片
+            }
+        }, 50);
+    }
+
+    get html() {
+        return this.scroller.html;
     }
 
     requestFocus() {
@@ -84,7 +110,7 @@ export default class GroupView extends ScrollView {
         var onVisibleChangeListener = null;
         if (this.onVisibleChangeListener) {
             if (typeof this.onVisibleChangeListener == "string") {
-                onVisibleChangeListener = this.page[this.onVisibleChangeListener];
+                onVisibleChangeListener = this.listenerLocation[this.onVisibleChangeListener];
             } else if (this.onVisibleChangeListener instanceof Function) {
                 onVisibleChangeListener = this.onVisibleChangeListener;
             } else {
@@ -92,7 +118,7 @@ export default class GroupView extends ScrollView {
                 return;
             }
             this.loadImageResource();//这个方法会向子控件迭代加载图片
-            onVisibleChangeListener.call(this.page, view, isShowing);
+            onVisibleChangeListener.call(this.listenerLocation, view, isShowing);
         } else {
             if (this.fatherView) {
                 this.fatherView.callVisibleChangeListener(view, isShowing);
@@ -107,12 +133,13 @@ export default class GroupView extends ScrollView {
      * 由于继承的View所以这个需要代码冗余
      * @param{ItemView} view
      * @param{boolean} hasFocus
+     * @param{boolean} intercept 是否拦截（在子控件中已设置监听，不需要触发父控件的）
      */
-    callFocusChangeListener(view, hasFocus) {
+    callFocusChangeListener(view, hasFocus, intercept) {
         var onFocusChangeListener = null;
-        if (this.onFocusChangeListener) {
+        if (this.onFocusChangeListener && !intercept) {
             if (typeof this.onFocusChangeListener == "string") {
-                onFocusChangeListener = this.page[this.onFocusChangeListener];
+                onFocusChangeListener = this.listenerLocation[this.onFocusChangeListener];
             } else if (this.onFocusChangeListener instanceof Function) {
                 onFocusChangeListener = this.onFocusChangeListener;
             } else {
@@ -120,11 +147,12 @@ export default class GroupView extends ScrollView {
                 return;
             }
             this.loadImageResource();//这个方法会向子控件迭代加载图片
-            onFocusChangeListener.call(this.page, view, hasFocus);
-        } else {
-            if (this.fatherView) {
-                this.fatherView.callFocusChangeListener(view, hasFocus);
-            }
+            onFocusChangeListener.call(this.listenerLocation, view, hasFocus);
+            intercept = true;
+        }
+
+        if (this.fatherView) {
+            this.fatherView.callFocusChangeListener(view, hasFocus, intercept);
         }
 
         if (this.fatherView && hasFocus) {//不能instanceof GroupView
@@ -158,14 +186,14 @@ export default class GroupView extends ScrollView {
         var onClickListener = null;
         if (this.onClickListener) {
             if (typeof this.onClickListener == "string") {
-                onClickListener = this.page[this.onClickListener];
+                onClickListener = this.listenerLocation[this.onClickListener];
             } else if (this.onClickListener instanceof Function) {
                 onClickListener = this.onClickListener;
             } else {
                 console.error("点击监听设置错误");
                 return;
             }
-            onClickListener.call(this.page, view);
+            onClickListener.call(this.listenerLocation, view);
         } else {
             if (this.fatherView) {
                 this.fatherView.callClickListener(view);
@@ -193,7 +221,7 @@ export default class GroupView extends ScrollView {
      * @param{View} view
      */
     addChild(view) {
-        if(this.data && this.data.length > this.childViews.length){
+        if (this.data && this.data.length > this.childViews.length) {
             view.data = this.data[this.childViews.length];
         }
         super.addChild(view);
@@ -285,7 +313,7 @@ export default class GroupView extends ScrollView {
 
         if (typeof scrollLocate == "undefined") {
             scrollLocate = this.scrollLocate;
-            if(scrollLocate instanceof Object){
+            if (scrollLocate instanceof Object) {
                 scrollLocate = scrollLocate.vertical;
             }
         }
@@ -335,7 +363,7 @@ export default class GroupView extends ScrollView {
 
         if (typeof scrollLocate == "undefined") {
             scrollLocate = this.scrollLocate;
-            if(scrollLocate instanceof Object){
+            if (scrollLocate instanceof Object) {
                 scrollLocate = scrollLocate.horizontal;
             }
         }
@@ -388,7 +416,29 @@ export default class GroupView extends ScrollView {
 
         var viewFocus = this.ele.hasAttribute("view-focus");
 
-        var select = View.parseAttribute("view-select", this.ele);//开始滚动
+        var up = View.parseAttribute("view-up", this.ele);//上
+        var down = View.parseAttribute("view-down", this.ele);//下
+        var left = View.parseAttribute("view-left", this.ele);//左
+        var right = View.parseAttribute("view-right", this.ele);//右
+        var change = View.parseAttribute("view-change", this.ele);//上、下、左、右
+        if (change) {
+            var strs = change.split(",");
+            if (strs.length == 4) {
+                up = strs[0];
+                down = strs[1];
+                left = strs[2];
+                right = strs[3];
+            }
+        }
+
+        var click = View.parseAttribute("view-click", this.ele);//点击
+        var focus = View.parseAttribute("view-focus", this.ele);//焦点变化
+        this.setFocusChange(up, down, left, right);
+
+        this.onClickListener = click || "";
+        this.onFocusChangeListener = focus || "";
+
+        var select = View.parseAttribute("view-select", this.ele);//离开是是否驻留
 
         if (select == "1" || select == "true") {
             this.select = true;
@@ -668,7 +718,12 @@ export default class GroupView extends ScrollView {
 
     static focusViewGroup(view, groupView) {
         if (!Keyboard.KEY_CODE) {//无动作，直接代码上焦
-            groupView.childViews[0].requestFocus();
+            for (var i = 0; i < groupView.childViews.length; i++) {
+                if (groupView.childViews[i].focusable) {
+                    groupView.childViews[i].requestFocus();
+                    break;
+                }
+            }
             return;
         }
 
@@ -723,24 +778,28 @@ export default class GroupView extends ScrollView {
                 continue;
             }
 
+            if (!child.focusable) {
+                continue
+            }
+
             var position = child.positionByFather;
 
-            if (position.top >= groupView.height / 2) {//在显示范围下
+            if (position.top + child.height / 2 > groupView.height) {//在显示范围下
                 // console.log(child.id+"超过一半在显示范围下");
                 continue;
             }
 
-            if (position.top <= 0 - child.height / 2) {//在显示范围上
+            if (position.top + child.height / 2 < 0) {//在显示范围上
                 // console.log(child.id+"超过一半在显示范围上");
                 continue;
             }
 
-            if (position.left >= groupView.width / 2) {//在显示范围右
+            if (position.left + child.width / 2 > groupView.width) {//在显示范围右
                 // console.log(child.id+"超过一半在显示范围右");
                 continue;
             }
 
-            if (position.left <= 0 - child.width / 2) {//在显示范围上
+            if (position.left + child.width / 2 < 0) {//在显示范围上
                 // console.log(child.id+"超过一半在显示范围左");
                 continue;
             }
@@ -795,15 +854,16 @@ export default class GroupView extends ScrollView {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {GroupView}
      */
-    static parseByEle(ele, viewManager) {
-        var groupView = new GroupView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var groupView = new GroupView(viewManager, listenerLocation);
         groupView.ele = ele;
         var viewDefault = groupView.setAttributeParam(ele);
         groupView.bindImage();
         groupView.scroller.init();
-        viewManager.eleToObject(groupView.scroller.ele, groupView);//往内部执行
+        viewManager.eleToObject(groupView.scroller.ele, groupView, listenerLocation);//往内部执行
         if (viewDefault) {
             viewManager.focusView = groupView;
         }

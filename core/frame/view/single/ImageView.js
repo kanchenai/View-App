@@ -1,8 +1,8 @@
 import View from "@core/frame/view/base/View";
 
 export default class ImageView extends View {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         delete this.childViews;
         //是否已加载
         this.isLoaded = false;
@@ -29,8 +29,8 @@ export default class ImageView extends View {
         }, 10);
     }
 
-    loadImageImmediate(){
-        if(this.src){
+    loadImageImmediate() {
+        if (this.src) {
             console.log("ImageView", "图片载入", this.src);
         }
         this.ele.src = this.src;
@@ -87,7 +87,7 @@ export default class ImageView extends View {
         this._data = value;
         if (this.isShowing && this.isDisplayRange) {//在需要显示
             this.loadImageImmediate();
-        }else{
+        } else {
             this.isLoaded = false;
             this.ele.src = "";//置空
             this.loadImageResource();//加载图片
@@ -116,10 +116,11 @@ export default class ImageView extends View {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {ImageView}
      */
-    static parseByEle(ele, viewManager) {
-        var imageView = new ImageView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var imageView = new ImageView(viewManager, listenerLocation);
         imageView.ele = ele;
         imageView.setAttributeParam();
         return imageView;
@@ -147,7 +148,7 @@ export default class ImageView extends View {
             }
 
             if (viewType == "IMG") {
-                view.image = ImageView.parseByEle(child_ele, view.viewManager);
+                view.image = ImageView.parseByEle(child_ele, view.viewManager, view.listenerLocation);
             } else {
                 if (!viewType
                     || viewType == "DIV"

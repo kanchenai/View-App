@@ -7,8 +7,8 @@ import ImageView from "@core/frame/view/single/ImageView";
  */
 
 export default class ScrollView extends View {
-    constructor(viewManager) {
-        super(viewManager);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
         this.focusable = false;
         /**
          *
@@ -50,8 +50,6 @@ export default class ScrollView extends View {
         this.scroller.init();
         //将html设置到节点中
         this.scroller.html = html;
-        //构建控件
-        this.viewManager.buildView(this);
         //测量滚动器实际大小，并设置
         this.measure();
         //绑定ImageView
@@ -62,7 +60,7 @@ export default class ScrollView extends View {
             if (that.isShowing) {//显示
                 that.loadImageResource();//加载图片
             }
-        }, 50);
+        }, 10);
     }
 
     get html() {
@@ -225,14 +223,14 @@ export default class ScrollView extends View {
         var onScrollStartListener = null;
         if (this.onScrollStartListener) {
             if (typeof this.onScrollStartListener == "string") {
-                onScrollStartListener = this.page[this.onScrollStartListener];
+                onScrollStartListener = this.listenerLocation[this.onScrollStartListener];
             } else if (this.onScrollStartListener instanceof Function) {
                 onScrollStartListener = this.onScrollStartListener;
             } else {
                 console.error("开始滚动监听设置错误");
                 return;
             }
-            onScrollStartListener.call(this.page, scrollView, x, y);
+            onScrollStartListener.call(this.listenerLocation, scrollView, x, y);
         } else {
             if (this.fatherView) {
                 this.fatherView.callScrollStartListener(scrollView, x, y);
@@ -244,14 +242,14 @@ export default class ScrollView extends View {
         var onScrollingListener = null;
         if (this.onScrollingListener) {
             if (typeof this.onScrollingListener == "string") {
-                onScrollingListener = this.page[this.onScrollingListener];
+                onScrollingListener = this.listenerLocation[this.onScrollingListener];
             } else if (this.onScrollingListener instanceof Function) {
                 onScrollingListener = this.onScrollingListener;
             } else {
                 console.error("开始滚动监听设置错误");
                 return;
             }
-            onScrollingListener.call(this.page, scrollView, x, y);
+            onScrollingListener.call(this.listenerLocation, scrollView, x, y);
         } else {
             if (this.fatherView) {
                 this.fatherView.callScrollingListener(scrollView, x, y);
@@ -263,7 +261,7 @@ export default class ScrollView extends View {
         var onScrollEndListener = null;
         if (this.onScrollEndListener) {
             if (typeof this.onScrollEndListener == "string") {
-                onScrollEndListener = this.page[this.onScrollEndListener];
+                onScrollEndListener = this.listenerLocation[this.onScrollEndListener];
             } else if (this.onScrollEndListener instanceof Function) {
                 onScrollEndListener = this.onScrollEndListener;
             } else {
@@ -271,7 +269,7 @@ export default class ScrollView extends View {
                 return;
             }
 
-            onScrollEndListener.call(this.page, scrollView, x, y);
+            onScrollEndListener.call(this.listenerLocation, scrollView, x, y);
         } else {
             if (this.fatherView) {
                 this.fatherView.callScrollEndListener(scrollView, x, y);
@@ -352,10 +350,11 @@ export default class ScrollView extends View {
      * 使用ele创建控件
      * @param{Element} ele
      * @param{ViewManager} viewManager
+     * @param{View} listenerLocation
      * @returns {ScrollView}
      */
-    static parseByEle(ele, viewManager) {
-        var scrollView = new ScrollView(viewManager);
+    static parseByEle(ele, viewManager, listenerLocation) {
+        var scrollView = new ScrollView(viewManager, listenerLocation);
         scrollView.ele = ele;
         scrollView.setAttributeParam(ele);
         scrollView.bindImage();//必须在addView之后执行
