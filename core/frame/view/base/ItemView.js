@@ -35,19 +35,6 @@ export default class ItemView extends View {
         //焦点向右的view或方法
         this.nextRight = "";
 
-        /**
-         * Page默认的点击监听
-         * Page的监听是方法
-         * @param view
-         */
-        this.onClickListener = "";
-        /**
-         * Page默认的焦点变化监听
-         * Page的监听是方法
-         * @param view
-         * @param hasFocus
-         */
-        this.onFocusChangeListener = "";
     }
 
     /**
@@ -64,8 +51,6 @@ export default class ItemView extends View {
         }
         this.viewManager.focusView = this;
         this.setFocusStyle();
-        this.loadImageResource();//加载图片
-        this.marquee();
         this.callFocusChangeListener(this, true);
     }
 
@@ -74,10 +59,20 @@ export default class ItemView extends View {
      */
     requestUnFocus() {
         this.setUnFocusStyle();
-        this.loadImageResource();//加载图片
         this.clearMarquee();
         this.callFocusChangeListener(this, false);
     }
+
+    /**
+     * @param view
+     */
+    onClickListener(view){}
+
+    /**
+     * @param view
+     * @param hasFocus
+     */
+    onFocusChangeListener(view,hasFocus){}
 
     callVisibleChangeListener(view, isShowing) {
         if(isShowing){
@@ -107,7 +102,12 @@ export default class ItemView extends View {
      * 当前控件上焦/失焦
      */
     callFocusChangeListener(view, hasFocus) {
-        this.loadImageResource();//这个方法会向子控件迭代加载图片
+        this.loadImageResource();//加载当前控件的图片
+
+        if(hasFocus){
+            this.marquee();
+        }
+
         var onFocusChangeListener = null;
         var intercept = false;
         if (this.onFocusChangeListener) {
@@ -358,8 +358,8 @@ export default class ItemView extends View {
         var itemView = new ItemView(viewManager, listenerLocation);
         itemView.ele = ele;
         var viewFocus = itemView.setAttributeParam();
-        itemView.bindText();//必须在addView之后执行
-        itemView.bindImage();//必须在addView之后执行
+        itemView.bindText();
+        itemView.bindImage();
         if (viewFocus) {
             viewManager.focusView = itemView;
         }

@@ -30,6 +30,9 @@ export default class ImageView extends View {
     }
 
     loadImageImmediate() {
+        if (this.isLoaded) {
+            return;
+        }
         if (this.src) {
             console.log("ImageView", "图片载入", this.src);
         }
@@ -85,13 +88,7 @@ export default class ImageView extends View {
         }
 
         this._data = value;
-        if (this.isShowing && this.isDisplayRange) {//在需要显示
-            this.loadImageImmediate();
-        } else {
-            this.isLoaded = false;
-            this.ele.src = "";//置空
-            this.loadImageResource();//加载图片
-        }
+        this.loadImageResource();
     }
 
     get src() {
@@ -104,7 +101,6 @@ export default class ImageView extends View {
      */
     setAttributeParam() {
         var src = this.ele.src;//将图片地址赋值给src
-        this.ele.src = "";
         if (this.ele.hasAttribute("src")) {
             this.ele.removeAttribute("src");//置空，避免直接加载
         }
@@ -150,10 +146,7 @@ export default class ImageView extends View {
             if (viewType == "IMG") {
                 view.image = ImageView.parseByEle(child_ele, view.viewManager, view.listenerLocation);
             } else {
-                if (!viewType
-                    || viewType == "DIV"
-                    || (viewType != "VIEW"
-                        && viewType.indexOf("SCROLL") < 0)) {
+                if (!viewType || viewType == "DIV") {//只有当viewType为DIV时往内部寻找，其他的忽略
                     ImageView.bindImageByEle(child_ele, view);
                 }
             }

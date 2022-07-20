@@ -19,30 +19,6 @@ export default class ScrollView extends View {
         this.animation = true;
         //生成滚动器
         this.scroller = new Scroller(this);
-
-        /**
-         * 滚动开始监听
-         * @param scrollView
-         * @param x
-         * @param y
-         */
-        this.onScrollStartListener = "";
-
-        /**
-         * 滚动中监听
-         * @param scrollView
-         * @param x
-         * @param y
-         */
-        this.onScrollingListener = "";
-
-        /**
-         * 滚动结束监听
-         * @param scrollView
-         * @param x
-         * @param y
-         */
-        this.onScrollEndListener = "";
     }
 
     set html(html) {
@@ -54,13 +30,6 @@ export default class ScrollView extends View {
         this.measure();
         //绑定ImageView
         this.bindImage();
-
-        var that = this;
-        setTimeout(function () {
-            if (that.isShowing) {//显示
-                that.loadImageResource();//加载图片
-            }
-        }, 10);
     }
 
     get html() {
@@ -79,8 +48,10 @@ export default class ScrollView extends View {
     /**
      * 加载当前控件绑定的图片资源
      * 就是把图片url设置到对应节点的src
+     * @param{boolean} intoChild 是否调用子控件的loadImageResource
      */
-    loadImageResource() {
+    loadImageResource(intoChild) {
+        //intoChild这个参数在ScrollView中无用，是为了子类调用的
         for (var image of this.imageList) {
             image.loadImageResource();
         }
@@ -219,6 +190,35 @@ export default class ScrollView extends View {
         this.scroller.measure();
     }
 
+    /**
+     * 滚动开始监听
+     * @param scrollView
+     * @param x
+     * @param y
+     */
+    onScrollStartListener(scrollView, x, y) {
+
+    };
+
+    /**
+     * 滚动中监听
+     * @param scrollView
+     * @param x
+     * @param y
+     */
+    onScrollingListener(scrollView, x, y) {
+
+    };
+
+    /**
+     * 滚动结束监听
+     * @param scrollView
+     * @param x
+     * @param y
+     */onScrollEndListener(scrollView, x, y) {
+
+    };
+
     callScrollStartListener(scrollView, x, y) {
         var onScrollStartListener = null;
         if (this.onScrollStartListener) {
@@ -275,7 +275,7 @@ export default class ScrollView extends View {
                 this.fatherView.callScrollEndListener(scrollView, x, y);
             }
         }
-        this.loadImageResource();//这个方法会向子控件迭代加载图片
+        this.loadImageResource(true);//这个方法会向子控件迭代加载图片
     }
 
     appendChild(ele) {
@@ -357,7 +357,7 @@ export default class ScrollView extends View {
         var scrollView = new ScrollView(viewManager, listenerLocation);
         scrollView.ele = ele;
         scrollView.setAttributeParam(ele);
-        scrollView.bindImage();//必须在addView之后执行
+        scrollView.bindImage();
         scrollView.scroller.init();
         return scrollView;
     }
@@ -437,7 +437,7 @@ export class Scroller extends View {
             clearTimeout(this.vTimer);
         }
         if (!this.isScrolling) {
-            this.fatherView.callScrollStartListener(this.fatherView, this.left, this.top);
+            this.fatherView.callScrollStartListener(this.fatherView, 0 - this.left, 0 - this.top);
         }
 
         var speed = this.speed;
@@ -519,7 +519,7 @@ var startScrollVerticalTo = function (scroller, y, speed) {
         scroller.isScrolling = false;
         scroller.top = y;
         scroller.currentSpeedV = 0;
-        scroller.fatherView.callScrollEndListener(scroller.fatherView, scroller.left, y);
+        scroller.fatherView.callScrollEndListener(scroller.fatherView, 0 - scroller.left, 0 - y);
         return;
     }
 
@@ -531,7 +531,7 @@ var startScrollVerticalTo = function (scroller, y, speed) {
     scroller.top = top;
 
     scroller.isScrolling = true;
-    scroller.fatherView.callScrollingListener(scroller.fatherView, scroller.left, y);
+    scroller.fatherView.callScrollingListener(scroller.fatherView, 0 - scroller.left, 0 - y);
 
     scroller.vTimer = setTimeout(function () {
         if (scroller && scroller.ele) {
@@ -552,7 +552,7 @@ var startScrollHorizontalTo = function (scroller, x, speed) {
         scroller.isScrolling = false;
         scroller.left = x;
         scroller.currentSpeedH = 0;
-        scroller.fatherView.callScrollEndListener(scroller.fatherView, x, scroller.top);
+        scroller.fatherView.callScrollEndListener(scroller.fatherView, 0 - x, 0 - scroller.top);
         return;
     }
 
@@ -564,7 +564,7 @@ var startScrollHorizontalTo = function (scroller, x, speed) {
     scroller.left = left;
 
     scroller.isScrolling = true;
-    scroller.fatherView.callScrollingListener(scroller.fatherView, x, scroller.top);
+    scroller.fatherView.callScrollingListener(scroller.fatherView, 0 - x, 0 - scroller.top);
 
     scroller.hTimer = setTimeout(function () {
         if (scroller && scroller.ele) {

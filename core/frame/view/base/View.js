@@ -51,14 +51,6 @@ export default class View {
          * @type {boolean}
          */
         this.focusable = false;
-
-        /**
-         * Page默认的显示变化监听
-         * Page的 监听的方法
-         * @param view
-         * @param isShowing
-         */
-        this.onVisibleChangeListener = "";
     }
 
     addChild(view) {
@@ -100,6 +92,12 @@ export default class View {
 
         return view;
     }
+
+    /**
+     * @param view
+     * @param isShowing
+     */
+    onVisibleChangeListener(view,isShowing){}
 
     callVisibleChangeListener(view, isShowing) {
         var onVisibleChangeListener = null;
