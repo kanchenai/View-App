@@ -1,4 +1,5 @@
-import GroupView, {ScrollCenter, ScrollEnd, ScrollNormal, ScrollStart} from "./GroupView";
+import GroupView from "./GroupView"
+import {ScrollCenter, ScrollEnd, ScrollNormal, ScrollStart} from "../base/ScrollView";
 import VMargin from "@core/frame/util/VMargin";
 import VSize from "@core/frame/util/VSize";
 import View from "@core/frame/view/base/View";

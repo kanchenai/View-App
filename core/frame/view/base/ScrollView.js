@@ -1,9 +1,12 @@
 import View from "@core/frame/view/base/View";
 import ImageView from "@core/frame/view/single/ImageView";
+import ViewUtils from "@core/frame/util/ViewUtils";
 
 /**
  * ScrollView不能继承ItemView，Scroller报错
  * 子类在new之后要执行scrollView.scroller.init(),把滚动器创建起来
+ * 可以传递监听
+ * 由于本身不能上焦，所以不能传递焦点变化
  */
 
 export default class ScrollView extends View {
@@ -89,6 +92,131 @@ export default class ScrollView extends View {
 
     get imageList() {
         return this._imageList;
+    }
+
+    /**
+     * 滚动到对应子控件
+     * @param{View} childView
+     * @param{string|object} scrollLocate 滚动位置
+     */
+    scrollToChild(childView, scrollLocate) {
+        if (scrollLocate instanceof Object) {
+            var vertical = scrollLocate.vertical;
+
+            if (ViewUtils.isEmpty(vertical)) {
+                vertical = ScrollNormal;
+            }
+            this.scrollVerticalToChild(childView, vertical);
+
+            var horizontal = scrollLocate.horizontal;
+
+            if (ViewUtils.isEmpty(vertical)) {
+                horizontal = ScrollNormal;
+            }
+            this.scrollHorizontalToChild(childView, horizontal);
+
+        } else {
+            this.scrollVerticalToChild(childView, scrollLocate);
+            this.scrollHorizontalToChild(childView, scrollLocate);
+        }
+    }
+
+    /**
+     * 纵向滑动到childView
+     * @param {View} childView 目标控件
+     * @param {string} scrollLocate 滚动位置
+     */
+    scrollVerticalToChild(childView, scrollLocate) {
+        if (this.childViews.indexOf(childView) < 0) {
+            return;
+        }
+
+        if (typeof scrollLocate == "undefined") {
+            scrollLocate = this.scrollLocate;
+            if (scrollLocate instanceof Object) {
+                scrollLocate = scrollLocate.vertical;
+            }
+        }
+
+        var top = childView.positionByFather.top;
+
+        if (this.height < childView.height) {
+            this.scrollVertical(top);
+            return;
+        }
+
+        if (scrollLocate == ScrollCenter) {
+            var scrollTop = top - (this.height - childView.height) / 2;
+
+            this.scrollVertical(scrollTop);
+            return;
+        }
+
+        if (scrollLocate == ScrollStart) {
+            this.scrollVertical(top);
+            return;
+        }
+
+        if (scrollLocate == ScrollEnd) {
+            var scrollTop = top - this.height + childView.height;
+            this.scrollVertical(scrollTop);
+            return;
+        }
+
+        if (top < 0) {
+            this.scrollVertical(top);
+        } else if (top > (this.height - childView.height)) {
+            var scrollTop = top - (this.height - childView.height);
+            this.scrollVertical(scrollTop)
+        }
+    }
+
+    /**
+     * 横向滑动到childView
+     * @param {View} childView 目标控件
+     * @param {string} scrollLocate 滚动位置
+     */
+    scrollHorizontalToChild(childView, scrollLocate) {
+        if (this.childViews.indexOf(childView) < 0) {
+            return;
+        }
+
+        if (typeof scrollLocate == "undefined") {
+            scrollLocate = this.scrollLocate;
+            if (scrollLocate instanceof Object) {
+                scrollLocate = scrollLocate.horizontal;
+            }
+        }
+
+        var left = childView.positionByFather.left;
+        if (this.width < childView.width) {
+            this.scrollHorizontal(left);
+            return;
+        }
+
+        if (scrollLocate == ScrollCenter) {
+            var scrollLeft = left - (this.width - childView.width) / 2;
+            this.scrollHorizontal(scrollLeft);
+            return;
+        }
+
+        if (scrollLocate == ScrollStart) {
+            this.scrollHorizontal(left);
+            return;
+        }
+
+        if (scrollLocate == ScrollEnd) {
+            var scrollLeft = left - this.width + childView.width;
+            this.scrollHorizontal(scrollLeft);
+            return;
+        }
+
+        if (left < 0) {
+            this.scrollHorizontal(left);
+        } else if (left > (this.width - childView.width)) {
+            var scrollLeft = left - (this.width - childView.width);
+            this.scrollHorizontal(scrollLeft)
+        }
     }
 
     scrollTo(x, y) {
@@ -278,6 +406,42 @@ export default class ScrollView extends View {
         this.loadImageResource(true);//这个方法会向子控件迭代加载图片
     }
 
+    /**
+     * 需要向上传递监听，本身不做任何处理
+     * @param{View} view
+     * @param{boolean} isShowing
+     */
+    callVisibleChangeListener(view, isShowing) {
+        if (this.fatherView) {
+            this.fatherView.callVisibleChangeListener(view, isShowing);
+        }
+    }
+
+    /**
+     * 需要向上传递监听，本身不做任何处理
+     * @param{ItemView} view
+     * @param{boolean} hasFocus
+     * @param{boolean} intercept 是否拦截（在子控件中已设置监听，不需要触发父控件的）
+     */
+    callFocusChangeListener(view, hasFocus, intercept) {
+        if (this.fatherView) {
+            this.fatherView.callFocusChangeListener(view, hasFocus, intercept);
+            if (hasFocus) {//不能instanceof GroupView
+                this.fatherView.scrollToChild(this, this.fatherView.scrollLocate);
+            }
+        }
+    }
+
+    /**
+     * 需要向上传递监听，本身不做任何处理
+     * @param{ItemView} view
+     */
+    callClickListener(view) {
+        if (this.fatherView) {
+            this.fatherView.callClickListener(view);
+        }
+    }
+
     appendChild(ele) {
         this.scroller.ele.appendChild(ele);
         this.measure();
@@ -359,10 +523,18 @@ export default class ScrollView extends View {
         scrollView.setAttributeParam(ele);
         scrollView.bindImage();
         scrollView.scroller.init();
+        viewManager.eleToObject(scrollView.scroller.ele, scrollView, listenerLocation);//往内部执行
         return scrollView;
     }
 }
 
+export var ScrollNormal = "normal";
+//对应的ele滚动到居中
+export var ScrollCenter = "center";
+//对应的ele滚动到开始（横向居左/纵向居顶）
+export var ScrollStart = "start";
+//对应的ele滚动到结束（横向居右/纵向居底）
+export var ScrollEnd = "end";
 
 /**
  * 滚动器类

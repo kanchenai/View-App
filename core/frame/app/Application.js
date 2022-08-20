@@ -11,7 +11,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.2.0(2022-07-20)";
+export var version = "0.2.0(2022-08-21)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -174,7 +174,8 @@ export default class Application extends GroupView {
         if (page.lifeState == State.LifeState.STOP) {//停止
             page.destroy();
         }
-
+        var pageInfo = this.pageManager.popPageInfo();//将栈顶数据出栈
+        console.log("出栈数据：", pageInfo)
         if (this.pageList.length == 0) {
             this.keyboard.page = null;//最后一个页面销毁时的保护机制
             this.player.page = null;//最后一个页面销毁时的保护机制

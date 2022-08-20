@@ -88,6 +88,8 @@ export default class ImageView extends View {
         }
 
         this._data = value;
+        this.ele.src = "";
+        this.isLoaded = false;
         this.loadImageResource();
     }
 

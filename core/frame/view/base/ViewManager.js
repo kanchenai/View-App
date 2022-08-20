@@ -154,10 +154,10 @@ export default class ViewManager {
                 if (focusView) {
                     focusView.requestFocus();
                 } else {
-                    console.error("初始id没有对应的焦点");
+                    console.error("初始id没有对应的焦点:",this.page);
                 }
             } else {
-                console.error("未设置初始焦点");
+                console.error("未设置初始焦点:",this.page);
             }
         } else {
             this.focusView.requestFocus();
