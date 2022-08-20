@@ -47,6 +47,11 @@ export default class View {
          */
         this.viewMap = new Map();
         /**
+         * 内部节点
+         * @type {Map<String, Element>}
+         */
+        this.eleMap = new Map();
+        /**
          * 能否上焦
          * @type {boolean}
          */
@@ -91,6 +96,19 @@ export default class View {
         }
 
         return view;
+    }
+
+    findEleById(id) {
+        if (!id) {
+            return null;
+        }
+        var ele = this.eleMap.get(id);
+        if (!ele) {
+            ele = View.findEleBy(id, this.ele);
+            this.eleMap.set(id, ele);
+        }
+
+        return ele;
     }
 
     /**

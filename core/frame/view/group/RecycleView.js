@@ -660,11 +660,6 @@ export class Component extends GroupView {
         this._data = null;
         this.ele = document.createElement("div");
         this.holder = holder;
-        /**
-         * 内部节点
-         * @type {Map<String, Element>}
-         */
-        this.eleMap = new Map();
     }
 
     addChild(view) {
@@ -706,19 +701,6 @@ export class Component extends GroupView {
         }
 
         super.callFocusChangeListener(view, hasFocus, intercept);
-    }
-
-    findEleById(id) {
-        if (!id) {
-            return null;
-        }
-        var ele = this.eleMap.get(id);
-        if (!ele) {
-            ele = View.findEleBy(id, this.ele);
-            this.eleMap.set(id, ele);
-        }
-
-        return ele;
     }
 
     /**
