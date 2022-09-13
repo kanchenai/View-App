@@ -3,7 +3,7 @@ import Page from "@core/frame/page/Page";
 import html from "@html/test.html"
 
 import pic_001 from "@images-js/pic_001.png"
-import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/view/group/GroupView";
+import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/view/base/ScrollView";
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
 import {PlayInfo} from "@core/frame/player/VideoPlayer";
 import VMargin from "@core/frame/util/VMargin";
@@ -44,6 +44,10 @@ export default class TestPage extends Page {
 
     onPositionChangeListener = function (position, duration) {
         // console.log("position",position,"duration",duration);
+    }
+
+    onClickListener(view) {
+        this.findViewById("dialog").show();
     }
 }
 

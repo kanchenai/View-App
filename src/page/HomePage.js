@@ -10,6 +10,7 @@ import HomeFragment_5 from "@fragment/HomeFragment_5";
 
 import html from "@html/home.html"
 import TestPage from "@page/TestPage";
+import ConfirmDialog from "@src/dialog/ConfirmDialog";
 
 export default class HomePage extends Page {
     constructor() {
@@ -37,7 +38,8 @@ export default class HomePage extends Page {
         this.nav_area = this.findViewById("nav_area");
         this.nav_area.selectView = this.nav_area.childViews[0];
 
-        this.dialog = this.findViewById("dialog");
+        // this.dialog = this.findViewById("dialog");
+        this.dialog = new ConfirmDialog(this.viewManager);
 
         if(this.focusView != this.nav_area.selectView){
             this.nav_area.selectView.setSelectStyle();

@@ -1,16 +1,14 @@
 import GroupView from "./GroupView";
 
+/**
+ * 在布局分离写法中，可以继承LoneDialog
+ */
 export default class Dialog extends GroupView {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
         this.focusable = false;
         //page的返回事件
         this.pageKeyBack = null;
-
-        // if(html){
-        //     buildEle(this);//TODO dialog是否可以完全脱离page中的布局，需要验证
-        //     this.html = html;
-        // }
     }
 
     show() {

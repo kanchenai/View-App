@@ -32,56 +32,18 @@ module.exports = function (source) {
     } = this;
     debugger;
     let filename = path.basename(resourcePath);//文件名
-    filename = filename.replace(".html","");
-    // var page = new LoaderPage(source, filename);
+    let dirname = path.dirname(resourcePath);
+    let filePath = path.resolve(__dirname, "../../src/html");
+    let fileFilePath = dirname.replace(filePath, "");
+    filename = filename.replace(".html", "");
+
+    if(fileFilePath){
+        filename = fileFilePath + "/" + filename;
+    }
     var hashcode = hash(filename);
+    // console.log("html filename", filename,"hashcode",hashcode);
     var style_tag = "data-" + hashcode;
     var code = htmlBuilder(source, style_tag);
     return code;
 
 }
-
-class LoaderPage {
-    constructor(source, filename) {
-        this.source = source;
-        this.filename = filename;
-        this.style = this.getStyle();
-        this.html = this.getHtml();
-        this.js = this.getJs();
-    }
-
-    getStyle() {
-        var start = this.source.indexOf('<style>');
-        if (start < 0) {
-            return "";
-        }
-        start += '<script>'.length;
-        var end = this.source.indexOf('</style>');
-        return this.source.substring(start, end);
-    }
-
-    getHtml() {
-        var start = this.source.indexOf('<page>');
-        if (start < 0) {
-            return "";
-        }
-        start += +'<page>'.length;
-        var end = this.source.indexOf('</page>');
-        var str = this.source.substring(start, end);
-        var style_tag = this.filename.replace(".html", "");
-        debugger;
-        str = htmlBuilder(str, style_tag);
-        return str;
-    }
-
-    getJs() {
-        var start = this.source.indexOf('<script>');
-        if (start < 0) {
-            return "";
-        }
-        start += +'<script>'.length;
-        var end = this.source.indexOf('</script>');
-        return this.source.substring(start, end);
-    }
-}
-

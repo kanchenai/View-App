@@ -1,0 +1,36 @@
+
+.contain{
+    width: 480px;
+    height: 270px;
+    left: 400px;
+    top: 225px;
+    background: gray ;
+    border-radius: 7px;
+}
+
+.title{
+    width: 480px;
+    height: 50px;
+    top: 30px;
+    line-height: 50px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.item{
+    width: 150px;
+    height: 50px;
+    border-radius: 7px;
+    background: #409eff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.item{
+    background: #409eff
+}
+
+.item_focus{
+    background: #f87f41;
+}

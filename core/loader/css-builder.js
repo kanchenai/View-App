@@ -1,5 +1,6 @@
 /**
  * 将css加上样式属性
+ * TODO css正则：/^[^\/]([\.\#]?[\w-]+[ ]?[^,])+({|,|\n)/gim
  * @param original_html
  * @returns {string}
  */

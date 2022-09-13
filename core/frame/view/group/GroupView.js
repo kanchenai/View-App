@@ -220,7 +220,7 @@ export default class GroupView extends ScrollView {
             view.data = this.data[this.childViews.length];
         }
         super.addChild(view);
-        if(view instanceof ItemView || view instanceof GroupView) {
+        if (view instanceof ItemView || view instanceof GroupView) {
             var groupView = this;
             if (!view.nextUp) {
                 view.nextUp = function () {
@@ -612,7 +612,10 @@ export default class GroupView extends ScrollView {
     };
 
     static focusViewGroup(view, groupView) {
-        if (!Keyboard.KEY_CODE || Keyboard.KEY_CODE == Keyboard.KEY_OK) {//无动作，直接代码上焦
+        if (Keyboard.KEY_CODE != Keyboard.KEY_UP
+            && Keyboard.KEY_CODE != Keyboard.KEY_DOWN
+            && Keyboard.KEY_CODE != Keyboard.KEY_LEFT
+            && Keyboard.KEY_CODE != Keyboard.KEY_RIGHT) {//非方向键触发
             for (var i = 0; i < groupView.childViews.length; i++) {
                 var child = groupView.childViews[i];
                 if (child.focusable) {

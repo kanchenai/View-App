@@ -168,7 +168,8 @@ view-app.js要和webpack.config.js中module.exports.output.filename相同
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: '[name]_[contenthash:8].css'
+                filename: '[name].css'
+                //filename: '[contenthash:8].css'
             })
         ]
     }
