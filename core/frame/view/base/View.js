@@ -357,6 +357,8 @@ export default class View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
+        //TODO data绑定，根据listenerLocation,获取对应的应用地址，注意：拷贝方式，是否使用get方法
+
         var id = View.parseAttribute("view-id", this.ele);
         if (id) {
             this.id = id;
@@ -376,7 +378,7 @@ export default class View {
 
     static parseAttribute(key, ele) {
         var value = ele.getAttribute(key);
-        if (!value || value == "undefined" || value == "null") {
+        if (!value || value == "undefined" || value == "null" || value == "none" ) {
             return null;
         }
         if (key != "view-id" && key != "view-type") {

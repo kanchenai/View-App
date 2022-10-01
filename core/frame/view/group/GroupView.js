@@ -1,4 +1,9 @@
-import ScrollView, {ScrollNormal} from "@core/frame/view/base/ScrollView";
+import ScrollView, {
+    ScrollCenter,
+    ScrollEnd,
+    ScrollNormal,
+    ScrollStart
+} from "@core/frame/view/base/ScrollView";
 import Keyboard from "@core/frame/app/Keyboard";
 import VPosition from "@core/frame/util/VPosition";
 import View from "@core/frame/view/base/View";
@@ -319,6 +324,19 @@ export default class GroupView extends ScrollView {
 
         if (select == "1" || select == "true") {
             this.select = true;
+        }
+
+        var scrollLocate = View.parseAttribute("view-locate",this.ele);
+        if(scrollLocate == "start"){
+            this.scrollLocate = ScrollStart;
+        }else if(scrollLocate == "center"){
+            this.scrollLocate = ScrollCenter;
+        }else if(scrollLocate == "end"){
+            this.scrollLocate = ScrollEnd;
+        }else{
+            if(scrollLocate){
+                console.warn("view-locate值 错误")
+            }
         }
 
         return viewFocus;

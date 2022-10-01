@@ -8,6 +8,8 @@ export default class ImageView extends View {
         this.isLoaded = false;
         //加载图片的timer，用于节省isShowing和isDisplayRange属性获取的时间
         this.timer = null;
+        //是否立刻加载
+        this.lazy = true;
     }
 
     loadImageResource() {
@@ -90,7 +92,11 @@ export default class ImageView extends View {
         this._data = value;
         this.ele.src = "";
         this.isLoaded = false;
-        this.loadImageResource();
+        if(!this.lazy){
+            this.loadImageImmediate();
+        }else{
+            this.loadImageResource();
+        }
     }
 
     get src() {
@@ -102,6 +108,12 @@ export default class ImageView extends View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
+        var lazy = View.parseAttribute("view-lazy",this.ele);
+
+        if (lazy == "false" || lazy == "0") {
+            this.lazy = false;
+        }
+
         var src = this.ele.src;//将图片地址赋值给src
         if (this.ele.hasAttribute("src")) {
             this.ele.removeAttribute("src");//置空，避免直接加载

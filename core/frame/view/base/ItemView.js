@@ -319,6 +319,11 @@ export default class ItemView extends View {
         //当前的view是不是默认焦点
         super.setAttributeParam();
 
+        var focusable = View.parseAttribute("view-focusable", this.ele);//上
+        if(focusable != "true" && focusable != "1" ){
+            this.focusable = false;
+        }
+
         //当前的view是不是默认焦点
         var viewFocus = this.ele.hasAttribute("view-focus");
 

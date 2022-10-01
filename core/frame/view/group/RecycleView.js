@@ -482,6 +482,81 @@ export default class RecycleView extends GroupView {
             this.template = eleStr;
             this.ele.innerHTML = "";
         }
+
+        var orientation = View.parseAttribute("view-orientation", this.ele);
+        if (orientation == "vertical" || orientation == "v") {
+            this.orientation = VERTICAL;
+        } else if (orientation == "horizontal" || orientation == "h") {
+            this.orientation = HORIZONTAL;
+        }
+        var row = View.parseAttribute("view-row", this.ele);
+        if (row) {
+            row = parseInt(row);
+            if (row > 0) {
+                this.row = row;
+            } else {
+                console.warn("view-row值 错误")
+            }
+        }
+        var col = View.parseAttribute("view-col", this.ele);
+        if (col) {
+            col = parseInt(col);
+            if (col > 0) {
+                this.row = col;
+            } else {
+                console.warn("view-col值 错误")
+            }
+        }
+
+        var circulate = View.parseAttribute("view-circulate", this.ele);
+        if (circulate == "true" || circulate == "1") {
+            this.circulate = true;
+        }
+        var loop = View.parseAttribute("view-loop", this.ele);
+        if (loop == "true" || loop == "1") {
+            this.loop = true;
+        }
+        var margin = View.parseAttribute("view-margin", this.ele);
+        if (margin) {
+            var marginStrs = margin.split(",");
+            if (marginStrs.length == 1) {
+                var value = parseInt(marginStrs[0]);
+                if (!isNaN(value)) {
+                    this.margin = new VMargin(value, value, value, value);
+                }
+            }else if(marginStrs.length == 4){
+                var marginTop = parseInt(marginStrs[0]);
+                if (!isNaN(marginTop)) {
+                    this.margin.top = marginTop;
+                }
+
+                var marginBottom = parseInt(marginStrs[1]);
+                if (!isNaN(marginBottom)) {
+                    this.margin.bottom = marginBottom;
+                }
+
+                var marginLeft = parseInt(marginStrs[2]);
+                if (!isNaN(marginLeft)) {
+                    this.margin.left = marginLeft;
+                }
+
+                var marginRight = parseInt(marginStrs[3]);
+                if (!isNaN(marginRight)) {
+                    this.margin.right = marginRight;
+                }
+            }else{
+                console.warn("view-margin 错误，数量必须是1或4")
+            }
+        }
+
+        var adapter = View.parseAttribute("view-adapter", this.ele);
+
+        if(this.listenerLocation[adapter] instanceof Adapter){
+            this.adapter = this.listenerLocation[adapter];
+        }else{
+            console.warn("view-adapter 错误，类型必须是Adapter")
+        }
+
         return super.setAttributeParam();
     }
 
@@ -783,7 +858,7 @@ var render = function (recycleView, index) {
     var obj = renderBase(recycleView, index);
     index = obj.index;
 
-    let position = obj.position;
+    var position = obj.position;
 
     var renderIndexList = [index];
 
@@ -1094,8 +1169,8 @@ var centerScroller = function (recycleView) {
  * @param{VPosition} position
  */
 var setChildPosition = function (recycleView, childView, position) {
-    let left = position.left + recycleView.scrollLeft;
-    let top = position.top + recycleView.scrollTop;
+    var left = position.left + recycleView.scrollLeft;
+    var top = position.top + recycleView.scrollTop;
     childView.top = top;
     childView.left = left;
     if (top < 0) {//childView已经在recycleView.scroller的范围外的上边了，需要校准
@@ -1131,14 +1206,14 @@ export var getRowAndCol = function (recycleView, index) {
     var length = recycleView.data.length;
     if (recycleView.orientation == VERTICAL) {
         if (index < 0) {
-            let remainder = length % recycleView.col;
+            var remainder = length % recycleView.col;
             if (remainder == 0) {
                 row = Math.floor((index + (length % recycleView.col)) / recycleView.col);
             } else {
                 row = Math.floor((index + (length % recycleView.col)) / recycleView.col) - 1;
             }
         } else if (index >= length) {
-            let remainder = length % recycleView.col;
+            var remainder = length % recycleView.col;
             if (remainder == 0) {
                 row = Math.floor((index - (length % recycleView.col)) / recycleView.col);
             } else {
@@ -1152,14 +1227,14 @@ export var getRowAndCol = function (recycleView, index) {
 
     } else {
         if (index < 0) {
-            let remainder = length % recycleView.row;
+            var remainder = length % recycleView.row;
             if (remainder == 0) {
                 col = Math.floor((index + (length % recycleView.row)) / recycleView.row);
             } else {
                 col = Math.floor((index + (length % recycleView.row)) / recycleView.row) - 1;
             }
         } else if (index >= length) {
-            let remainder = length % recycleView.row;
+            var remainder = length % recycleView.row;
             if (remainder == 0) {
                 col = Math.floor((index - (length % recycleView.row)) / recycleView.row);
             } else {

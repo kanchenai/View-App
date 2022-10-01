@@ -500,6 +500,11 @@ export default class ScrollView extends View {
     }
 
     setAttributeParam() {
+        var animation = View.parseAttribute("view-animation",this.ele);
+        if(animation != "true" && animation != "1" ){
+            this.animation = false;
+        }
+
         var scrollStart = View.parseAttribute("view-scrollStart", this.ele);//开始滚动
         var scrolling = View.parseAttribute("view-scrolling", this.ele);//开始滚动
         var scrollEnd = View.parseAttribute("view-scrollEnd", this.ele);//开始滚动
