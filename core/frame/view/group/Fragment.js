@@ -7,6 +7,10 @@ export default class Fragment extends GroupView {
         this.listenerLocation = this;
         this.isForeground = false;
         this.lifeState = State.LifeState.BEFORE_CREATE;
+
+        //左右禁止
+        this.nextLeft = "none";
+        this.nextRight = "none";
     }
 
     startPage(page,param){
