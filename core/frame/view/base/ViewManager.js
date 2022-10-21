@@ -5,6 +5,7 @@ import FrameView from "../group/FrameView";
 import ItemView from "./ItemView";
 import Dialog from "@core/frame/view/group/Dialog";
 import RecycleView from "@core/frame/view/group/RecycleView";
+import VMap from "@core/frame/util/VMap";
 
 /**
  * @constructor
@@ -21,7 +22,7 @@ export default class ViewManager {
     }
 
     clear() {
-        this.viewMap = new Map();
+        this.viewMap = new VMap();
         this.focusId = "";
         this.focusView = null;
     }

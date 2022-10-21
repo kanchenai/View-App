@@ -320,7 +320,7 @@ export default class ItemView extends View {
         super.setAttributeParam();
 
         var focusable = View.parseAttribute("view-focusable", this.ele);//上
-        if(focusable != "true" && focusable != "1" ){
+        if(focusable == "false" && focusable == "0" ){
             this.focusable = false;
         }
 

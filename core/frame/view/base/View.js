@@ -2,6 +2,7 @@ import VPosition from "../../util/VPosition";
 import VSize from "../../util/VSize";
 import Application from "../../app/Application";
 import ViewManager from "@core/frame/view/base/ViewManager";
+import VMap from "@core/frame/util/VMap";
 
 export default class View {
     /**
@@ -43,14 +44,14 @@ export default class View {
         this.childViews = [];
         /**
          * 使用id做key，子控件做value，主要用于findViewById
-         * @type {Map<string, View>}
+         * @type {VMap<string, View>}
          */
-        this.viewMap = new Map();
+        this.viewMap = new VMap()
         /**
          * 内部节点
-         * @type {Map<String, Element>}
+         * @type {VMap<String, Element>}
          */
-        this.eleMap = new Map();
+        this.eleMap = new VMap();
         /**
          * 能否上焦
          * @type {boolean}

@@ -4,6 +4,7 @@ import VMargin from "@core/frame/util/VMargin";
 import VSize from "@core/frame/util/VSize";
 import View from "@core/frame/view/base/View";
 import VPosition from "@core/frame/util/VPosition";
+import VMap from "@core/frame/util/VMap";
 
 /**
  *
@@ -60,9 +61,9 @@ export default class RecycleView extends GroupView {
         /**
          * 正在使用的Component
          * key：index相关
-         * @type {Map<number, Holder>}
+         * @type {VMap<number, Holder>}
          */
-        this.activeHolderMap = new Map();
+        this.activeHolderMap = new VMap();
         /**
          * 可见行
          * @type {number}
@@ -122,7 +123,7 @@ export default class RecycleView extends GroupView {
         }
         //置空holder
         this.recycleHolderList = [];
-        this.activeHolderMap = new Map();
+        this.activeHolderMap = new VMap();
         this.ele.html = "";//置空节点
 
         computeSeatSize(this);//获取子控件的占位
@@ -524,7 +525,7 @@ export default class RecycleView extends GroupView {
                 if (!isNaN(value)) {
                     this.margin = new VMargin(value, value, value, value);
                 }
-            }else if(marginStrs.length == 4){
+            } else if (marginStrs.length == 4) {
                 var marginTop = parseInt(marginStrs[0]);
                 if (!isNaN(marginTop)) {
                     this.margin.top = marginTop;
@@ -544,17 +545,19 @@ export default class RecycleView extends GroupView {
                 if (!isNaN(marginRight)) {
                     this.margin.right = marginRight;
                 }
-            }else{
+            } else {
                 console.warn("view-margin 错误，数量必须是1或4")
             }
         }
 
         var adapter = View.parseAttribute("view-adapter", this.ele);
 
-        if(this.listenerLocation[adapter] instanceof Adapter){
-            this.adapter = this.listenerLocation[adapter];
-        }else{
-            console.warn("view-adapter 错误，类型必须是Adapter")
+        if(adapter && adapter!="null" && adapter != "none "){
+            if (this.listenerLocation[adapter] instanceof Adapter) {
+                this.adapter = this.listenerLocation[adapter];
+            } else {
+                console.warn("view-adapter 错误，类型必须是Adapter")
+            }
         }
 
         return super.setAttributeParam();
@@ -866,14 +869,18 @@ var render = function (recycleView, index) {
     renderIndexList = renderIndexList.concat(renderSmaller(recycleView, index, position));
     renderIndexList = renderIndexList.concat(renderBigger(recycleView, index, position));
     // console.log("renderIndexList", renderIndexList)
-    recycleView.activeHolderMap.forEach(function (value, key, map) {
+
+    var keys = recycleView.activeHolderMap.keys();
+    for (var i = 0; i < keys.length; i++) {
+        var key = parseInt(keys[i]);
         if (renderIndexList.indexOf(key) < 0) {
+            var value = recycleView.activeHolderMap.get(key);
             if (value) {
                 // console.log("recycle index",key)
                 value.recycle();
             }
         }
-    });
+    }
 }
 
 /**

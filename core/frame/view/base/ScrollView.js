@@ -501,7 +501,7 @@ export default class ScrollView extends View {
 
     setAttributeParam() {
         var animation = View.parseAttribute("view-animation",this.ele);
-        if(animation != "true" && animation != "1" ){
+        if(animation == "false" && animation == "0" ){
             this.animation = false;
         }
 

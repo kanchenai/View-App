@@ -95,4 +95,5 @@ module.exports = {
     // }
     //使用source-map直接调试es6代码
     devtool: 'source-map',
+    stats: "none",
 }

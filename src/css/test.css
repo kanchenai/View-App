@@ -34,10 +34,22 @@
     background: #f87f41;
 }
 
-.dialog{
+.dialog,
+.dialog .bg {
+    width: 1280px;
+    height: 720px;
+}
+
+.dialog .bg img {
     width: 480px;
     height: 270px;
     left: 400px;
     top: 225px;
-    display: none;
+}
+
+.dialog .shadow {
+    width: 1280px;
+    height: 720px;
+    background: gray;
+    opacity: 50%;
 }

@@ -37,8 +37,11 @@ export default class MyApplication extends Application {
             case "home":
                 firstPage = new HomePage();
                 break;
+            case "list":
+                firstPage = new ListPage();
+                break;
             case "test":
-                    firstPage = new TestPage();
+                firstPage = new TestPage();
                 break;
             default:
                 firstPage = new HomePage();
