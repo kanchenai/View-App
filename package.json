@@ -15,7 +15,9 @@
     "babel-loader": "^8.2.3",
     "file-loader": "^6.2.0",
     "hash-sum": "^2.0.0",
-    "schema-utils": "^4.0.0"
+    "html-withimg-loader": "^0.1.16",
+    "schema-utils": "^4.0.0",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
