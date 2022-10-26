@@ -3,9 +3,7 @@ import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
 import TestPage from "./page/TestPage"
 import IptvPlayer from "@core/frame/player/IptvPlayer";
-import FramePage from "@page/FramePage";
-import WebPlayer from "@src/util/WebPlayer";
-import {PlayInfo} from "@core/frame/player/VideoPlayer";
+import AliWebPlayer from "@src/util/AliWebPlayer";
 
 require('./global_style.css')
 
@@ -78,7 +76,7 @@ export default class MyApplication extends Application {
         try{
             player = new IptvPlayer(this.keyboard);
         }catch (e){
-            player = new WebPlayer();
+            player = new AliWebPlayer();
         }
         return player;
     }
