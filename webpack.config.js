@@ -57,7 +57,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         limit: 5000,
-                        name: 'static/[path][name]_[contenthash:8].[ext]',
+                        name: 'static/[path][name].[ext]',
                         context: path.resolve(__dirname, './src'),//过滤掉[path]的相对路径
                         publicPath:'./',
                         esModule: false
