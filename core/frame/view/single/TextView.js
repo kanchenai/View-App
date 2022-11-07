@@ -209,9 +209,10 @@ export default class TextView extends View {
  * 如果文字单行，左右跑马灯
  * 如果多行，上下轮播
  */
-class TextScroller extends Scroller {
+class TextScroller extends View {
     constructor(fatherView) {
-        super(fatherView);
+        super(null);
+        this.fatherView = fatherView;
         //最小滚动速度
         this.speed = 1;
         //刷新间隔

@@ -49,6 +49,9 @@ export default class GroupView extends ScrollView {
         this.measure();
         //绑定ImageView
         this.bindImage();
+        //绑定TextView
+        this.bindText();
+
     }
 
     get html() {
