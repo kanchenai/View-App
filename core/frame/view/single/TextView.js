@@ -2,9 +2,14 @@ import {Scroller} from "@core/frame/view/base/ScrollView";
 import View from "@core/frame/view/base/View";
 import State from "@core/frame/util/State";
 
+/**
+ * 纵向滚动时：
+ *  1.单个单词必定一行，当后续单词超过一行，会主动为两行
+ *  2.使用<br> 主动换行
+ */
 export default class TextView extends View {
-    constructor(viewManager,listenerLocation) {
-        super(viewManager,listenerLocation);
+    constructor(viewManager, listenerLocation) {
+        super(viewManager, listenerLocation);
 
         delete this.childViews;
 
@@ -63,7 +68,7 @@ export default class TextView extends View {
         //判断跑马灯方向
         this.html = "";
         this.span = document.createElement("span");
-        this.span.innerText = this.text;
+        this.span.innerHTML = this.text;
         this.ele.appendChild(this.span);
         if (this.style.whiteSpace == "nowrap") {//横向
             this.orientation = State.Orientation.horizontal;
@@ -122,7 +127,7 @@ export default class TextView extends View {
         //赋值文字，重新执行
         if (this.span) {//判断过跑马灯
             this._data = value;
-            this.span.innerText = this.text;
+            this.span.innerHTML = this.text;
             if (this.isMarquee) {
                 this.clearMarquee();
             }
@@ -155,7 +160,9 @@ export default class TextView extends View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
-        var text = this.ele.innerText;//  类似"\n"这样的符号也会被获取并生效
+        var text = this.ele.innerHTML;//  类似"\n"这样的符号也会被获取并生效
+        this.setStyle("lineHeight", this.height + "px");//自动加上lineHeight
+        this.setStyle("overflow", "hidden");//自动加上超出隐藏
         this.text = text;
 
         return super.setAttributeParam();
@@ -193,7 +200,7 @@ export default class TextView extends View {
                 }
             }
             if (viewType == "VIEW-TEXT" || viewType == "TEXT") {
-                view.text = TextView.parseByEle(child_ele, view.viewManager,view.listenerLocation);
+                view.text = TextView.parseByEle(child_ele, view.viewManager, view.listenerLocation);
             } else {
                 if (!viewType
                     || (viewType.indexOf("VIEW") == -1
@@ -214,7 +221,7 @@ class TextScroller extends View {
         super(null);
         this.fatherView = fatherView;
         //最小滚动速度
-        this.speed = 1;
+        this.speed = 2;
         //刷新间隔
         this.cell = 20;
 
@@ -268,7 +275,6 @@ class TextScroller extends View {
         this.isMarquee = false;
         clearTimeout(this.marqueeTimer);
     }
-
 }
 
 /**
@@ -313,11 +319,11 @@ var startVerticalScroll = function (scroller, h, y, speed) {
 
     if (top + y < (h / 2)) {
         top = -h;
-        scroller.verticalTo(0);
+        scroller.top = 0;
     } else {
         top -= h;
-        scroller.smoothVerticalTo(top);
     }
+    startScrollVerticalTo(scroller, top, Math.ceil(h / scroller.cell) + 1);
 
     scroller.marqueeTimer = setTimeout(function () {
         if (scroller && scroller.isMarquee) {
@@ -325,3 +331,31 @@ var startVerticalScroll = function (scroller, h, y, speed) {
         }
     }, (1000 * speed));
 }
+
+/**
+ * 纵向滚动的工具，不对外
+ * 简化ScrollView中方法
+ * @param scroller
+ * @param y
+ * @param scrollSpeed
+ */
+var startScrollVerticalTo = function (scroller, y, speed) {
+    var top = scroller.top;
+    if (Math.abs(top - y) < speed) {
+        scroller.top = y;
+        return;
+    }
+
+    if (y > top) {
+        top += speed;
+    } else {
+        top -= speed;
+    }
+    scroller.top = top;
+
+    scroller.vTimer = setTimeout(function () {
+        if (scroller && scroller.ele) {
+            startScrollVerticalTo(scroller, y, speed);
+        }
+    }, scroller.cell);
+};
