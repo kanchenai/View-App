@@ -6,7 +6,7 @@ export default class AliWebPlayer extends VideoPlayer{
 
         this.divId = "player-con";
         this.isInit = false;//是否已加载js和css文件
-        this.isLive = true;//是否时直播
+        this.isLive = false;//是否时直播
         initPlayer(this);
         this.player = null;
     }
