@@ -16,6 +16,8 @@
  * 1.startRefreshPlayerState
  *
  */
+import VMap from "@core/frame/util/VMap";
+
 export default class VideoPlayer {
     constructor() {
         this.page = null;
@@ -47,46 +49,47 @@ export default class VideoPlayer {
         this.isOnComplete = false;
         //盒子型号
         this.stbType = "";
-
-        /**
-         * 播放进度变化监听
-         * @param position 当前进度
-         * @param duration 总时长
-         */
-        this.onPositionChangeListener = "";
-        /**
-         * 音量变化监听
-         * @param volume 变化之后的音量
-         */
-        this.onVolumeChangeListener = "";
-        /**
-         * 开始播放监听
-         */
-        this.onPlayStart = "";
-        /**
-         * 结束播放监听
-         */
-        this.onPlayComplete = "";
-        /**
-         * 暂停播放监听
-         */
-        this.onPlayPause = "";
-        /**
-         * 继续播放监听
-         */
-        this.onPlayResume = "";
-        /**
-         * 停止播放监听
-         */
-        this.onPlayStop = "";
-        /**
-         * 异常播放监听
-         */
-        this.onPlayError = "";
-        /**
-         * 调整播放进度监听
-         */
-        this.onPlayByTime = "";
+        //记录各个page设置的listener
+        this.listenMap = new VMap();
+        // /**
+        //  * 播放进度变化监听
+        //  * @param position 当前进度
+        //  * @param duration 总时长
+        //  */
+        // this.onPositionChangeListener = "";
+        // /**
+        //  * 音量变化监听
+        //  * @param volume 变化之后的音量
+        //  */
+        // this.onVolumeChangeListener = "";
+        // /**
+        //  * 开始播放监听
+        //  */
+        // this.onPlayStart = "";
+        // /**
+        //  * 结束播放监听
+        //  */
+        // this.onPlayComplete = "";
+        // /**
+        //  * 暂停播放监听
+        //  */
+        // this.onPlayPause = "";
+        // /**
+        //  * 继续播放监听
+        //  */
+        // this.onPlayResume = "";
+        // /**
+        //  * 停止播放监听
+        //  */
+        // this.onPlayStop = "";
+        // /**
+        //  * 异常播放监听
+        //  */
+        // this.onPlayError = "";
+        // /**
+        //  * 调整播放进度监听
+        //  */
+        // this.onPlayByTime = "";
     }
 
     /**
@@ -105,6 +108,7 @@ export default class VideoPlayer {
         if (playInfo) {
             this.playInfo = playInfo;
         }
+        this.isPlaying = true;
         //需要被重写，并调用父类方法，调用之后，补充对应播放器的实际功能
         //在子类中续写实际播放功能，然后调用this.startRefreshPlayerState()方法
         //this.startRefreshPlayerState();//开始刷新播放转台
@@ -119,7 +123,7 @@ export default class VideoPlayer {
      * @param time
      */
     playByTime(time) {
-        if(!this.isPlaying){
+        if (!this.isPlaying) {
             this.resume();
         }
         if (this.completeTimer) {
@@ -188,7 +192,7 @@ export default class VideoPlayer {
 
         if (this.isMute) {
             this.callVolumeChangeListener(-1);
-        }else{
+        } else {
             this.callVolumeChangeListener(this.volume);
         }
     }
@@ -214,7 +218,7 @@ export default class VideoPlayer {
     /**
      * 在子类中重写
      */
-    set realVolume(value){
+    set realVolume(value) {
         console.error("set realVolume未在子类中实现")
     }
 
@@ -439,7 +443,7 @@ export default class VideoPlayer {
         return this._duration;
     }
 
-    set duration(value){
+    set duration(value) {
         this._duration = value;
     }
 
@@ -459,6 +463,211 @@ export default class VideoPlayer {
     get volume() {
         return this._volume;
     }
+
+    get listener(){
+        return this.listenMap.get(this.page.id);
+    }
+
+    /**
+     * 播放进度变化监听
+     * @param position 当前进度
+     * @param duration 总时长
+     */
+    set onPositionChangeListener(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPositionChangeListener = value;
+        } else {
+            listener = {onPositionChangeListener: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPositionChangeListener() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPositionChangeListener;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 音量变化监听
+     * @param volume 变化之后的音量
+     */
+    set onVolumeChangeListener(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onVolumeChangeListener = value;
+        } else {
+            listener = {onVolumeChangeListener: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onVolumeChangeListener() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onVolumeChangeListener;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 开始播放监听
+     */
+    set onPlayStart(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayStart = value;
+        } else {
+            listener = {onPlayStart: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayStart() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayStart;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 结束播放监听
+     */
+    set onPlayComplete(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayComplete = value;
+        } else {
+            listener = {onPlayComplete: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayComplete() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayComplete;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 暂停播放监听
+     */
+    set onPlayPause(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayPause = value;
+        } else {
+            listener = {onPlayPause: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayPause() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayPause;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 继续播放监听
+     */
+    set onPlayResume(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayResume = value;
+        } else {
+            listener = {onPlayResume: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayResume() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayResume;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 停止播放监听
+     */
+    set onPlayStop(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayStop = value;
+        } else {
+            listener = {onPlayStop: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayStop() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayStop;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 异常播放监听
+     */
+    set onPlayError(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayError = value;
+        } else {
+            listener = {onPlayError: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayError() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayError;
+        }
+
+        return listener;
+    }
+
+    /**
+     * 调整播放进度监听
+     */
+    set onPlayByTime(value) {
+        var listener = this.listener;
+        if (listener) {
+            listener.onPlayByTime = value;
+        } else {
+            listener = {onPlayByTime: value}
+            this.listenMap.set(this.page.id, listener)
+        }
+    }
+
+    get onPlayByTime() {
+        var listener = "";
+        if (this.listener) {
+            listener = this.listener.onPlayByTime;
+        }
+
+        return listener;
+    }
 }
 
 /**
@@ -472,5 +681,5 @@ export class PlayInfo {
         this.width = width || 0;
         this.height = height || 0;
     }
-
 }
+

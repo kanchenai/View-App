@@ -7,6 +7,7 @@ import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/vi
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
 import {PlayInfo} from "@core/frame/player/VideoPlayer";
 import VMargin from "@core/frame/util/VMargin";
+import PlayerPage from "@page/PlayerPage";
 
 export default class TestPage extends Page {
     constructor() {
@@ -29,17 +30,14 @@ export default class TestPage extends Page {
         this.recycleView.adapter = adapter;
         this.recycleView.data = new Array(55);
 
-        // var player = this.application.player;
-        // var playUrl = "http://cclive2.aniu.tv/live/anzb.m3u8"
-        // var playInfo = new PlayInfo(playUrl,0,0,50,50);
-        // player.play(0,playInfo);
-        //
-        // player.onPlayStart = this.onPlayStart;
-        // player.onPositionChangeListener = this.onPositionChangeListener;
+
+        this.application.player.onPlayStart = this.onPlayStart;
+        this.application.player.onPositionChangeListener = this.onPositionChangeListener;
     }
 
     onPlayStart() {
-        console.log("开始播放")
+        console.log(this.pageName + " 开始播放")
+        this.findViewById("bg").hide();
     }
 
     onPositionChangeListener = function (position, duration) {
@@ -47,7 +45,30 @@ export default class TestPage extends Page {
     }
 
     onClickListener(view) {
-        this.findViewById("dialog").show();
+        // this.findViewById("dialog").show();
+
+        var playerPage = new PlayerPage();
+        this.startPage(playerPage,null);
+    }
+
+    onResume() {
+        var player = this.application.player;
+        var playUrl = "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8"
+        var playInfo = new PlayInfo(playUrl,0,0,640,360);
+        setTimeout(function (){
+            player.play(0,playInfo);
+        },500);
+    }
+
+    onPause() {
+        if(this.application.player.isPlaying){
+            this.application.player.pause();
+        }
+        this.findViewById("bg").show();
+    }
+
+    onDestroy() {
+        this.application.player.destroy();
     }
 }
 

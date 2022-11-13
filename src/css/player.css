@@ -1,0 +1,17 @@
+.item,
+.item_focus{
+    width: 176px;
+    height: 99px;
+}
+
+.item{
+    background: green;
+    color: white;
+    line-height: 99px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.item_focus{
+    background: red;
+}

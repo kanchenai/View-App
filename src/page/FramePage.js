@@ -4,6 +4,7 @@ import html from "../html/frame.html"
 import Fragment_0 from "@fragment/Fragment_0";
 import Fragment_1 from "@fragment/Fragment_1";
 import Fragment_2 from "@fragment/Fragment_2";
+import TestPage from "@page/TestPage";
 
 export default class FramePage extends Page{
     constructor() {
@@ -39,6 +40,11 @@ export default class FramePage extends Page{
                 this.frame_view.switchTo(2);
                 break;
         }
+    }
+
+    onClickListener(view) {
+        var testPage = new TestPage();
+        this.startPage(testPage,null);
     }
 
     onResume() {

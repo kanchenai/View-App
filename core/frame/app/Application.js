@@ -11,7 +11,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.2.3(2022-11-08)";
+export var version = "0.2.3(2022-11-13)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -148,11 +148,11 @@ export default class Application extends GroupView {
         }
 
         this.addChild(page);
+        this.player.page = page;//监听需要在create时设置
         page.create(param);
         page.resume();
         this.measure();
         this.keyboard.page = page;
-        this.player.page = page;
         page.isForeground = true;
 
         // console.log(this.pageList);

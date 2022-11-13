@@ -6,7 +6,7 @@ export default class AliWebPlayer extends VideoPlayer{
 
         this.divId = "player-con";
         this.isInit = false;//是否已加载js和css文件
-        this.isLive = false;//是否时直播
+        this.isLive = true;//是否时直播
         initPlayer(this);
         this.player = null;
     }
@@ -15,7 +15,7 @@ export default class AliWebPlayer extends VideoPlayer{
         if(this.isInit){
             super.play(startTime, playInfo);
             createPlayer(this);
-
+            this._volume = this.player.getVolume() * 100;
             this.startRefreshPlayerState();
         }else{
             var that = this;
@@ -50,12 +50,19 @@ export default class AliWebPlayer extends VideoPlayer{
     }
 
     destroy() {
-        this.player.dispose();
+        try{
+            this.player.dispose();
+        }catch (e){}
         super.destroy();
     }
 
     mute() {
-        this.player.muted(!this.isMute);
+        if(!this.isMute){
+            this.player.mute();
+        }else{
+            this.realVolume = this.volume;
+        }
+
         super.mute();
     }
 
@@ -73,6 +80,7 @@ export default class AliWebPlayer extends VideoPlayer{
     }
 
     set realVolume(value) {
+        console.log("set realVolume",value);
         this.player.muted(false);
         this.player.setVolume(value / 100);
     }

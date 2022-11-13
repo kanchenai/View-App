@@ -4,7 +4,9 @@ import GroupView from "../view/group/GroupView";
 
 export default class Page extends GroupView {
     constructor() {
-        super(null,null);
+        super(null, null);
+        this.id = "page_" + new Date().getTime() + "_" + Math.ceil(Math.random() * 20);
+
         this.listenerLocation = this;
         this.focusable = false;
         delete this.data;
@@ -190,7 +192,7 @@ export default class Page extends GroupView {
      * 去除调用application的callFocusChangeListener调用
      */
     callFocusChangeListener(view, hasFocus, intercept) {
-        if(intercept){
+        if (intercept) {
             return;
         }
         if (this.onFocusChangeListener && typeof this.onFocusChangeListener == "string") {
@@ -320,6 +322,9 @@ export default class Page extends GroupView {
     };
 
     key_mute_event() {
+        if (this.application.player) {
+            this.application.player.mute();
+        }
     };
 
     //删除
@@ -328,9 +333,15 @@ export default class Page extends GroupView {
 
     //音量增减
     key_volUp_event() {
+        if (this.application.player) {
+            this.application.player.volumeUp();
+        }
     };
 
     key_volDown_event() {
+        if (this.application.player) {
+            this.application.player.volumeDown();
+        }
     };
 
     //四色
