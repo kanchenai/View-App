@@ -1,102 +1,59 @@
 import VideoPlayer, {PlayInfo} from "@core/frame/player/VideoPlayer";
+import RealPlayer from "@core/frame/player/RealPlayer";
 
-export default class IptvPlayer extends VideoPlayer {
+export default class IptvPlayer extends RealPlayer {
     /**
      *
      * @param{Keyboard} keyboard
      */
-    constructor(keyboard) {
+    constructor() {
         super();
         /**
          * @type {IptvPlayInfo}
          */
-        this.playInfo = new IptvPlayInfo();
         //iptv原生播放器本尊，如果不在盒子上跑，这里会报错，try catch之后切换播放器
         this.mp = new MediaPlayer();
         //播放器对应的id
         this.instanceId = this.mp.getNativePlayerInstanceID();
-        this._volume = this.mp.getVolume();
-
-        keyboard.key_player_event = key_player_event;//重写播放事件处理
-    }
-
-    /**
-     * 使用播放json播放
-     * 一般播放适配在这个方法中修改的
-     * @param json
-     */
-    playByJson(json) {
-        var player = this;
-        initMediaPlay(player, json);//初始化播放器
-
-        //调用播放器开始播放的方法
-        player.mp.playFromStart();
-        setTimeout(function () {//此处为兼容
-            player.mp.playByTime(1, startTime, 1);
-        }, 200);
-        this.startRefreshPlayerState();//开始刷新播放器状态
+        this._mute = false;
     }
 
     /**
      *
      * @param startTime
-     * @param{IptvPlayInfo} playInfo
-     * @returns {null}
+     * @param{IptvPlayInfo|PlayInfo} playInfo
      */
     play(startTime, playInfo) {
-        super.play(startTime, playInfo)
         if (this.playInfo.playUrl) {//使用播放地址播放
-            this.playByUrl(startTime, playInfo);
+            var json = buildPlayJson(playInfo.playUrl); //组装播放json
+            playByJson(startTime,json);
         } else if (this.playInfo.code && this.playInfo.epgDomain) {
-            this.playByCode(startTime, playInfo);
+            // this.playByCode(startTime, playInfo); //TODO 暂不实现
         } else {
             console.error("播放参数设置错误：" + this.playInfo);
         }
-
     }
 
-    playByUrl(startTime, playInfo) {
-        var json = buildPlayJson(); //组装播放json
-        this.playByJson(json);
-    }
-
-    playByCode(startTime, playInfo) {
-        var player = this;
-
-        var callback = function (json) {
-            player.playByJson(json);
-        };
-
-        //TODO 暂不实现
-    }
 
     playByTime(time) {
         time = time - 0;//防止time类型为string
         this.mp.playByTime(1, time, 1);
-        if (!this.isPlaying) {
-            this.resume();
-        }
-        super.playByTime(time);
     }
 
     pause() {
         this.mp.pause();
-        super.pause();
     }
 
     resume() {
         this.mp.resume();
-        super.resume();
     }
 
     stop() {
         this.mp.stop();
-        super.stop();
     }
 
     destroy() {
         this.stop();
-        super.destroy();
         var player = this;
         //释放终端 MediaPlayer 的对象，结束对应MediaPlayer 的生命周期。
         setTimeout(function () {
@@ -112,31 +69,49 @@ export default class IptvPlayer extends VideoPlayer {
             this.mp.setMuteFlag(1);
         }
 
-        super.mute();
     }
 
-    set realVolume(value){
-        this.mp.setVolume(value);
-    }
-
-    get realPosition() {
+    get position() {
         return this.mp.getCurrentPlayTime() - 0;
     }
 
-    get realDuration() {
+    get duration() {
         return this.mp.getMediaDuration() - 0;
     }
+
+    set volume(value){
+        this.mp.setVolume(value);
+    }
+
+    get volume() {
+        var value = Math.ceil(this.mp.getVolume());
+        if(value > 100){
+            value = 100;
+        }else if(value < 0){
+            value = 0;
+        }
+        return value;
+    }
+
+    get isMute(){
+        return this._mute;
+    }
+
 }
 
 /**
- * Iptv播放器的playInfo，存在使用code播放的情况
+ * 使用播放json播放
+ * 一般播放适配在这个方法中修改的
+ * @param json
  */
-export class IptvPlayInfo extends PlayInfo {
-    constructor(playUrl, code, epgDomain, left, top, width, height) {
-        super(playUrl, left, top, width, height);
-        this.code = code || "";
-        this.epgDomain = epgDomain || "";
-    }
+var playByJson = function (player,startTime,json) {
+    initMediaPlay(player, json);//初始化播放器
+
+    //调用播放器开始播放的方法
+    player.mp.playFromStart();
+    setTimeout(function () {//此处为兼容
+        player.mp.playByTime(1, startTime, 1);
+    }, 200);
 }
 
 var buildPlayJson = function (playUrl) {
@@ -225,45 +200,10 @@ var initVolume = function (player) {
     var muteFlag = player.mp.getMuteFlag();
     if (muteFlag == 1) {//静音
         player.mp.setMuteFlag(1);
-        player.isMute = true;
+        player._mute = true;
     } else {
         player.mp.setMuteFlag(0);//适配兼容新疆电信 华为EC6108V9 默认静音
-        player.isMute = false
-        if (player.volume >= 100) {
-            player.volume = 100;
-        }
+        player._mute = false
     }
 
 }
-
-/**
- *
- * @param{IptvPlayer} player
- * @param{String} eventJson
- */
-var key_player_event = function (player,eventJson) {
-    var typeStr = eventJson.type;
-    switch (typeStr) {
-        case "EVENT_TVMS":
-        case "EVENT_TVMS_ERROR":
-            return;
-        case "EVENT_MEDIA_ERROR":
-            player.callPlayError();
-            return;
-        case "EVENT_MEDIA_END":
-            player.callPlayComplete();
-            return;
-        case "EVENT_PLTVMODE_CHANGE":
-            return;
-        case "EVENT_PLAYMODE_CHANGE":
-            //播放模式改变，在switch外处理
-            break;
-        case "EVENT_MEDIA_BEGINING":
-            player.callPlayStart();
-            return;
-        case "EVENT_GO_CHANNEL":
-            return;
-        default:
-            break;
-    }
-};

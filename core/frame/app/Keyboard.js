@@ -162,7 +162,7 @@ export default class Keyboard {
             case Keyboard.KEY_MPEVENT:
                 //播放事件处理
                 eval("eventJson=" + Utility.getEvent());
-                this.key_player_event(eventJson);
+                this.page.key_player_event(eventJson);
                 break;
             default:
                 var dispatch = this.page.key_default_event(keyCode);
@@ -177,14 +177,6 @@ export default class Keyboard {
         Keyboard.KEY_CODE = -1;
         return false;
     }
-
-    /**
-     * 播放事件,
-     * @param player_event 播放的具体信息
-     */
-    key_player_event(player_event) {
-    };
-
 }
 
 //返回键

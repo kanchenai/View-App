@@ -110,6 +110,6 @@ module.exports = {
     // devServer: {//一般使用默认
     // }
     //使用source-map直接调试es6代码
-    devtool: 'source-map',
+    devtool: 'source-map',//打包时，注释掉这行
     stats: "errors-only",
 }

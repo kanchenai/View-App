@@ -3,8 +3,8 @@ import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
 import TestPage from "./page/TestPage"
 import IptvPlayer from "@core/frame/player/IptvPlayer";
-import AliWebPlayer from "@src/util/AliWebPlayer";
 import PlayerPage from "@page/PlayerPage";
+import AliWebPlayer from "@src/util/AliWebPlayer";
 
 require('./global_style.css')
 

@@ -33,6 +33,11 @@
     devtool: 'source-map'
 ```
 
+将打包模式为生产模式
+```javascript
+    mode: "development"//运行环境：开发环境
+    // mode: "production",//运行环境：生产环境
+```
 
 ### 起步
 #### Application启动

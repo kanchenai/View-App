@@ -4,7 +4,8 @@ import html from "@html/player.html"
 
 import pic_001 from "@images-js/pic_001.png"
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
-import {PlayInfo} from "@core/frame/player/VideoPlayer";
+import VideoPlayer from "@core/frame/player/VideoPlayer";
+import PlayInfo from "@core/frame/player/PlayInfo";
 
 export default class PlayerPage extends Page {
     constructor() {
@@ -14,37 +15,61 @@ export default class PlayerPage extends Page {
 
     onCreate(param) {
         this.html = html;
-
-        var player = this.application.player;
-        var playUrl = "http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8"
+        this.player = new VideoPlayer(this);
+        var playUrl = "http://live.ynurl.com/video/s10037-JCTV/index.m3u8"
         var playInfo = new PlayInfo(playUrl, 0, 0, 640, 360);
 
-        setTimeout(function () {
-            player.play(0, playInfo);
-        }, 500);
+        this.player.play(0, playInfo);
 
-        player.onPlayStart = this.onPlayStart;
-        player.onPositionChangeListener = this.onPositionChangeListener;
-    }
-
-    onPlayStart() {
-        console.log(this.pageName + " 开始播放")
-        this.findViewById("bg").hide();
+        this.player.onPositionChangeListener = this.onPositionChangeListener;
+        this.player.onVolumeChangeListener = "onVolumeChangeListener";
+        this.player.onPlayStart = this.onPlayStart;
+        this.player.onPlayComplete = "";
+        this.player.onPlayPause = "onPlayPause";
+        this.player.onPlayResume = "onPlayResume";
+        this.player.onPlayStop = "onPlayStop";
+        this.player.onPlayError = "";
+        this.player.onPlayByTime = "onPlayByTime";
     }
 
     onPositionChangeListener = function (position, duration) {
-        // console.log("position",position,"duration",duration);
+        console.log(this.pageName + " position",position,"duration",duration);
+    }
+
+    onVolumeChangeListener(volume) {
+        console.log(this.pageName + " volume", volume);
+    }
+
+    onPlayStart() {
+        console.log(this.pageName + " onPlayStart");
+        this.findViewById("bg").hide();
+    }
+
+    onPlayPause() {
+        console.log(this.pageName + " onPlayPause");
+    }
+
+    onPlayResume() {
+        console.log(this.pageName + " onPlayResume");
+    }
+
+    onPlayStop() {
+        console.log(this.pageName + " onPlayStop");
+    }
+
+    onPlayByTime(time) {
+        console.log(this.pageName + " onPlayByTime", time);
     }
 
     onClickListener(view) {
        switch (view.id){
            case "btn_play":
-               if(this.application.player.isPlaying){
+               if(this.player.isPlaying){
                    view.ele.innerText = "播放"
-                   this.application.player.pause();
+                   this.player.pause();
                }else{
                    view.ele.innerText = "暂停"
-                   this.application.player.resume();
+                   this.player.resume();
                }
                break;
            case "btn_back":
@@ -54,11 +79,17 @@ export default class PlayerPage extends Page {
     }
 
     onPause() {
-        if(this.application.player.isPlaying){
+        if(this.player.isPlaying){
             this.findViewById("btn_play").ele.innerText = "播放"
-            this.application.player.pause();
+            this.player.pause();
         }
         this.findViewById("bg").show();
+    }
+
+    onStop() {
+        if(this.player){
+            this.player.stop();
+        }
     }
 }
 

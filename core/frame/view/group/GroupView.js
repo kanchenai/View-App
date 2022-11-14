@@ -283,7 +283,7 @@ export default class GroupView extends ScrollView {
      * @param{boolean} intoChild 是否调用子控件的loadImageResource
      */
     loadImageResource(intoChild) {
-        super.loadImageResource();
+        super.loadImageResource(false);
 
         if (intoChild) {
             for (var child of this.childViews) {

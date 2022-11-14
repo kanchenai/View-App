@@ -5,9 +5,10 @@ import html from "@html/test.html"
 import pic_001 from "@images-js/pic_001.png"
 import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/view/base/ScrollView";
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
-import {PlayInfo} from "@core/frame/player/VideoPlayer";
+import VideoPlayer from "@core/frame/player/VideoPlayer";
 import VMargin from "@core/frame/util/VMargin";
 import PlayerPage from "@page/PlayerPage";
+import PlayInfo from "@core/frame/player/PlayInfo";
 
 export default class TestPage extends Page {
     constructor() {
@@ -18,6 +19,7 @@ export default class TestPage extends Page {
     onCreate(param) {
         this.html = html;
 
+        this.bg = this.findViewById("bg");
 
         this.recycleView = this.findViewById("recycleView");
         console.log(this.recycleView)
@@ -26,49 +28,86 @@ export default class TestPage extends Page {
         this.recycleView.col = 1;
         this.recycleView.row = 3;
         this.recycleView.circulate = true;
-        this.recycleView.margin = new VMargin(5,5,5,5);
+        this.recycleView.margin = new VMargin(5, 5, 5, 5);
         this.recycleView.adapter = adapter;
         this.recycleView.data = new Array(55);
 
+        this.player = new VideoPlayer(this);
 
-        this.application.player.onPlayStart = this.onPlayStart;
-        this.application.player.onPositionChangeListener = this.onPositionChangeListener;
-    }
+        var playUrl = "http://live.ynurl.com/video/s10027-LCDST/index.m3u8"
+        var playInfo = new PlayInfo(playUrl, 0, 0, 1280, 720);
+        this.player.play(0, playInfo);
 
-    onPlayStart() {
-        console.log(this.pageName + " 开始播放")
-        this.findViewById("bg").hide();
+        this.player.onPositionChangeListener = this.onPositionChangeListener;
+        this.player.onVolumeChangeListener = "onVolumeChangeListener";
+        this.player.onPlayStart = this.onPlayStart;
+        this.player.onPlayComplete = "";
+        this.player.onPlayPause = "onPlayPause";
+        this.player.onPlayResume = "onPlayResume";
+        this.player.onPlayStop = "onPlayStop";
+        this.player.onPlayError = "";
+        this.player.onPlayByTime = "onPlayByTime";
     }
 
     onPositionChangeListener = function (position, duration) {
-        // console.log("position",position,"duration",duration);
+        console.log(this.pageName + " position",position,"duration",duration);
+    }
+
+    onVolumeChangeListener(volume) {
+        console.log(this.pageName + " volume", volume);
+    }
+
+    onPlayStart() {
+        console.log(this.pageName + " onPlayStart");
+        this.bg.hide();
+    }
+
+    onPlayPause() {
+        console.log(this.pageName + " onPlayPause");
+        this.bg.show();
+    }
+
+    onPlayResume() {
+        console.log(this.pageName + " onPlayResume");
+        this.bg.hide();
+    }
+
+    onPlayStop() {
+        console.log(this.pageName + " onPlayStop");
+        this.bg.show();
+    }
+
+    onPlayByTime(time) {
+        console.log(this.pageName + " onPlayByTime", time);
     }
 
     onClickListener(view) {
         // this.findViewById("dialog").show();
 
         var playerPage = new PlayerPage();
-        this.startPage(playerPage,null);
+        this.startPage(playerPage, null);
     }
 
     onResume() {
-        var player = this.application.player;
-        var playUrl = "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8"
-        var playInfo = new PlayInfo(playUrl,0,0,640,360);
-        setTimeout(function (){
-            player.play(0,playInfo);
-        },500);
+        if(!this.player.isPlaying){
+            this.player.resume();
+        }
     }
 
     onPause() {
-        if(this.application.player.isPlaying){
-            this.application.player.pause();
+        if (this.player.isPlaying) {
+            this.player.pause();
         }
-        this.findViewById("bg").show();
+    }
+
+    onStop() {
+        if (this.player) {
+            this.player.stop();
+        }
     }
 
     onDestroy() {
-        this.application.player.destroy();
+        this.player.destroy();
     }
 }
 

@@ -1,100 +1,116 @@
-import VideoPlayer from "@core/frame/player/VideoPlayer";
+import RealPlayer from "@core/frame/player/RealPlayer";
 
-export default class AliWebPlayer extends VideoPlayer{
+export default class AliWebPlayer extends RealPlayer {
     constructor() {
         super();
 
         this.divId = "player-con";
         this.isInit = false;//是否已加载js和css文件
         this.isLive = true;//是否时直播
-        initPlayer(this);
+        initPlayer(this);//加载js和css
         this.player = null;
+        this._mute = false;
+
+        //记录宽高，用以继续播放时，设置
+        this.width = 0;
+        this.height = 0;
     }
 
-    play(startTime, playInfo){
-        if(this.isInit){
-            super.play(startTime, playInfo);
-            createPlayer(this);
-            this._volume = this.player.getVolume() * 100;
-            this.startRefreshPlayerState();
-        }else{
+    play(startTime, playInfo) {
+        this.width = playInfo.width;
+        this.height = playInfo.height;
+        if (this.isInit) {
+            createPlayer(this, playInfo);
+        } else {
             var that = this;
             //延迟之后重试
-            setTimeout(function (){
+            setTimeout(function () {
                 that.play(startTime, playInfo)
-            },500);
+            }, 500);
         }
     }
 
     playByTime(time) {
         this.player.seek(time);
-        super.playByTime(time);
     }
 
     pause() {
-        this.player.pause();
-        super.pause();
+        if(this.player){
+            this.player.pause();
+        }
     }
 
     resume() {
         this.player.play();
-        super.resume();
+        if(this.player._el){
+            var style = this.player._el.style;
+            style.width = this.width + "px";
+            style.height = this.height + "px";
+        }
     }
 
     stop() {
-        if(this.player){
+        if (this.player) {
             this.player.pause();
-            super.stop();
         }
-
     }
 
     destroy() {
-        try{
-            this.player.dispose();
-        }catch (e){}
-        super.destroy();
+        try {
+            if(this.player){
+                this.player.dispose();
+            }
+        } catch (e) {
+        }
     }
 
     mute() {
-        if(!this.isMute){
+        if (!this.isMute) {
             this.player.mute();
-        }else{
-            this.realVolume = this.volume;
+            this._mute = true
+        } else {
+            this.volume = this.volume;
+            this._mute = false;
         }
-
-        super.mute();
     }
 
-    get realPosition() {
+    get position() {
         return Math.ceil(this.player.getCurrentTime());
     }
 
-    get realDuration() {
+    get duration() {
         var duration = this.player.getDuration();
-        if(isNaN(duration)){
+        if (isNaN(duration)) {
             duration = -1;
         }
 
         return Math.ceil(duration);
     }
 
-    set realVolume(value) {
-        console.log("set realVolume",value);
+    set volume(value) {
+        console.log("set realVolume", value);
         this.player.muted(false);
         this.player.setVolume(value / 100);
     }
 
+    get volume() {
+        return Math.ceil(this.player.getVolume() * 100);
+    }
+
+    get isMute(){
+        return this._mute;
+    }
+
 }
 
-var createPlayer = function (webPlayer) {
-    var playInfo = webPlayer.playInfo;
+var createPlayer = function (webPlayer, playInfo) {
     var isLive = webPlayer.isLive;
 
-    if(webPlayer.player){
-        try{
+    if (webPlayer.player) {
+        try {
             webPlayer.player.dispose();
-        }catch (e){}
+        } catch (e) {
+        }
     }
 
     webPlayer.player = new Aliplayer({
@@ -123,6 +139,11 @@ var createPlayer = function (webPlayer) {
         }
     );
 
+    if(webPlayer.player._el){
+        var style = webPlayer.player._el.style;
+        style.width = playInfo.width + "px";
+        style.height = playInfo.height + "px";
+    }
 }
 
 
