@@ -156,7 +156,7 @@ export default class VideoPlayer {
     }
 
     resume() {
-        if (this.player.playInfo != this.playInfo) {//播放器切换过，playInfo发生变化
+        if (this.player.playInfo != this.playInfo) {//playInfo发生变化,播放信息改变了,需要根据书签播放
             console.log("使用书签resume",this.bookmark);
             this.play(this.bookmark, this.playInfo);
             this.isOnStart = true;//不触发播放开始

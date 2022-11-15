@@ -20,6 +20,8 @@ export default class FramePage extends Page{
     }
 
     initView(){
+        this.bg = this.findViewById("bg");
+
         this.frame_view = this.findViewById("frame_view");
         this.frame_view.addFragmentList([new Fragment_0(),new Fragment_1(),new Fragment_2()]);
         // this.frame_view.switchTo(0);

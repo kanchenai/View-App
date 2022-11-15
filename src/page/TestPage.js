@@ -107,7 +107,9 @@ export default class TestPage extends Page {
     }
 
     onDestroy() {
-        this.player.destroy();
+        if (this.player) {
+            this.player.destroy();
+        }
     }
 }
 

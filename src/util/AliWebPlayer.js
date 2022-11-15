@@ -143,6 +143,8 @@ var createPlayer = function (webPlayer, playInfo) {
         var style = webPlayer.player._el.style;
         style.width = playInfo.width + "px";
         style.height = playInfo.height + "px";
+        style.left = playInfo.left + "px";
+        style.top = playInfo.top + "px";
     }
 }
 

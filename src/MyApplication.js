@@ -5,6 +5,7 @@ import TestPage from "./page/TestPage"
 import IptvPlayer from "@core/frame/player/IptvPlayer";
 import PlayerPage from "@page/PlayerPage";
 import AliWebPlayer from "@src/util/AliWebPlayer";
+import FramePage from "@page/FramePage";
 
 require('./global_style.css')
 
@@ -19,6 +20,9 @@ export default class MyApplication extends Application {
                     break;
                 case "ListPage":
                     page = new ListPage();
+                    break;
+                case "FramePage":
+                    page = new FramePage();
                     break;
                 case "TestPage":
                     page = new TestPage();
@@ -41,6 +45,9 @@ export default class MyApplication extends Application {
                 break;
             case "list":
                 firstPage = new ListPage();
+                break;
+            case "frame":
+                firstPage = new FramePage();
                 break;
             case "test":
                 firstPage = new TestPage();

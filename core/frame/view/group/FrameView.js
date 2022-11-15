@@ -120,51 +120,42 @@ export default class FrameView extends GroupView {
 
         var pageOnResume = this.page.onResume;
         this.page.onResume = function () {
-            pageOnResume.call(frameView.page);
-            setTimeout(function () {
-                if (frameView.foregroundView) {
-                    frameView.switchTo(frameView.foregroundView);
-                } else {
-                    if (frameView.childViews.length > 0) {
-                        frameView.switchTo(0);
-                    }
+            if (frameView.foregroundView) {
+                frameView.foregroundView.switchToForeground();
+            } else {
+                if (frameView.childViews.length > 0) {
+                    frameView.switchTo(0);
                 }
-            }, 1);
-
+            }
+            pageOnResume.call(frameView.page);
         }
 
         var pageOnPause = this.page.onPause;
         this.page.onPause = function () {
+            if (frameView.foregroundView && frameView.foregroundView.lifeState == State.LifeState.RUN) {
+                frameView.foregroundView.switchToBackground();
+            }
             pageOnPause.call(frameView.page);
-            setTimeout(function () {
-                if (frameView.foregroundView && frameView.foregroundView.lifeState == State.LifeState.RUN) {
-                    frameView.foregroundView.pause();
-                }
-            }, 1);
         }
 
         var pageOnStop = this.page.onStop;
         this.page.onStop = function () {
-            pageOnStop.call(frameView.page);
-            setTimeout(function () {
-                for (var fragment of frameView.childViews) {
-                    if (fragment.lifeState == State.LifeState.PAUSE) {
-                        fragment.stop();
-                    }
+            for (var fragment of frameView.childViews) {
+                if (fragment.lifeState == State.LifeState.PAUSE) {
+                    fragment.stop();
                 }
-            }, 1);
+            }
+            pageOnStop.call(frameView.page);
         }
 
         var pageOnDestroy = this.page.onDestroy;
         this.page.onDestroy = function () {
-            pageOnDestroy.call(frameView.page);
-            setTimeout(function () {
-                for (var fragment of frameView.childViews) {
-                    if (fragment.lifeState == State.LifeState.STOP) {
-                        fragment.destroy();
-                    }
+            for (var fragment of frameView.childViews) {
+                if (fragment.lifeState == State.LifeState.STOP) {
+                    fragment.destroy();
                 }
-            }, 1);
+            }
+            pageOnDestroy.call(frameView.page);
         }
     }
 
