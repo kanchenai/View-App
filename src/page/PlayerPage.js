@@ -6,6 +6,7 @@ import pic_001 from "@images-js/pic_001.png"
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
 import VideoPlayer from "@core/frame/player/VideoPlayer";
 import PlayInfo from "@core/frame/player/PlayInfo";
+import utils from "@src/util/utils";
 
 export default class PlayerPage extends Page {
     constructor() {
@@ -15,9 +16,11 @@ export default class PlayerPage extends Page {
 
     onCreate(param) {
         this.html = html;
+        this.bg = this.findViewById("bg");
+
         this.player = new VideoPlayer(this);
         var playUrl = "http://live.ynurl.com/video/s10037-JCTV/index.m3u8"
-        var playInfo = new PlayInfo(playUrl, 0, 0, 640, 360);
+        var playInfo = new PlayInfo(playUrl, 100, 100, 640, 360);
 
         this.player.play(0, playInfo);
 
@@ -33,7 +36,7 @@ export default class PlayerPage extends Page {
     }
 
     onPositionChangeListener = function (position, duration) {
-        console.log(this.pageName + " position",position,"duration",duration);
+        // console.log(this.pageName + " position",position,"duration",duration);
     }
 
     onVolumeChangeListener(volume) {
@@ -42,19 +45,23 @@ export default class PlayerPage extends Page {
 
     onPlayStart() {
         console.log(this.pageName + " onPlayStart");
-        this.findViewById("bg").hide();
+        // this.bg.hide();
+        utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,this.player.playInfo);
     }
 
     onPlayPause() {
         console.log(this.pageName + " onPlayPause");
+        utils.videoBgToBg(this.bg.ele.parentNode,this.bg.ele)
     }
 
     onPlayResume() {
         console.log(this.pageName + " onPlayResume");
+        utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,this.player.playInfo);
     }
 
     onPlayStop() {
         console.log(this.pageName + " onPlayStop");
+        utils.videoBgToBg(this.bg.ele.parentNode,this.bg.ele)
     }
 
     onPlayByTime(time) {
@@ -83,7 +90,6 @@ export default class PlayerPage extends Page {
             this.findViewById("btn_play").ele.innerText = "播放"
             this.player.pause();
         }
-        this.findViewById("bg").show();
     }
 
     onStop() {
