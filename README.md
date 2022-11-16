@@ -128,10 +128,10 @@
         getPlayerInstance() {
             var player = {};
             try{
-                player = new IptvPlayer(this.keyboard);//iptv的播放器
+                player = new IptvPlayer();//iptv的播放器
             }catch (e){
-                //TODO 其他播放器创建，在浏览器中调试，可以使用videojs
-                console.warn("播放器创建失败")
+                //其他播放器创建
+                player = new AliWebPlayer();//阿里web播放器
             }
             return player;
         }

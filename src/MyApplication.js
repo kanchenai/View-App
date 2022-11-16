@@ -88,7 +88,7 @@ export default class MyApplication extends Application {
     getPlayerInstance() {
         var player = {};
         try{
-            player = new IptvPlayer(this.keyboard);
+            player = new IptvPlayer();
         }catch (e){
             player = new AliWebPlayer();
         }
