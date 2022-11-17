@@ -11,6 +11,8 @@ export default class AliWebPlayer extends RealPlayer {
         this.player = null;
         this._mute = false;
 
+        this.needPlay = false;
+
         //记录宽高，用以继续播放时，设置
         this.width = 0;
         this.height = 0;
@@ -20,6 +22,7 @@ export default class AliWebPlayer extends RealPlayer {
         this.width = playInfo.width;
         this.height = playInfo.height;
         if (this.isInit) {
+            this.needPlay = true;
             createPlayer(this, playInfo);
         } else {
             var that = this;
@@ -31,33 +34,47 @@ export default class AliWebPlayer extends RealPlayer {
     }
 
     playByTime(time) {
+        this.needPlay = true;
         this.player.seek(time);
     }
 
     pause() {
-        if(this.player){
+        this.needPlay = false;
+        if (this.player) {
             this.player.pause();
         }
     }
 
     resume() {
-        this.player.play();
-        if(this.player._el){
-            var style = this.player._el.style;
-            style.width = this.width + "px";
-            style.height = this.height + "px";
+        this.needPlay = true;
+        if(this.isInit){
+            this.player.play();
+            if (this.player._el) {
+                var style = this.player._el.style;
+                style.width = this.width + "px";
+                style.height = this.height + "px";
+            }
         }
     }
 
     stop() {
+        this.needPlay = false;
         if (this.player) {
             this.player.pause();
         }
     }
 
     destroy() {
+        this.needPlay = false;
         try {
-            if(this.player){
+            if (this.player) {
+                if (this.player._el) {
+                    var style = this.player._el.style;
+                    style.width = "10px";
+                    style.height = "10px";
+                    style.left = "-20px";
+                    style.top = "-20px";
+                }
                 this.player.dispose();
             }
         } catch (e) {
@@ -66,7 +83,9 @@ export default class AliWebPlayer extends RealPlayer {
 
     mute() {
         if (!this.isMute) {
-            this.player.mute();
+            if(this.player){
+                this.player.mute();
+            }
             this._mute = true
         } else {
             this.volume = this.volume;
@@ -75,29 +94,41 @@ export default class AliWebPlayer extends RealPlayer {
     }
 
     get position() {
-        return Math.ceil(this.player.getCurrentTime());
+        var value = -1;
+        if(this.player){
+            value = Math.ceil(this.player.getCurrentTime())
+        }
+        return value;
     }
 
     get duration() {
-        var duration = this.player.getDuration();
-        if (isNaN(duration)) {
-            duration = -1;
+        var value = -1;
+        if(this.player){
+            value = this.player.getDuration();
+            if (isNaN(value)) {
+                value = -1;
+            }
         }
-
-        return Math.ceil(duration);
+        return Math.ceil(value);
     }
 
     set volume(value) {
         console.log("set realVolume", value);
-        this.player.muted(false);
-        this.player.setVolume(value / 100);
+        if(this.player){
+            this.player.muted(false);
+            this.player.setVolume(value / 100);
+        }
     }
 
     get volume() {
-        return Math.ceil(this.player.getVolume() * 100);
+        var value = 100;
+        if(this.player){
+            value = Math.ceil(this.player.getVolume() * 100);
+        }
+        return value;
     }
 
-    get isMute(){
+    get isMute() {
         return this._mute;
     }
 
@@ -113,12 +144,12 @@ var createPlayer = function (webPlayer, playInfo) {
         }
     }
 
-    webPlayer.player = new Aliplayer({
+    var aliplayer = new Aliplayer({
             "id": webPlayer.divId,
             "source": playInfo.playUrl,
             "width": playInfo.width + "px",
             "height": playInfo.height + "px",
-            "autoplay": true,
+            "autoplay": false,
             "isLive": isLive,
             "rePlay": false,
             "playsinline": true,
@@ -135,12 +166,19 @@ var createPlayer = function (webPlayer, playInfo) {
                 }
             ]
         }, function (player) {
+            webPlayer.player = player
             console.log("The player is created");
+            setTimeout(function () {
+                if (webPlayer.needPlay) {
+                    player.play();
+                }
+            }, 0);
+
         }
     );
 
-    if(webPlayer.player._el){
-        var style = webPlayer.player._el.style;
+    if (aliplayer._el) {
+        var style = aliplayer._el.style;
         style.width = playInfo.width + "px";
         style.height = playInfo.height + "px";
         style.left = playInfo.left + "px";

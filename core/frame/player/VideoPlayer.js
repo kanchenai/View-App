@@ -36,6 +36,7 @@ export default class VideoPlayer {
             player.mute();
         };
 
+        this.state = "";//
         //每次音量调节幅度
         this.volumeCell = 5;
         this._isMute = false;
@@ -117,7 +118,6 @@ export default class VideoPlayer {
             this.playInfo = playInfo;
         }
         this.player.play(startTime, playInfo);
-        this._isPlaying = true;
         this._isMute = this.player.isMute;
 
         this.player.playInfo = playInfo;//暂存，用以暂停继续
@@ -156,6 +156,9 @@ export default class VideoPlayer {
     }
 
     resume() {
+        if(!this.player.playInfo || !this.isOnStart || this.isPlaying){//从未播放
+            return;
+        }
         if (this.player.playInfo != this.playInfo) {//playInfo发生变化,播放信息改变了,需要根据书签播放
             console.log("使用书签resume",this.bookmark);
             this.play(this.bookmark, this.playInfo);
@@ -257,7 +260,7 @@ export default class VideoPlayer {
             if (!player.isOnStart) {//未触发开始播放时
                 player.callPlayStart();
             }
-
+            this._isPlaying = true;
             player.callPositionChangeListener(currentPosition, duration);
 
             if (!player.isOnComplete) {//未触发开始结束时

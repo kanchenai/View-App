@@ -1,6 +1,4 @@
-import {Scroller} from "@core/frame/view/base/ScrollView";
 import View from "@core/frame/view/base/View";
-import State from "@core/frame/util/State";
 
 /**
  * 纵向滚动时：
@@ -20,7 +18,7 @@ export default class TextView extends View {
         //可以执行跑马灯
         this.canMarquee = false;
         //默认横向跑马灯
-        this.orientation = State.Orientation.horizontal;
+        this.orientation = HORIZONTAL;
 
         //原文字的span
         this.span = null;
@@ -37,7 +35,7 @@ export default class TextView extends View {
         if (!this.copySpan) {
             this.copySpan = document.createElement("span");//创建
         }
-        if (this.orientation == State.Orientation.vertical) {//纵向跑马灯
+        if (this.orientation == VERTICAL) {//纵向跑马灯
             this.ele.appendChild(document.createElement("br"));//换行
             this.copySpan.innerHTML = this.text;//给复制的span添加文字
         } else {
@@ -71,13 +69,13 @@ export default class TextView extends View {
         this.span.innerHTML = this.text;
         this.ele.appendChild(this.span);
         if (this.style.whiteSpace == "nowrap") {//横向
-            this.orientation = State.Orientation.horizontal;
+            this.orientation = HORIZONTAL;
             var spanWidth = View.getWidth(this.span);
             if (spanWidth > this.width) {
                 this.canMarquee = true;
             }
         } else {//纵向
-            this.orientation = State.Orientation.vertical;
+            this.orientation = VERTICAL;
             var spanHeight = View.getHeight(this.span);
             if (spanHeight > this.height) {
                 this.canMarquee = true;
@@ -261,7 +259,7 @@ class TextScroller extends View {
 
     marquee() {
         this.isMarquee = true;
-        if (this.fatherView.orientation == State.Orientation.horizontal) {
+        if (this.fatherView.orientation == HORIZONTAL) {
             var x = View.getWidth(this.fatherView.copySpan);
             startHorizontalScroll(this, x, this.speed);
         } else {
@@ -276,6 +274,9 @@ class TextScroller extends View {
         clearTimeout(this.marqueeTimer);
     }
 }
+
+var VERTICAL = "vertical";
+var HORIZONTAL = "horizontal";
 
 /**
  * 横向跑马灯

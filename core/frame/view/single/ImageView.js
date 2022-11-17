@@ -35,9 +35,9 @@ export default class ImageView extends View {
         if (this.isLoaded) {
             return;
         }
-        if (this.src) {
-            console.log("ImageView", "图片载入", this.src);
-        }
+        // if (this.src) {
+        //     console.log("ImageView", "图片载入", this.src);
+        // }
         this.ele.src = this.src;
         this.isLoaded = true;
     }

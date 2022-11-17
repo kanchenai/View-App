@@ -69,9 +69,7 @@ export default class Fragment_0 extends Fragment{
 
     onPause() {
         console.log("Fragment_0","-onPause");
-        if (this.player.isPlaying) {
-            this.player.pause();
-        }
+        this.player.pause();
     }
 
     onStop() {

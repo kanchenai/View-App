@@ -22,6 +22,15 @@ export default class ConfirmDialog extends LoneDialog {
 
     onClickListener(view){
         console.log("点击",view);
+        switch (view.id){
+            case "cancel":
+                this.hide();
+                break;
+            case "confirm":
+                this.hide();
+                this.page.finish();
+                break;
+        }
     }
 
 }

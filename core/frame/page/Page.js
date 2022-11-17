@@ -1,5 +1,4 @@
 import ViewManager from "../view/base/ViewManager";
-import State from "../util/State";
 import GroupView from "../view/group/GroupView";
 
 export default class Page extends GroupView {
@@ -14,7 +13,7 @@ export default class Page extends GroupView {
         this.pageName = "";
         this.isForeground = false;
         //Page生命周期标识
-        this.lifeState = State.LifeState.BEFORE_CREATE;
+        this.lifeState = PageLifeState.BEFORE_CREATE;
         this.viewManager = new ViewManager(this);
         this._application = null;
         //启动该page的参数信息或保存的 该页面的参数信息
@@ -28,14 +27,14 @@ export default class Page extends GroupView {
         this.init();//初始化Page：创建Page对应的节点，并添加到application，创建滚动器
         this.param = param || {};
         this.pageManager.putPageInfo(this, param);//保存数据，到本地,与在页面中主动保存参数信息不同
-        this.lifeState = State.LifeState.CREATE;//当前生命周期处在Page创建
+        this.lifeState = PageLifeState.CREATE;//当前生命周期处在Page创建
         this.application.keyboard.page = this;
         this.onCreate(param);//Page回调-创建
     }
 
     resume() {
         this.show();//显示，TODO 这里可以对应不同的动画
-        if (this.lifeState == State.LifeState.CREATE) {//创建到继续（显示）
+        if (this.lifeState == PageLifeState.CREATE) {//创建到继续（显示）
             this.viewManager.init();//给初始焦点上焦
         }
 
@@ -44,13 +43,13 @@ export default class Page extends GroupView {
             page.loadImageResource(true);
         }, 50);
 
-        this.lifeState = State.LifeState.RUN;//当前生命周期处在Page运行
+        this.lifeState = PageLifeState.RUN;//当前生命周期处在Page运行
         this.application.keyboard.page = page;
         this.onResume();//Page回调-继续
     }
 
     pause() {
-        this.lifeState = State.LifeState.PAUSE;//当前生命周期处在Page暂停
+        this.lifeState = PageLifeState.PAUSE;//当前生命周期处在Page暂停
         this.isForeground = false;//设置当前Page前台状态改为false，标识当前Page不在前台
         this.hide();//隐藏，TODO 这里可以对应不同的动画
         this.onPause();//Page回调-暂停
@@ -58,12 +57,12 @@ export default class Page extends GroupView {
     }
 
     stop() {
-        this.lifeState = State.LifeState.STOP;//当前生命周期处在Page停止
+        this.lifeState = PageLifeState.STOP;//当前生命周期处在Page停止
         this.onStop();//Page回调-停止
     }
 
     destroy() {
-        this.lifeState = State.LifeState.DESTROY;//当前生命周期处在Page销毁
+        this.lifeState = PageLifeState.DESTROY;//当前生命周期处在Page销毁
         this.onDestroy();//Page回调-销毁
         this.ele.remove();//将当前节点从application中移除
         //兼容ele.remove无效
@@ -361,3 +360,22 @@ export default class Page extends GroupView {
     key_default_event(keyCode) {
     };
 }
+
+/**
+ * 生命周期状态枚举
+ * Page、Fragment
+ */
+export var PageLifeState = {
+    //未创建
+    BEFORE_CREATE: "BEFORE_CREATE",
+    //创建
+    CREATE: "CREATE",
+    //运行
+    RUN: "RUN",
+    //暂停
+    PAUSE: "PAUSE",
+    //停止
+    STOP: "STOP",
+    //销毁
+    DESTROY: "DESTROY"
+};

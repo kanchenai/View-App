@@ -6,7 +6,7 @@ export default class Fragment extends GroupView {
         super(viewManager, null);
         this.listenerLocation = this;
         this.isForeground = false;
-        this.lifeState = State.LifeState.BEFORE_CREATE;
+        this.lifeState = FragmentLifeState.BEFORE_CREATE;
 
         //左右禁止
         this.nextLeft = "none";
@@ -18,7 +18,7 @@ export default class Fragment extends GroupView {
     }
 
     switchToForeground() {
-        if (this.lifeState == State.LifeState.BEFORE_CREATE) {
+        if (this.lifeState == FragmentLifeState.BEFORE_CREATE) {
             this.create();
         }
         this.isForeground = true;
@@ -33,30 +33,30 @@ export default class Fragment extends GroupView {
     }
 
     create() {
-        this.lifeState = State.LifeState.CREATE;
+        this.lifeState = FragmentLifeState.CREATE;
         this.onCreate();
     }
 
     resume() {
-        this.lifeState = State.LifeState.RUN;
+        this.lifeState = FragmentLifeState.RUN;
         // this.show();
         this.onResume();
     }
 
     pause() {
-        this.lifeState = State.LifeState.PAUSE;
+        this.lifeState = FragmentLifeState.PAUSE;
         // this.hide();
         this.onPause();
     }
 
     stop() {
-        this.lifeState = State.LifeState.STOP;
+        this.lifeState = FragmentLifeState.STOP;
         //TODO 回收
         this.onStop();
     }
 
     destroy() {
-        this.lifeState = State.LifeState.DESTROY;
+        this.lifeState = FragmentLifeState.DESTROY;
         this.onDestroy();
     }
 
@@ -90,3 +90,22 @@ export default class Fragment extends GroupView {
         }
     }
 }
+
+/**
+ * 生命周期状态枚举
+ * Page、Fragment
+ */
+export var FragmentLifeState = {
+    //未创建
+    BEFORE_CREATE: "BEFORE_CREATE",
+    //创建
+    CREATE: "CREATE",
+    //运行
+    RUN: "RUN",
+    //暂停
+    PAUSE: "PAUSE",
+    //停止
+    STOP: "STOP",
+    //销毁
+    DESTROY: "DESTROY"
+};

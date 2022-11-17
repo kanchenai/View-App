@@ -2,6 +2,7 @@ import View from "@core/frame/view/base/View";
 import ImageView from "@core/frame/view/single/ImageView";
 import ViewUtils from "@core/frame/util/ViewUtils";
 import TextView from "@core/frame/view/single/TextView";
+import State from "@core/frame/util/State";
 
 /**
  * ScrollView不能继承ItemView，Scroller报错
@@ -25,7 +26,7 @@ export default class ScrollView extends View {
          * @private
          */
         this._imageList = [];
-        this.animation = true;
+        this.animation = State.ScrollAnimation;
         //生成滚动器
         this.scroller = new Scroller(this);
     }

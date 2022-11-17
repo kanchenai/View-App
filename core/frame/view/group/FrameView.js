@@ -1,6 +1,5 @@
 import GroupView from "./GroupView";
-import Fragment from "./Fragment";
-import State from "../../util/State";
+import Fragment, {FragmentLifeState} from "./Fragment";
 
 export default class FrameView extends GroupView {
     constructor(viewManager, listenerLocation) {
@@ -53,7 +52,7 @@ export default class FrameView extends GroupView {
 
         fragment.left = this.width * (this.childViews.length - 1) * 1.1;
 
-        if (!this.foregroundView && fragment.childViews.length > 0 && this.page.lifeState == State.LifeState.RUN) {
+        if (!this.foregroundView && fragment.childViews.length > 0 && this.page.lifeState == FragmentLifeState.RUN) {
             this.switchTo(0);
         }
     }
@@ -86,7 +85,7 @@ export default class FrameView extends GroupView {
      * @param{Fragment|number} fragment
      */
     switchTo(fragment) {
-        if (this.page.lifeState != State.LifeState.RUN) {
+        if (this.page.lifeState != FragmentLifeState.RUN) {
             return;
         }
 
@@ -132,7 +131,7 @@ export default class FrameView extends GroupView {
 
         var pageOnPause = this.page.onPause;
         this.page.onPause = function () {
-            if (frameView.foregroundView && frameView.foregroundView.lifeState == State.LifeState.RUN) {
+            if (frameView.foregroundView && frameView.foregroundView.lifeState == FragmentLifeState.RUN) {
                 frameView.foregroundView.switchToBackground();
             }
             pageOnPause.call(frameView.page);
@@ -141,7 +140,7 @@ export default class FrameView extends GroupView {
         var pageOnStop = this.page.onStop;
         this.page.onStop = function () {
             for (var fragment of frameView.childViews) {
-                if (fragment.lifeState == State.LifeState.PAUSE) {
+                if (fragment.lifeState == FragmentLifeState.PAUSE) {
                     fragment.stop();
                 }
             }
@@ -151,7 +150,7 @@ export default class FrameView extends GroupView {
         var pageOnDestroy = this.page.onDestroy;
         this.page.onDestroy = function () {
             for (var fragment of frameView.childViews) {
-                if (fragment.lifeState == State.LifeState.STOP) {
+                if (fragment.lifeState == FragmentLifeState.STOP) {
                     fragment.destroy();
                 }
             }

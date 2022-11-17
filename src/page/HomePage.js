@@ -9,8 +9,8 @@ import HomeFragment_4 from "@fragment/HomeFragment_4";
 import HomeFragment_5 from "@fragment/HomeFragment_5";
 
 import html from "@html/home.html"
-import TestPage from "@page/TestPage";
 import ConfirmDialog from "@src/dialog/ConfirmDialog";
+import utils from "@src/util/utils";
 
 export default class HomePage extends Page {
     constructor() {
@@ -26,6 +26,8 @@ export default class HomePage extends Page {
     }
 
     initView() {
+        this.bg = this.findViewById("bg")
+
         this.frame_view = this.findViewById("frame_view");
         this.frame_view.addFragmentList([
             new HomeFragment_0(this.viewManager),
@@ -51,6 +53,14 @@ export default class HomePage extends Page {
 
     initUtil(){
 
+    }
+
+    bgToVideoBg(playInfo){
+        utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,playInfo)
+    }
+
+    videoBgToBg(){
+        utils.videoBgToBg(this.bg.ele.parentNode,this.bg.ele);
     }
 
     onClickListener(view) {
@@ -103,7 +113,7 @@ export default class HomePage extends Page {
     }
 
     onResume() {
-        // console.log(this.pageName + "-onResume");
+        console.log(this.pageName + "-onResume");
     }
 
     onPause() {

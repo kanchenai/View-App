@@ -216,6 +216,22 @@
 * white-space: nowrap;判定为横向跑马灯
 * 其他情况为纵向跑马灯；多个单词可能为多行，或者使用<br>强制换行，当多行时可执行纵向跑马灯
 
+#### 全局滚动开关
+
+State.ScrollAnimation值：
+  true:打开
+  false:关闭
+
+* 在main.js
+```javascript
+  window.onload = function () {
+    State.ScrollAnimation = true;//控制滚动动画开关
+    //需要在css加载完之后才能启动app
+    window.application = new MyApplication("app");
+    window.application.launch();
+  }
+```
+
 #### 代码现存问题
 
 

@@ -86,10 +86,8 @@ export default class PlayerPage extends Page {
     }
 
     onPause() {
-        if(this.player.isPlaying){
-            this.findViewById("btn_play").ele.innerText = "播放"
-            this.player.pause();
-        }
+        this.findViewById("btn_play").ele.innerText = "播放"
+        this.player.pause();
     }
 
     onStop() {

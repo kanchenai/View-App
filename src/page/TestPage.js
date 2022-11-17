@@ -95,9 +95,7 @@ export default class TestPage extends Page {
     }
 
     onPause() {
-        if (this.player.isPlaying) {
-            this.player.pause();
-        }
+        this.player.pause();
     }
 
     onStop() {
