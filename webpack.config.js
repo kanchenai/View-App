@@ -23,11 +23,11 @@ module.exports = {
                 resolve: {}
             },
             {
-                //匹配js，使用babel-loader进行代码转化
-                // test:/\.js$/,
-                // use:{
-                //     loader: "babel-loader"
-                // }
+                //匹配js，使用babel-loader进行代码转化,将代码转成es5（配置在.babelrc文件）
+                test: /\.js$/,
+                use: {
+                    loader: "babel-loader"
+                }
             },
             {
                 test: [/\.html$/],
@@ -59,7 +59,7 @@ module.exports = {
                         limit: 5000,
                         name: 'static/[path][name].[ext]',
                         context: path.resolve(__dirname, './src'),//过滤掉[path]的相对路径
-                        publicPath:'./',
+                        publicPath: './',
                         esModule: false
                     }
 
@@ -109,7 +109,7 @@ module.exports = {
     },
     // devServer: {//一般使用默认
     // }
-    //使用source-map直接调试es6代码
     devtool: 'source-map',//打包时，注释掉这行
+    // devtool: false,//打包时，解注释这行
     stats: "errors-only",
 }

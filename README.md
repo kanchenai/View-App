@@ -29,8 +29,10 @@
 
 ### 打包
 注释webpack.config.js中的"devtool: 'source-map'"
+解注释devtool: false
 ```javascript
-    devtool: 'source-map'
+    devtool: 'source-map',//打包时，注释掉这行
+    // devtool: false,//打包时，解注释这行
 ```
 
 将打包模式为生产模式
