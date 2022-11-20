@@ -325,7 +325,10 @@ export default class ItemView extends View {
         }
 
         //当前的view是不是默认焦点
-        var viewFocus = this.ele.hasAttribute("view-focus");
+        var viewFocus = false;
+        if(this.page.focusId || this.page.focusView){
+            viewFocus = this.ele.hasAttribute("view-focus");
+        }
 
         var up = View.parseAttribute("view-up", this.ele);//上
         var down = View.parseAttribute("view-down", this.ele);//下

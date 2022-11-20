@@ -241,8 +241,12 @@ export default class Page extends GroupView {
         return this.viewManager.focusView;
     }
 
-    set defaultFocusId(value) {
+    set focusId(value) {
         this.viewManager.focusId = value;
+    }
+
+    get focusId(){
+        return this.viewManager.focusId;
     }
 
     get application() {

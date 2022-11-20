@@ -17,12 +17,7 @@ export default class ViewManager {
         this._focusView = null;
     }
 
-    findViewById(id, fatherView) {
-
-    }
-
     clear() {
-        this.viewMap = new VMap();
         this.focusId = "";
         this.focusView = null;
     }
@@ -151,7 +146,7 @@ export default class ViewManager {
     init() {
         if (!this.focusView) {
             if (this.focusId) {
-                var focusView = this.getView(this.focusId);
+                var focusView = this.page.findViewById(this.focusId);
                 if (focusView) {
                     focusView.requestFocus();
                 } else {

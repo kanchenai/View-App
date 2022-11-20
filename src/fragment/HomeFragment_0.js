@@ -9,7 +9,7 @@ export default class HomeFragment_0 extends Fragment{
         var start = new Date().getTime();
         this.html = html;
         console.log(new Date().getTime() - start)
-
+        console.log(this.page.param)
         this.initView();
         this.setView();
         this.initUtil();
