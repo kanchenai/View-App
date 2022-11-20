@@ -118,7 +118,7 @@ export default class RecycleView extends GroupView {
     set adapter(value) {
         this._adapter = value;
         this.adapter.recycleView = this;
-        if (this.template) {
+        if (this.template && !this.adapter.template) {
             this.adapter.template = this.template;
         }
         //置空holder
@@ -547,16 +547,6 @@ export default class RecycleView extends GroupView {
                 }
             } else {
                 console.warn("view-margin 错误，数量必须是1或4")
-            }
-        }
-
-        var adapter = View.parseAttribute("view-adapter", this.ele);
-
-        if(adapter && adapter!="null" && adapter != "none "){
-            if (this.listenerLocation[adapter] instanceof Adapter) {
-                this.adapter = this.listenerLocation[adapter];
-            } else {
-                console.warn("view-adapter 错误，类型必须是Adapter")
             }
         }
 

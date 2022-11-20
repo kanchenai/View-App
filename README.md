@@ -29,6 +29,7 @@
 
 ### 打包
 注释webpack.config.js中的"devtool: 'source-map'"
+
 解注释devtool: false
 ```javascript
     devtool: 'source-map',//打包时，注释掉这行
@@ -188,13 +189,19 @@
 * 可以是用监听器设置，
   * 直接设置方法本体
   * 方法名设置，就是设置字符串，会寻找对应的方法作为监听器
-  * 寻找对应的方法作为监听器，这个在Page、Fragment内
-* 监听触发后，内部this指向，指向Page、Fragment
+  * 寻找对应的方法作为监听器，这个在listenerLocation（Page、Fragment或dialog内）
+* 监听触发后，内部this指向，指向listenerLocation
 
 方法寻找和监听器内部this指向的规则
 ```javascript
   this.html = "";//这个this，可以在监听器内部打印下this，来查看this具体是什么
 ```
+
+#### 播放器对接注意点
+
+* 实现RealPlayer的所有方法，播放器的基本功能就可以使用了
+* 调教播放器，提升播放器体验，需要了解VideoPlayer的工作机制
+* 在@src/util/AliWebPlayer是使用阿里h5播放器实现的，具体对接可以参考这个
 
 
 #### 图片注意点

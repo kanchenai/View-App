@@ -1,13 +1,22 @@
-.item,
-.item_focus{
-    width: 176px;
-    height: 99px;
+.bg img{
+    width: 1280px;
+    height:720px;
 }
 
-.item{
-    background: green;
+.title{
+    left: 48px;
+    top: 68px;
+    width: 300px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 26px;
+    color: white;
 }
 
-.item_focus{
-    background: red;
+.content_list{
+    width: 1248px;
+    height: 600px;
+    left: 16px;
+    top: 120px;
+    overflow: hidden;
 }
