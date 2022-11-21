@@ -4,14 +4,16 @@ import PageManager from "@core/frame/page/PageManager";
 import {Scroller} from "@core/frame/view/base/ScrollView";
 import View from "@core/frame/view/base/View";
 import {PageLifeState} from "@core/frame/page/Page";
+import "@core/frame/view/css"
 
 require("../../css/style.css");
+
 
 /**
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.2.5(2022-11-20)";
+export var version = "0.3.0(2022-11-21)";
 
 export default class Application extends GroupView {
     constructor(id) {

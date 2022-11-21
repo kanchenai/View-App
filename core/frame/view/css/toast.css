@@ -1,0 +1,18 @@
+.toast{
+    height: 60px;
+    top: 590px;
+    max-width: 1000px;
+    background: white;
+    border-radius: 7px;
+    z-index: 100;
+    padding: 0 10px;
+}
+
+.toast .text{
+    height: 60px;
+    font-size: 32px;
+    line-height: 60px;
+    white-space: nowrap;
+    color: #333333;
+    text-align: center;
+}

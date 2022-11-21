@@ -4,6 +4,7 @@ import FramePage from "./FramePage";
 import html from "../html/list.html"
 import {Adapter} from "@core/frame/view/group/RecycleView";
 import ContentAdapter from "@src/dialog/ContentAdapter";
+import Toast from "@core/frame/view/single/Toast";
 
 
 export default class ListPage extends Page {
@@ -21,15 +22,23 @@ export default class ListPage extends Page {
         this.content_list.margin.right = 5;
         this.content_list.adapter = new ContentAdapter();
         this.content_list.data = contentListData;
+
+        this.toast = new Toast(this);
+
     }
 
-    onClickListener() {
+    onClickListener(view) {
         console.log(this.pageName + "-key_ok_event");
+        this.toast.show("点击跳转");
         // var testPage = new TestPage();
         // this.startPage(testPage, {data: "tttttt"});
 
-        var framePage = new FramePage();
-        this.startPage(framePage, {data: "ffffff"});
+
+        var that = this;
+        setTimeout(function (){
+            var framePage = new FramePage();
+            that.startPage(framePage, {data: "ffffff"});
+        },500);
     }
 
     setResult(data) {
