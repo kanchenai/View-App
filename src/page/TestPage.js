@@ -21,64 +21,18 @@ export default class TestPage extends Page {
 
         this.bg = this.findViewById("bg");
 
-        this.recycleView = this.findViewById("recycleView");
-        console.log(this.recycleView)
-        // recycleView.orientation = HORIZONTAL;
-        this.recycleView.scrollLocate = ScrollNormal;
-        this.recycleView.col = 1;
-        this.recycleView.row = 3;
-        this.recycleView.circulate = true;
-        this.recycleView.margin = new VMargin(5, 5, 5, 5);
-        this.recycleView.adapter = adapter;
-        this.recycleView.data = new Array(55);
+        this.recycle = this.findViewById("recycle");
+        console.log(this.recycle)
+        // recycle.orientation = HORIZONTAL;
+        this.recycle.scrollLocate = ScrollNormal;
+        this.recycle.col = 1;
+        this.recycle.row = 3;
+        this.recycle.circulate = true;
+        this.recycle.margin = new VMargin(5, 5, 5, 5);
+        this.recycle.adapter = adapter;
+        this.recycle.data = new Array(55);
 
-        this.player = new VideoPlayer(this);
-
-        var playUrl = "http://live.ynurl.com/video/s10027-LCDST/index.m3u8"
-        var playInfo = new PlayInfo(playUrl, 0, 0, 1280, 720);
-        this.player.play(0, playInfo);
-
-        this.player.onPositionChangeListener = this.onPositionChangeListener;
-        this.player.onVolumeChangeListener = "onVolumeChangeListener";
-        this.player.onPlayStart = this.onPlayStart;
-        this.player.onPlayComplete = "";
-        this.player.onPlayPause = "onPlayPause";
-        this.player.onPlayResume = "onPlayResume";
-        this.player.onPlayStop = "onPlayStop";
-        this.player.onPlayError = "";
-        this.player.onPlayByTime = "onPlayByTime";
-    }
-
-    onPositionChangeListener = function (position, duration) {
-        console.log(this.pageName + " position",position,"duration",duration);
-    }
-
-    onVolumeChangeListener(volume) {
-        console.log(this.pageName + " volume", volume);
-    }
-
-    onPlayStart() {
-        console.log(this.pageName + " onPlayStart");
-        this.bg.hide();
-    }
-
-    onPlayPause() {
-        console.log(this.pageName + " onPlayPause");
-        this.bg.show();
-    }
-
-    onPlayResume() {
-        console.log(this.pageName + " onPlayResume");
-        this.bg.hide();
-    }
-
-    onPlayStop() {
-        console.log(this.pageName + " onPlayStop");
-        this.bg.show();
-    }
-
-    onPlayByTime(time) {
-        console.log(this.pageName + " onPlayByTime", time);
+        console.log(this.childViews);
     }
 
     onClickListener(view) {
@@ -89,25 +43,15 @@ export default class TestPage extends Page {
     }
 
     onResume() {
-        if(!this.player.isPlaying){
-            this.player.resume();
-        }
     }
 
     onPause() {
-        this.player.pause();
     }
 
     onStop() {
-        if (this.player) {
-            this.player.stop();
-        }
     }
 
     onDestroy() {
-        if (this.player) {
-            this.player.destroy();
-        }
     }
 }
 

@@ -3,7 +3,7 @@ import View from "../../core/frame/view/base/View";
 import FramePage from "./FramePage";
 import html from "../html/list.html"
 import {Adapter} from "@core/frame/view/group/RecycleView";
-import ContentAdapter from "@src/dialog/ContentAdapter";
+import ContentAdapter from "@src/adapter/ContentAdapter";
 import Toast from "@core/frame/view/single/Toast";
 
 

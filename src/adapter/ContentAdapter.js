@@ -1,5 +1,5 @@
 import {Adapter} from "@core/frame/view/group/RecycleView";
-import html from "../html/adapter/content_adapter.html"
+import html from "@html/adapter/content_adapter.html"
 
 export default class ContentAdapter extends Adapter{
     constructor() {

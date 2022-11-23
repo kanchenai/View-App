@@ -5,7 +5,6 @@
  */
 module.exports = function (original_html, style_tag) {
     style_tag = style_tag.toLowerCase();
-    var regExp = /<[a-z-]+( |[^>\/)])/gi;
 
     var start = original_html.indexOf('<template>');
     var str = original_html;
@@ -15,25 +14,20 @@ module.exports = function (original_html, style_tag) {
         str = original_html.substring(start, end);
     }
 
+    var regExp = /<[a-z-]+/gi;
     var tags = str.match(regExp);
     tags = dedupe(tags);
     if (!tags) {
         return "";
     }
-    var html = str;
+    str = idToViewId(str);
+    var html = tagToViewType(str);
     for (var i = 0; i < tags.length; i++) {
         var tagLeft = tags[i];
-        if(tagLeft == "template"){
+        if (tagLeft == "template") {
             continue;
         }
-        // var tagRight = "</" + view_types[i] + ">";
-        // var divLeft = "<div data-" + style_tag;
-        var divLeft = "";
-        if(tagLeft.indexOf(" ") < 0){
-            divLeft = tagLeft + " "+style_tag + " ";
-        }else{
-            divLeft = tagLeft + style_tag + " ";
-        }
+        var divLeft = tagLeft + " " + style_tag;
 
         html = html.replace(new RegExp(tagLeft, "gmi"), divLeft);
     }
@@ -48,4 +42,36 @@ module.exports = function (original_html, style_tag) {
  */
 var dedupe = function (array) {
     return Array.from(new Set(array));
+}
+
+let viewTypes = [
+    {name: "view-item", tagNames: ["view-item", "item"]},
+    {name: "view-scroll", tagNames: ["view-scroll", "scroll"]},
+    {name: "view-group", tagNames: ["view-group", "group"]},
+    {name: "view-frame", tagNames: ["view-frame"]},
+    {name: "view-dialog", tagNames: ["view-dialog", "dialog"]},
+    {name: "view-recycle", tagNames: ["view-recycle", "recycle"]},
+    {name: "view", tagNames: ["view"]}
+];
+
+let tagToViewType = function (html) {
+    for (let viewType of viewTypes) {
+        html = tagToViewTypeBy(html,viewType.name,viewType.tagNames)
+    }
+    return html;
+}
+
+let tagToViewTypeBy = function (html, viewTypeName, tagNames) {
+    tagNames.forEach(tagName => {
+        var regExp = new RegExp("<"+tagName, "gmi");
+        html = html.replace(regExp, '<div view-type="'+viewTypeName+'"');
+        html = html.replace(new RegExp("</"+tagName+">", "gmi"), "</div>");
+    })
+    return html;
+}
+
+let idToViewId =function (html){
+    var regExp = new RegExp(" id=", "gmi");
+    html = html.replace(regExp, " view-id=");
+    return html;
 }

@@ -1,6 +1,6 @@
 {
   "name": "view-app",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server --hot",
@@ -9,6 +9,9 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
+
+  },
+  "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.5",
     "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
@@ -17,9 +20,7 @@
     "hash-sum": "^2.0.0",
     "html-withimg-loader": "^0.1.16",
     "schema-utils": "^4.0.0",
-    "url-loader": "^4.1.1"
-  },
-  "devDependencies": {
+    "url-loader": "^4.1.1",
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.5",
     "babel-preset-env": "^1.7.0",

@@ -1,7 +1,13 @@
 <template>
     <img src="../images/bg.jpg" view-id="bg">
-    <view-recycle class="recycle_view" view-focus view-id="recycleView">
-        <div class="item" view-type="item" view-id="post">
+    <view id="view"></view>
+    <view-item></view-item>
+    <item view-id="item"></item>
+    <scroll view-id="scroll"></scroll>
+    <group view-id="group"></group>
+    <view-frame view-id="frame"></view-frame>
+    <view-recycle class="recycle_view" view-focus view-id="recycle">
+        <item class="item" view-id="post">
             <div class="focus" view-id="focus" >
             </div>
             <div class="pic">
@@ -12,10 +18,10 @@
                     <div view-id="test_div">测试</div>
                 </div>
             </div>
-        </div>
+        </item>
     </view-recycle>
 
-    <div class="dialog" view-type="view-dialog" view-id="dialog">
+    <dialog class="dialog" view-id="dialog">
         <div class="bg">
             <div class="shadow"></div>
             <img src="../images/home/dialog_bg.png">
@@ -33,7 +39,7 @@
                 <div class="pic"><img view-id="top_order_pic"></div>
             </div>
         </div>
-    </div>
+    </dialog>
 
 </template>
 

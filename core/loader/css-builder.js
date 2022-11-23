@@ -5,7 +5,6 @@
  * @returns {string}
  */
 module.exports = function (css, style_tag) {
-    debugger;
     var reg = /^[^\/]([\.\#]?[\w-]+[ ]?[^,])+({|,|\n)/gim;
     style_tag = "[" + style_tag.toLowerCase() + "]";
 

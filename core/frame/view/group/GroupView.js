@@ -287,9 +287,9 @@ export default class GroupView extends ScrollView {
 
         if (intoChild) {
             for (var child of this.childViews) {
-                if (child instanceof GroupView) {
+                if (child instanceof ScrollView) {
                     child.loadImageResource(true);
-                } else {
+                } else if(child instanceof ItemView){
                     child.loadImageResource();
                 }
             }

@@ -13,7 +13,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.3.0(2022-11-21)";
+export var version = "0.3.1(2022-11-23)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -34,7 +34,7 @@ export default class Application extends GroupView {
         this.keyboard = new Keyboard();
 
         /**
-         * @type {VideoPlayer}
+         * @type {RealPlayer}
          * @private
          */
         this._player = null;
@@ -225,7 +225,7 @@ export default class Application extends GroupView {
 
     /**
      * 在子类中重写，返回一个全局方法器
-     * @returns{VideoPlayer}
+     * @returns{RealPlayer}
      */
     getPlayerInstance() {
         console.error("获取播放器方法（getPlayInstance）未重写")
