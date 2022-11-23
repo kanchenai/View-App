@@ -13,12 +13,10 @@ import VMap from "@core/frame/util/VMap";
 export default class ViewManager {
     constructor(page) {
         this.page = page;
-        this._focusId = "";
         this._focusView = null;
     }
 
     clear() {
-        this.focusId = "";
         this.focusView = null;
     }
 
@@ -92,14 +90,6 @@ export default class ViewManager {
         }
     }
 
-    set focusId(value) {
-        this._focusId = value;
-    }
-
-    get focusId() {
-        return this._focusId;
-    }
-
     set focusView(value) {
         this._focusView = value;
     }
@@ -144,18 +134,7 @@ export default class ViewManager {
      * 初始化页面的焦点
      */
     init() {
-        if (!this.focusView) {
-            if (this.focusId) {
-                var focusView = this.page.findViewById(this.focusId);
-                if (focusView) {
-                    focusView.requestFocus();
-                } else {
-                    console.error("初始id没有对应的焦点:",this.page);
-                }
-            } else {
-                console.error("未设置初始焦点:",this.page);
-            }
-        } else {
+        if (this.focusView) {
             this.focusView.requestFocus();
         }
     }

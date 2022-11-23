@@ -326,7 +326,7 @@ export default class ItemView extends View {
 
         //当前的view是不是默认焦点
         var viewFocus = false;
-        if(!this.page.focusId && !this.page.focusView){
+        if(!this.page.focusView){
             viewFocus = this.ele.hasAttribute("view-focus");
         }
 

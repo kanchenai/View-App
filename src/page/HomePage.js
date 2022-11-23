@@ -26,7 +26,8 @@ export default class HomePage extends Page {
     }
 
     initView() {
-        this.focusId = "top_record";//在html中有标view-focus，在page的onCreate中有设置focusId，以focusId为准
+        this.top_record = this.findViewById("top_record");
+        this.top_record.requestFocus();
         this.bg = this.findViewById("bg")
 
         this.frame_view = this.findViewById("frame_view");
