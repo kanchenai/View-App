@@ -88,7 +88,7 @@ export default class Application extends GroupView {
     }
 
     create(page, param) {
-        this.onCreate(page, param);
+        this.onCreate(page, param);// 显示页面到前台
         this.startPage(page, param);
     }
 
@@ -250,8 +250,7 @@ export default class Application extends GroupView {
      * @param param
      */
     onCreate(page, param) {
-        // 显示页面到前台
-        this.startPage(page, param);
+
     }
 
     onStop() {
