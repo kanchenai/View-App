@@ -51,6 +51,7 @@ let viewTypes = [
     {name: "view-frame", tagNames: ["view-frame"]},
     {name: "view-dialog", tagNames: ["view-dialog", "dialog"]},
     {name: "view-recycle", tagNames: ["view-recycle", "recycle"]},
+    {name: "view-text", tagNames: ["view-text", "text"]},
     {name: "view", tagNames: ["view"]}
 ];
 

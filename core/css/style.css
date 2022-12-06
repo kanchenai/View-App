@@ -100,13 +100,3 @@ div {
     overflow: hidden;
     opacity: 0.8;
 }
-
-view,
-view-item,
-view-group,
-view-frame,
-view-scroll,
-view-dialog,
-view-recycle {
-    position: absolute;
-}
