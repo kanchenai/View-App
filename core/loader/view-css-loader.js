@@ -10,7 +10,8 @@ module.exports = function (source) {
     let dirname = path.dirname(resourcePath);
     filename = filename.replace(".css","");
 
-    let str = dirname.replace("/css", "")
+    let str = dirname.replace("/css", "")//mac
+    str = str.replace("\\css", "")//win
     filename = str + "/" + filename;
 
     // console.log("---filename---", filename);

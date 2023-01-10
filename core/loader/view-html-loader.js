@@ -12,6 +12,7 @@ module.exports = function (source) {
     filename = filename.replace(".html", "");
 
     let str = dirname.replace("/html", "")
+    str = str.replace("\\html", "")//win
     filename = str + "/" + filename;
 
     // console.log("---filename---", filename);
