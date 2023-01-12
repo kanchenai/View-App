@@ -325,10 +325,8 @@ export default class ItemView extends View {
         }
 
         //当前的view是不是默认焦点
-        var viewFocus = false;
-        if(!this.page.focusView){
-            viewFocus = this.ele.hasAttribute("view-focus");
-        }
+        var firstFocus = false;
+        firstFocus = this.ele.hasAttribute("first-focus");
 
         var up = View.parseAttribute("view-up", this.ele);//上
         var down = View.parseAttribute("view-down", this.ele);//下
@@ -352,7 +350,7 @@ export default class ItemView extends View {
         this.onClickListener = click || "";
         this.onFocusChangeListener = focus || "";
 
-        return viewFocus;
+        return firstFocus;
     }
 
     /**
@@ -365,10 +363,10 @@ export default class ItemView extends View {
     static parseByEle(ele, viewManager, listenerLocation) {
         var itemView = new ItemView(viewManager, listenerLocation);
         itemView.ele = ele;
-        var viewFocus = itemView.setAttributeParam();
+        var firstFocus = itemView.setAttributeParam();
         itemView.bindText();
         itemView.bindImage();
-        if (viewFocus) {
+        if (!viewManager.focusView && firstFocus) {
             viewManager.focusView = itemView;
         }
         return itemView;

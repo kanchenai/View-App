@@ -27,7 +27,6 @@ export default class HomePage extends Page {
 
     initView() {
         this.top_record = this.findViewById("top_record");
-        this.top_record.requestFocus();
         this.bg = this.findViewById("bg")
 
         this.frame_view = this.findViewById("frame_view");

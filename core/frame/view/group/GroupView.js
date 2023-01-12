@@ -299,7 +299,7 @@ export default class GroupView extends ScrollView {
     setAttributeParam() {
         super.setAttributeParam();
 
-        var viewFocus = this.ele.hasAttribute("view-focus");
+        var firstFocus = this.ele.hasAttribute("first-focus");
 
         var up = View.parseAttribute("view-up", this.ele);//上
         var down = View.parseAttribute("view-down", this.ele);//下
@@ -342,7 +342,7 @@ export default class GroupView extends ScrollView {
             }
         }
 
-        return viewFocus;
+        return firstFocus;
     }
 
     /**
@@ -788,11 +788,11 @@ export default class GroupView extends ScrollView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var groupView = new GroupView(viewManager, listenerLocation);
         groupView.ele = ele;
-        var viewDefault = groupView.setAttributeParam(ele);
+        var firstFocus = groupView.setAttributeParam(ele);
         groupView.bindImage();
         groupView.scroller.init();
         viewManager.eleToObject(groupView.scroller.ele, groupView, listenerLocation);//往内部执行
-        if (viewDefault) {
+        if (!viewManager.focusView && firstFocus) {
             viewManager.focusView = groupView;
         }
         return groupView;
