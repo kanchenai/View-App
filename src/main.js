@@ -11,6 +11,10 @@ window.onload = function () {
     window.application = new MyApplication("app");
     window.application.launch();
 
+    //调试结束后，可以改成这样的写法，全局无法获取到application对象，安全性更高
+    // var application = new MyApplication("app");
+    // application.launch();
+
     console.log(new Date().getTime() - start)
 }
 
