@@ -1,23 +1,27 @@
 # view-app
 这是一个在原生js基础上开发的针对iptv行业的交互框架
 
-环境
+### 环境及npm命令
+
 * node环境
 * 使用webpack打包
 
-初始化工程
+#### 初始化工程
+
 ```
     npm install
 ```
 
-运行
+#### 运行
+
 ```
     npm run server
     或
     npm run dev
 ```
 
-打包
+#### 打包
+
 ```
     npm run start
     或
@@ -270,12 +274,12 @@
 * 播放器使用
 
 ```javascript
-	export default class HomePage extends Page {
-    onResume(){
-      var playInfo = new PlayInfo("", 0, 0, 1280, 720);//播放地址，及视频位置
-      this.player.play(0, playInfo);//从0开始播放
+    export default class HomePage extends Page {
+      onResume(){
+        var playInfo = new PlayInfo("", 0, 0, 1280, 720);//播放地址，及视频位置
+        this.player.play(0, playInfo);//从0开始播放
+      }
     }
-  }
 ```
 
 
@@ -283,6 +287,8 @@
 #### 组件介绍
 
 未完待续，暂时可以参考Demo下的样例
+
+### 注意点
 
 #### 监听器注意点
 
@@ -342,10 +348,11 @@ State.ScrollAnimation值：
   }
 ```
 
-#### 代码现存问题
+### 代码现存问题
 
+* 暂无
 
-#### 开发者须知
+### 开发者须知
 
 * 1.该框架的运行环境 node，使用webpack打包
 * 2.当前版在适配中需要调整编译的es版本，在必要时需要舍弃某些写法，使用其他写法，故版本中的框架核心代码都是源码
