@@ -196,7 +196,7 @@
     //页面的节点及滚动器创建
     //内部没有内容，需要在这个方法中调用this.html = "";设置布局
     onCreate(param){//param是传入的参数，param由application或上一个Page组装
-      this.html = "<div></div>"；//这里的html一般由import引入
+      this.html = "<div></div>";//这里的html一般由import引入
     }
     
     //Page执行到前台，页面已显示
