@@ -11,7 +11,7 @@ module.exports = function (source) {
     let dirname = path.dirname(resourcePath);
     filename = filename.replace(".html", "");
 
-    let str = dirname.replace("/html", "")
+    let str = dirname.replace("/html", "")//mac
     str = str.replace("\\html", "")//win
     filename = str + "/" + filename;
 

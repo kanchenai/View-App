@@ -168,20 +168,121 @@
     }
 ```
 
+#### Page构建
+说明：控制页面渲染、操作，及业务逻辑的所在
+
+* 定义,继承Page
 ```javascript
-    export default class HomePage extends Page {
-        constructor() {
-            super();
-            this.pageName = "HomePage";
-        }
-    }
+  export default class HomePage extends Page {
+    
+  }
 ```
 
-#### Page构建
-未完待续，暂时可以参考/src/page下的样例
+* Page的constructor，这里定义当前Page的pageName，这个pageName需要和application.pageManager.pageTypeCallback中对应
+```javascript
+	export default class HomePage extends Page {
+    constructor() {
+      super();
+      this.pageName = "HomePage";
+    }
+  }
+```
+
+* Page生命周期回调
+
+```javascript
+	export default class HomePage extends Page {
+    //Page创建回调
+    //页面的节点及滚动器创建
+    //内部没有内容，需要在这个方法中调用this.html = "";设置布局
+    onCreate(param){//param是传入的参数，param由application或上一个Page组装
+      this.html = "<div></div>"；//这里的html一般由import引入
+    }
+    
+    //Page执行到前台，页面已显示
+    //1.从创建之后到前台
+    //2.从其他Page返回当前Page
+    onResume(){}
+    
+    //Page执行进入后台状态，页面已隐藏
+    //跳转到其他页面时，有两种状态
+    //1.当前页面暂停
+    //2.当前页面关闭，紧接着会调用停止方法
+    onPause(){
+      //一般播放暂停在这里调用
+    }
+    
+    //Page执行到停止
+    onStop(){
+      
+    }
+    
+    //Page执行到销毁
+    //页面回收、数据销毁
+    onDestroy(){
+      
+    }
+  }
+```
+
+  
+
+* Page之间的数据传递
+  
+  1.跳转到新的Page
+
+```javascript
+	export default class HomePage extends Page {
+    //页面默认的点击监听
+    onClickListener(view) {
+        console.log(view.pageName, "-onClickListener", view);
+        var listPage = new ListPage();//ListPage是另一个Page
+        this.startPage(listPage, {data: "llllll"});//第二个参数是传递到ListPage的数据
+    }
+  }
+  
+  export default class ListPage extends Page {
+    oncreated(param){//由HomePage中传递的数据 {data: "llllll"}
+      
+    }
+  }
+```
+
+​		2.返回到上一个页面
+
+```javascript
+	export default class ListPage extends Page {
+    //重写返回键
+    key_back_event() {
+        this.setResult({data: "来自ListPage的数据"});
+        this.finish();//回到上一个Page（HomePage）
+    }
+  }
+	
+  export default class HomePage extends Page {
+    onResult(backResultData){//由ListPage回传的数据，{data: "来自ListPage的数据"}
+      
+    }
+  }
+  
+```
+
+* 播放器使用
+
+```javascript
+	export default class HomePage extends Page {
+    onResume(){
+      var playInfo = new PlayInfo("", 0, 0, 1280, 720);//播放地址，及视频位置
+      this.player.play(0, playInfo);//从0开始播放
+    }
+  }
+```
 
 
 
+#### 组件介绍
+
+未完待续，暂时可以参考Demo下的样例
 
 #### 监听器注意点
 

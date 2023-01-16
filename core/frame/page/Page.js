@@ -28,7 +28,6 @@ export default class Page extends GroupView {
         this.param = param || {};
         this.pageManager.putPageInfo(this, param);//保存数据，到本地,与在页面中主动保存参数信息不同
         this.lifeState = PageLifeState.CREATE;//当前生命周期处在Page创建
-        this.application.keyboard.page = this;
         this.onCreate(param);//Page回调-创建
     }
 
