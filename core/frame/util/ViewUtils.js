@@ -11,7 +11,11 @@ var isEmpty = function (data) {
     return false;
 }
 
+var $$ = function (id) {
+    return document.getElementById(id);
+}
 
 export default {
-    isEmpty
+    isEmpty,
+    $$
 }

@@ -80,20 +80,20 @@ export default class MyApplication extends Application {
   onlaunch方法返回的Page是应用启动的第一个Page
 ```javascript
 export default class MyApplication extends Application {
-	onLaunch(urlParam) {
-		console.log("onLaunch，地址栏参数：", urlParam);//外部在地址栏中传递的参数
-		var firstPage = null;
-    var param = null;//这个是传递给第一个Page的参数
-    switch (urlParam.pageKey) {//根据参数中的规定key对应的值选择哪个Page是第一个Page
-      case "home":
-        firstPage = new HomePage();
-        break;
-      default:
-        firstPage = new TestPage();//默认第一个Page
-        break;
+    onLaunch(urlParam) {
+      console.log("onLaunch，地址栏参数：", urlParam);//外部在地址栏中传递的参数
+      var firstPage = null;
+      var param = null;//这个是传递给第一个Page的参数
+      switch (urlParam.pageKey) {//根据参数中的规定key对应的值选择哪个Page是第一个Page
+        case "home":
+          firstPage = new HomePage();
+          break;
+        default:
+          firstPage = new TestPage();//默认第一个Page
+          break;
+      }
+      return {firstPage, param};//返回第一个Page，及对应的参数
     }
-    return {firstPage, param};//返回第一个Page，及对应的参数
-  }
 }
     
 ```
@@ -231,7 +231,7 @@ export default class HomePage extends Page {
 
 * Page之间的数据传递
   
-  1.跳转到新的Page
+1.跳转到新的Page
 
 ```javascript
 export default class HomePage extends Page {
@@ -250,7 +250,7 @@ export default class ListPage extends Page {
 }
 ```
 
-​		2.返回到上一个页面
+2.返回到上一个页面
 
 ```javascript
 export default class ListPage extends Page {

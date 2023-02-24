@@ -59,7 +59,7 @@ export default class MyApplication extends Application {
                 firstPage = new HomePage();
                 break;
         }
-        return {firstPage, param};
+        return {firstPage: firstPage, param: param};
     }
 
     onCreate(page, param) {
@@ -87,9 +87,9 @@ export default class MyApplication extends Application {
 
     getPlayerInstance() {
         var player = {};
-        try{
+        try {
             player = new IptvPlayer();
-        }catch (e){
+        } catch (e) {
             player = new AliWebPlayer();
         }
         return player;

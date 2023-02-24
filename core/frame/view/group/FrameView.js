@@ -116,7 +116,7 @@ export default class FrameView extends GroupView {
      */
     bindPageLife() {
         var frameView = this;
-
+        //TODO 只考虑了在page下的FrameView；如果是Fragment下的FrameView，对应的对就是Fragment的生命周期
         var pageOnResume = this.page.onResume;
         this.page.onResume = function () {
             if (frameView.foregroundView) {

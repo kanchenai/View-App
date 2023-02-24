@@ -2,9 +2,9 @@
 * 浙江新媒体的
 ### 互联网视频网站复刻
 互联网上的视屏网站复刻为EPG模式
-* 爱奇艺
+* 爱奇艺 https://gitee.com/kanchenai/aiqiyi.git
 * bilibili
-* 芒果TV https://github.com/kanchenai/mango 
+* 芒果TV https://github.com/kanchenai/mango    https://gitee.com/kanchenai/View-App.git
 * 优酷
 * 腾讯视频
 

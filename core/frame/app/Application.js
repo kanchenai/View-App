@@ -308,10 +308,6 @@ export default class Application extends GroupView {
         }
         return a;
     }
-
-    $$(id) {
-        return document.getElementById(id);
-    }
 }
 
 class ApplicationScroller extends Scroller {
@@ -332,7 +328,7 @@ class ApplicationScroller extends Scroller {
 }
 
 /**
- * 给数组添加获取最后一个元素的方法
+ * 获取最后一个元素的方法
  * @returns {null}
  */
 Array.prototype.peek = function () {
