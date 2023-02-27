@@ -7,8 +7,8 @@ import LocalData from "../util/LocalData";
 export default class PageManager {
     constructor(application) {
         this.application = application;
-        this.pageInfoList = this.getPageInfo() || [];
         this.pageInfoKey = "PAGE_INFO";
+        this.pageInfoList = this.getPageInfo() || [];
 
         this._pageTypeCallback = function (pageName) {
             console.error("请在Application的子类中设置该回调！")
