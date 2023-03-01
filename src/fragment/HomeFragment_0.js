@@ -6,10 +6,8 @@ import VideoPlayer from "@core/frame/player/VideoPlayer";
 
 export default class HomeFragment_0 extends Fragment{
     onCreate() {
-        var start = new Date().getTime();
         this.html = html;
-        console.log(new Date().getTime() - start)
-        console.log(this.page.param)
+        console.log("HomeFragment_0",this.page.param)
         this.initView();
         this.setView();
         this.initUtil();
@@ -43,7 +41,10 @@ export default class HomeFragment_0 extends Fragment{
 
     onPlayStart() {
         console.log("HomeFragment_0 onPlayStart");
-        this.page.bgToVideoBg(this.player.playInfo);
+        let that = this;
+        setTimeout(function (){
+            that.page.bgToVideoBg(this.player.playInfo);
+        });
         this.small_view_pic.hide();
     }
 

@@ -19,6 +19,7 @@ export default class HomePage extends Page {
     }
 
     onCreate(param) {
+        console.log(this.pageName, "onCreate", "传入参数", param);
         this.html = html;
         this.initView();
         this.setView();
@@ -67,7 +68,9 @@ export default class HomePage extends Page {
     onClickListener(view) {
         console.log(this.pageName, "-onClickListener", view);
         var listPage = new ListPage();
-        this.startPage(listPage, {data: "llllll"});
+        this.startPage(listPage, {data: "listPage的初始参数"});
+
+        // this.finish();
     }
 
     onFocusChangeListener(view, hasFocus) {

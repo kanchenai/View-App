@@ -14,7 +14,7 @@ export default class ListPage extends Page {
     }
 
     onCreate(param) {
-        console.log("ListPage", this.pageName, "onCreate", "传入参数", param);
+        console.log(this.pageName, "onCreate", "传入参数", param);
         this.html = html;
 
         this.content_list = this.findViewById("content_list");
@@ -37,7 +37,7 @@ export default class ListPage extends Page {
         var that = this;
         setTimeout(function (){
             var framePage = new FramePage();
-            that.startPage(framePage, {data: "ffffff"});
+            that.startPage(framePage, {data: "framePage的初始参数"});
         },500);
     }
 

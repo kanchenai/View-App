@@ -211,6 +211,7 @@ export default class Page extends GroupView {
      * 清除页面缓存
      */
     clearParam() {
+        console.log("清除页面缓存：", this.param);
         //清除数据
         this.pageManager.removePageInfo(this.param);
     }
