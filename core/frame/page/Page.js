@@ -26,9 +26,9 @@ export default class Page extends GroupView {
     create(param) {
         this.init();//初始化Page：创建Page对应的节点，并添加到application，创建滚动器
         this.param = param || {};
-        this.pageManager.putPageInfo(this, param);//保存数据，到本地,与在页面中主动保存参数信息不同
+        this.pageManager.putPageInfo(this, this.param);//保存数据，到本地,与在页面中主动保存参数信息不同
         this.lifeState = PageLifeState.CREATE;//当前生命周期处在Page创建
-        this.onCreate(param);//Page回调-创建
+        this.onCreate(this.param);//Page回调-创建
     }
 
     resume() {

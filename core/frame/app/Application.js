@@ -13,7 +13,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.3.1(2023-03-01)";
+export var version = "0.3.1(2023-03-02)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -203,17 +203,17 @@ export default class Application extends GroupView {
         var param = page.param;
 
         if (page.lifeState == PageLifeState.BEFORE_CREATE) {//返回app时，页面未创建
+            this.pageManager.popPageInfo();
+            page.create(param);
         } else if (page.lifeState == PageLifeState.STOP) {//页面停止，重新创建
             page.ele.remove();//将当前节点从application中移除
             //兼容ele.remove无效
             if (this.ele.contains(this.ele)) {
                 this.ele.removeChild(this.ele);
             }
+            this.pageManager.popPageInfo();
+            page.create(param);
         }
-
-
-        this.pageManager.popPageInfo();
-        page.create(param);
 
         page.resume();
         if (backResultData) {
