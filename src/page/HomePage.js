@@ -122,6 +122,9 @@ export default class HomePage extends Page {
 
     onPause() {
         console.log(this.pageName + "-onPause");
+
+        var newParam = {data:"HomePage保存的数据"};
+        this.saveParam(newParam);
     }
 
     onStop() {

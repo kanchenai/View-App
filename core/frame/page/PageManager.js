@@ -70,7 +70,7 @@ export default class PageManager {
 
     /**
      * 把param对应的pageInfo从pageInfoList中删除
-     * @param param
+     * @param param 这个param是从pageInfoList中获取的，属于是同一个对象、同一个内存地址
      */
     removePageInfo(param) {
         for (var i = 0; i < this.pageInfoList.length; i++) {

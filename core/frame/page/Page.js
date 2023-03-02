@@ -224,6 +224,10 @@ export default class Page extends GroupView {
         this.application.startPage(page, param);
     }
 
+    /**
+     * 销毁page
+     * 如果需要跳转新页面，然后销毁page，需要把finish放在startPage之后执行
+     */
     finish() {
         this.application.finishPage(this);
     }

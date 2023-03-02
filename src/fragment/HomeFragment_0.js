@@ -43,7 +43,7 @@ export default class HomeFragment_0 extends Fragment{
         console.log("HomeFragment_0 onPlayStart");
         let that = this;
         setTimeout(function (){
-            that.page.bgToVideoBg(this.player.playInfo);
+            that.page.bgToVideoBg(that.player.playInfo);
         });
         this.small_view_pic.hide();
     }

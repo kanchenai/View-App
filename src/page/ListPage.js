@@ -38,6 +38,7 @@ export default class ListPage extends Page {
         setTimeout(function (){
             var framePage = new FramePage();
             that.startPage(framePage, {data: "framePage的初始参数"});
+            that.finish();
         },500);
     }
 
