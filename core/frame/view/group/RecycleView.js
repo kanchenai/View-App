@@ -503,7 +503,7 @@ export default class RecycleView extends GroupView {
         if (col) {
             col = parseInt(col);
             if (col > 0) {
-                this.row = col;
+                this.col = col;
             } else {
                 console.warn("view-col值 错误")
             }
