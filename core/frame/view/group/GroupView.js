@@ -737,16 +737,16 @@ export default class GroupView extends ScrollView {
             switch (Keyboard.KEY_CODE) {
                 case Keyboard.KEY_UP:
                     toMiddle.left = toMiddle.left + child.width / 2;
+                    toMiddle.top = toMiddle.top + child.height;
                     break;
                 case Keyboard.KEY_DOWN:
                     toMiddle.left = toMiddle.left + child.width / 2;
-                    toMiddle.top = toMiddle.top + child.height;
                     break;
                 case Keyboard.KEY_LEFT:
+                    toMiddle.left = toMiddle.left + child.width;
                     toMiddle.top = toMiddle.top + child.height / 2;
                     break;
                 case Keyboard.KEY_RIGHT:
-                    toMiddle.left = toMiddle.left + child.width;
                     toMiddle.top = toMiddle.top + child.height / 2;
                     break;
                 default:
