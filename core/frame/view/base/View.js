@@ -379,7 +379,7 @@ export default class View {
 
     static parseAttribute(key, ele) {
         var value = ele.getAttribute(key);
-        if (!value || value == "undefined" || value == "null" || value == "none" ) {
+        if (!value || value == "undefined") {
             return null;
         }
         if (key != "view-id" && key != "view-type") {
