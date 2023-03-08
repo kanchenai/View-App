@@ -717,6 +717,14 @@ export class Holder {
     findEleById(id) {
         return this.component.findEleById(id);
     }
+
+    /**
+     * 数据下标
+     * @return {number}
+     */
+    get dataIndex(){
+        return (this.index + this.recycleView.data.length) % this.recycleView.data.length;
+    }
 }
 
 /**

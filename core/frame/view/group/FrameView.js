@@ -1,5 +1,6 @@
 import GroupView from "./GroupView";
 import Fragment, {FragmentLifeState} from "./Fragment";
+import {PageLifeState} from "../../page/Page";
 
 export default class FrameView extends GroupView {
     constructor(viewManager, listenerLocation) {
@@ -52,7 +53,7 @@ export default class FrameView extends GroupView {
 
         fragment.left = this.width * (this.childViews.length - 1) * 1.1;
 
-        if (!this.foregroundView && fragment.childViews.length > 0 && this.page.lifeState == FragmentLifeState.RUN) {
+        if (!this.foregroundView && fragment.childViews.length > 0 && this.page.lifeState == PageLifeState.RUN) {
             this.switchTo(0);
         }
     }
@@ -85,7 +86,7 @@ export default class FrameView extends GroupView {
      * @param{Fragment|number} fragment
      */
     switchTo(fragment) {
-        if (this.page.lifeState != FragmentLifeState.RUN) {
+        if (this.page.lifeState != PageLifeState.RUN) {
             return;
         }
 
