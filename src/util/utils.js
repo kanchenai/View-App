@@ -1,5 +1,5 @@
 /**
- * 在一张完整的图片中，镂空出一个视频窗
+ * 在一张完整的图片(或背景div)中，镂空出一个视频窗
  * bgEle图片需要占满整个bgParentNode背景
  * 必须和videoBgToBg成对使用
  * @param{Element} bgParentNode img的父节点
@@ -7,22 +7,35 @@
  * @param{PlayInfo} playInfo 播放信息
  */
 var bgToVideoBg = function (bgParentNode, bgEle, playInfo) {
-    if (bgEle.tagName != "IMG") {
-        console.warn("bgEle必须是img");
-        return;
+    var type = "pic";
+    var src = "";
+    var background = ""
+    if (bgEle.tagName == "IMG") {
+        src = bgEle.src;
+    }else{
+        type = "color";
+        background = getComputedStyle(bgEle).background;
     }
+
+    console.log("bgToVideoBg",type);
+
     var bgParentRect = bgParentNode.getBoundingClientRect();
 
     var bgRect = bgEle.getBoundingClientRect();
 
     //上
     var divTop = document.createElement("div");
+
     divTop.style.width = bgRect.width + "px";
     divTop.style.height = playInfo.top - bgParentRect.top + "px";
     divTop.style.overflow = "hidden";
-    var imgTop = document.createElement("img");
-    imgTop.src = bgEle.src;
-    divTop.appendChild(imgTop)
+    if(type == "pic"){
+        var imgTop = document.createElement("img");
+        imgTop.src = src;
+        divTop.appendChild(imgTop)
+    }else{
+        divTop.style.background = background;
+    }
 
     //下
     var divBottom = document.createElement("div");
@@ -30,10 +43,14 @@ var bgToVideoBg = function (bgParentNode, bgEle, playInfo) {
     divBottom.style.height = bgRect.height - playInfo.height - playInfo.top + bgParentRect.top + "px";
     divBottom.style.top = playInfo.top + playInfo.height - bgParentRect.top + "px";
     divBottom.style.overflow = "hidden";
-    var imgBottom = document.createElement("img");
-    imgBottom.style.top = - playInfo.height - playInfo.top + "px";
-    imgBottom.src = bgEle.src;
-    divBottom.appendChild(imgBottom)
+    if(type == "pic"){
+        var imgBottom = document.createElement("img");
+        imgBottom.style.top = - playInfo.height - playInfo.top + "px";
+        imgBottom.src = src;
+        divBottom.appendChild(imgBottom)
+    }else{
+        divBottom.style.background = background;
+    }
 
     //左
     var divLeft = document.createElement("div");
@@ -41,10 +58,15 @@ var bgToVideoBg = function (bgParentNode, bgEle, playInfo) {
     divLeft.style.height = playInfo.height + "px";
     divLeft.style.top = playInfo.top - bgParentRect.top + "px";
     divLeft.style.overflow = "hidden";
-    var imgLeft = document.createElement("img");
-    imgLeft.style.top = -(playInfo.top - bgParentRect.top) + "px";
-    imgLeft.src = bgEle.src;
-    divLeft.appendChild(imgLeft)
+
+    if(type == "pic"){
+        var imgLeft = document.createElement("img");
+        imgLeft.style.top = -(playInfo.top - bgParentRect.top) + "px";
+        imgLeft.src = src;
+        divLeft.appendChild(imgLeft)
+    }else{
+        divLeft.style.background = background;
+    }
 
     //右
     var divRight = document.createElement("div");
@@ -53,12 +75,15 @@ var bgToVideoBg = function (bgParentNode, bgEle, playInfo) {
     divRight.style.left = playInfo.left - bgParentRect.left + playInfo.width + "px";
     divRight.style.top = playInfo.top - bgParentRect.top + "px";
     divRight.style.overflow = "hidden";
-    var imgRight = document.createElement("img");
-    imgRight.style.top = -(playInfo.top - bgParentRect.top) + "px";
-    imgRight.style.left = -(playInfo.left + playInfo.width) + "px";
-    imgRight.src = bgEle.src;
-    divRight.appendChild(imgRight)
-
+    if(type == "pic"){
+        var imgRight = document.createElement("img");
+        imgRight.style.top = -(playInfo.top - bgParentRect.top) + "px";
+        imgRight.style.left = -(playInfo.left + playInfo.width) + "px";
+        imgRight.src = src;
+        divRight.appendChild(imgRight)
+    }else{
+        divRight.style.background = background;
+    }
 
     bgParentNode.appendChild(divTop)
     bgParentNode.appendChild(divBottom)

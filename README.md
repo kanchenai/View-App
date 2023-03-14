@@ -324,6 +324,11 @@ var image = holder.findViewById("pic");
 image.src = pic_001;
 ```
 
+也可以直接引用
+```javascript
+  require("@images-js/pic_001.png")
+```
+
 #### 文字跑马灯注意点
 
 * 会自动加上overflow:hidden;line-height:{height}
