@@ -2,9 +2,15 @@
 * 浙江新媒体的
 ### 互联网视频网站复刻
 互联网上的视屏网站复刻为EPG模式
-* 爱奇艺 https://gitee.com/kanchenai/aiqiyi.git
+* 爱奇艺 
+  * gitee:https://gitee.com/kanchenai/aiqiyi.git  
+  * github:https://github.com/kanchenai/aiqiyi.git  
+  * 页面效果：http://kanchenai.gitee.io/aiqiyi_page
 * bilibili
-* 芒果TV https://github.com/kanchenai/mango    https://gitee.com/kanchenai/View-App.git
+* 芒果TV 
+  * gitee:https://gitee.com/kanchenai/View-App.git  
+  * github:https://github.com/kanchenai/mango
+  * 页面效果：http://kanchenai.gitee.io/mango_page
 * 优酷
 * 腾讯视频
 
@@ -20,11 +26,11 @@
 * 生活
 
 ### 图片
-直接在网页上下载
+* 直接在网页上下载
 
 ### 视频资源
-扒一下互联网的内容
+* 扒一下互联网的内容，使用的是直播流
 
 ### 找个部署到服务器，相互跳转
 
-
+* 使用Gitee Page部署
