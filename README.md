@@ -361,6 +361,7 @@ window.onload = function () {
 ### 代码现存问题
 
 * Fragment中不能嵌套FrameView，预计在后续版本中优化
+* 打包的文件，在部分盒子中黑屏，正在定位中
 
 ### 开发者须知
 

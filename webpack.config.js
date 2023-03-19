@@ -3,7 +3,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/main',
+    entry: ['@babel/polyfill', './src/main'],//引入es6中无法被编译的新api
+    // entry: './src/main',
     output: {
         filename: "[name].js",
         path: path.resolve(__dirname, './dist'),
