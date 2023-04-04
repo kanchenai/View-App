@@ -1,5 +1,6 @@
 import '@css'
 import "@images-js"
+require('./global_style.css')
 
 import MyApplication from "./MyApplication";
 import State from "@core/frame/util/State";

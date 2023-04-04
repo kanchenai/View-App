@@ -317,6 +317,7 @@ this.html = "";//这个this，可以在监听器内部打印下this，来查看t
 ```
 
 * 在js中使用，动态设置的图片，要放置在images-js文件夹中，用import导入再使用
+  * 在images-js文件下需要有个index.js文件包含所有图片，并在main.js中import "@images-js"
 ```javascript
 import pic_001 from "@images-js/pic_001.png"
 
@@ -328,6 +329,8 @@ image.src = pic_001;
 ```javascript
   require("@images-js/pic_001.png")
 ```
+
+* 建议：在js中使用时，将图片放在images文件夹，使用require引入，使用比import方便，可以不用images-js文件夹
 
 #### 文字跑马灯注意点
 

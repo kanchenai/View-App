@@ -7,8 +7,6 @@ import PlayerPage from "@page/PlayerPage";
 import AliWebPlayer from "@src/util/AliWebPlayer";
 import FramePage from "@page/FramePage";
 
-require('./global_style.css')
-
 export default class MyApplication extends Application {
     constructor(id) {
         super(id);

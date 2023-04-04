@@ -1,7 +1,14 @@
 ### 一个launcher
+
 * 浙江新媒体的
+  * gitee:https://gitee.com/kanchenai/epg-launcher.git
+  * github:https://github.com/kanchenai/epg-launcher.git
+  * 页面效果:http://kanchenai.gitee.io/launcher_page
+
 ### 互联网视频网站复刻
+
 互联网上的视屏网站复刻为EPG模式
+
 * 爱奇艺 
   * gitee:https://gitee.com/kanchenai/aiqiyi.git  
   * github:https://github.com/kanchenai/aiqiyi.git  
@@ -15,6 +22,7 @@
 * 腾讯视频
 
 ### iptv专区复刻
+
 在各地区、各运营商的专区
 * 芒果
 * 酷喵
@@ -24,6 +32,13 @@
 * 少儿
 * 教育
 * 生活
+
+### 其他
+
+* 直播
+  * gitee:https://gitee.com/kanchenai/tv-live-epg.git
+  * github:https://github.com/kanchenai/tv-live-epg.git
+  * 页面效果：http://kanchenai.gitee.io/live-page
 
 ### 图片
 * 直接在网页上下载

@@ -56,11 +56,17 @@ export default class Page extends GroupView {
     }
 
     stop() {
+        if(this.lifeState != PageLifeState.PAUSE){//不是暂停状态，先暂停
+            this.pause();
+        }
         this.lifeState = PageLifeState.STOP;//当前生命周期处在Page停止
         this.onStop();//Page回调-停止
     }
 
     destroy() {
+        if(this.lifeState != PageLifeState.STOP){//不是停止状态，先停止
+            this.stop();
+        }
         this.lifeState = PageLifeState.DESTROY;//当前生命周期处在Page销毁
         this.onDestroy();//Page回调-销毁
         this.ele.remove();//将当前节点从application中移除

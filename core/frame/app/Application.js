@@ -13,7 +13,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.3.2(2023-03-19)";
+export var version = "0.3.2(2023-04-04)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -48,6 +48,7 @@ export default class Application extends GroupView {
         /**
          * 启动页面模式
          * 单页面/多页面
+         * 目前没有做多页面功能，该标识无用
          * @type {string}
          */
         this.pageMode = PageMode.SINGLE;
@@ -93,6 +94,11 @@ export default class Application extends GroupView {
     }
 
     stop() {
+        //将未销毁的页面全部stop，为了返回app时恢复page
+        for (var i = this.pageList.length - 1; i >= 0; i--) {
+            var page = this.pageList[i];
+            page.stop();
+        }
         this.onStop();
     }
 
@@ -161,17 +167,19 @@ export default class Application extends GroupView {
      * @param{Page} page
      */
     finishPage(page) {
-        if (page.lifeState == PageLifeState.RUN) {//运行中
-            page.pause();
-        }
+        // if (page.lifeState == PageLifeState.RUN) {//运行中
+        //     page.pause();
+        // }
+        //
+        // if (page.lifeState == PageLifeState.PAUSE) {//暂停
+        //     page.stop();
+        // }
+        //
+        // if (page.lifeState == PageLifeState.STOP) {//停止
+        //     page.destroy();
+        // }
 
-        if (page.lifeState == PageLifeState.PAUSE) {//暂停
-            page.stop();
-        }
-
-        if (page.lifeState == PageLifeState.STOP) {//停止
-            page.destroy();
-        }
+        page.destroy();
 
         if (this.pageList.length == 0) {
             this.keyboard.page = null;//最后一个页面销毁时的保护机制
