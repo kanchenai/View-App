@@ -86,10 +86,8 @@ export default class MyApplication extends Application {
       var param = null;//这个是传递给第一个Page的参数
       switch (urlParam.pageKey) {//根据参数中的规定key对应的值选择哪个Page是第一个Page
         case "home":
-          firstPage = new HomePage();
-          break;
-        default:
-          firstPage = new TestPage();//默认第一个Page
+          // firstPage = new HomePage();
+          firstPage = "HomePage";//对应view.config.js中的页面，两种形式都是可以的，但建议使用这种
           break;
       }
       return {firstPage, param};//返回第一个Page，及对应的参数
