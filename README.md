@@ -144,31 +144,30 @@ export default class MyApplication extends Application {
 }
 ```
 
-* 跳转到外部，返回应用时
+* 页面配置
+  
+  在view.config.js文件中配置页面
 
-  这里主要是为跳转到外部返回应用后，所显示的Page
+  * 1.跳转到外部返回应用后，恢复page
+  * 2.page.startPage("HomePage");//可以这么使用了
 ```javascript
-export default class MyApplication extends Application {
-  constructor(id) {
-    super(id);
-    //重写pageManager.pageTypeCallback，其中pageName在每个Page中的pageName对应
-    this.pageManager.pageTypeCallback = function (pageName) {
-      var page = null;
-      switch (pageName) {
-        case "HomePage"://对应下方HomePage的constructor中的赋值的pageName
-          page = new HomePage();
-          break;
-        case "ListPage":
-          page = new ListPage();
-          break;
-        case "TestPage":
-          page = new TestPage();
-          break;
-      }
-      return page;
-    }
-  }
-}
+  /**
+   * 定义PageName对应的Page，舍去在Page子类中赋值pageName步骤
+   */
+  export var PageConfig = {
+            "HomePage": HomePage,
+            "ListPage": ListPage,
+            "FramePage": FramePage,
+            "TestPage": TestPage,
+            "PlayerPage": PlayerPage
+          }
+  
+  /**
+   * 默认的page
+   * 当未获取到第一个页面时，会使用该页面
+   * @type {string}
+   */
+  export var LaunchPage = "HomePage";
 ```
 
 #### Page构建
@@ -177,16 +176,6 @@ export default class MyApplication extends Application {
 * 定义,继承Page
 ```javascript
 export default class HomePage extends Page {
-}
-```
-
-* Page的constructor，这里定义当前Page的pageName，这个pageName需要和application.pageManager.pageTypeCallback中对应
-```javascript
-export default class HomePage extends Page {
-  constructor() {
-    super();
-    this.pageName = "HomePage";
-  }
 }
 ```
 
@@ -360,6 +349,10 @@ window.onload = function () {
     console.log(new Date().getTime() - start)
 }
 ```
+
+### 版本升级注意点
+
+* 0.3.* -> 0.4.*及以上版本，需要新增page配置文件（view.config.js）,该配置可以在继承Page时，不用写构造方法，在继承Application中不用写构造方法
 
 ### 代码现存问题
 

@@ -6,57 +6,49 @@ import IptvPlayer from "@core/frame/player/IptvPlayer";
 import PlayerPage from "@page/PlayerPage";
 import AliWebPlayer from "@src/util/AliWebPlayer";
 import FramePage from "@page/FramePage";
+import LocalData from "@core/frame/util/LocalData";
 
 export default class MyApplication extends Application {
-    constructor(id) {
-        super(id);
-        this.pageManager.pageTypeCallback = function (pageName) {
-            var page = null;
-            switch (pageName) {
-                case "HomePage":
-                    page = new HomePage();
-                    break;
-                case "ListPage":
-                    page = new ListPage();
-                    break;
-                case "FramePage":
-                    page = new FramePage();
-                    break;
-                case "TestPage":
-                    page = new TestPage();
-                    break;
-                case "PlayerPage":
-                    page = new PlayerPage();
-                    break;
-            }
-            return page;
-        }
-    }
-
     onLaunch(urlParam) {
         console.log("onLaunch，地址栏参数：", urlParam);
         var firstPage = null;
-        var param = {data:"enter"};//将地址栏参数中与firstPage相关的参数填到param，会在firstPage中获取到
+        var param = {data: "enter"};//将地址栏参数中与firstPage相关的参数填到param，会在firstPage中获取到
+        // switch (urlParam.pageKey) {
+        //     case "home":
+        //         firstPage = new HomePage();
+        //         break;
+        //     case "list":
+        //         firstPage = new ListPage();
+        //         break;
+        //     case "frame":
+        //         firstPage = new FramePage();
+        //         break;
+        //     case "test":
+        //         firstPage = new TestPage();
+        //         break;
+        //     case "player":
+        //         firstPage = new PlayerPage();
+        //         break;
+        // }
+
         switch (urlParam.pageKey) {
             case "home":
-                firstPage = new HomePage();
+                firstPage = "HomePage";
                 break;
             case "list":
-                firstPage = new ListPage();
+                firstPage = "ListPage";
                 break;
             case "frame":
-                firstPage = new FramePage();
+                firstPage = "FramePage";
                 break;
             case "test":
-                firstPage = new TestPage();
+                firstPage = "TestPage";
                 break;
             case "player":
-                firstPage = new PlayerPage();
-                break;
-            default:
-                firstPage = new HomePage();
+                firstPage = "PlayerPage";
                 break;
         }
+
         return {firstPage: firstPage, param: param};
     }
 
@@ -74,11 +66,13 @@ export default class MyApplication extends Application {
     }
 
     exitUrl() {
-        var url = "";
-        if (false) {
-            url = "http://www.baidu.com";
-        } else {
-            url = "";
+        var url = this.urlParam.backUrl;
+        if (!url) {//如果在地址栏中没有返回地址
+            url = LocalData.getData("backUrl");//取保存的
+        }
+
+        if (!url) {//如果都没有
+            url = "";//默认的地址
         }
         return url;
     }

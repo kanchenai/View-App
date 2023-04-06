@@ -8,11 +8,6 @@ import Toast from "@core/frame/view/single/Toast";
 
 
 export default class ListPage extends Page {
-    constructor() {
-        super();
-        this.pageName = "ListPage";
-    }
-
     onCreate(param) {
         console.log(this.pageName, "onCreate", "传入参数", param);
         this.html = html;

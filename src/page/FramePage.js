@@ -7,11 +7,6 @@ import Fragment_2 from "@fragment/Fragment_2";
 import TestPage from "@page/TestPage";
 
 export default class FramePage extends Page{
-    constructor() {
-        super();
-        this.pageName = "FramePage";
-    }
-
     onCreate(param) {
         console.log(this.pageName + "-onCreate");
         this.html = html;

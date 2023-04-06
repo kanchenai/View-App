@@ -9,8 +9,6 @@ export default class Page extends GroupView {
         this.focusable = false;
         delete this.data;
 
-        //在子类中设置这个pageName，用以恢复页面时使用
-        this.pageName = "";
         this.isForeground = false;
         //Page生命周期标识
         this.lifeState = PageLifeState.BEFORE_CREATE;
@@ -224,7 +222,8 @@ export default class Page extends GroupView {
 
     /**
      * 跳转到page
-     * @param{Page} page
+     * @param{Page|String} page
+     * @param{Object} param
      */
     startPage(page, param) {
         this.application.startPage(page, param);

@@ -11,11 +11,6 @@ import PlayerPage from "@page/PlayerPage";
 import PlayInfo from "@core/frame/player/PlayInfo";
 
 export default class TestPage extends Page {
-    constructor() {
-        super();
-        this.pageName = "TestPage";
-    }
-
     onCreate(param) {
         this.html = html;
 

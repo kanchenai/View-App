@@ -1,4 +1,5 @@
 import LocalData from "../util/LocalData";
+import {LaunchPage, PageConfig} from "../../../view.config";
 
 /**
  * Page的管理者
@@ -9,11 +10,6 @@ export default class PageManager {
         this.application = application;
         this.pageInfoKey = "PAGE_INFO";
         this.pageInfoList = this.getPageInfo() || [];
-
-        this._pageTypeCallback = function (pageName) {
-            console.error("请在Application的子类中设置该回调！")
-            return {};
-        };
     }
 
     /**
@@ -22,10 +18,17 @@ export default class PageManager {
      * @returns {{}}
      */
     createPageByName(pageName) {
-        var page = this._pageTypeCallback(pageName);
-        if(!page){
-            console.error("pageTypeCallback方法中未定义'"+pageName+"'");
+        var pageConstructor = PageConfig[pageName];
+        if (!pageConstructor) {
+            console.error("pageTypeCallback方法中未定义" + pageName + "，使用默认page：" + LaunchPage + "启动");
+            pageConstructor = PageConfig[LaunchPage];
+
+            if (!pageConstructor) {
+                console.error("默认page：" + LaunchPage + "设置错误，请检查代码");
+                return null;
+            }
         }
+        var page = new pageConstructor();
         return page;
     }
 
@@ -115,7 +118,7 @@ export default class PageManager {
             return [];
         }
         var pageInfoList = [];
-        for(var object of objects){
+        for (var object of objects) {
             pageInfoList.push(PageInfo.parse(object));
         }
         return pageInfoList;
@@ -131,12 +134,8 @@ export default class PageManager {
     /**
      * 把pageInfoList保存到LocalData
      */
-    savePageInfo(){
+    savePageInfo() {
         LocalData.setDataByJson(this.pageInfoKey, this.pageInfoList);
-    }
-
-    set pageTypeCallback(value) {
-        this._pageTypeCallback = value;
     }
 
     get pageList() {
@@ -158,8 +157,8 @@ export class PageInfo {
      * 将对象转成PageInfo对象
      * @param object
      */
-    static parse(object){
-        return new PageInfo(object.pageName,object.param);
+    static parse(object) {
+        return new PageInfo(object.pageName, object.param);
     }
 
 }

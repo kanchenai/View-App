@@ -5,6 +5,7 @@ import {Scroller} from "@core/frame/view/base/ScrollView";
 import View from "@core/frame/view/base/View";
 import {PageLifeState} from "@core/frame/page/Page";
 import "@core/frame/view/css"
+import {LaunchPage, PageConfig} from "../../../view.config";
 
 require("../../css/style.css");
 
@@ -13,7 +14,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.3.2(2023-04-04)";
+export var version = "0.4.0(2023-04-06)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -81,6 +82,10 @@ export default class Application extends GroupView {
             firstPage = this.pageList.pop();
         }
 
+        if(!firstPage){
+            firstPage = LaunchPage;
+        }
+
         if (firstPage) {
             this.create(firstPage, param);
         } else {
@@ -142,24 +147,34 @@ export default class Application extends GroupView {
      * @param{Object} param
      */
     startPage(page, param) {
-        page.application = this;
+        if (typeof page == "string") {
+            var pageConstructor = PageConfig[page];
+            if (pageConstructor) {
+                page = new pageConstructor();
+                this.startPage(page, param);
+            } else {
+                console.error("未定义" + page + "对应的Page");
+            }
+        } else {
+            page.application = this;
 
-        if (this.foregroundPage && this.foregroundPage.lifeState == PageLifeState.RUN) {
-            this.foregroundPage.pause();
+            if (this.foregroundPage && this.foregroundPage.lifeState == PageLifeState.RUN) {
+                this.foregroundPage.pause();
+            }
+            this.foregroundPage = page;
+
+            if (param) {
+                param = param.clone();//避免移除ViewManager中的pageInfoList异常
+            }
+
+            this.addChild(page);
+            page.create(param);
+            page.resume();
+            this.measure();
+            page.isForeground = true;
+
+            // console.log(this.pageList);
         }
-        this.foregroundPage = page;
-
-        if (param) {
-            param = param.clone();//避免移除ViewManager中的pageInfoList异常
-        }
-
-        this.addChild(page);
-        page.create(param);
-        page.resume();
-        this.measure();
-        page.isForeground = true;
-
-        // console.log(this.pageList);
     }
 
     /**
@@ -340,6 +355,13 @@ class ApplicationScroller extends Scroller {
         }
     }
 }
+
+(function(){
+    Object.keys(PageConfig).forEach(function (key){
+        var page = PageConfig[key];
+        page.prototype.pageName = key;
+    })
+})()
 
 /**
  * 获取最后一个元素的方法

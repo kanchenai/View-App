@@ -1,5 +1,4 @@
 import Page from "@core/frame/page/Page";
-import ListPage from "@page/ListPage";
 
 import HomeFragment_0 from "@fragment/HomeFragment_0";
 import HomeFragment_1 from "@fragment/HomeFragment_1";
@@ -13,11 +12,6 @@ import ConfirmDialog from "@src/dialog/ConfirmDialog";
 import utils from "@src/util/utils";
 
 export default class HomePage extends Page {
-    constructor() {
-        super();
-        this.pageName = "HomePage";
-    }
-
     onCreate(param) {
         console.log(this.pageName, "onCreate", "传入参数", param);
         this.html = html;
@@ -67,8 +61,7 @@ export default class HomePage extends Page {
 
     onClickListener(view) {
         console.log(this.pageName, "-onClickListener", view);
-        var listPage = new ListPage();
-        this.startPage(listPage, {data: "listPage的初始参数"});
+        this.startPage("ListPage", {data: "listPage的初始参数"});
 
         // this.finish();
     }

@@ -9,11 +9,6 @@ import PlayInfo from "@core/frame/player/PlayInfo";
 import utils from "@src/util/utils";
 
 export default class PlayerPage extends Page {
-    constructor() {
-        super();
-        this.pageName = "PlayerPage";
-    }
-
     onCreate(param) {
         this.html = html;
         this.bg = this.findViewById("bg");
