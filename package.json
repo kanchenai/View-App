@@ -3,10 +3,12 @@
   "version": "0.4.0",
   "description": "",
   "scripts": {
-    "dev": "webpack-dev-server --hot",
-    "start": "webpack --config webpack.config.js",
-    "server": "webpack-dev-server --hot",
-    "build": "webpack --config webpack.config.js"
+    "dev": "webpack-dev-server --hot --mode development --devtool source-map",
+    "server": "npm run dev",
+    "start": "npm run build-pro",
+    "build": "npm run build-pro",
+    "build-pro": "webpack --config webpack.config.js --mode production",
+    "build-dev": "webpack --config webpack.config.js --mode development"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1"

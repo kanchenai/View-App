@@ -90,7 +90,6 @@ module.exports = {
         modules: ['node_modules'],//第三方模块位置
         descriptionFiles: ['package.json'],//第三方模块描述
         enforceExtension: false,
-
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -98,9 +97,12 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: "./public/index.html",
-            filename: "index.html"
+            filename: "index.html",
+            title: require("./package.json").name,//页面标题
+            favicon:"./public/VALogo.png"//页面标题图标
         })
     ],
+    //运行环境：开发环境、生产换进，npm run *有选择（不传就是默认development开发环境）
     mode: "development",//运行环境：开发环境
     // mode: "production",//运行环境：生产环境
 
@@ -114,7 +116,8 @@ module.exports = {
     },
     // devServer: {//一般使用默认
     // }
-    devtool: 'source-map',//打包时，注释掉这行
-    // devtool: false,//打包时，解注释这行
+    //是否使用devtool:source-map，npm run *有选择是否使用（不传就是默认不使用）
+    // devtool: 'source-map',//使用
+    // devtool: false,//不使用
     stats: "errors-only",
 }

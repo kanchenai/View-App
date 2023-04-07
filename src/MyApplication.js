@@ -12,6 +12,11 @@ export default class MyApplication extends Application {
     onLaunch(urlParam) {
         console.log("onLaunch，地址栏参数：", urlParam);
         var firstPage = null;
+        var backUrl = urlParam.backUrl;
+        if (!backUrl) {//如果在地址栏中没有返回地址
+            LocalData.setData("backUrl",backUrl);//取保存的
+        }
+
         var param = {data: "enter"};//将地址栏参数中与firstPage相关的参数填到param，会在firstPage中获取到
         // switch (urlParam.pageKey) {
         //     case "home":

@@ -1,5 +1,6 @@
 import '@css'
 import "@images-js"
+
 require('./global_style.css')
 
 import MyApplication from "./MyApplication";
@@ -15,7 +16,7 @@ window.onload = function () {
     //调试结束后，可以改成这样的写法，全局无法获取到application对象，安全性更高
     // var application = new MyApplication("app");
     // application.launch();
-
-    console.log(new Date().getTime() - start)
+    var mode = process.env.NODE_ENV || "production";//获取当前的模式,development:开发模式；production：生产模式
+    console.log(mode, new Date().getTime() - start)
 }
 
