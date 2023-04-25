@@ -1,8 +1,6 @@
 import Fragment from "../../core/frame/view/group/Fragment";
 
 import html from "../html/fragment/home_fragment_0.html"
-import PlayInfo from "@core/frame/player/PlayInfo";
-import VideoPlayer from "@core/frame/player/VideoPlayer";
 
 export default class HomeFragment_0 extends Fragment{
     onCreate() {
@@ -21,74 +19,15 @@ export default class HomeFragment_0 extends Fragment{
 
         this.small_view_pic = this.findViewById("small_view_pic");
 
-        var playUrl = "http://live.ynurl.com/video/s10027-LCDST/index.m3u8"
-
-        // this.player = new VideoPlayer(this);
-        var rect = this.small_view_pic.ele.getBoundingClientRect();
-
-        var playInfo = new PlayInfo(playUrl, rect.left, rect.top, rect.width, rect.height);
-        // this.player.play(0, playInfo);
-
-        // this.player.onPlayStart = "onPlayStart";
-        // this.player.onPlayPause = "onPlayPause";
-        // this.player.onPlayResume = "onPlayResume";
-        // this.player.onPlayStop = "onPlayStop";
     }
 
     setView(){}
 
     initUtil(){}
 
-    onPlayStart() {
-        console.log("HomeFragment_0 onPlayStart");
-        let that = this;
-        setTimeout(function (){
-            that.page.bgToVideoBg(that.player.playInfo);
-        });
-        this.small_view_pic.hide();
+    onClickListener(view){
+        console.log("onClickListener",view)
+        this.startPage("ListPage",{data:"ListPage的数据"})
     }
 
-    onPlayPause() {
-        console.log("HomeFragment_0 onPlayPause");
-        this.page.videoBgToBg();
-        this.small_view_pic.show();
-    }
-
-    onPlayResume() {
-        console.log("HomeFragment_0 onPlayResume");
-        // this.page.bgToVideoBg(this.player.playInfo);
-        this.small_view_pic.hide();
-    }
-
-    onPlayStop() {
-        console.log("HomeFragment_0 onPlayStop");
-        this.page.videoBgToBg();
-        this.small_view_pic.show();
-    }
-
-    onScrollStartListener(scrollView, x, y) {
-        // this.player.pause();
-    }
-
-    onScrollEndListener(scrollView, x, y) {
-        if(y == 0){
-            // if(this.player && !this.player.isPlaying){
-            //     this.player.resume();
-            // }
-        }
-    }
-
-    onResume() {
-        // if(this.player && !this.player.isPlaying){
-        //     this.player.resume();
-        // }
-    }
-
-    onPause() {
-        // this.player.pause();
-    }
-
-    onStop() {
-        // this.player.stop();
-    }
 }

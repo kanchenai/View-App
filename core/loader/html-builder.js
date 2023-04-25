@@ -16,6 +16,7 @@ module.exports = function (original_html, style_tag) {
 
     var regExp = /<[a-z-]+/gi;
     var tags = str.match(regExp);
+    tags.push("<div");//如果这个html文件中没有写div的情况，会出现css选择失效，兼容下
     tags = dedupe(tags);
     if (!tags) {
         return "";

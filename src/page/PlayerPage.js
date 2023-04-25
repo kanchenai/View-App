@@ -2,10 +2,6 @@ import Page from "@core/frame/page/Page";
 
 import html from "@html/player.html"
 
-import pic_001 from "@images-js/pic_001.png"
-import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
-import VideoPlayer from "@core/frame/player/VideoPlayer";
-import PlayInfo from "@core/frame/player/PlayInfo";
 import utils from "@src/util/utils";
 
 export default class PlayerPage extends Page {
@@ -17,6 +13,7 @@ export default class PlayerPage extends Page {
         var playUrl = "http://live.ynurl.com/video/s10037-JCTV/index.m3u8"
         this.player.play(0, playUrl);
 
+        console.log("PlayerPage")
     }
 
     onPositionChangeListener = function (position, duration) {
@@ -79,21 +76,4 @@ export default class PlayerPage extends Page {
             this.player.stop();
         }
     }
-}
-
-var adapter = new Adapter();
-
-adapter.bindHolder = function (holder, data) {
-    var len = this.recycleView.data.length;
-    var index = (holder.index + len) % len;
-    var test_div = holder.findEleById("test_div");
-
-    test_div.innerText = index;
-
-    var item = holder.findViewById("post");
-    // var image = holder.findViewById("pic");//懒加载，存在已加载的图片，还需要再加载
-    var image = holder.findEleById("pic");//这个可以，但不是懒加载
-    image.src = pic_001;
-
-    // holder.findEleById("pic").style.background = data.color
 }

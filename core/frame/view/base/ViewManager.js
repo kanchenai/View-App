@@ -26,7 +26,6 @@ export default class ViewManager {
      * 因为子控件还未创建及测量,
      * scroller（滚动器）的大小无法被测量
      * @param html
-     * @returns {Element[]|null}
      */
     buildView(view) {
         if (view instanceof GroupView) {
@@ -34,7 +33,6 @@ export default class ViewManager {
         } else if (view instanceof View) {
             this.eleToObject(view.ele, view, view.listenerLocation);
         }
-
     }
 
     /**
@@ -85,9 +83,9 @@ export default class ViewManager {
                 default:
                     var customView = null;
                     if (customViewBuilder[viewType]) {//该控件为自定义控件
-                        var buildConstructor = customViewBuilder[viewType];
-                        if(buildConstructor){
-                            customView = new buildConstructor().buildView(child_ele, this, listenerLocation);
+                        var viewBuilder = customViewBuilder[viewType];
+                        if(viewBuilder){
+                            customView = viewBuilder.buildView(child_ele, this, listenerLocation);
                         }
                     }
 

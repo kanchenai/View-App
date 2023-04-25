@@ -51,17 +51,9 @@ export default class HomePage extends Page {
 
     }
 
-    bgToVideoBg(playInfo){
-        utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,playInfo)
-    }
-
-    videoBgToBg(){
-        utils.videoBgToBg(this.bg.ele.parentNode,this.bg.ele);
-    }
-
     onClickListener(view) {
         console.log(this.pageName, "-onClickListener", view);
-        this.startPage("ListPage", {data: "listPage的初始参数"});
+        this.startPage("PlayerPage", {data: "PlayerPage的初始参数"});
 
         // this.finish();
     }
@@ -91,10 +83,6 @@ export default class HomePage extends Page {
                 this.frame_view.switchTo(5);
                 break;
         }
-    }
-
-    onVisibleChangeListener(view, isShowing) {
-        console.log("显示监听", isShowing, view);
     }
 
     onScrollStartListener(scrollView, x, y) {

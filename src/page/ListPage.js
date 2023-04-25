@@ -1,6 +1,5 @@
 import Page from "../../core/frame/page/Page";
 import View from "../../core/frame/view/base/View";
-import FramePage from "./FramePage";
 import html from "../html/list.html"
 import {Adapter} from "@core/frame/view/group/RecycleView";
 import ContentAdapter from "@src/adapter/ContentAdapter";
@@ -31,8 +30,7 @@ export default class ListPage extends Page {
 
         var that = this;
         setTimeout(function (){
-            var framePage = new FramePage();
-            that.startPage(framePage, {data: "framePage的初始参数"});
+            that.startPage("FramePage", {data: "framePage的初始参数"});
             that.finish();
         },500);
     }
