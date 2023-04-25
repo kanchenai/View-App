@@ -23,16 +23,16 @@ export default class HomeFragment_0 extends Fragment{
 
         var playUrl = "http://live.ynurl.com/video/s10027-LCDST/index.m3u8"
 
-        this.player = new VideoPlayer(this);
+        // this.player = new VideoPlayer(this);
         var rect = this.small_view_pic.ele.getBoundingClientRect();
 
         var playInfo = new PlayInfo(playUrl, rect.left, rect.top, rect.width, rect.height);
-        this.player.play(0, playInfo);
+        // this.player.play(0, playInfo);
 
-        this.player.onPlayStart = "onPlayStart";
-        this.player.onPlayPause = "onPlayPause";
-        this.player.onPlayResume = "onPlayResume";
-        this.player.onPlayStop = "onPlayStop";
+        // this.player.onPlayStart = "onPlayStart";
+        // this.player.onPlayPause = "onPlayPause";
+        // this.player.onPlayResume = "onPlayResume";
+        // this.player.onPlayStop = "onPlayStop";
     }
 
     setView(){}
@@ -56,7 +56,7 @@ export default class HomeFragment_0 extends Fragment{
 
     onPlayResume() {
         console.log("HomeFragment_0 onPlayResume");
-        this.page.bgToVideoBg(this.player.playInfo);
+        // this.page.bgToVideoBg(this.player.playInfo);
         this.small_view_pic.hide();
     }
 
@@ -67,28 +67,28 @@ export default class HomeFragment_0 extends Fragment{
     }
 
     onScrollStartListener(scrollView, x, y) {
-        this.player.pause();
+        // this.player.pause();
     }
 
     onScrollEndListener(scrollView, x, y) {
         if(y == 0){
-            if(this.player && !this.player.isPlaying){
-                this.player.resume();
-            }
+            // if(this.player && !this.player.isPlaying){
+            //     this.player.resume();
+            // }
         }
     }
 
     onResume() {
-        if(this.player && !this.player.isPlaying){
-            this.player.resume();
-        }
+        // if(this.player && !this.player.isPlaying){
+        //     this.player.resume();
+        // }
     }
 
     onPause() {
-        this.player.pause();
+        // this.player.pause();
     }
 
     onStop() {
-        this.player.stop();
+        // this.player.stop();
     }
 }

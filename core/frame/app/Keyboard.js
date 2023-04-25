@@ -161,7 +161,8 @@ export default class Keyboard {
                 break;
             case Keyboard.KEY_MPEVENT:
                 //播放事件处理
-                eval("eventJson=" + Utility.getEvent());
+                // eval("eventJson=" + Utility.getEvent());
+                var eventJson = Utility.getEvent();
                 this.page.key_player_event(eventJson);
                 break;
             default:

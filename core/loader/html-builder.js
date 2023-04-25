@@ -48,7 +48,7 @@ let viewTypes = [
     {name: "view-item", tagNames: ["view-item", "item"]},
     {name: "view-scroll", tagNames: ["view-scroll", "scroll"]},
     {name: "view-group", tagNames: ["view-group", "group"]},
-    {name: "view-frame", tagNames: ["view-frame"]},
+    {name: "view-frame", tagNames: ["view-frame","frame"]},
     {name: "view-dialog", tagNames: ["view-dialog", "dialog"]},
     {name: "view-recycle", tagNames: ["view-recycle", "recycle"]},
     {name: "view-text", tagNames: ["view-text", "text"]},

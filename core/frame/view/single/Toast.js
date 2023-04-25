@@ -50,7 +50,7 @@ export default class Toast extends View {
     }
 
     get html() {
-        return this.scroller.html;
+        return super.html;
     }
 
     addChild(view) {

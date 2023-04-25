@@ -2,11 +2,11 @@ import Application from "../core/frame/app/Application";
 import HomePage from "./page/HomePage";
 import ListPage from "./page/ListPage";
 import TestPage from "./page/TestPage"
-import IptvPlayer from "@core/frame/player/IptvPlayer";
 import PlayerPage from "@page/PlayerPage";
 import AliWebPlayer from "@src/util/AliWebPlayer";
 import FramePage from "@page/FramePage";
 import LocalData from "@core/frame/util/LocalData";
+import IptvPlayer from "@src/util/IptvPlayer";
 
 export default class MyApplication extends Application {
     onLaunch(urlParam) {
@@ -58,6 +58,8 @@ export default class MyApplication extends Application {
     }
 
     onCreate(page, param) {
+        //这里可以获取盒子型号、userName等盒子相关的信息、以及其他的全局数据
+        //根据型号开启动画也可以在这里设置
         // console.log("MyApplication onCreate");
     }
 

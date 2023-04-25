@@ -5,7 +5,6 @@ import FrameView from "../group/FrameView";
 import ItemView from "./ItemView";
 import Dialog from "@core/frame/view/group/Dialog";
 import RecycleView from "@core/frame/view/group/RecycleView";
-import VMap from "@core/frame/util/VMap";
 
 /**
  * @constructor
@@ -44,7 +43,7 @@ export default class ViewManager {
      * @param{GroupView} groupView
      * @param{View} listenerLocation
      */
-    eleToObject(ele, groupView,listenerLocation) {
+    eleToObject(ele, groupView, listenerLocation) {
         var ele_list = ele.children;
         for (var child_ele of ele_list) {
             var viewType = View.getViewType(child_ele);
@@ -84,7 +83,19 @@ export default class ViewManager {
                     groupView.addChild(recycleView);
                     break;
                 default:
-                    this.eleToObject(child_ele, groupView, listenerLocation);
+                    var customView = null;
+                    if (customViewBuilder[viewType]) {//该控件为自定义控件
+                        var buildConstructor = customViewBuilder[viewType];
+                        if(buildConstructor){
+                            customView = new buildConstructor().buildView(child_ele, this, listenerLocation);
+                        }
+                    }
+
+                    if(!customView){
+                        this.eleToObject(child_ele, groupView, listenerLocation);
+                    }else{
+                        groupView.addChild(customView);
+                    }
                     break;
             }
         }
@@ -138,6 +149,47 @@ export default class ViewManager {
             this.focusView.requestFocus();
         }
     }
+
+    /**
+     * 添加自定义控件的的builder
+     * 需要在创建页面之前执行，一版在main.js中application.launch()之前
+     * @param{Array} viewBuilderConstructorList
+     */
+    static addCustomViewBuilder(viewBuilderConstructorList) {
+        for (var i = 0; i < viewBuilderConstructorList.length; i++) {
+            var viewBuilder = new viewBuilderConstructorList[i]();//创建一个viewBuilder
+            var viewType = viewBuilder.viewType;
+
+            viewType = viewType.toLocaleUpperCase()
+
+            if (customViewBuilder[viewType]) {//已存在
+                console.warn("自定义控件" + viewType + "已被定义");
+            } else {
+                customViewBuilder[viewType] = viewBuilder;
+            }
+        }
+    }
 }
 
+var customViewBuilder = {}
+
+export class ViewBuilder {
+    constructor() {
+        this.viewType = "";
+    }
+
+    /**
+     *
+     * @param ele 空间对应的节点
+     * @param viewManager
+     * @param listenerLocation 控件监听所在的组件
+     * @return {View}
+     */
+    buildView(ele, viewManager, listenerLocation) {
+        return null;
+    }
+}
+
+
+//TODO 自定义view的view-type转化
 

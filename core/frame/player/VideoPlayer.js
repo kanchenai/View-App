@@ -1,5 +1,4 @@
 import Page from "@core/frame/page/Page";
-import IptvPlayer from "@core/frame/player/IptvPlayer";
 import PlayInfo from "@core/frame/player/PlayInfo";
 
 /**
@@ -18,10 +17,10 @@ export default class VideoPlayer {
         this.player = this.page.application.player;
 
         var player = this;
-        if (this.player instanceof IptvPlayer) {
-            this.page.key_player_event = function (eventJson) {
-                key_player_event(player, eventJson);
-            }
+
+        //这个方法只会在IPTV播放器触发
+        this.page.key_player_event = function (eventJson) {
+            key_player_event(player, eventJson);
         }
 
         //音量增减
@@ -104,8 +103,10 @@ export default class VideoPlayer {
     /**
      * @param{number} startTime
      * @param{PlayInfo} playInfo
+     * @param{string} code 在部分地区的运营商需要使用code播放
+     * @param{string} epgDomain 配合code使用
      */
-    play(startTime, playInfo) {
+    play(startTime, playInfo, code, epgDomain) {
         this.bookmark = -1;
         //触发播放开始
         this.isOnStart = false;
@@ -117,7 +118,7 @@ export default class VideoPlayer {
         if (playInfo) {
             this.playInfo = playInfo;
         }
-        this.player.play(startTime, playInfo);
+        this.player.play(startTime, playInfo, code, epgDomain);
         this._isMute = this.player.isMute;
 
         this.player.playInfo = playInfo;//暂存，用以暂停继续
@@ -156,11 +157,11 @@ export default class VideoPlayer {
     }
 
     resume() {
-        if(!this.player.playInfo || !this.isOnStart || this.isPlaying){//从未播放
+        if (!this.player.playInfo || !this.isOnStart || this.isPlaying) {//从未播放
             return;
         }
         if (this.player.playInfo != this.playInfo) {//playInfo发生变化,播放信息改变了,需要根据书签播放
-            console.log("使用书签resume",this.bookmark);
+            console.log("使用书签resume", this.bookmark);
             this.play(this.bookmark, this.playInfo);
             this.isOnStart = true;//不触发播放开始
         } else {//未切换，只是暂停

@@ -13,21 +13,10 @@ export default class PlayerPage extends Page {
         this.html = html;
         this.bg = this.findViewById("bg");
 
-        this.player = new VideoPlayer(this);
+        this.player = this.findViewById("player");
         var playUrl = "http://live.ynurl.com/video/s10037-JCTV/index.m3u8"
-        var playInfo = new PlayInfo(playUrl, 100, 100, 640, 360);
+        this.player.play(0, playUrl);
 
-        this.player.play(0, playInfo);
-
-        this.player.onPositionChangeListener = this.onPositionChangeListener;
-        this.player.onVolumeChangeListener = "onVolumeChangeListener";
-        this.player.onPlayStart = this.onPlayStart;
-        this.player.onPlayComplete = "";
-        this.player.onPlayPause = "onPlayPause";
-        this.player.onPlayResume = "onPlayResume";
-        this.player.onPlayStop = "onPlayStop";
-        this.player.onPlayError = "";
-        this.player.onPlayByTime = "onPlayByTime";
     }
 
     onPositionChangeListener = function (position, duration) {

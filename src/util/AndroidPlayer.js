@@ -1,9 +1,13 @@
-/**
- * 对接播放器时，需要继承这个类，并重写所有方法
- */
-export default class RealPlayer{
+import RealPlayer from "@core/frame/player/RealPlayer";
+
+export default class AndroidPlayer extends RealPlayer{
     constructor() {
-        this.playInfo = null;
+        super();
+        this.androidKey = "";
+        this.player = window[androidKey];
+        if(!this.player){
+            throw new Error(this.androidKey+"关键字对应的变量获取失败")
+        }
     }
 
     play(startTime, playInfo){
@@ -44,5 +48,4 @@ export default class RealPlayer{
     get isMute(){
         return false;
     }
-
 }

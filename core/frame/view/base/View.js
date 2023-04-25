@@ -250,6 +250,7 @@ export default class View {
      * @param html
      */
     set html(html) {
+        //TODO 根据自定义控件的view-type做一层转化
         this.ele.innerHTML = html;
     }
 
@@ -472,27 +473,6 @@ export default class View {
         }
 
         return isD;
-    }
-
-    static bindTextByEle(ele, view) {
-        var ele_list = ele.children;
-        if (ele_list.length == 0) {
-            return [];
-        }
-        for (var child_ele of ele_list) {
-            var viewType = child_ele.tagName;
-            if (viewType == "DIV") {
-                viewType = child_ele.getAttribute("view-type");
-                if (viewType) {
-                    viewType = viewType.toUpperCase();
-                }
-            }
-            if (viewType == "VIEW-TEXT") {
-                view.marquee = child_ele;
-            } else {
-                View.bindTextByEle(child_ele, view);
-            }
-        }
     }
 
     /**

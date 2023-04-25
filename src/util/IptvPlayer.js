@@ -1,16 +1,9 @@
-import VideoPlayer, {PlayInfo} from "@core/frame/player/VideoPlayer";
 import RealPlayer from "@core/frame/player/RealPlayer";
+import PlayInfo from "@core/frame/player/PlayInfo";
 
 export default class IptvPlayer extends RealPlayer {
-    /**
-     *
-     * @param{Keyboard} keyboard
-     */
     constructor() {
         super();
-        /**
-         * @type {IptvPlayInfo}
-         */
         //iptv原生播放器本尊，如果不在盒子上跑，这里会报错，try catch之后切换播放器
         this.mp = new MediaPlayer();
         //播放器对应的id
@@ -21,13 +14,15 @@ export default class IptvPlayer extends RealPlayer {
     /**
      *
      * @param startTime
-     * @param{IptvPlayInfo|PlayInfo} playInfo
+     * @param{PlayInfo} playInfo
+     * @param{string} code 在部分地区的运营商需要使用code播放
+     * @param{string} epgDomain 配合code使用
      */
-    play(startTime, playInfo) {
+    play(startTime, playInfo, code, epgDomain) {
         if (this.playInfo.playUrl) {//使用播放地址播放
             var json = buildPlayJson(playInfo.playUrl); //组装播放json
-            playByJson(startTime,json);
-        } else if (this.playInfo.code && this.playInfo.epgDomain) {
+            playByJson(startTime, json);
+        } else if (code && epgDomain) {
             // this.playByCode(startTime, playInfo); //TODO 暂不实现
         } else {
             console.error("播放参数设置错误：" + this.playInfo);
@@ -79,21 +74,21 @@ export default class IptvPlayer extends RealPlayer {
         return this.mp.getMediaDuration() - 0;
     }
 
-    set volume(value){
+    set volume(value) {
         this.mp.setVolume(value);
     }
 
     get volume() {
         var value = Math.ceil(this.mp.getVolume());
-        if(value > 100){
+        if (value > 100) {
             value = 100;
-        }else if(value < 0){
+        } else if (value < 0) {
             value = 0;
         }
         return value;
     }
 
-    get isMute(){
+    get isMute() {
         return this._mute;
     }
 
@@ -104,7 +99,7 @@ export default class IptvPlayer extends RealPlayer {
  * 一般播放适配在这个方法中修改的
  * @param json
  */
-var playByJson = function (player,startTime,json) {
+var playByJson = function (player, startTime, json) {
     initMediaPlay(player, json);//初始化播放器
 
     //调用播放器开始播放的方法
