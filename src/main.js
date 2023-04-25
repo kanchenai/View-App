@@ -6,11 +6,10 @@ require('./global_style.css')
 import MyApplication from "./MyApplication";
 import State from "@core/frame/util/State";
 import ViewManager from "@core/frame/view/base/ViewManager";
-import {PlayerViewBuilder} from "@src/test/PlayerView";
+import {PlayerViewBuilder} from "@src/custom-view/PlayerView";
 
 var start = new Date().getTime();
 window.onload = function () {
-
     ViewManager.addCustomViewBuilder([PlayerViewBuilder])
 
     State.ScrollAnimation = true;//控制滚动动画开关

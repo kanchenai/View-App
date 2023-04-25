@@ -84,14 +84,14 @@ export default class ViewManager {
                     var customView = null;
                     if (customViewBuilder[viewType]) {//该控件为自定义控件
                         var viewBuilder = customViewBuilder[viewType];
-                        if(viewBuilder){
+                        if (viewBuilder) {
                             customView = viewBuilder.buildView(child_ele, this, listenerLocation);
                         }
                     }
 
-                    if(!customView){
+                    if (!customView) {
                         this.eleToObject(child_ele, groupView, listenerLocation);
-                    }else{
+                    } else {
                         groupView.addChild(customView);
                     }
                     break;
@@ -161,7 +161,7 @@ export default class ViewManager {
             viewType = viewType.toLocaleUpperCase()
 
             if (customViewBuilder[viewType]) {//已存在
-                console.warn("自定义控件" + viewType + "已被定义");
+                console.error("自定义控件" + viewType + "已被定义");
             } else {
                 customViewBuilder[viewType] = viewBuilder;
             }
@@ -173,11 +173,11 @@ var customViewBuilder = {}
 
 export class ViewBuilder {
     constructor() {
-        this.viewType = "";
+        this.viewType = "";//写在ele的tagName或ele的属性view-type的值
     }
 
     /**
-     *
+     * 根据相关信息创建自定义控件
      * @param ele 空间对应的节点
      * @param viewManager
      * @param listenerLocation 控件监听所在的组件
@@ -186,8 +186,25 @@ export class ViewBuilder {
     buildView(ele, viewManager, listenerLocation) {
         return null;
     }
+
+    /**
+     * 自定义view的view-type转化
+     */
+    static tagToViewType(html) {
+        Object.keys(customViewBuilder).forEach(function (key) {
+            var viewBuilder = customViewBuilder[key];
+            html = tagToViewTypeBy(html, viewBuilder.viewType, [viewBuilder.viewType])
+        })
+        return html;
+    }
 }
 
-
-//TODO 自定义view的view-type转化
+var tagToViewTypeBy = function (html, viewTypeName, tagNames) {
+    tagNames.forEach(tagName => {
+        var regExp = new RegExp("<" + tagName, "gmi");
+        html = html.replace(regExp, '<div view-type="' + viewTypeName + '"');
+        html = html.replace(new RegExp("</" + tagName + ">", "gmi"), "</div>");
+    })
+    return html;
+}
 

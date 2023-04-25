@@ -14,7 +14,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.5.0(2023-04-25)";
+export var version = "0.5.1(2023-04-25)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -356,6 +356,9 @@ class ApplicationScroller extends Scroller {
     }
 }
 
+/**
+ * 给对应Page的prototype中赋值pageName值
+ */
 (function(){
     Object.keys(PageConfig).forEach(function (key){
         var page = PageConfig[key];

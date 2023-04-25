@@ -17,7 +17,7 @@ export default class PlayerPage extends Page {
     }
 
     onPositionChangeListener = function (position, duration) {
-        // console.log(this.pageName + " position",position,"duration",duration);
+        console.log(this.pageName + " position",position,"duration",duration);
     }
 
     onVolumeChangeListener(volume) {
@@ -28,16 +28,23 @@ export default class PlayerPage extends Page {
         console.log(this.pageName + " onPlayStart");
         // this.bg.hide();
         utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,this.player.playInfo);
+        this.findViewById("btn_play").ele.innerText = "暂停"
+    }
+
+    onPlayComplete(){
+        console.log(this.pageName + " onPlayComplete");
     }
 
     onPlayPause() {
         console.log(this.pageName + " onPlayPause");
         utils.videoBgToBg(this.bg.ele.parentNode,this.bg.ele)
+        this.findViewById("btn_play").ele.innerText = "播放"
     }
 
     onPlayResume() {
         console.log(this.pageName + " onPlayResume");
         utils.bgToVideoBg(this.bg.ele.parentNode,this.bg.ele,this.player.playInfo);
+        this.findViewById("btn_play").ele.innerText = "暂停"
     }
 
     onPlayStop() {
@@ -53,10 +60,8 @@ export default class PlayerPage extends Page {
        switch (view.id){
            case "btn_play":
                if(this.player.isPlaying){
-                   view.ele.innerText = "播放"
                    this.player.pause();
                }else{
-                   view.ele.innerText = "暂停"
                    this.player.resume();
                }
                break;

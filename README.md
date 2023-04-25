@@ -260,7 +260,50 @@ export default class HomePage extends Page {
 }
 ```
 
+#### 编写自定义控件模式
+* 1.在自定义控件中
+```javascript
+export default class PlayerView extends View{
+    //...
+    //其他功能性代码省略
+    //...
+  
+    static parseByEle(ele, viewManager, listenerLocation){
+        var playerView = new PlayerView(viewManager,listenerLocation);
+        playerView.ele = ele;
+        playerView.setAttributeParam();
+        return playerView;
+    }
+}
+```
 
+* 2.在对应的自定义控件中定义一个继承ViewBuilder的class
+```javascript
+export class PlayerViewBuilder extends ViewBuilder{
+    constructor() {
+        super();
+        this.viewType = "view-player";//写在ele的tagName或ele的属性view-type的值
+    }
+
+    buildView(ele,viewManager,listenerLocation) {
+        //根据相关信息创建自定义控件
+        var playerView = PlayerView.parseByEle(ele,viewManager,listenerLocation);//这个方法是自定义控件的创建方法
+        return playerView;
+    }
+}
+```
+
+* 3.在main.js的application.launch()方法执行之前调用
+```javascript
+window.onload = function () {
+  ViewManager.addCustomViewBuilder([PlayerViewBuilder]);//PlayerViewBuilder为对应的自定义控件
+
+  State.ScrollAnimation = true;
+  //需要在css加载完之后才能启动app
+  window.application = new MyApplication("app");
+  window.application.launch();
+}
+```
 
 #### 组件介绍
 

@@ -1,7 +1,7 @@
 import VPosition from "../../util/VPosition";
 import VSize from "../../util/VSize";
 import Application from "../../app/Application";
-import ViewManager from "@core/frame/view/base/ViewManager";
+import ViewManager, {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VMap from "@core/frame/util/VMap";
 
 export default class View {
@@ -250,7 +250,8 @@ export default class View {
      * @param html
      */
     set html(html) {
-        //TODO 根据自定义控件的view-type做一层转化
+        //根据自定义控件的view-type做一层转化
+        html = ViewBuilder.tagToViewType(html);
         this.ele.innerHTML = html;
     }
 

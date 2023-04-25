@@ -14,15 +14,17 @@ module.exports = function (original_html, style_tag) {
         str = original_html.substring(start, end);
     }
 
+    str = idToViewId(str);
+    var html = tagToViewType(str);
+
+
     var regExp = /<[a-z-]+/gi;
     var tags = str.match(regExp);
-    tags.push("<div");//如果这个html文件中没有写div的情况，会出现css选择失效，兼容下
     tags = dedupe(tags);
     if (!tags) {
         return "";
     }
-    str = idToViewId(str);
-    var html = tagToViewType(str);
+
     for (var i = 0; i < tags.length; i++) {
         var tagLeft = tags[i];
         if (tagLeft == "template") {
@@ -65,15 +67,30 @@ let tagToViewType = function (html) {
 
 let tagToViewTypeBy = function (html, viewTypeName, tagNames) {
     tagNames.forEach(tagName => {
-        var regExp = new RegExp("<"+tagName, "gmi");
-        html = html.replace(regExp, '<div view-type="'+viewTypeName+'"');
+        //简单的穷举tagName的三种情况
+        var regExp_0 = new RegExp("<"+tagName+" ", "gmi");
+        html = html.replace(regExp_0, '<div view-type="'+viewTypeName+'" ');
+
+        var regExp_1= new RegExp("<"+tagName+"/", "gmi");
+        html = html.replace(regExp_1, '<div view-type="'+viewTypeName+'"/');
+
+        var regExp_2= new RegExp("<"+tagName+">", "gmi");
+        html = html.replace(regExp_2, '<div view-type="'+viewTypeName+'">');
+
         html = html.replace(new RegExp("</"+tagName+">", "gmi"), "</div>");
     })
     return html;
 }
 
-let idToViewId =function (html){
+let idToViewId = function (html){
+    //简单的穷举id的三种情况
     var regExp = new RegExp(" id=", "gmi");
     html = html.replace(regExp, " view-id=");
+
+    var regExp_1 = new RegExp("\"id=", "gmi");
+    html = html.replace(regExp_1, "\" view-id=");
+
+    var regExp_2 = new RegExp("\'id=", "gmi");
+    html = html.replace(regExp_2, "\' view-id=");
     return html;
 }
