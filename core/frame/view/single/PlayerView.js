@@ -78,15 +78,3 @@ export default class PlayerView extends View{
         return playerView;
     }
 }
-
-export class PlayerViewBuilder extends ViewBuilder{
-    constructor() {
-        super();
-        this.viewType = "view-player";
-    }
-
-    buildView(ele,viewManager,listenerLocation) {
-        var playerView = PlayerView.parseByEle(ele,viewManager,listenerLocation);
-        return playerView;
-    }
-}

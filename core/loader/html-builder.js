@@ -55,6 +55,7 @@ let viewTypes = [
     {name: "view-dialog", tagNames: ["view-dialog", "dialog"]},
     {name: "view-recycle", tagNames: ["view-recycle", "recycle"]},
     {name: "view-text", tagNames: ["view-text", "text"]},
+    {name: "view-player", tagNames: ["view-player", "player"]},
     {name: "view", tagNames: ["view"]}
 ];
 

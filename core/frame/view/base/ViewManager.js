@@ -5,6 +5,7 @@ import FrameView from "../group/FrameView";
 import ItemView from "./ItemView";
 import Dialog from "@core/frame/view/group/Dialog";
 import RecycleView from "@core/frame/view/group/RecycleView";
+import PlayerView from "@core/frame/view/single/PlayerView";
 
 /**
  * @constructor
@@ -79,6 +80,11 @@ export default class ViewManager {
                 case "RECYCLE":
                     var recycleView = RecycleView.parseByEle(child_ele, this, listenerLocation);
                     groupView.addChild(recycleView);
+                    break;
+                case "VIEW-PLAYER":
+                case "PLAYER":
+                    var playerView = PlayerView.parseByEle(child_ele, this, listenerLocation);
+                    groupView.addChild(playerView);
                     break;
                 default:
                     var customView = null;
