@@ -290,7 +290,7 @@ var startHorizontalScroll = function (scroller, x, speed) {
     }
     var left = scroller.left;
 
-    if (left + x == 0) {
+    if (left + x <= 0) {
         left = -1;
     } else {
         left -= speed;

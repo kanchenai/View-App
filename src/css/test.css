@@ -1,6 +1,16 @@
+.text{
+    width: 200px;
+    height: 30px;
+    left: 30px;
+    top: 30px;
+    line-height: 30px;
+    font-size: 22px;
+    white-space: nowrap;
+    background: darkorange;
+    color: white;
+}
+
 .recycle_view{
-    width: 100px;
-    height: 205px;
     left: 50px;
     top: 250px;
     background: gray;
@@ -34,22 +44,26 @@
     background: #f87f41;
 }
 
-.dialog,
-.dialog .bg {
+.button{
     width: 1280px;
-    height: 720px;
+    height: 50px;
+    top: 600px;
 }
 
-.dialog .bg img {
-    width: 480px;
-    height: 270px;
-    left: 400px;
-    top: 225px;
+.button .item,
+.button .item_focus{
+    width: 100px;
+    height: 30px;
 }
 
-.dialog .shadow {
-    width: 1280px;
-    height: 720px;
+.button .item{
     background: gray;
-    opacity: 50%;
+    color: white;
+    line-height: 30px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.button .item_focus{
+    background: blue;
 }

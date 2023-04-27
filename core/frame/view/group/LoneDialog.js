@@ -33,6 +33,5 @@ var buildEle = function (page) {
     style.overflow = "hidden";
     style.display = "none";
 
-
     return div;
 }

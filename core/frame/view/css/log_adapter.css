@@ -1,0 +1,24 @@
+.bg,
+.time,
+.info{
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: black;
+}
+
+.bg{
+    width: 500px;
+}
+
+.time{
+    left: 5px;
+    width: 100px;
+}
+
+.info{
+    left: 115px;
+    width: 385px;
+    white-space: nowrap;
+    overflow: hidden;
+}

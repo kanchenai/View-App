@@ -1,5 +1,6 @@
 import ViewManager from "../view/base/ViewManager";
 import GroupView from "../view/group/GroupView";
+import LogView from "@core/frame/view/single/LogView";
 
 export default class Page extends GroupView {
     constructor() {
@@ -19,6 +20,9 @@ export default class Page extends GroupView {
 
         //页面finish时，设置，上回到的页面上获取
         this.backResultData = null;
+
+        //每个页面自带的打印信息空间，显示在页面上，只有开发模式、打包测试版本会显示,正式包中会默认不生效
+        this.logView = null;
     }
 
     create(param) {
@@ -240,6 +244,9 @@ export default class Page extends GroupView {
     set html(html) {
         this.viewManager.clear();
         super.html = html;
+
+        //添加LogView
+        this.logView = new LogView(this.viewManager);
     }
 
     get html() {

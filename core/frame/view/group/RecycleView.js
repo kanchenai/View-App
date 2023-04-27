@@ -92,6 +92,12 @@ export default class RecycleView extends GroupView {
          * @type {number}
          */
         this.selectIndex = 0;
+
+        /**
+         * 渲染的基准index
+         * @type {number}
+         */
+        this.baseIndex = -1;
     }
 
     /**
@@ -102,13 +108,77 @@ export default class RecycleView extends GroupView {
         this.scrollWidth = this.width * 3;
     }
 
+    //['push', 'pop', 'unshift', 'shift', 'splice', 'sort', 'reverse']
+    push(item) {
+        this.data.push(item);
+        this.render();
+    }
+
+    pop() {
+        var item = this.data.pop();
+        this.render();
+        return item;
+    }
+
+    unshift(...items) {
+        this.data.unshift(...items);
+        this.render();
+    }
+
+    shift() {
+        var item = this.data.shift();
+        this.render();
+        return item;
+    }
+
+    splice(start, deleteCount, ...items) {
+        this.data.splice(start, deleteCount, ...items);
+        this.render();
+    }
+
+    sort(compareFn){
+        this.data.sort(compareFn);
+        this.render();
+    }
+
+    reverse(){
+        this.data.reverse();
+        this.render();
+    }
+
+    /**
+     * 根据baseIndex渲染内部组件
+     */
+    render() {
+        if (this.baseIndex >= this.data.length) {
+            this.baseIndex = this.data.length - 1;
+        }
+        if (this.baseIndex < 0) {
+            this.baseIndex = 0;
+        }
+
+        if(this.data.length == 0){
+            var activeHolderMap = this.activeHolderMap;
+            activeHolderMap.keys().forEach(function (key){
+                var holder = activeHolderMap.get(key)
+                if(holder){
+                    holder.recycle()
+                }
+            })
+        }else{
+            render(this, this.baseIndex);
+        }
+
+    }
+
     set data(value) {
         this._data = value;
         if (this._data) {
-            // watchData(this._data,this);//重写this._data的数组相关方法，实现改变数组刷新控件
+            // watchData(this._data, this);//重写this._data的数组相关方法，实现改变数组刷新控件
         }
 
-        render(this, 0);
+        this.baseIndex = 0;
+        this.render();
     }
 
     get data() {
@@ -584,7 +654,7 @@ export class Adapter {
 
     /**
      * 创建Holder
-     * 可以重写这个方法，修改布局来源
+     * 可以重写这个方法，修改布局来源(TODO 在这修改无法计算seatSize)
      */
     createHolder() {
         return new Holder(this.template, this.recycleView);
@@ -722,7 +792,7 @@ export class Holder {
      * 数据下标
      * @return {number}
      */
-    get dataIndex(){
+    get dataIndex() {
         return (this.index + this.recycleView.data.length) % this.recycleView.data.length;
     }
 }
@@ -754,6 +824,7 @@ export class Component extends GroupView {
         this.viewManager.buildView(this);
         //测量滚动器实际大小，并设置
         this.measure();
+        this.bindText();
         //绑定ImageView
         this.bindImage();
 
@@ -827,7 +898,6 @@ var computeSeatSize = function (recycleView) {
         return seatSize;
     }
 
-
     var invisibleDiv = buildInvisibleDiv();
     invisibleDiv.innerHTML = recycleView.adapter.template;
     recycleView.ele.appendChild(invisibleDiv);//不可见渲染
@@ -847,7 +917,7 @@ var computeSeatSize = function (recycleView) {
     recycleView.seatSize = new VSize(width, height);
 }
 
-var render = function (recycleView, index) {
+export var render = function (recycleView, index) {
     if (!recycleView.data || recycleView.data.length == 0) {
         return;
     }
@@ -855,6 +925,8 @@ var render = function (recycleView, index) {
     if (!recycleView.adapter) {
         return;
     }
+
+    recycleView.baseIndex = index;
 
     var obj = renderBase(recycleView, index);
     index = obj.index;
@@ -901,8 +973,10 @@ var renderBase = function (recycleView, index) {
         position = holder.component.getPositionByFather();
         if (index < 0 || index >= data.length) {//在正常范围外
             index = (index + data.length) % data.length;//调整index，使在正常范围
-            holder.changIndex(index);//将holder的index调整到征程范围
+            holder.changIndex(index);//将holder的index调整到正常范围
         }
+
+        adapter.bindHolder(holder, data[index]);//刷新下绑定的数据
     } else {
         position = new VPosition(0, 0);
         index = (index + data.length) % data.length;//调整index，使在正常范围
@@ -941,7 +1015,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
     if (recycleView.orientation == VERTICAL) {
         minNum = recycleView.col;
         if (scrollLocate == ScrollEnd) {
-            minNum = minNum * (recycleView.visibleRow - 1);
+            minNum = minNum * recycleView.visibleRow;
         } else if (scrollLocate == ScrollCenter) {
             minNum = minNum * Math.ceil(recycleView.visibleRow / 2);
         }
@@ -950,7 +1024,7 @@ var renderSmaller = function (recycleView, baseIndex, basePosition) {
     } else {
         minNum = recycleView.row;
         if (scrollLocate == ScrollEnd) {
-            minNum = minNum * (recycleView.visibleCol - 1);
+            minNum = minNum * recycleView.visibleCol;
         } else if (scrollLocate == ScrollCenter) {
             minNum = minNum * Math.ceil(recycleView.visibleCol / 2);
         }
@@ -1025,7 +1099,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
     if (recycleView.orientation == VERTICAL) {
         minNum = recycleView.col;
         if (scrollLocate == ScrollStart) {
-            minNum = minNum * (recycleView.visibleRow - 1);
+            minNum = minNum * recycleView.visibleRow;
         } else if (scrollLocate == ScrollCenter) {
             minNum = minNum * Math.ceil(recycleView.visibleRow / 2);
         }
@@ -1035,7 +1109,7 @@ var renderBigger = function (recycleView, baseIndex, basePosition) {
     } else {
         minNum = recycleView.row;
         if (scrollLocate == ScrollStart) {
-            minNum = minNum * (recycleView.visibleCol - 1);
+            minNum = minNum * recycleView.visibleCol;
         } else if (scrollLocate == ScrollCenter) {
             minNum = minNum * Math.ceil(recycleView.visibleCol / 2);
         }
@@ -1269,7 +1343,12 @@ var watchData = function (data, recycleView) {
 
         data[funName] = function () {
             func.call(data, arguments);
-            render(recycleView, recycleView.selectIndex);
+
+            if (recycleView.baseIndex >= this.length) {
+                recycleView.baseIndex = this.length - 1;
+            }
+
+            render(recycleView, recycleView.baseIndex);
         }
     }
 }

@@ -1,45 +1,25 @@
 <template>
-    <img src="../images/bg.jpg" view-id="bg">
-    <view id="view"></view>
-    <view-item></view-item>
-    <item view-id="item"></item>
-    <scroll view-id="scroll"></scroll>
-    <group view-id="group"></group>
-    <view-frame view-id="frame"></view-frame>
-    <view-recycle class="recycle_view" first-focus view-id="recycle">
-        <item class="item" view-id="post">
-            <div class="focus" view-id="focus" >
+    <img src="../images/bg.jpg" id="bg">
+    <text class="text" id="text_view">这是一个跑马灯：加长加长加长加长加长加长加长加长加长</text>
+    <view-recycle class="recycle_view" style="width: 500px;height: 60px" view-orientation="h" id="recycle">
+        <item class="item" id="post">
+            <div class="focus" id="focus" >
             </div>
             <div class="pic">
-                <img view-id="pic">
+                <img id="pic">
             </div>
             <div>
                 <div>
-                    <div view-id="test_div">测试</div>
+                    <div id="test_div">测试</div>
                 </div>
             </div>
         </item>
     </view-recycle>
-
-    <dialog class="dialog" view-id="dialog">
-        <div class="bg">
-            <div class="shadow"></div>
-            <img src="../images/home/dialog_bg.png">
-        </div>
-
-        <div class="r_87x33" style="left: 500px;top:420px;">
-            <div class="item" view-type="view-item">
-                <div class="focus"></div>
-                <div class="pic"><img view-id="top_order_pic"></div>
-            </div>
-        </div>
-        <div class="r_87x33" style="left: 693px;top:420px;">
-            <div class="item" view-type="view-item">
-                <div class="focus"></div>
-                <div class="pic"><img view-id="top_order_pic"></div>
-            </div>
-        </div>
-    </dialog>
+    <group class="button" first-focus id="button_group">
+        <item class="item" style="left:30px;color: #01ab01;" id="i">i</item>
+        <item class="item" style="left:160px;color: #fff500;" id="w">w</item>
+        <item class="item" style="left:290px;color: red;" id="e">e</item>
+    </group>
 
 </template>
 

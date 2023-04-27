@@ -10,11 +10,13 @@ import HomeFragment_5 from "@fragment/HomeFragment_5";
 import html from "@html/home.html"
 import ConfirmDialog from "@src/dialog/ConfirmDialog";
 import utils from "@src/util/utils";
+import LogView, {LEFT_BOTTOM} from "@core/frame/view/single/LogView";
 
 export default class HomePage extends Page {
     onCreate(param) {
         console.log(this.pageName, "onCreate", "传入参数", param);
         this.html = html;
+        this.logView.positionMode = LEFT_BOTTOM;
         this.initView();
         this.setView();
         this.initUtil();
@@ -52,10 +54,12 @@ export default class HomePage extends Page {
     }
 
     onClickListener(view) {
-        console.log(this.pageName, "-onClickListener", view);
-        this.startPage("PlayerPage", {data: "PlayerPage的初始参数"});
+        // console.log(this.pageName, "-onClickListener", view);
+        // this.startPage("PlayerPage", {data: "PlayerPage的初始参数"});
 
         // this.finish();
+
+        this.logView.i(this.pageName+" id:"+view.id +"加长加长加长加长加长加长加长加长加长加长加长加长")
     }
 
     onFocusChangeListener(view, hasFocus) {

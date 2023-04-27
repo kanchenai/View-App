@@ -384,6 +384,26 @@ window.onload = function () {
 }
 ```
 
+#### 打印注意点
+
+* 每个Page都会默认带一个LogView，使用开发模式和打测试包时默认显示，正式包默认不生效
+* 在Page 调用this.html = "";之后调用
+* 默认显示位置在左上角，可以设置显示位置（9宫格的位置）
+* 调用方式
+```javascript
+  class HomePage extends Page{
+      onCreate(){
+          this.html = "";
+          
+          //必须在this.html = "";之后使用
+          this.logView.i("显示绿色的提示信息");
+          this.logView.w("显示黄色的警告信息");
+          this.logView.e("显示红色的错误信息");
+      }
+  
+  }
+```
+
 ### 版本注意点
 
 * 0.3.* -> 0.4.*及以上版本，需要新增page配置文件（view.config.js）,该配置可以在继承Page时，不用写构造方法，在继承Application中不用写构造方法
