@@ -194,9 +194,10 @@ export class ViewBuilder {
     }
 
     /**
-     * 自定义view的view-type转化
+     * 转化自定义view的id、view-type
      */
-    static tagToViewType(html) {
+    static buildHtml(html) {
+        html = idToViewId(html);
         Object.keys(customViewBuilder).forEach(function (key) {
             var viewBuilder = customViewBuilder[key];
             html = tagToViewTypeBy(html, viewBuilder.viewType, [viewBuilder.viewType])
@@ -205,12 +206,44 @@ export class ViewBuilder {
     }
 }
 
+/**
+ * 将tagName解析为view-type
+ * @param html
+ * @param viewTypeName
+ * @param tagNames
+ * @return {*}
+ */
 var tagToViewTypeBy = function (html, viewTypeName, tagNames) {
     tagNames.forEach(tagName => {
-        var regExp = new RegExp("<" + tagName, "gmi");
-        html = html.replace(regExp, '<div view-type="' + viewTypeName + '"');
+        //简单的穷举tagName的三种情况
+        var regExp_0 = new RegExp("<" + tagName + " ", "gmi");
+        html = html.replace(regExp_0, '<div view-type="' + viewTypeName + '" ');
+
+        var regExp_1 = new RegExp("<" + tagName + "/", "gmi");
+        html = html.replace(regExp_1, '<div view-type="' + viewTypeName + '"/');
+
+        var regExp_2 = new RegExp("<" + tagName + ">", "gmi");
+        html = html.replace(regExp_2, '<div view-type="' + viewTypeName + '">');
+
         html = html.replace(new RegExp("</" + tagName + ">", "gmi"), "</div>");
     })
     return html;
 }
 
+/**
+ * 将id解析为view-id
+ * @param html
+ * @return {*}
+ */
+var idToViewId = function (html) {
+    //简单的穷举id的三种情况
+    var regExp = new RegExp(" id=", "gmi");
+    html = html.replace(regExp, " view-id=");
+
+    var regExp_1 = new RegExp("\"id=", "gmi");
+    html = html.replace(regExp_1, "\" view-id=");
+
+    var regExp_2 = new RegExp("\'id=", "gmi");
+    html = html.replace(regExp_2, "\' view-id=");
+    return html;
+}

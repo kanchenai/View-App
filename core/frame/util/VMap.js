@@ -1,3 +1,7 @@
+/**
+ * 使用一个简单的封装实现map功能
+ * 后续可以使用原生Map，但需要验证编译后的兼容性
+ */
 export default class VMap{
 
     constructor() {

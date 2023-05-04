@@ -1,4 +1,5 @@
 import Dialog from "@core/frame/view/group/Dialog";
+import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 
 export default class LoneDialog extends Dialog {
     constructor(viewManager) {
@@ -9,6 +10,7 @@ export default class LoneDialog extends Dialog {
         //1.布局最外层的ele
         this.ele = buildEle(this.page);
         this.page.appendChild(this.ele);
+        value = ViewBuilder.buildHtml(value);
         //2.加载布局（把html设置进外层ele中）
         super.html = value;
     }

@@ -5,6 +5,7 @@ import VSize from "@core/frame/util/VSize";
 import View from "@core/frame/view/base/View";
 import VPosition from "@core/frame/util/VPosition";
 import VMap from "@core/frame/util/VMap";
+import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 
 /**
  *
@@ -136,12 +137,12 @@ export default class RecycleView extends GroupView {
         this.render();
     }
 
-    sort(compareFn){
+    sort(compareFn) {
         this.data.sort(compareFn);
         this.render();
     }
 
-    reverse(){
+    reverse() {
         this.data.reverse();
         this.render();
     }
@@ -157,15 +158,15 @@ export default class RecycleView extends GroupView {
             this.baseIndex = 0;
         }
 
-        if(this.data.length == 0){
+        if (this.data.length == 0) {
             var activeHolderMap = this.activeHolderMap;
-            activeHolderMap.keys().forEach(function (key){
+            activeHolderMap.keys().forEach(function (key) {
                 var holder = activeHolderMap.get(key)
-                if(holder){
+                if (holder) {
                     holder.recycle()
                 }
             })
-        }else{
+        } else {
             render(this, this.baseIndex);
         }
 
@@ -626,13 +627,13 @@ export default class RecycleView extends GroupView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var recycleView = new RecycleView(viewManager, listenerLocation);
         recycleView.ele = ele;
-        var viewDefault = recycleView.setAttributeParam();
+        var firstFocus = recycleView.setAttributeParam();
 
         recycleView.scroller.init();
         recycleView.measure();
         centerScroller(recycleView);//让滚动器居中
 
-        if (viewDefault) {
+        if (firstFocus) {
             viewManager.focusView = recycleView;
         }
 
@@ -673,6 +674,7 @@ export class Adapter {
     }
 
     set template(value) {
+        value = ViewBuilder.buildHtml(value);
         this._template = value;
     }
 }

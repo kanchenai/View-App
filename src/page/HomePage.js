@@ -37,6 +37,7 @@ export default class HomePage extends Page {
         ]);
         this.nav_area = this.findViewById("nav_area");
         this.nav_area.selectView = this.nav_area.childViews[0];
+        this.nav_area.onClickListener = onNavClickListener;
 
         // this.dialog = this.findViewById("dialog");
         this.dialog = new ConfirmDialog(this.viewManager);
@@ -54,11 +55,6 @@ export default class HomePage extends Page {
     }
 
     onClickListener(view) {
-        // console.log(this.pageName, "-onClickListener", view);
-        // this.startPage("PlayerPage", {data: "PlayerPage的初始参数"});
-
-        // this.finish();
-
         this.logView.i(this.pageName+" id:"+view.id +"加长加长加长加长加长加长加长加长加长加长加长加长")
     }
 
@@ -123,4 +119,11 @@ export default class HomePage extends Page {
     key_back_event() {
         this.dialog.show();
     }
+}
+
+var onNavClickListener = function (view){
+    console.log(this.pageName, "-onClickListener", view);
+    this.startPage("ListPage", {data: "ListPage的初始参数"});
+
+    // this.finish();
 }

@@ -27,7 +27,7 @@ export default class HomeFragment_0 extends Fragment{
 
     onClickListener(view){
         console.log("onClickListener",view)
-        this.startPage("ListPage",{data:"ListPage的数据"})
+        this.startPage("PlayerPage",{data:"PlayerPage的数据"})
     }
 
 }
