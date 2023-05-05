@@ -3,6 +3,7 @@
   "version": "0.4.1",
   "description": "",
   "scripts": {
+    "pro": "webpack-dev-server --hot --mode production",
     "dev": "webpack-dev-server --hot --mode development --devtool source-map",
     "server": "npm run dev",
     "start": "npm run build-pro",

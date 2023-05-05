@@ -1,5 +1,9 @@
 # view-app
-这是一个在原生js基础上开发的针对iptv行业的交互框架
+
+* 这是一个在原生js基础上开发的针对iptv行业的交互框架
+* 参考了android的Application和activity实现整个页面的交互及生命周期
+* 使用webpack打包
+* 区分开发模式及生产模式
 
 ### 环境及npm命令
 
@@ -13,22 +17,31 @@
 ```
 
 #### 本地调试运行
-
+使用开发模式运行，可以在页面上看到打印，在F12看到源码
 ```
     npm run server
     或
     npm run dev
 ```
 
+#### 生产环境运行
+使用生产模式运行，取消在页面上的打印，在F12看不到源码
+```
+    npm run pro
+```
+
 #### 打包
 
 * 测试环境使用
-
+  
+可以在页面上看到打印，没有.map映射文件
 ```
   npm run build-dev
 ```
 
 * 生产环境使用
+
+取消在页面上的打印，没有.map映射文件
 ```
   npm run build
   或
@@ -36,8 +49,6 @@
   或
   npm run build-pro
 ```
-
-参考了android的Application和activity实现整个页面的交互及生命周期
 
 ### 起步
 #### Application启动
