@@ -19,14 +19,14 @@ export default class TestPage extends Page {
 
         this.recycle = this.findViewById("recycle");
         console.log(this.recycle)
-        // recycle.orientation = HORIZONTAL;
-        this.recycle.scrollLocate = ScrollNormal;
-        this.recycle.col = 1;
-        this.recycle.row = 1;
-        this.recycle.circulate = true;
-        this.recycle.margin = new VMargin(5, 5, 5, 5);
+        // this.recycle.orientation = HORIZONTAL;
+        this.recycle.scrollLocate = ScrollCenter;
+        this.recycle.col = 4;
+        this.recycle.row = 4;
+        // this.recycle.circulate = true;
+        this.recycle.margin = new VMargin(20, 5, 25, 5);
         this.recycle.adapter = adapter;
-        this.recycle.data = new Array(55);
+        this.recycle.data = new Array(10);
 
         this.button_group = this.findViewById("button_group");
         this.button_group.onClickListener = onButtonClickListener;

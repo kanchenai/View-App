@@ -1,4 +1,4 @@
-import RecycleView, {Adapter, Holder, render} from "@core/frame/view/group/RecycleView";
+import RecycleView, {Adapter, Holder} from "@core/frame/view/group/RecycleView";
 import {ScrollEnd} from "@core/frame/view/base/ScrollView";
 import html from "@core/frame/view/html/log_adapter.html"
 
