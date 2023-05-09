@@ -17,13 +17,21 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,//也可以是数组
-                exclude: [path.resolve(__dirname, 'src/css'),path.resolve(__dirname, 'core/frame/view/css')],
+                exclude: [
+                    path.resolve(__dirname, 'src/css'),
+                    path.resolve(__dirname, 'core/frame/view/css'),
+                    path.resolve(__dirname, 'src/custom-view')
+                ],
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
                 resolve: {}
             },
             {
                 test: /\.css$/,//也可以是数组
-                include: [path.resolve(__dirname, 'src/css'),path.resolve(__dirname, 'core/frame/view/css')],
+                include: [
+                    path.resolve(__dirname, 'src/css'),
+                    path.resolve(__dirname, 'core/frame/view/css'),
+                    path.resolve(__dirname, 'src/custom-view')
+                ],
                 use: [MiniCssExtractPlugin.loader, 'css-loader', "view-css-loader"],
                 resolve: {}
             },
@@ -36,7 +44,11 @@ module.exports = {
             },
             {
                 test: [/\.html$/],
-                include: [path.resolve(__dirname, 'src/html/'),path.resolve(__dirname, 'core/frame/view/html/')],
+                include: [
+                    path.resolve(__dirname, 'src/html/'),
+                    path.resolve(__dirname, 'core/frame/view/html/'),
+                    path.resolve(__dirname, 'src/custom-view')
+                ],
                 use: ["html-withimg-loader", "view-html-loader"],
             },
             // {

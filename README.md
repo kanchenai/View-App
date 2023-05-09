@@ -264,6 +264,12 @@ export default class HomePage extends Page {
 
 ```javascript
 export default class HomePage extends Page {
+  onCreate(param) {
+    this.html = html;
+
+    this.player = new VideoPlayer(this);
+  }
+    
   onResume(){
     var playInfo = new PlayInfo("", 0, 0, 1280, 720);//播放地址，及视频位置
     this.player.play(0, playInfo);//从0开始播放

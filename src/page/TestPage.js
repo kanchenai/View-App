@@ -7,11 +7,12 @@ import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/vi
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
 import VMargin from "@core/frame/util/VMargin";
 import PlayerPage from "@page/PlayerPage";
-import LogView, {LEFT, LEFT_BOTTOM} from "@core/frame/view/single/LogView";
+import LogView, {LEFT, LEFT_BOTTOM, RIGHT_TOP} from "@core/frame/view/single/LogView";
 
 export default class TestPage extends Page {
     onCreate(param) {
         this.html = html;
+        this.logView.positionMode = RIGHT_TOP;
         this.bg = this.findViewById("bg");
         this.textView = this.findViewById("text_view");
 
@@ -28,6 +29,12 @@ export default class TestPage extends Page {
         this.recycle.adapter = adapter;
         this.recycle.data = new Array(10);
 
+        this.keyboard = this.findViewById("keyboard");
+        this.keyboard.onClickListener = function (view){
+            this.logView.addLog("12点击：" + view.data)
+        }
+
+
         this.button_group = this.findViewById("button_group");
         this.button_group.onClickListener = onButtonClickListener;
     }
@@ -38,8 +45,7 @@ export default class TestPage extends Page {
         // var playerPage = new PlayerPage();
         // this.startPage(playerPage, null);
 
-        this.logView.addLog("点击：" + view.fatherView.holder.dataIndex
-            + " 加长加长加长加长加长加长加长加长加长加长加长加长加长加长加长加长加长加长加长")
+        this.logView.i("点击：" + view.data)
     }
 
     onResume() {

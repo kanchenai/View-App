@@ -112,12 +112,6 @@ export default class View {
         return ele;
     }
 
-    /**
-     * @param view
-     * @param isShowing
-     */
-    onVisibleChangeListener(view,isShowing){}
-
     callVisibleChangeListener(view, isShowing) {
         var onVisibleChangeListener = null;
         if (this.onVisibleChangeListener) {
@@ -374,7 +368,9 @@ export default class View {
 
         var visible = View.parseAttribute("view-visible", this.ele);//滚动
 
-        this.onVisibleChangeListener = visible || "";
+        if(visible){
+            this.onVisibleChangeListener = visible;
+        }
 
         return false;
     }

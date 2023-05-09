@@ -65,11 +65,6 @@ export default class ItemView extends View {
 
     /**
      * @param view
-     */
-    onClickListener(view){}
-
-    /**
-     * @param view
      * @param hasFocus
      */
     onFocusChangeListener(view,hasFocus){}
@@ -347,8 +342,13 @@ export default class ItemView extends View {
         var focus = View.parseAttribute("view-focus", this.ele);//焦点变化
 
         this.setFocusChange(up, down, left, right);
-        this.onClickListener = click || "";
-        this.onFocusChangeListener = focus || "";
+        if(click){
+            this.onClickListener = click
+        }
+
+        if(focus){
+            this.onFocusChangeListener = focus;
+        }
 
         return firstFocus;
     }

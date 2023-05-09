@@ -197,6 +197,10 @@ class LogAdapter extends Adapter {
                 time.style.color = "red";
                 info.setStyle("color","red");
                 break;
+            default:
+                time.style.color = "white";
+                info.setStyle("color","white");
+                break;
         }
     }
 }

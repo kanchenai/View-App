@@ -372,35 +372,6 @@ export default class ScrollView extends View {
         this.scroller.measure();
     }
 
-    /**
-     * 滚动开始监听
-     * @param scrollView
-     * @param x
-     * @param y
-     */
-    onScrollStartListener(scrollView, x, y) {
-
-    };
-
-    /**
-     * 滚动中监听
-     * @param scrollView
-     * @param x
-     * @param y
-     */
-    onScrollingListener(scrollView, x, y) {
-
-    };
-
-    /**
-     * 滚动结束监听
-     * @param scrollView
-     * @param x
-     * @param y
-     */onScrollEndListener(scrollView, x, y) {
-
-    };
-
     callScrollStartListener(scrollView, x, y) {
         var onScrollStartListener = null;
         if (this.onScrollStartListener) {
@@ -562,9 +533,16 @@ export default class ScrollView extends View {
         var scrollStart = View.parseAttribute("view-scrollStart", this.ele);//开始滚动
         var scrolling = View.parseAttribute("view-scrolling", this.ele);//开始滚动
         var scrollEnd = View.parseAttribute("view-scrollEnd", this.ele);//开始滚动
-        this.onScrollStartListener = scrollStart;
-        this.onScrollingListener = scrolling;
-        this.onScrollEndListener = scrollEnd;
+        if(scrollStart){
+            this.onScrollStartListener = scrollStart;
+        }
+        if(scrolling){
+            this.onScrollingListener = scrolling;
+        }
+        if(scrollEnd){
+            this.onScrollEndListener = scrollEnd;
+        }
+
 
         return super.setAttributeParam();
     }

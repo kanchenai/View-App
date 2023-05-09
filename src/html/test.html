@@ -1,7 +1,7 @@
 <template>
     <img src="../images/bg.jpg" id="bg">
     <text class="text" id="text_view">这是一个跑马灯：加长加长加长加长加长加长加长加长加长</text>
-    <view-recycle class="recycle_view" style="width: 480px;height: 260px" id="recycle">
+    <view-recycle class="recycle_view" style="width: 400px;height: 120px;left:30px;top: 100px;" id="recycle">
         <item class="item" id="post">
             <div class="focus" id="focus" >
             </div>
@@ -15,7 +15,9 @@
             </div>
         </item>
     </view-recycle>
-    <group class="button" first-focus id="button_group">
+    <keyboard style="left:30px;top: 250px;" first-focus size-type="medium" id="keyboard"></keyboard>
+
+    <group class="button" style=" top: 650px;" id="button_group">
         <item class="item" style="left:30px;color: #01ab01;" id="i">i</item>
         <item class="item" style="left:160px;color: #fff500;" id="w">w</item>
         <item class="item" style="left:290px;color: red;" id="e">e</item>

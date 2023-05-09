@@ -1,0 +1,16 @@
+.item {
+    background: #888888;
+    border-radius: 7px;
+}
+
+.focus {
+    border: unset;
+    left: 0px;
+    top: 0px;
+    background: #61dd6c;
+    border-radius: 7px;
+}
+
+.text {
+    text-align: center;
+}

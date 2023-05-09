@@ -45,7 +45,6 @@ export default class RecycleView extends GroupView {
         this.loop = false;
         /**
          * 外边距
-         * TODO 最后一个上焦时，会不符常理的滚动
          * @type {VMargin}
          */
         this.margin = new VMargin(0, 0, 0, 0);
@@ -366,7 +365,7 @@ export default class RecycleView extends GroupView {
             //直接计算scrollTop
             scrollTop = computeScrollTop(this, childHeight, top, rowNum, totalRow, scrollLocate);
         }
-        console.log("scrollTop", scrollTop)
+
         this.scrollVertical(scrollTop);
     }
 
@@ -434,7 +433,7 @@ export default class RecycleView extends GroupView {
                 scrollLeft = computeScrollLeft(this, childWidth, left, colNum, totalCol, scrollLocate);
             }
         }
-        console.log("scrollLeft", scrollLeft)
+
         this.scrollHorizontal(scrollLeft);
     }
 
@@ -820,29 +819,6 @@ export class Component extends GroupView {
     }
 }
 
-//
-// /**
-//  * 通过margin校准Component子节点的位置
-//  */
-// var correctComponentChild = function (component) {
-//     var margin = component.holder.recycleView.margin;
-//     if (!margin || (margin.left == 0 && margin.top != 0)) {
-//         return;
-//     }
-//
-//     var children = component.ele.children;
-//
-//     for (var i = 0; i < children.length; i++) {
-//         var child = children[i];
-//         var left = View.getLeft(child);
-//         var top = View.getTop(child);
-//
-//         child.style.left = left + margin.left + "px";
-//         child.style.top = top + margin.top + "px";
-//     }
-//
-// }
-
 /**
  * 创建component
  * @param holder
@@ -953,8 +929,6 @@ var renderBase = function (recycleView, index) {
             index = (index + data.length) % data.length;//调整index，使在正常范围
             holder.changIndex(index);//将holder的index调整到正常范围
         }
-
-        adapter.bindHolder(holder, data[index]);//刷新下绑定的数据
     } else {
         position = new VPosition(0, 0);
         index = (index + data.length) % data.length;//调整index，使在正常范围
@@ -964,9 +938,10 @@ var renderBase = function (recycleView, index) {
         if (!holder) {//重新获取的holder不存在
             holder = getEmptyHolder(recycleView);//获取一个空的holder
             holder.active(index);//使用正常范围的index激活
-            adapter.bindHolder(holder, data[index]);//绑定数据
         }
     }
+
+    adapter.bindHolder(holder, data[index]);//绑定数据
 
     centerScroller(recycleView);
     setChildPosition(recycleView, holder.component, position);
@@ -1203,7 +1178,7 @@ var getEmptyHolder = function (recycleView) {
  * 使recycleView的滚动器居中
  * @param recycleView
  */
-var centerScroller = function (recycleView) {
+export var centerScroller = function (recycleView) {
     var distanceLeft = recycleView.width - recycleView.scrollLeft;
     var distanceTop = recycleView.height - recycleView.scrollTop;
 
