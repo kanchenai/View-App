@@ -72,6 +72,7 @@ export class KeyboardViewBuilder extends ViewBuilder {
 
     buildView(ele, viewManager, listenerLocation) {
         var keyboardView = KeyboardView.parseByEle(ele, viewManager, listenerLocation);
+        //TODO 优化：使用外部设置的布局，外不未设置则使用默认的
         keyboardView.adapter = new TextAdapter();
         if (keyboardView.sizeType == "medium") {
             keyboardView.seatSize = new VSize(65, 65)

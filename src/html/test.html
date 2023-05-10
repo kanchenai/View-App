@@ -1,6 +1,8 @@
 <template>
     <img src="../images/bg.jpg" id="bg">
     <text class="text" id="text_view">这是一个跑马灯：加长加长加长加长加长加长加长加长加长</text>
+    <countdown style="top: 30px;left: 350px;" size-type="mini" count="5"
+               count-change="onCountChangeListener" id="countdown"></countdown>
     <view-recycle class="recycle_view" style="width: 400px;height: 120px;left:30px;top: 100px;" id="recycle">
         <item class="item" id="post">
             <div class="focus" id="focus" >

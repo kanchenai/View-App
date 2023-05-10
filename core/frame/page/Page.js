@@ -58,7 +58,7 @@ export default class Page extends GroupView {
     }
 
     stop() {
-        if(this.lifeState != PageLifeState.PAUSE){//不是暂停状态，先暂停
+        if (this.lifeState != PageLifeState.PAUSE) {//不是暂停状态，先暂停
             this.pause();
         }
         this.lifeState = PageLifeState.STOP;//当前生命周期处在Page停止
@@ -66,7 +66,7 @@ export default class Page extends GroupView {
     }
 
     destroy() {
-        if(this.lifeState != PageLifeState.STOP){//不是停止状态，先停止
+        if (this.lifeState != PageLifeState.STOP) {//不是停止状态，先停止
             this.stop();
         }
         this.lifeState = PageLifeState.DESTROY;//当前生命周期处在Page销毁
@@ -94,6 +94,36 @@ export default class Page extends GroupView {
     }
 
     onDestroy() {
+    }
+
+    /**
+     * 打印信息
+     * @param info
+     */
+    i(info) {
+        if (this.logView) {
+            this.logView.i(info);
+        }
+    }
+
+    /**
+     * 打印警告
+     * @param info
+     */
+    w(info) {
+        if (this.logView) {
+            this.logView.w(info);
+        }
+    }
+
+    /**
+     * 打印异常
+     * @param info
+     */
+    e(info) {
+        if (this.logView) {
+            this.logView.e(info);
+        }
     }
 
     /**

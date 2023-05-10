@@ -18,6 +18,9 @@ export default class TestPage extends Page {
 
         this.textView.marquee();
 
+        this.countdown = this.findViewById("countdown");
+        this.countdown.start();
+
         this.recycle = this.findViewById("recycle");
         console.log(this.recycle)
         // this.recycle.orientation = HORIZONTAL;
@@ -30,7 +33,7 @@ export default class TestPage extends Page {
         this.recycle.data = new Array(10);
 
         this.keyboard = this.findViewById("keyboard");
-        this.keyboard.onClickListener = function (view){
+        this.keyboard.onClickListener = function (view) {
             this.logView.addLog("12点击：" + view.data)
         }
 
@@ -45,7 +48,11 @@ export default class TestPage extends Page {
         // var playerPage = new PlayerPage();
         // this.startPage(playerPage, null);
 
-        this.logView.i("点击：" + view.data)
+        this.i("点击：" + view.data)
+    }
+
+    onCountChangeListener(view, count) {
+        this.i(view.id + ":" + count)
     }
 
     onResume() {
@@ -79,19 +86,22 @@ adapter.bindHolder = function (holder, data) {
 }
 
 var onButtonClickListener = function (view) {
-    // this.logView.addLog(view.id);
     console.log(view.id);
     switch (view.id) {
         case "i":
-            this.logView.i("提示信息")
+            this.i("提示信息")
             break;
         case "w":
-            this.logView.w("警告信息")
+            this.w("警告信息")
             break;
         case "e":
-            this.logView.e("错误信息")
+            this.e("错误信息")
             break;
 
     }
 
 }
+
+// var onCountChangeListener = function (view,count){
+//     this.i(view.id,count)
+// }
