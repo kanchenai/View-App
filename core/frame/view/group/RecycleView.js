@@ -120,6 +120,9 @@ export default class RecycleView extends GroupView {
 
     push(item) {
         this.data.push(item);
+        if(this.data.length == 1){//新增第一个数据
+            computeSeatSize(this);//获取子控件的占位
+        }
         this.render();
     }
 
@@ -186,6 +189,8 @@ export default class RecycleView extends GroupView {
             // watchData(this._data, this);//重写this._data的数组相关方法，实现改变数组刷新控件
         }
 
+        computeSeatSize(this);//获取子控件的占位
+
         this.baseIndex = 0;
         this.render();
     }
@@ -206,17 +211,6 @@ export default class RecycleView extends GroupView {
         this.ele.html = "";//置空节点
 
         computeSeatSize(this);//获取子控件的占位
-
-        this.visibleRow = Math.ceil(this.height / this.seatSize.height);//计算可见行（整个component）值
-        this.visibleCol = Math.ceil(this.width / this.seatSize.width);//计算可见列（整个component）值
-
-        if (this.row == 0) {//未设置行
-            this.row = Math.floor(this.height / this.seatSize.height);
-        }
-
-        if (this.col == 0) {//未设置列
-            this.col = Math.floor(this.width / this.seatSize.width);
-        }
 
         this.baseIndex = 0;
         this.render();
@@ -848,27 +842,43 @@ var buildComponent = function (holder) {
  */
 var computeSeatSize = function (recycleView) {
     var seatSize = new VSize(0, 0);
-    if (!recycleView.adapter) {
+    if (!recycleView.adapter || recycleView.data.length == 0) {
         return seatSize;
     }
 
-    var invisibleDiv = buildInvisibleDiv();
-    invisibleDiv.innerHTML = recycleView.adapter.template;
-    recycleView.ele.appendChild(invisibleDiv);//不可见渲染
+    // var invisibleDiv = buildInvisibleDiv();
+    // invisibleDiv.innerHTML = recycleView.adapter.template;
+    // recycleView.ele.appendChild(invisibleDiv);//不可见渲染
+    //
+    // var size = View.getVisibleSize(invisibleDiv);//组件宽高
+    //
+    // invisibleDiv.remove();//将当前节点从application中移除
+    // //兼容ele.remove无效
+    // if (recycleView.ele.contains(invisibleDiv)) {
+    //     recycleView.ele.removeChild(invisibleDiv);
+    // }
 
-    var size = View.getVisibleSize(invisibleDiv);//组件宽高
-
-    invisibleDiv.remove();//将当前节点从application中移除
-    //兼容ele.remove无效
-    if (recycleView.ele.contains(invisibleDiv)) {
-        recycleView.ele.removeChild(invisibleDiv);
-    }
-
+    renderBase(recycleView,0);
+    var holder = recycleView.activeHolderMap.get(0);
+    var size = View.getVisibleSize(holder.component.ele);//组件宽高
+    holder.component.size = size;//设置holder.component宽高
     var margin = recycleView.margin;
     var width = size.width + margin.left + margin.right;
     var height = size.height + margin.top + margin.bottom;
 
     recycleView.seatSize = new VSize(width, height);
+
+    //根据seatSize，设置一些属性
+    recycleView.visibleRow = Math.ceil(recycleView.height / recycleView.seatSize.height);//计算可见行（整个component）值
+    recycleView.visibleCol = Math.ceil(recycleView.width / recycleView.seatSize.width);//计算可见列（整个component）值
+
+    if (recycleView.row == 0) {//未设置行
+        recycleView.row = Math.floor(recycleView.height / recycleView.seatSize.height);
+    }
+
+    if (recycleView.col == 0) {//未设置列
+        recycleView.col = Math.floor(recycleView.width / recycleView.seatSize.width);
+    }
 }
 
 var render = function (recycleView, index) {

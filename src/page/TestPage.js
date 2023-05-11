@@ -28,7 +28,7 @@ export default class TestPage extends Page {
         this.recycle.col = 4;
         this.recycle.row = 4;
         // this.recycle.circulate = true;
-        this.recycle.margin = new VMargin(20, 5, 25, 5);
+        this.recycle.margin = new VMargin(0, 15, 0, 15);
         this.recycle.adapter = adapter;
         this.recycle.data = new Array(10);
 
@@ -37,9 +37,22 @@ export default class TestPage extends Page {
             this.logView.addLog("12点击：" + view.data)
         }
 
-
         this.button_group = this.findViewById("button_group");
         this.button_group.onClickListener = onButtonClickListener;
+
+        this.poster_0 = this.findViewById("poster_0");
+        this.poster_0.name = "这是一段文字加长"
+        this.poster_0.poster = require("../images/home/home_fragment_0/poster.png")
+
+        this.poster_list = this.findViewById("poster_list");
+        this.poster_list.adapter = new PosterAdapter();
+        this.poster_list.data = new Array(12);
+
+        // this.textView.hide();
+        // this.countdown.hide();
+        // this.recycle.hide();
+        // this.keyboard.hide();
+        // this.button_group.hide();
     }
 
     onClickListener(view) {
@@ -105,3 +118,13 @@ var onButtonClickListener = function (view) {
 // var onCountChangeListener = function (view,count){
 //     this.i(view.id,count)
 // }
+
+class PosterAdapter extends Adapter {
+    bindHolder(holder, data) {
+        var poster = holder.findViewById("poster");
+        poster.data = {
+            name: "这是一段文字加长",
+            poster: require("../images/home/home_fragment_0/poster.png")
+        };
+    }
+}

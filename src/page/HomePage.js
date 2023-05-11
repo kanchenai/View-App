@@ -55,7 +55,11 @@ export default class HomePage extends Page {
     }
 
     onClickListener(view) {
-        this.logView.i(this.pageName+" id:"+view.id +"加长加长加长加长加长加长加长加长加长加长加长加长")
+        if(view.id == "top_record"){
+            this.startPage("TestPage",{});
+        }else{
+            this.logView.i(this.pageName+" id:"+view.id +"加长加长加长加长加长加长加长加长加长加长加长加长")
+        }
     }
 
     onFocusChangeListener(view, hasFocus) {

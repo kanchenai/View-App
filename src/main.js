@@ -8,10 +8,13 @@ import State from "@core/frame/util/State";
 import ViewManager from "@core/frame/view/base/ViewManager";
 import {KeyboardViewBuilder} from "@src/custom-view/keyborad/KeyboardView";
 import {CountdownViewBuilder} from "@src/custom-view/countdown/CountdownView";
+import {PosterWhiteViewBuilder} from "@src/custom-view/poster-white/PosterWhiteView";
 
 var start = new Date().getTime();
 window.onload = function () {
-    ViewManager.addCustomViewBuilder([KeyboardViewBuilder,CountdownViewBuilder]);
+    ViewManager.addCustomViewBuilder([
+        KeyboardViewBuilder,CountdownViewBuilder,PosterWhiteViewBuilder
+    ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关
     //需要在css加载完之后才能启动app

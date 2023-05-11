@@ -22,4 +22,4 @@ export var PageConfig = {
  * 这个值必须是PageConfig中的其中一个
  * @type {string}
  */
-export var LaunchPage = "TestPage";
+export var LaunchPage = "HomePage";
