@@ -16,10 +16,7 @@ export default class TestPage extends Page {
         this.bg = this.findViewById("bg");
         this.textView = this.findViewById("text_view");
 
-        this.textView.marquee();
-
         this.countdown = this.findViewById("countdown");
-        this.countdown.start();
 
         this.recycle = this.findViewById("recycle");
         console.log(this.recycle)
@@ -48,6 +45,9 @@ export default class TestPage extends Page {
         this.poster_list.adapter = new PosterAdapter();
         this.poster_list.data = new Array(12);
 
+        this.textView.marquee();
+        this.countdown.start();
+        
         // this.textView.hide();
         // this.countdown.hide();
         // this.recycle.hide();

@@ -837,6 +837,7 @@ var buildComponent = function (holder) {
 /**
  * 计算一个component占位大小,adapter是后续设置的，不在原recycleView节点中
  * 使用holder（已回收/新创建的）获取size+margin
+ * 只能计算当前样式时的size，如果在adapter中改变的，不会被计算到
  * @param recycleView
  * @returns {VSize}
  */
