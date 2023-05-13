@@ -1,13 +1,26 @@
 <template>
     <div class="bg"><img view-id="bg"></div>
-    <div class="title" style="left:80px;">基础控件</div>
-    <group class="base_view" style="left:70px;" first-focus>
-        <button class="button" style="top: 20px;" id="button_0">
-            <div class="focus" id="focus"></div>
-        </button>
-        <button class="button" style="top: 100px;"></button>
-        <button class="button" style="top: 180px;"></button>
-        <button class="button" style="top: 260px;"></button>
-        <button class="button" style="top: 340px;"></button>
-    </group>
+    <div class="title" style="left:50px;">基础功能</div>
+    <div class="view_bg" style="left:40px;"></div>
+    <recycle class="base_view" style="left:60px;" view-margin="0,10,0,0" first-focus id="list_0">
+        <button class="button" size="210,40" id="button"></button>
+    </recycle>
+
+    <div class="title" style="left:360px;">基础控件</div>
+    <div class="view_bg" style="left:350px;"></div>
+    <recycle class="base_view" style="left:370px;" view-margin="0,10,0,0" id="list_1">
+        <button class="button"  text="ItemView" size="210,40" id="button"></button>
+    </recycle>
+
+    <div class="title" style="left:670px;">自定义控件</div>
+    <div class="view_bg" style="left:660px;"></div>
+    <recycle class="base_view" style="left:680px;" view-margin="0,10,0,0" id="list_2">
+        <button class="button" style="top: 0px;" text="Button" size="210,40" id="button"></button>
+    </recycle>
+
+    <div class="title" style="left:980px;">项目案例</div>
+    <div class="view_bg" style="left:970px;"></div>
+    <recycle class="base_view" style="left:990px;" view-margin="0,10,0,0" id="list_3">
+        <button class="button" style="top: 0px;" text="Launcher" size="210,40" id="button"></button>
+    </recycle>
 </template>

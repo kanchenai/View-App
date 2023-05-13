@@ -4,6 +4,7 @@ import View from "@core/frame/view/base/View";
 import VSize from "@core/frame/util/VSize";
 
 import html from "./button.html"
+import focus from "./focus.html";
 
 export default class Button extends ItemView {
     constructor(viewManager, listenerLocation) {
@@ -17,9 +18,20 @@ export default class Button extends ItemView {
 
 
         this.props.concat({
+            "text": "",
             "size-type": "",
             "size": "",
         })
+    }
+
+    get value() {
+        var text = this.findViewById("_text");
+        return text.text;
+    }
+
+    set value(value) {
+        var text = this.findViewById("_text");
+        text.text = value;
     }
 
     get ele() {
@@ -45,13 +57,14 @@ export default class Button extends ItemView {
      */
     set html(html) {
         this.ele.innerHTML = html;
-        this.ele.appendChild(this.focusEle);
 
         initStyle(this);//初始化样式
 
         //绑定TextView和ImageView
         this.bindImage();
         this.bindText();
+
+        setValue(this);//设置值
     }
 
     get buttonSize() {
@@ -149,6 +162,17 @@ export class ButtonBuilder extends ViewBuilder {
     }
 }
 
+/**
+ * 设置焦点，文字等信息
+ * @param button
+ */
+var setValue = function (button) {
+    button.ele.appendChild(button.focusEle);
+
+    var text = button.findViewById("_text");
+    text.text = button.props["text"];
+}
+
 var initStyle = function (button) {
     var buttonSize = button.buttonSize;
 
@@ -165,8 +189,10 @@ var initStyle = function (button) {
             continue;
         }
 
-        child.style.width = buttonSize.width + "px";
-        child.style.height = buttonSize.height + "px";
+        var borderWidth = View.pxToNum(getComputedStyle(child).borderWidth);
+
+        child.style.width = buttonSize.width - borderWidth * 2 + "px";
+        child.style.height = buttonSize.height - borderWidth * 2 + "px";
         child.style.left = left + "px";
         child.style.top = top + "px";
     }
@@ -188,5 +214,17 @@ var buildDefaultFocusEle = function (button) {
     require("./focus.css")
     var focus = require("./focus.html");
 
-    return View.parseEle(focus)[0];
+    var focusEle = View.parseEle(focus)[0];
+
+    var sizeType = button.props["size-type"];
+    var size = button.props["size"];//属性中的宽高
+
+    if (size) {
+        focusEle.style.width = button.buttonSize.width + "px";
+        focusEle.style.height = button.buttonSize.height + "px";
+    } else {
+        focusEle.className += " " + sizeType;
+    }
+
+    return focusEle;
 }

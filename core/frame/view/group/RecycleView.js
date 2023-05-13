@@ -504,6 +504,8 @@ export default class RecycleView extends GroupView {
     }
 
     setAttributeParam() {
+        var firstFocus = super.setAttributeParam()
+
         var eleStr = this.ele.innerHTML;
         if (eleStr) {
             this.template = eleStr;
@@ -576,7 +578,7 @@ export default class RecycleView extends GroupView {
             }
         }
 
-        return super.setAttributeParam();
+        return firstFocus;
     }
 
     static parseByEle(ele, viewManager, listenerLocation) {

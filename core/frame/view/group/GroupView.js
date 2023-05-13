@@ -332,8 +332,14 @@ export default class GroupView extends ScrollView {
         var focus = this.props["view-focus"];//焦点变化
         this.setFocusChange(up, down, left, right);
 
-        this.onClickListener = click || "";
-        this.onFocusChangeListener = focus || "";
+        if (click) {
+            this.onClickListener = click;
+        }
+
+        if (focus) {
+            this.onFocusChangeListener = focus;
+        }
+
 
         var select = this.props["view-select"];//离开是是否驻留
 

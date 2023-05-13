@@ -1,20 +1,27 @@
 .title{
-    top: 80px;
+    top: 40px;
     white-space: nowrap;
     color: white;
     font-size: 28px;
 }
 
-.base_view{
-    width: 300px;
-    height: 530px;
-    top: 130px;
+.view_bg{
+    width: 250px;
+    height: 610px;
+    top: 90px;
     background: #404040;
     border-radius: 15px;
 }
 
+.base_view{
+    width: 210px;
+    height: 570px;
+    top: 110px;
+    overflow: hidden;
+}
+
 .button{
-    left: 32px;
+    font-size: 18px;
 }
 
 .button .focus{

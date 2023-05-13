@@ -240,6 +240,14 @@ class TextScroller extends View {
         }
     }
 
+    get ele() {
+        return this._ele;
+    }
+
+    set ele(value) {
+        this._ele = value;
+    }
+
     /**
      * 测量宽、高
      */
