@@ -56,20 +56,19 @@ module.exports = {
             //     include: path.resolve(__dirname,'src/test/'),
             //     use:["html-loader","view-html-loader"]
             // },
-            {
-                test: [/\.png$/, /\.jpg$/, /\.jpeg$/, /\.gif$/],
-                include: path.resolve(__dirname, 'src/images-js/'),//exclude：可以显示在html中的图片；include:不能显示html的图片,可以使用import导入
-                use: {
-                    loader: "file-loader",
-                    options: {
-                        name: "static/[path][name].[ext]",
-                        output: "imgs",
-                    }
-                },
-            },
+            // {
+            //     test: [/\.png$/, /\.jpg$/, /\.jpeg$/, /\.gif$/],
+            //     include: path.resolve(__dirname, 'src/images-js/'),//exclude：可以显示在html中的图片；include:不能显示html的图片,可以使用import导入
+            //     use: {
+            //         loader: "file-loader",
+            //         options: {
+            //             name: "static/[path][name].[ext]",
+            //             output: "imgs",
+            //         }
+            //     },
+            // },
             {
                 test: [/\.png$/, /\.jpg$/, /\.jpeg$/, /\.gif$/],//使用地址引入的图片，使用这个打包
-                exclude: path.resolve(__dirname, 'src/images-js/'),
                 use: [{
                     loader: 'url-loader',
                     options: {

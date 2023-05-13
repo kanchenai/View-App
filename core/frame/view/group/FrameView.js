@@ -169,10 +169,8 @@ export default class FrameView extends GroupView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var frameView = new FrameView(viewManager, listenerLocation);
         frameView.ele = ele;
-        frameView.setAttributeParam(ele);
         frameView.scroller.init();
         frameView.bindPageLife();
-        frameView.bindImage();
         //TODO 需要考虑FrameView是否需要默认焦点功能
         return frameView;
     }

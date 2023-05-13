@@ -1,12 +1,10 @@
 import Page from "@core/frame/page/Page";
 
-import html from "@html/player.html"
-
 import utils from "@src/util/utils";
 
 export default class PlayerPage extends Page {
     onCreate(param) {
-        this.html = html;
+        this.html = require("@html/player.html");
         this.bg = this.findViewById("bg");
 
         this.player = this.findViewById("player");

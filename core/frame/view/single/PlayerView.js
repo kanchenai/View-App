@@ -74,7 +74,6 @@ export default class PlayerView extends View{
     static parseByEle(ele, viewManager, listenerLocation){
         var playerView = new PlayerView(viewManager,listenerLocation);
         playerView.ele = ele;
-        playerView.setAttributeParam();
         return playerView;
     }
 }

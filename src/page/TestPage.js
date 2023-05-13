@@ -1,8 +1,6 @@
 import Page from "@core/frame/page/Page";
 
-import html from "@html/test.html"
-
-import pic_001 from "@images-js/pic_001.png"
+import pic_001 from "@images/pic_001.png"
 import {ScrollCenter, ScrollStart, ScrollEnd, ScrollNormal} from "@core/frame/view/base/ScrollView";
 import {Adapter, HORIZONTAL, VERTICAL} from "@core/frame/view/group/RecycleView";
 import VMargin from "@core/frame/util/VMargin";
@@ -11,7 +9,7 @@ import LogView, {LEFT, LEFT_BOTTOM, RIGHT_TOP} from "@core/frame/view/single/Log
 
 export default class TestPage extends Page {
     onCreate(param) {
-        this.html = html;
+        this.html = require("@html/test.html");
         this.logView.positionMode = RIGHT_TOP;
         this.bg = this.findViewById("bg");
         this.textView = this.findViewById("text_view");
@@ -39,7 +37,7 @@ export default class TestPage extends Page {
 
         this.poster_0 = this.findViewById("poster_0");
         this.poster_0.name = "这是一段文字加长"
-        this.poster_0.poster = require("../images/home/home_fragment_0/poster.png")
+        this.poster_0.poster = require("@images/poster.png")
 
         this.poster_list = this.findViewById("poster_list");
         this.poster_list.adapter = new PosterAdapter();
@@ -47,7 +45,7 @@ export default class TestPage extends Page {
 
         this.textView.marquee();
         this.countdown.start();
-        
+
         // this.textView.hide();
         // this.countdown.hide();
         // this.recycle.hide();
@@ -124,7 +122,7 @@ class PosterAdapter extends Adapter {
         var poster = holder.findViewById("poster");
         poster.data = {
             name: "这是一段文字加长",
-            poster: require("../images/home/home_fragment_0/poster.png")
+            poster: require("@images/poster.png")
         };
     }
 }

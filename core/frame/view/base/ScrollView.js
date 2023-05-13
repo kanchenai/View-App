@@ -29,6 +29,13 @@ export default class ScrollView extends View {
         this.animation = State.ScrollAnimation;
         //生成滚动器
         this.scroller = new Scroller(this);
+
+        this.props.concat({
+            "view-animation": "",
+            "view-scrollStart": "",
+            "view-scrolling": "",
+            "view-scrollEnd": "",
+        })
     }
 
     set html(html) {
@@ -145,7 +152,6 @@ export default class ScrollView extends View {
     get imageList() {
         return this._imageList;
     }
-
 
 
     /**
@@ -525,26 +531,27 @@ export default class ScrollView extends View {
     }
 
     setAttributeParam() {
-        var animation = View.parseAttribute("view-animation",this.ele);
-        if(animation == "false" && animation == "0" ){
+        super.setAttributeParam();
+        var animation = this.props["view-animation"];//是否有滚动动画
+        if (animation == "false" && animation == "0") {
             this.animation = false;
         }
 
-        var scrollStart = View.parseAttribute("view-scrollStart", this.ele);//开始滚动
-        var scrolling = View.parseAttribute("view-scrolling", this.ele);//开始滚动
-        var scrollEnd = View.parseAttribute("view-scrollEnd", this.ele);//开始滚动
-        if(scrollStart){
+        var scrollStart = this.props["view-scrollStart"];//开始滚动
+        var scrolling = this.props["view-scrolling"];//开始滚动
+        var scrollEnd = this.props["view-scrollEnd"];//开始滚动
+        if (scrollStart) {
             this.onScrollStartListener = scrollStart;
         }
-        if(scrolling){
+        if (scrolling) {
             this.onScrollingListener = scrolling;
         }
-        if(scrollEnd){
+        if (scrollEnd) {
             this.onScrollEndListener = scrollEnd;
         }
 
 
-        return super.setAttributeParam();
+        return false;
     }
 
     /**
@@ -557,8 +564,8 @@ export default class ScrollView extends View {
     static parseByEle(ele, viewManager, listenerLocation) {
         var scrollView = new ScrollView(viewManager, listenerLocation);
         scrollView.ele = ele;
-        scrollView.setAttributeParam(ele);
         scrollView.bindImage();
+        scrollView.bindText();
         scrollView.scroller.init();
         viewManager.eleToObject(scrollView.scroller.ele, scrollView, listenerLocation);//往内部执行
         return scrollView;
@@ -713,6 +720,10 @@ export class Scroller extends View {
     set top(value) {
         this.position.top = value;
         this.setStyle("top", value + "px");
+    }
+
+    setAttributeParam() {
+        return false;
     }
 }
 

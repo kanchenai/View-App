@@ -3,9 +3,6 @@ import View from "@core/frame/view/base/View";
 import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VSize from "@core/frame/util/VSize";
 
-import html from "./poster_white.html"
-import "./poster_white.css"
-
 /**
  * 海报控件，标题背景为白色
  * 如果外部设置焦点框：
@@ -28,6 +25,11 @@ export default class PosterWhiteView extends ItemView {
         this._sizeType = "small";
 
         this._posterSize = new VSize(0, 0);
+
+        this.props.concat({
+            "size-type": "",
+            "poster-size": ""
+        })
     }
 
     set name(value) {
@@ -87,6 +89,21 @@ export default class PosterWhiteView extends ItemView {
         return Math.ceil(this.posterSize.height * 0.15);
     }
 
+    get ele() {
+        return this._ele;
+    }
+
+    set ele(value) {
+        this._ele = value;
+
+        var firstFocus = this.setAttributeParam()
+
+        if (firstFocus && !this.viewManager.focusView) {
+            this.viewManager.focusView = this;
+        }
+        require("./poster_white.css")
+        this.html = require("./poster_white.html");
+    }
 
     /**
      * 给对应的ele设置布局
@@ -104,15 +121,15 @@ export default class PosterWhiteView extends ItemView {
     }
 
     setAttributeParam() {
-        var sizeType = View.parseAttribute("size-type", this.ele);
+        var sizeType = this.props["size-type"];
         if (!sizeType) {
             sizeType = "small";
         }
 
         this.sizeType = sizeType;
 
-        var posterSize = View.parseAttribute("poster-size", this.ele);
-        if(posterSize){
+        var posterSize = this.props["poster-size"];
+        if (posterSize) {
             var sizeStrs = posterSize.split(",");
             if (sizeStrs.length == 2) {
                 var posterWidth = parseInt(sizeStrs[0]);
@@ -134,7 +151,7 @@ export default class PosterWhiteView extends ItemView {
             this.size = new VSize(this.posterSize.width + 6, this.posterSize.height + this.textHeight + 6);
         }
 
-
+        //将left、top设置到style中，left、top有可能在css中
         this.left = this.left;
         this.top = this.top;
 
@@ -147,13 +164,6 @@ export default class PosterWhiteView extends ItemView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var view = new PosterWhiteView(viewManager, listenerLocation);
         view.ele = ele;
-        var firstFocus = view.setAttributeParam();
-        if (firstFocus) {
-            viewManager.focusView = view;
-        }
-
-        view.html = html;
-
         return view;
     }
 }
@@ -206,12 +216,16 @@ var initStyle = function (posterWhiteView) {
 
     if (posterWhiteView.left >= left) {
         posterWhiteView.left -= left;
+    } else {
+        posterWhiteView.left = 0;
     }
 
     var top = Math.round((posterWhiteView.height - posterSize.height - textHeight) / 2);
     poster.style.top = top + "px";
     if (posterWhiteView.top >= top) {
         posterWhiteView.top -= top;
+    } else {
+        posterWhiteView.top = 0;
     }
 
 

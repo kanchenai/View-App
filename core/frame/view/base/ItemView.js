@@ -35,6 +35,16 @@ export default class ItemView extends View {
         //焦点向右的view或方法
         this.nextRight = "";
 
+        this.props.concat({
+            "view-focusable":"",
+            "view-up":"",
+            "view-down":"",
+            "view-left":"",
+            "view-right":"",
+            "view-change":"",
+            "view-click":"",
+            "view-focus":"",
+        })
     }
 
     /**
@@ -314,7 +324,7 @@ export default class ItemView extends View {
         //当前的view是不是默认焦点
         super.setAttributeParam();
 
-        var focusable = View.parseAttribute("view-focusable", this.ele);//上
+        var focusable = this.props["view-focusable"];//上是否可以上焦
         if(focusable == "false" && focusable == "0" ){
             this.focusable = false;
         }
@@ -323,11 +333,11 @@ export default class ItemView extends View {
         var firstFocus = false;
         firstFocus = this.ele.hasAttribute("first-focus");
 
-        var up = View.parseAttribute("view-up", this.ele);//上
-        var down = View.parseAttribute("view-down", this.ele);//下
-        var left = View.parseAttribute("view-left", this.ele);//左
-        var right = View.parseAttribute("view-right", this.ele);//右
-        var change = View.parseAttribute("view-change", this.ele);//上、下、左、右
+        var up = this.props["view-up"];//上
+        var down = this.props["view-down"];//下
+        var left = this.props["view-left"];//左
+        var right = this.props["view-right"];//右
+        var change = this.props["view-change"];//上、下、左、右
         if (change) {
             var strs = change.split(",");
             if (strs.length == 4) {
@@ -338,8 +348,8 @@ export default class ItemView extends View {
             }
         }
 
-        var click = View.parseAttribute("view-click", this.ele);//点击
-        var focus = View.parseAttribute("view-focus", this.ele);//焦点变化
+        var click = this.props["view-click"];//点击
+        var focus = this.props["view-focus"];//焦点变化
 
         this.setFocusChange(up, down, left, right);
         if(click){
@@ -363,12 +373,8 @@ export default class ItemView extends View {
     static parseByEle(ele, viewManager, listenerLocation) {
         var itemView = new ItemView(viewManager, listenerLocation);
         itemView.ele = ele;
-        var firstFocus = itemView.setAttributeParam();
         itemView.bindText();
         itemView.bindImage();
-        if (!viewManager.focusView && firstFocus) {
-            viewManager.focusView = itemView;
-        }
         return itemView;
     }
 }

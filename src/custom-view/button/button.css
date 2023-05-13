@@ -1,0 +1,27 @@
+.bg{
+    border: 1px solid red;
+    width: 118px;
+    height: 58px;
+    border-radius: 7px;
+    left: 1px;
+    top: 1px;
+    z-index: 1;
+}
+.text {
+    text-align: center;
+    width: 118px;
+    height: 58px;
+    line-height: 100%;
+    color: #dcdfe6;
+    left: 3px;
+    top: 3px;
+    z-index: 3;
+}
+
+.item_focus .bg{
+    display: none;
+}
+
+.item_focus .text{
+    color: white;
+}

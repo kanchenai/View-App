@@ -98,6 +98,15 @@ export default class RecycleView extends GroupView {
          * @type {number}
          */
         this.baseIndex = -1;
+
+        this.props.concat({
+            "view-orientation": "",
+            "view-row": "",
+            "view-col": "",
+            "view-circulate": "",
+            "view-loop": "",
+            "view-margin": "",
+        })
     }
 
     /**
@@ -120,7 +129,7 @@ export default class RecycleView extends GroupView {
 
     push(item) {
         this.data.push(item);
-        if(this.data.length == 1){//新增第一个数据
+        if (this.data.length == 1) {//新增第一个数据
             computeSeatSize(this);//获取子控件的占位
         }
         this.render();
@@ -501,13 +510,13 @@ export default class RecycleView extends GroupView {
             this.ele.innerHTML = "";
         }
 
-        var orientation = View.parseAttribute("view-orientation", this.ele);
+        var orientation = this.props["view-orientation"]
         if (orientation == "vertical" || orientation == "v") {
             this.orientation = VERTICAL;
         } else if (orientation == "horizontal" || orientation == "h") {
             this.orientation = HORIZONTAL;
         }
-        var row = View.parseAttribute("view-row", this.ele);
+        var row = this.props["view-row"];
         if (row) {
             row = parseInt(row);
             if (row > 0) {
@@ -516,7 +525,7 @@ export default class RecycleView extends GroupView {
                 console.warn("view-row值 错误")
             }
         }
-        var col = View.parseAttribute("view-col", this.ele);
+        var col = this.props["view-col"];
         if (col) {
             col = parseInt(col);
             if (col > 0) {
@@ -526,15 +535,15 @@ export default class RecycleView extends GroupView {
             }
         }
 
-        var circulate = View.parseAttribute("view-circulate", this.ele);
+        var circulate = this.props["view-circulate"];
         if (circulate == "true" || circulate == "1") {
             this.circulate = true;
         }
-        var loop = View.parseAttribute("view-loop", this.ele);
+        var loop = this.props["view-loop"];
         if (loop == "true" || loop == "1") {
             this.loop = true;
         }
-        var margin = View.parseAttribute("view-margin", this.ele);
+        var margin = this.props["view-margin"];
         if (margin) {
             var marginStrs = margin.split(",");
             if (marginStrs.length == 1) {
@@ -573,15 +582,10 @@ export default class RecycleView extends GroupView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var recycleView = new RecycleView(viewManager, listenerLocation);
         recycleView.ele = ele;
-        var firstFocus = recycleView.setAttributeParam();
 
         recycleView.scroller.init();
         recycleView.measure();
         centerScroller(recycleView);//让滚动器居中
-
-        if (firstFocus) {
-            viewManager.focusView = recycleView;
-        }
 
         return recycleView;
     }
@@ -859,7 +863,7 @@ var computeSeatSize = function (recycleView) {
     //     recycleView.ele.removeChild(invisibleDiv);
     // }
 
-    renderBase(recycleView,0);
+    renderBase(recycleView, 0);
     var holder = recycleView.activeHolderMap.get(0);
     var size = View.getVisibleSize(holder.component.ele);//组件宽高
     holder.component.size = size;//设置holder.component宽高

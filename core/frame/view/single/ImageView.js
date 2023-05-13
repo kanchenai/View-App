@@ -10,6 +10,10 @@ export default class ImageView extends View {
         this.timer = null;
         //是否立刻加载
         this.lazy = true;
+
+        this.props.concat({
+            "view-lazy": ""
+        })
     }
 
     loadImageResource() {
@@ -92,9 +96,9 @@ export default class ImageView extends View {
         this._data = value;
         this.ele.src = "";
         this.isLoaded = false;
-        if(!this.lazy){
+        if (!this.lazy) {
             this.loadImageImmediate();
-        }else{
+        } else {
             this.loadImageResource();
         }
     }
@@ -108,7 +112,7 @@ export default class ImageView extends View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
-        var lazy = View.parseAttribute("view-lazy",this.ele);
+        var lazy = this.props["view-lazy"];
 
         if (lazy == "false" || lazy == "0") {
             this.lazy = false;
@@ -132,7 +136,6 @@ export default class ImageView extends View {
     static parseByEle(ele, viewManager, listenerLocation) {
         var imageView = new ImageView(viewManager, listenerLocation);
         imageView.ele = ele;
-        imageView.setAttributeParam();
         return imageView;
     }
 

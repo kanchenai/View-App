@@ -1,0 +1,7 @@
+.focus{
+    width: 120px;
+    height: 60px;
+    border-radius: 7px;
+    z-index: 2;
+    background: red;
+}

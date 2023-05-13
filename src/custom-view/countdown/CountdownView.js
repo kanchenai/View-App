@@ -1,6 +1,5 @@
 import View from "@core/frame/view/base/View";
 import {ViewBuilder} from "@core/frame/view/base/ViewManager";
-import html from "./countdown.html"
 import VSize from "@core/frame/util/VSize";
 
 export default class CountdownView extends View {
@@ -15,6 +14,12 @@ export default class CountdownView extends View {
         this.countEle = null;
 
         this._sizeType = "small";
+
+        this.props.concat({
+            "size-type": "",
+            "count": "",
+            "count-change": ""
+        })
     }
 
     start() {
@@ -85,49 +90,49 @@ export default class CountdownView extends View {
 
     set ele(value) {
         this._ele = value;
-        this.html = html;
+        this.html = require("./countdown.html");
         this.bgEle = this.findEleById("bg");
         this.countEle = this.findEleById("count");
     }
 
-    get count(){
+    get count() {
         return this._count;
     }
 
-    set count(value){
+    set count(value) {
         this._count = value;
-        if(this.countEle){
+        if (this.countEle) {
             this.countEle.innerText = this.count;
         }
     }
 
     setAttributeParam() {
+        super.setAttributeParam()
         //T获取大小类型
-        var sizeType = View.parseAttribute("size-type", this.ele);
+        var sizeType = this.props["size-type"];
         if (!sizeType) {
             sizeType = "small";
         }
 
         this.sizeType = sizeType;
 
-        var count = View.parseAttribute("count", this.ele);//点击
+        var count = this.props["count"];//点击
         if (count) {
             this.count = parseInt(count);
         }
 
 
-        var countChange = View.parseAttribute("count-change", this.ele);//点击
+        var countChange = this.props["count-change"];//点击
         if (countChange) {
             this.onCountChangeListener = countChange;
         }
 
-        return super.setAttributeParam();
+        return false;
     }
 
     static parseByEle(ele, viewManager, listenerLocation) {
         var countdownView = new CountdownView(viewManager, listenerLocation);
         countdownView.ele = ele;
-        countdownView.setAttributeParam();
         return countdownView;
     }
 }

@@ -1,6 +1,5 @@
 import Page from "../../core/frame/page/Page";
 
-import html from "../html/frame.html"
 import Fragment_0 from "@fragment/Fragment_0";
 import Fragment_1 from "@fragment/Fragment_1";
 import Fragment_2 from "@fragment/Fragment_2";
@@ -9,7 +8,7 @@ import TestPage from "@page/TestPage";
 export default class FramePage extends Page{
     onCreate(param) {
         console.log(this.pageName + "-onCreate");
-        this.html = html;
+        this.html = require("../html/frame.html");
 
         this.initView();
     }

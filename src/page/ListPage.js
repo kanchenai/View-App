@@ -1,6 +1,5 @@
 import Page from "../../core/frame/page/Page";
 import View from "../../core/frame/view/base/View";
-import html from "../html/list.html"
 import {Adapter} from "@core/frame/view/group/RecycleView";
 import ContentAdapter from "@src/adapter/ContentAdapter";
 import Toast from "@core/frame/view/single/Toast";
@@ -9,7 +8,7 @@ import Toast from "@core/frame/view/single/Toast";
 export default class ListPage extends Page {
     onCreate(param) {
         console.log(this.pageName, "onCreate", "传入参数", param);
-        this.html = html;
+        this.html = require("../html/list.html");
 
         this.content_list = this.findViewById("content_list");
         this.content_list.col = 4;

@@ -68,9 +68,9 @@ export default class Dialog extends GroupView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var dialog = new Dialog(viewManager, listenerLocation);
         dialog.ele = ele;
-        dialog.setAttributeParam(ele);
         dialog.scroller.init();
         dialog.bindImage();
+        dialog.bindText();
         viewManager.eleToObject(dialog.scroller.ele, dialog, listenerLocation);//往内部执行
         return dialog;
     }

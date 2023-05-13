@@ -1,8 +1,6 @@
 import RecycleView, {Adapter, centerScroller} from "@core/frame/view/group/RecycleView";
 import {ViewBuilder} from "@core/frame/view/base/ViewManager";
-import html from "./keyboard.html";
 
-import "./keyboard.css"
 import VMargin from "@core/frame/util/VMargin";
 import VSize from "@core/frame/util/VSize";
 import View from "@core/frame/view/base/View";
@@ -15,13 +13,17 @@ export default class KeyboardView extends RecycleView {
         this.margin = new VMargin(0, 5, 0, 5);
 
         this._sizeType = "small";
+
+        this.props.concat({
+            "size-type": ""
+        })
     }
 
-    get sizeType(){
+    get sizeType() {
         return this._sizeType;
     }
 
-    set sizeType(value){
+    set sizeType(value) {
         this._sizeType = value;
 
         if (this.sizeType == "medium") {
@@ -36,7 +38,7 @@ export default class KeyboardView extends RecycleView {
     setAttributeParam() {
         //T获取大小类型
         var sizeType = View.parseAttribute("size-type", this.ele);
-        if(!sizeType){
+        if (!sizeType) {
             sizeType = "small";
         }
 
@@ -50,15 +52,10 @@ export default class KeyboardView extends RecycleView {
     static parseByEle(ele, viewManager, listenerLocation) {
         var keyboardView = new KeyboardView(viewManager, listenerLocation);
         keyboardView.ele = ele;
-        var firstFocus = keyboardView.setAttributeParam();
 
         keyboardView.scroller.init();
         keyboardView.measure();
         centerScroller(keyboardView);//让滚动器居中
-
-        if (firstFocus) {
-            viewManager.focusView = keyboardView;
-        }
 
         return keyboardView;
     }
@@ -74,6 +71,8 @@ export class KeyboardViewBuilder extends ViewBuilder {
         var keyboardView = KeyboardView.parseByEle(ele, viewManager, listenerLocation);
         //TODO 优化：使用外部设置的布局，外不未设置则使用默认的
         keyboardView.adapter = new TextAdapter();
+
+        //TODO 使用button组件来实现，可以根据计算字母按键大小来设置
 
         //由于字母的按键是在，adapter中设置，所以需要在这里设置大小，字母大小+margin
         if (keyboardView.sizeType == "medium") {
@@ -100,7 +99,8 @@ var keyboardData = [
 class TextAdapter extends Adapter {
     constructor() {
         super();
-        this.template = html;
+        require("./keyboard.css")
+        this.template = require("./keyboard.html");
     }
 
     bindHolder(holder, data) {

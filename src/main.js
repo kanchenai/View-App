@@ -1,5 +1,4 @@
 import '@css'
-import "@images-js"
 
 require('./global_style.css')
 
@@ -9,11 +8,13 @@ import ViewManager from "@core/frame/view/base/ViewManager";
 import {KeyboardViewBuilder} from "@src/custom-view/keyborad/KeyboardView";
 import {CountdownViewBuilder} from "@src/custom-view/countdown/CountdownView";
 import {PosterWhiteViewBuilder} from "@src/custom-view/poster-white/PosterWhiteView";
+import {ButtonBuilder} from "@src/custom-view/button/Button";
 
 var start = new Date().getTime();
 window.onload = function () {
     ViewManager.addCustomViewBuilder([
-        KeyboardViewBuilder,CountdownViewBuilder,PosterWhiteViewBuilder
+        KeyboardViewBuilder,CountdownViewBuilder,PosterWhiteViewBuilder,
+        ButtonBuilder
     ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关

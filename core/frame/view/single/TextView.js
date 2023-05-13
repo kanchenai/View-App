@@ -22,9 +22,7 @@ export default class TextView extends View {
 
         //原文字的span
         this.span = null;
-        //复制文字的span
         this.copySpan = null;
-
     }
 
     marquee() {
@@ -158,12 +156,13 @@ export default class TextView extends View {
      * 将标签中的属性解析到对应的变量中
      */
     setAttributeParam() {
+        super.setAttributeParam()
         var text = this.ele.innerHTML;//  类似"\n"这样的符号也会被获取并生效
         this.setStyle("lineHeight", this.height + "px");//自动加上lineHeight
         this.setStyle("overflow", "hidden");//自动加上超出隐藏
         this.text = text;
 
-        return super.setAttributeParam();
+        return false;
     }
 
     /**
@@ -176,7 +175,6 @@ export default class TextView extends View {
     static parseByEle(ele, viewManager, listenerLocation) {
         var textView = new TextView(viewManager, listenerLocation);
         textView.ele = ele;
-        textView.setAttributeParam();
         return textView;
     }
 

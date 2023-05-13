@@ -78,7 +78,7 @@ export default class MyApplication extends Application {
             url = LocalData.getData("backUrl");//取保存的
         }
 
-        if (!url) {//如果都没有
+        if (!url || url == "undefined") {//如果都没有
             url = "";//默认的地址
         }
         return url;

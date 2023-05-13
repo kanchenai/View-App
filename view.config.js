@@ -3,6 +3,7 @@ import ListPage from "@page/ListPage";
 import FramePage from "@page/FramePage";
 import TestPage from "@page/TestPage";
 import PlayerPage from "@page/PlayerPage";
+import ButtonPage from "@page/ButtonPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -13,7 +14,8 @@ export var PageConfig = {
     "ListPage": ListPage,
     "FramePage": FramePage,
     "TestPage": TestPage,
-    "PlayerPage": PlayerPage
+    "PlayerPage": PlayerPage,
+    "ButtonPage":ButtonPage
 }
 
 /**
