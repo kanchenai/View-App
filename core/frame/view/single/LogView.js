@@ -95,6 +95,7 @@ var buildEle = function (width, height) {
     style.width = width + "px";
     style.height = height + "px";
     style.overflow = "hidden";
+    style.zIndex = "101";
 
     var mode = process.env.NODE_ENV || "production";//获取当前的模式,development:开发模式；production：生产模式
     if (mode != "development") {

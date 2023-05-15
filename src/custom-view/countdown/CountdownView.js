@@ -10,9 +10,6 @@ export default class CountdownView extends View {
         this.timer = null;
         this.counting = false;
 
-        this.bgEle = null;
-        this.countEle = null;
-
         this._sizeType = "small";
 
         this.props.concat({
@@ -29,7 +26,7 @@ export default class CountdownView extends View {
 
         this.timer = setInterval(function () {
             that.count--;
-            that.countEle.innerText = that.count;
+            that.findEleById("count").innerText = that.count;
             that.callCountChangeListener();
 
             if (that.count <= 0) {
@@ -75,13 +72,6 @@ export default class CountdownView extends View {
         } else {
             this.size = new VSize(50, 50);
         }
-
-        this.bgEle.style.width = this.size.width + "px";
-        this.bgEle.style.height = this.size.height + "px";
-
-        this.countEle.style.width = this.size.width + "px";
-        this.countEle.style.height = this.size.height + "px";
-        this.countEle.style.lineHeight = this.size.height + "px";
     }
 
     get ele() {
@@ -89,10 +79,14 @@ export default class CountdownView extends View {
     }
 
     set ele(value) {
-        this._ele = value;
+        super.ele = value;
         this.html = require("./countdown.html");
-        this.bgEle = this.findEleById("bg");
-        this.countEle = this.findEleById("count");
+    }
+
+    set html(value){
+        super.html = value;
+        initStyle(this);
+        setValue(this);
     }
 
     get count() {
@@ -101,8 +95,9 @@ export default class CountdownView extends View {
 
     set count(value) {
         this._count = value;
-        if (this.countEle) {
-            this.countEle.innerText = this.count;
+        var countEle = this.findEleById("count")
+        if(countEle){
+            countEle.innerText = this.count;
         }
     }
 
@@ -146,4 +141,25 @@ export class CountdownViewBuilder extends ViewBuilder {
     buildView(ele, viewManager, listenerLocation) {
         return CountdownView.parseByEle(ele, viewManager, listenerLocation);
     }
+}
+
+
+var initStyle = function (countdown) {
+    var bgEle = countdown.findEleById("bg");
+    var countEle = countdown.findEleById("count");
+    bgEle.style.width = countdown.size.width + "px";
+    bgEle.style.height = countdown.size.height + "px";
+
+    countEle.style.width = countdown.size.width + "px";
+    countEle.style.height = countdown.size.height + "px";
+    countEle.style.lineHeight = countdown.size.height + "px";
+}
+
+/**
+ * 设置文字等信息
+ * @param button
+ */
+var setValue = function (countdown) {
+    var countEle = countdown.findEleById("count");
+    countEle.innerText = countdown.count;
 }

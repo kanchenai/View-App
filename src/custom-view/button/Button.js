@@ -18,7 +18,7 @@ export default class Button extends ItemView {
 
 
         this.props.concat({
-            "text": "",
+            "value": "",
             "size-type": "",
             "size": "",
         })
@@ -39,13 +39,7 @@ export default class Button extends ItemView {
     }
 
     set ele(value) {
-        this._ele = value;
-
-        var firstFocus = this.setAttributeParam()
-
-        if (firstFocus && !this.viewManager.focusView) {
-            this.viewManager.focusView = this;
-        }
+        super.ele = value;
 
         require("./button.css")
         this.html = require("./button.html");
@@ -56,7 +50,7 @@ export default class Button extends ItemView {
      * @param html
      */
     set html(html) {
-        this.ele.innerHTML = html;
+        super.html = html;
 
         initStyle(this);//初始化样式
 
@@ -116,7 +110,7 @@ export default class Button extends ItemView {
             this.size = new VSize(width, height);
 
             if (this.focusEle.className != "focus") {
-                this.focusEle.className += "focus";
+                this.focusEle.className += " focus";
             }
 
             this.focusEle.style.zIndex = "2";
@@ -125,9 +119,6 @@ export default class Button extends ItemView {
             this.size = new VSize(this.buttonSize.width, this.buttonSize.height);
         }
 
-        //将left、top设置到style中，left、top有可能在css中
-        this.left = this.left;
-        this.top = this.top;
 
         if (this.ele.className != "item") {
             //上焦的className
@@ -170,7 +161,7 @@ var setValue = function (button) {
     button.ele.appendChild(button.focusEle);
 
     var text = button.findViewById("_text");
-    text.text = button.props["text"];
+    text.text = button.props["value"];
 }
 
 var initStyle = function (button) {
@@ -223,7 +214,11 @@ var buildDefaultFocusEle = function (button) {
         focusEle.style.width = button.buttonSize.width + "px";
         focusEle.style.height = button.buttonSize.height + "px";
     } else {
+        if(!sizeType){
+            sizeType = "small"
+        }
         focusEle.className += " " + sizeType;
+        button.sizeType = sizeType;
     }
 
     return focusEle;

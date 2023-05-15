@@ -63,7 +63,7 @@ export default class TestPage extends Page {
     }
 
     onCountChangeListener(view, count) {
-        this.i(view.id + ":" + count)
+        // this.i(view.id + ":" + count)
     }
 
     onResume() {

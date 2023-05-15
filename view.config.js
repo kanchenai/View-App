@@ -4,6 +4,8 @@ import FramePage from "@page/FramePage";
 import TestPage from "@page/TestPage";
 import PlayerPage from "@page/PlayerPage";
 import ButtonPage from "@page/ButtonPage";
+import WaterFallPage from "@page/WaterFallPage";
+import PosterPage from "@page/PosterPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -15,7 +17,9 @@ export var PageConfig = {
     "FramePage": FramePage,
     "TestPage": TestPage,
     "PlayerPage": PlayerPage,
-    "ButtonPage":ButtonPage
+    "WaterFallPage": WaterFallPage,
+    "ButtonPage": ButtonPage,
+    "PosterPage": PosterPage
 }
 
 /**

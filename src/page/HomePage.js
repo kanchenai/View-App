@@ -1,5 +1,6 @@
 import Page from "@core/frame/page/Page";
 import {Adapter} from "@core/frame/view/group/RecycleView";
+import WaterFallPage from "@page/WaterFallPage";
 
 export default class HomePage extends Page {
     onCreate(param) {
@@ -28,24 +29,28 @@ export default class HomePage extends Page {
     }
 
     setView() {
+        this.list_0.onClickListener = onClickListenerList0;
+        this.list_2.onClickListener = onClickListenerList2;
     }
 
     initUtil() {
-        this.list_0.data = ["PageName跳转", "跳转带参数", "Page跳转"];
+        this.list_0.data = [
+            "PageName跳转", "跳转带参数", "Page跳转",
+            "单瀑布流Page", "横向滚动Page", "多瀑布流Page",
+        ];
         this.list_1.data = [
             "ItemView", "GroupView", "FrameView",
             "RecycleView", "Dialog", "ImageView",
             "LogView", "PlayerView", "TextView",
             "Toast"];
-        this.list_2.data = ["Button", "PosterWhiteView", "KeyboardView", "CountdownView"];
+        this.list_2.data = ["Button", "Poster", "Keyboard", "CountdownView"];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
     }
 
     onClickListener(view) {
-        if (view.fatherView.fatherView == this.list_0) {
-
-        } else if (view.fatherView.fatherView == this.list_0) {
-        } else if (view.fatherView.fatherView == this.list_0) {
+        this.i(view.data)
+        if (view.fatherView.fatherView == this.list_1) {
+        } else if (view.fatherView.fatherView == this.list_2) {
         } else {
             var url = "";
             switch (view.data) {
@@ -95,4 +100,59 @@ class ListAdapter extends Adapter {
         var button = holder.findViewById("button");
         button.value = data;
     }
+}
+
+var onClickListenerList0 = function (view) {
+    var index = this.list_0.selectIndex;
+
+    var page = "TestPage";
+    var param = null;
+
+    switch (index) {
+        case 0:
+            page = "WaterFallPage";
+            break;
+        case 1:
+            page = "WaterFallPage";
+            param = {data:"HomePage传递的数据"}
+            break;
+        case 2:
+            page = new WaterFallPage();
+            break;
+        case 3:
+            page = "WaterFallPage";
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+
+    this.startPage(page,param)
+}
+
+var onClickListenerList2 = function (view) {
+    var index = this.list_2.selectIndex;
+
+    var page = "TestPage";
+    var param = null;
+
+    switch (index) {
+        case 0:
+            break;
+        case 1:
+            page = "PosterPage";
+            break;
+        case 2:
+            page = new WaterFallPage();
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+
+    this.startPage(page,param)
 }

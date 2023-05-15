@@ -17,12 +17,12 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.5",
-    "babel-plugin-transform-remove-strict-mode": "^0.0.2",
     "@babel/plugin-proposal-class-properties": "^7.16.5",
     "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@babel/runtime": "^7.21.0",
     "babel-loader": "^8.2.3",
+    "babel-plugin-transform-remove-strict-mode": "^0.0.2",
     "css-loader": "^6.4.0",
     "file-loader": "^6.2.0",
     "hash-sum": "^2.0.0",

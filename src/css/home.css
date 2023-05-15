@@ -6,7 +6,7 @@
 }
 
 .view_bg{
-    width: 250px;
+    width: 270px;
     height: 610px;
     top: 90px;
     background: #404040;
@@ -14,7 +14,7 @@
 }
 
 .base_view{
-    width: 210px;
+    width: 250px;
     height: 570px;
     top: 110px;
     overflow: hidden;

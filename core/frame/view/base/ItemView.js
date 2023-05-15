@@ -36,14 +36,14 @@ export default class ItemView extends View {
         this.nextRight = "";
 
         this.props.concat({
-            "view-focusable":"",
-            "view-up":"",
-            "view-down":"",
-            "view-left":"",
-            "view-right":"",
-            "view-change":"",
-            "view-click":"",
-            "view-focus":"",
+            "view-focusable": "",
+            "view-up": "",
+            "view-down": "",
+            "view-left": "",
+            "view-right": "",
+            "view-change": "",
+            "view-click": "",
+            "view-focus": "",
         })
     }
 
@@ -77,10 +77,11 @@ export default class ItemView extends View {
      * @param view
      * @param hasFocus
      */
-    onFocusChangeListener(view,hasFocus){}
+    onFocusChangeListener(view, hasFocus) {
+    }
 
     callVisibleChangeListener(view, isShowing) {
-        if(isShowing){
+        if (isShowing) {
             this.loadImageResource();//这个方法会向子控件迭代加载图片
         }
         var onVisibleChangeListener = null;
@@ -109,7 +110,7 @@ export default class ItemView extends View {
     callFocusChangeListener(view, hasFocus) {
         this.loadImageResource();//加载当前控件的图片
 
-        if(hasFocus){
+        if (hasFocus) {
             this.marquee();
         }
 
@@ -325,7 +326,7 @@ export default class ItemView extends View {
         super.setAttributeParam();
 
         var focusable = this.props["view-focusable"];//上是否可以上焦
-        if(focusable == "false" && focusable == "0" ){
+        if (focusable == "false" && focusable == "0") {
             this.focusable = false;
         }
 
@@ -352,11 +353,11 @@ export default class ItemView extends View {
         var focus = this.props["view-focus"];//焦点变化
 
         this.setFocusChange(up, down, left, right);
-        if(click){
+        if (click) {
             this.onClickListener = click
         }
 
-        if(focus){
+        if (focus) {
             this.onFocusChangeListener = focus;
         }
 

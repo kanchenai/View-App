@@ -1,0 +1,49 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <div class="title" style="left: 40px;top: 40px;">Poster</div>
+    <div class="view_bg" style="top: 80px;"></div>
+
+    <group class="group_view" style="top: 80px;" view-locate="center" first-focus id="poster">
+        <div class="second_title">medium(图片size：216, 280)</div>
+        <poster style="top: 60px;" size-type="medium"></poster>
+
+        <div class="second_title" style="left: 300px;">small(默认 图片size：176, 232)</div>
+        <poster style="top: 60px;left: 300px;" ></poster>
+
+        <div class="second_title" style="left: 600px;">mini(图片size：136, 176)</div>
+        <poster style="top: 60px;left: 600px;" size-type="mini"></poster>
+
+        <div class="second_title" style="left: 900px;">指定size(图片size：160, 240)</div>
+        <poster style="top: 60px;left: 900px;" size="160, 240"></poster>
+
+        <div class="second_title" style="left: 1200px;">定制焦点</div>
+        <poster style="top: 60px;left: 1200px;">
+            <img src="../images/focus/176x232.png" width="214" view-lazy="0" height="270" id="focus">
+        </poster>
+    </group>
+
+    <div class="title" style="left: 40px;top: 520px;">PosterWhite</div>
+    <div class="view_bg" style="top: 560px;"></div>
+
+    <group class="group_view" style="top: 560px;" view-locate="center" id="poster_white">
+        <div class="second_title">medium(图片size：216, 280)</div>
+        <poster-white style="top: 60px;" size-type="medium"></poster-white>
+
+        <div class="second_title" style="left: 300px;">small(默认 图片size：176, 232)</div>
+        <poster-white style="top: 60px;left: 300px;" ></poster-white>
+
+        <div class="second_title" style="left: 600px;">mini(图片size：136, 176)</div>
+        <poster-white style="top: 60px;left: 600px;" size-type="mini"></poster-white>
+
+        <div class="second_title" style="left: 900px;">指定size(图片size：160, 240)</div>
+        <poster-white style="top: 60px;left: 900px;" poster-size="160, 240"></poster-white>
+
+        <div class="second_title" style="left: 1200px;">定制焦点</div>
+        <poster-white style="top: 60px;left: 1200px;">
+            <img src="../images/focus/176x277.png" width="214" view-lazy="0" height="305" id="focus">
+        </poster-white>
+    </group>
+</template>

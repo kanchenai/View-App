@@ -36,6 +36,7 @@ export default class GroupView extends ScrollView {
         this.nextRight = "";
 
         this.props.concat({
+            "view-focusable": "",
             "view-up": "",
             "view-down": "",
             "view-left": "",
@@ -310,6 +311,11 @@ export default class GroupView extends ScrollView {
 
     setAttributeParam() {
         super.setAttributeParam();
+
+        var focusable = this.props["view-focusable"];//上是否可以上焦
+        if (focusable == "false" && focusable == "0") {
+            this.focusable = false;
+        }
 
         var firstFocus = this.ele.hasAttribute("first-focus");
 

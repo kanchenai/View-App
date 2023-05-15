@@ -320,7 +320,7 @@ export default class View {
 
         var firstFocus = this.setAttributeParam()
 
-        if (firstFocus && !this.viewManager.focusView) {
+        if (this.focusable && firstFocus && !this.viewManager.focusView) {
             this.viewManager.focusView = this;
         }
     }
