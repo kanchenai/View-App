@@ -11,6 +11,10 @@
     font-size: 18px;
 }
 
+.focus_large{
+    width: 250px;
+}
+
 .view_bg{
     width: 1280px;
     height: 400px;
@@ -23,4 +27,26 @@
     height: 400px;
     left: 40px;
     overflow: hidden;
+}
+
+.poster_info{
+    width: 300px;
+    height: 340px;
+}
+
+.info{
+    height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+    color: white;
+    text-align: right;
+    z-index: 101;
+}
+
+.icon,
+.icon img{
+    width: 28px;
+    height: 16px;
+    z-index: 101;
+    border-radius: unset;
 }

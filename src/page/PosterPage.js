@@ -11,8 +11,10 @@ export default class PosterPage extends Page {
     }
 
     initView() {
-        this.poster_white = this.findViewById("poster_white");
         this.poster = this.findViewById("poster");
+        this.poster_white = this.findViewById("poster_white");
+        this.poster_shadow = this.findViewById("poster_shadow");
+        this.poster_expand = this.findViewById("poster_expand");
     }
 
     setView() {
@@ -20,15 +22,8 @@ export default class PosterPage extends Page {
 
     initUtil() {
         var pic = require("../images/poster.png")
-        this.poster_white.data = [
-            {poster: pic, name: "medium - 216,280"},
-            {poster: pic, name: "small - 176,232"},
-            {poster: pic, name: "mini - 136,176"},
-            {poster: pic, name: "指定size - 200,300"},
-            {poster: pic, name: "定制焦点"}
-        ]
-
         this.poster.data = [
+            {poster: pic},
             {poster: pic},
             {poster: pic},
             {poster: pic},
@@ -36,5 +31,32 @@ export default class PosterPage extends Page {
             {poster: pic}
         ]
 
+        this.poster_white.data = [
+            {poster: pic, name: "medium - 216,280"},
+            {poster: pic, name: "small - 176,232"},
+            {poster: pic, name: "mini - 136,176"},
+            {poster: pic, name: "指定size - 200,300"},
+            {poster: pic, name: "定制焦点"},
+            {poster: pic, name: "上焦放大105%"}
+        ]
+
+        this.poster_shadow.data = [
+            {poster: pic, name: "medium - 216,280"},
+            {poster: pic, name: "small - 176,232"},
+            {poster: pic, name: "mini - 136,176"},
+            {poster: pic, name: "指定size - 200,300"},
+            {poster: pic, name: "定制焦点"},
+            {poster: pic, name: "定制阴影"},
+            {poster: pic, name: "上焦放大105%"}
+        ]
+
+        this.poster_expand.data = [
+            {poster: pic, name: ""},
+            {poster: pic, name: "small - 176,232"},
+            {poster: pic, name: "mini - 136,176"},
+            {poster: pic, name: "指定size - 200,300"},
+            {poster: pic, name: "定制焦点"},
+            {poster: pic, name: "定制阴影"}
+        ]
     }
 }

@@ -10,12 +10,13 @@ import {CountdownViewBuilder} from "@src/custom-view/countdown/CountdownView";
 import {PosterWhiteViewBuilder} from "@src/custom-view/poster-white/PosterWhiteView";
 import {ButtonBuilder} from "@src/custom-view/button/Button";
 import {PosterViewBuilder} from "@src/custom-view/poster/PosterView";
+import {PosterShadowViewBuilder} from "@src/custom-view/poster-shadow/PosterShadowView";
 
 var start = new Date().getTime();
 window.onload = function () {
     ViewManager.addCustomViewBuilder([
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
-        ButtonBuilder, PosterViewBuilder
+        ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder
     ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关

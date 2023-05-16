@@ -28,7 +28,8 @@ export default class PosterWhiteView extends ItemView {
 
         this.props.concat({
             "size-type": "",
-            "poster-size": ""
+            "poster-size": "",
+            "focus-enlarge": ""
         })
     }
 
@@ -74,6 +75,36 @@ export default class PosterWhiteView extends ItemView {
             this.posterSize = new VSize(136, 176)
         } else {
             this.posterSize = new VSize(176, 232);
+        }
+    }
+
+    setFocusStyle() {
+        super.setFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
+            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+        }
+    }
+
+    setUnFocusStyle() {
+        super.setUnFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(100%)");
+            this.setStyle("transform", "scale(100%)");
+        }
+    }
+
+    setSelectStyle() {
+        super.setSelectStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(100%)");
+            this.setStyle("transform", "scale(100%)");
         }
     }
 
@@ -171,7 +202,7 @@ export class PosterWhiteViewBuilder extends ViewBuilder {
 var buildDefaultFocusEle = function (posterWhiteView) {
     var size = posterWhiteView.posterSize;
 
-    var html = '<div class="focus" style="border: white 3px solid;" view-id="focus"></div>'
+    var html = '<div class="focus" style="border: white 3px solid;border-radius: 7px;" view-id="focus"></div>'
     var focusEle = View.parseEle(html)[0];
     focusEle.style.width = size.width + "px";
     focusEle.style.height = size.height + posterWhiteView.textHeight + "px";

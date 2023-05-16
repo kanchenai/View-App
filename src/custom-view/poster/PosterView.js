@@ -18,7 +18,8 @@ export default class PosterView extends ItemView {
 
         this.props.concat({
             "size-type": "",
-            "size": ""
+            "size": "",
+            "focus-enlarge": ""
         })
     }
 
@@ -58,6 +59,36 @@ export default class PosterView extends ItemView {
         }
     }
 
+    setFocusStyle() {
+        super.setFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
+            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+        }
+    }
+
+    setUnFocusStyle() {
+        super.setUnFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(100%)");
+            this.setStyle("transform", "scale(100%)");
+        }
+    }
+
+    setSelectStyle() {
+        super.setSelectStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(100%)");
+            this.setStyle("transform", "scale(100%)");
+        }
+    }
+
     get ele() {
         return this._ele;
     }
@@ -74,16 +105,13 @@ export default class PosterView extends ItemView {
      * @param html
      */
     set html(html) {
-        super.html = html;
+        this.ele.innerHTML = html;
         this.ele.appendChild(this.focusEle);
 
         initStyle(this);//初始化样式
 
         //绑定TextView和ImageView
         this.bindImage();
-        this.bindText();
-
-        // setValue(this);//设置值
     }
 
     setAttributeParam() {
@@ -151,7 +179,7 @@ export class PosterViewBuilder extends ViewBuilder {
 var buildDefaultFocusEle = function (posterView) {
     var size = posterView.posterSize;
 
-    var html = '<div class="focus" style="border: white 3px solid;" view-id="focus"></div>'
+    var html = '<div class="focus" style="border: white 3px solid;border-radius: 7px;" view-id="focus"></div>'
     var focusEle = View.parseEle(html)[0];
     focusEle.style.width = size.width + "px";
     focusEle.style.height = size.height + "px";
