@@ -139,6 +139,7 @@ var onClickListenerList2 = function (view) {
 
     switch (index) {
         case 0:
+            page = "ButtonPage";
             break;
         case 1:
             page = "PosterPage";

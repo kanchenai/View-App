@@ -3,7 +3,6 @@ import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import View from "@core/frame/view/base/View";
 import VSize from "@core/frame/util/VSize";
 
-import html from "./button.html"
 import focus from "./focus.html";
 
 export default class Button extends ItemView {
@@ -21,6 +20,9 @@ export default class Button extends ItemView {
             "value": "",
             "size-type": "",
             "size": "",
+            "focus-enlarge": "",
+            "focus-color": "",
+            "value-color": "",
         })
     }
 
@@ -82,6 +84,36 @@ export default class Button extends ItemView {
             this.buttonSize = new VSize(80, 40)
         } else {
             this.buttonSize = new VSize(120, 60);
+        }
+    }
+
+    setFocusStyle() {
+        super.setFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
+            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+        }
+    }
+
+    setUnFocusStyle() {
+        super.setUnFocusStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(100%)");
+            this.setStyle("transform", "scale(100%)");
+        }
+    }
+
+    setSelectStyle() {
+        super.setSelectStyle();
+        var focusEnlarge = this.props["focus-enlarge"];
+        focusEnlarge = parseInt(focusEnlarge);
+        if (focusEnlarge != NaN) {
+            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
+            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
         }
     }
 
@@ -162,6 +194,21 @@ var setValue = function (button) {
 
     var text = button.findViewById("_text");
     text.text = button.props["value"];
+
+    var focusColor = button.props["focus-color"];
+    if(focusColor){
+        var bg = button.findEleById("_bg");
+        bg.style.borderColor = focusColor;
+        button.focusEle.style.background = focusColor;
+
+    }
+
+    var valueColor = button.props["value-color"];
+    if(valueColor){
+        var value = button.findEleById("_text");
+        value.style.color = valueColor;
+
+    }
 }
 
 var initStyle = function (button) {
@@ -214,7 +261,7 @@ var buildDefaultFocusEle = function (button) {
         focusEle.style.width = button.buttonSize.width + "px";
         focusEle.style.height = button.buttonSize.height + "px";
     } else {
-        if(!sizeType){
+        if (!sizeType) {
             sizeType = "small"
         }
         focusEle.className += " " + sizeType;

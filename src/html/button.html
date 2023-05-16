@@ -1,0 +1,57 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
+        <div class="title" style="left: 40px;top: 40px;">Button</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <group class="group_view" style="top: 80px;" view-locate="center" first-focus>
+            <div class="second_title">medium(size：160, 80)</div>
+            <button style="top: 60px;" size-type="medium" value="按钮"></button>
+
+            <div class="second_title" style="left: 250px;">small(size：120, 60)</div>
+            <button style="top: 60px;left: 250px;" value="按钮"></button>
+
+            <div class="second_title" style="left: 500px;">mini(size：80, 40)</div>
+            <button style="top: 60px;left: 500px;font-size: 18px;" size-type="mini" value="按钮"></button>
+
+            <div class="second_title" style="left: 750px;">指定(size：150, 60)</div>
+            <button style="top: 60px;left: 750px;font-size: 18px;" size="150, 60" value="按钮"></button>
+
+            <div class="second_title" style="left: 1000px;">定制焦点</div>
+            <button style="top: 60px;left: 1000px;font-size: 18px;" value="按钮">
+                <img src="../images/focus/120x60.png" width="158" height="98" id="focus">
+            </button>
+
+            <div class="second_title" style="left: 1250px;">上焦放大(115%)</div>
+            <div class="focus_large" style="top: 60px;left: 1250px;">
+                <button value="按钮" focus-enlarge="115"></button>
+            </div>
+        </group>
+
+        <div class="title" style="left: 40px;top: 320px;">Button指定颜色</div>
+        <div class="view_bg" style="top: 360px;"></div>
+        <group class="group_view" style="top: 360px;" view-locate="center">
+            <div class="second_title">上焦颜色green</div>
+            <button style="top: 60px;" focus-color="green" value="按钮"></button>
+
+            <div class="second_title" style="left: 250px;">上焦颜色#ff00ff</div>
+            <button style="top: 60px;left: 250px;" focus-color="#ff00ff" value="按钮"></button>
+
+            <div class="second_title" style="left: 500px;">上焦颜色green</div>
+            <div class="second_title" style="left: 500px;top: 34px">文字颜色yellow</div>
+            <button style="top: 60px;left: 500px;" focus-color="green" value-color="yellow" value="按钮"></button>
+
+            <div class="second_title" style="left: 750px;">文字颜色black</div>
+            <button style="top: 60px;left: 750px;" value-color="black" value="按钮"></button>
+        </group>
+
+<!--        <div class="title" style="left: 40px;top: 600px;">Button带icon</div>-->
+<!--        <div class="view_bg" style="top: 640px;"></div>-->
+<!--        <group class="group_view" style="top: 640px;" view-locate="center">-->
+<!--            <div class="second_title">上焦颜色green</div>-->
+<!--            <button style="top: 60px;" focus-color="green" value="按钮"></button>-->
+
+<!--        </group>-->
+    </group>
+</template>
