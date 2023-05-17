@@ -6,6 +6,9 @@ import PlayerPage from "@page/PlayerPage";
 import ButtonPage from "@page/ButtonPage";
 import WaterFallPage from "@page/WaterFallPage";
 import PosterPage from "@page/PosterPage";
+import ItemPage from "@page/ItemPage";
+import GroupPage from "@page/GroupPage";
+import RecyclePage from "@page/RecyclePage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -13,13 +16,17 @@ import PosterPage from "@page/PosterPage";
  */
 export var PageConfig = {
     "HomePage": HomePage,
-    "ListPage": ListPage,
+    "ItemPage": ItemPage,
+    "GroupPage": GroupPage,
     "FramePage": FramePage,
-    "TestPage": TestPage,
-    "PlayerPage": PlayerPage,
+    "RecyclePage":RecyclePage,
     "WaterFallPage": WaterFallPage,
     "ButtonPage": ButtonPage,
-    "PosterPage": PosterPage
+    "PosterPage": PosterPage,
+
+    "ListPage": ListPage,
+    "TestPage": TestPage,
+    "PlayerPage": PlayerPage,
 }
 
 /**

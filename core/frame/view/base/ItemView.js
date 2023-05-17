@@ -73,13 +73,6 @@ export default class ItemView extends View {
         this.callFocusChangeListener(this, false);
     }
 
-    /**
-     * @param view
-     * @param hasFocus
-     */
-    onFocusChangeListener(view, hasFocus) {
-    }
-
     callVisibleChangeListener(view, isShowing) {
         if (isShowing) {
             this.loadImageResource();//这个方法会向子控件迭代加载图片
@@ -349,10 +342,22 @@ export default class ItemView extends View {
             }
         }
 
+        if(up){
+            this.nextUp = up;
+        }
+        if(down){
+            this.nextDown = down;
+        }
+        if(left){
+            this.nextLeft = left;
+        }
+        if(right){
+            this.nextRight = right;
+        }
+
         var click = this.props["view-click"];//点击
         var focus = this.props["view-focus"];//焦点变化
 
-        this.setFocusChange(up, down, left, right);
         if (click) {
             this.onClickListener = click
         }

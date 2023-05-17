@@ -19,22 +19,23 @@ module.exports = function (original_html, style_tag) {
 
 
     var regExp = /<[a-z-]+/gi;
-    var tags = str.match(regExp);
+    var tags = html.match(regExp);
     tags = dedupe(tags);
     if (!tags) {
         return "";
     }
+
+    // if (tags.indexOf("<div") < 0) {//如果这个html文件中没有写div的情况，会出现css选择失效，兼容下
+    //     tags.push("<div");
+    // }
 
     for (var i = 0; i < tags.length; i++) {
         var tagLeft = tags[i];
         if (tagLeft == "template") {
             continue;
         }
-        // var divLeft = tagLeft + " " + style_tag;
-        //
-        // html = html.replace(new RegExp(tagLeft, "gmi"), divLeft);
 
-        html = addCssSelector(html,tagLeft,style_tag);
+        html = addCssSelector(html, tagLeft, style_tag);
     }
 
     return html;

@@ -333,10 +333,21 @@ export default class GroupView extends ScrollView {
                 right = strs[3];
             }
         }
+        if(up){
+            this.nextUp = up;
+        }
+        if(down){
+            this.nextDown = down;
+        }
+        if(left){
+            this.nextLeft = left;
+        }
+        if(right){
+            this.nextRight = right;
+        }
 
         var click = this.props["view-click"];//点击
         var focus = this.props["view-focus"];//焦点变化
-        this.setFocusChange(up, down, left, right);
 
         if (click) {
             this.onClickListener = click;

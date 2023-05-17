@@ -1,11 +1,11 @@
 import Fragment from "../../core/frame/view/group/Fragment";
 
-import html from "../html/fragment/fragment_2.html"
-
 export default class Fragment_2 extends Fragment{
     onCreate() {
         console.log("Fragment_2","-onCreate");
-        this.html = html;
+        this.html = require("../html/fragment/fragment_2.html");
+
+        this.setStyle("background","blue");
     }
 
     onResume() {

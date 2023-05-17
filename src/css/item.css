@@ -1,0 +1,45 @@
+.item{
+    top: 30px;
+}
+
+.focus{
+    border: 3px solid white;
+}
+
+.title{
+    white-space: nowrap;
+    color: white;
+    font-size: 28px;
+}
+
+.view_bg{
+    width: 1280px;
+    height: 400px;
+    background: #404040;
+    border-radius: 15px;
+}
+
+.group_view{
+    width: 1200px;
+    height: 400px;
+    left: 40px;
+    overflow: hidden;
+}
+
+.text_bg{
+    width: 120px;
+    height: 60px;
+    background: #f87f41;
+}
+
+.text{
+    width: 120px;
+    height: 60px;
+    font-size: 22px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.focus_text .item_focus .text{
+    color: #f87f41;
+}

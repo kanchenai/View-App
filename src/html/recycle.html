@@ -1,0 +1,22 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
+        <div class="title" style="left: 40px;top: 40px;">第一个RecycleView</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <recycle class="group_view" style="top: 80px;" view-locate="center" first-focus>
+        </recycle>
+
+        <div class="title" style="left: 40px;top: 520px;">第二个RecycleView</div>
+        <div class="view_bg" style="top: 560px;"></div>
+        <recycle class="group_view" style="top: 560px;" view-locate="center"  id="poster">
+        </recycle>
+
+        <div class="title" style="left: 40px;top: 1000px;">第三个RecycleView</div>
+        <div class="view_bg" style="top: 1040px;"></div>
+        <recycle class="group_view" style="top: 1040px;" view-locate="center" id="poster">
+        </recycle>
+    </group>
+
+</template>

@@ -30,6 +30,7 @@ export default class HomePage extends Page {
 
     setView() {
         this.list_0.onClickListener = onClickListenerList0;
+        this.list_1.onClickListener = onClickListenerList1;
         this.list_2.onClickListener = onClickListenerList2;
     }
 
@@ -49,8 +50,7 @@ export default class HomePage extends Page {
 
     onClickListener(view) {
         this.i(view.data)
-        if (view.fatherView.fatherView == this.list_1) {
-        } else if (view.fatherView.fatherView == this.list_2) {
+        if (view.fatherView.fatherView == this.list_2) {
         } else {
             var url = "";
             switch (view.data) {
@@ -131,6 +131,34 @@ var onClickListenerList0 = function (view) {
     this.startPage(page,param)
 }
 
+var onClickListenerList1 = function (view) {
+    var index = this.list_1.selectIndex;
+
+    var page = "TestPage";
+    var param = null;
+
+    switch (index) {
+        case 0:
+            page = "ItemPage";
+            break;
+        case 1:
+            page = "GroupPage";
+            break;
+        case 2:
+            page = "FramePage";
+            break;
+        case 3:
+            page = "RecyclePage";
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+
+    this.startPage(page,param)
+}
+
 var onClickListenerList2 = function (view) {
     var index = this.list_2.selectIndex;
 
@@ -145,7 +173,6 @@ var onClickListenerList2 = function (view) {
             page = "PosterPage";
             break;
         case 2:
-            page = new WaterFallPage();
             break;
         case 3:
             break;
