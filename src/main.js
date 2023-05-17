@@ -11,9 +11,11 @@ import {PosterWhiteViewBuilder} from "@src/custom-view/poster-white/PosterWhiteV
 import {ButtonBuilder} from "@src/custom-view/button/Button";
 import {PosterViewBuilder} from "@src/custom-view/poster/PosterView";
 import {PosterShadowViewBuilder} from "@src/custom-view/poster-shadow/PosterShadowView";
+import Application from "@core/frame/app/Application";
 
 var start = new Date().getTime();
 window.onload = function () {
+    //添加自定控件的创建工具
     ViewManager.addCustomViewBuilder([
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
         ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder
@@ -27,6 +29,11 @@ window.onload = function () {
     //调试结束后，可以改成这样的写法，全局无法获取到application对象，安全性更高
     // var application = new MyApplication("app");
     // application.launch();
+
+    //使用默认Application启动
+    // var application = new Application("app");
+    // application.launch();
+
     var mode = process.env.NODE_ENV || "production";//获取当前的模式,development:开发模式；production：生产模式
     console.log(mode, new Date().getTime() - start)
 }

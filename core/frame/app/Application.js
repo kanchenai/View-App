@@ -198,7 +198,10 @@ export default class Application extends GroupView {
 
         if (this.pageList.length == 0) {
             this.keyboard.page = null;//最后一个页面销毁时的保护机制
-            this.player.page = null;//最后一个页面销毁时的保护机制
+            if(this.player){
+                this.player.page = null;//最后一个页面销毁时的保护机制
+            }
+
             this.stop();//app停止
             this.destroy();//app销毁
         } else {
@@ -221,7 +224,9 @@ export default class Application extends GroupView {
         }
         this.foregroundPage = page;
         this.keyboard.page = null;//保护，防止异常触发
-        this.player.page = null;//保护，防止异常触发
+        if(this.player){
+            this.player.page = null;//保护，防止异常触发
+        }
         page.isForeground = true;
         var param = page.param;
 
