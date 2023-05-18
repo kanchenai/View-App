@@ -114,7 +114,7 @@ var onClickListenerList0 = function (view) {
             break;
         case 1:
             page = "WaterFallPage";
-            param = {data:"HomePage传递的数据"}
+            param = {data: "HomePage传递的数据"}
             break;
         case 2:
             page = new WaterFallPage();
@@ -128,7 +128,7 @@ var onClickListenerList0 = function (view) {
             break;
     }
 
-    this.startPage(page,param)
+    this.startPage(page, param)
 }
 
 var onClickListenerList1 = function (view) {
@@ -154,10 +154,14 @@ var onClickListenerList1 = function (view) {
             page = "DialogPage";
             break;
         case 5:
+            page = "ImagePage";
+            break;
+        case 6:
+            page = "LogPage";
             break;
     }
 
-    this.startPage(page,param)
+    this.startPage(page, param)
 }
 
 var onClickListenerList2 = function (view) {
@@ -183,5 +187,5 @@ var onClickListenerList2 = function (view) {
             break;
     }
 
-    this.startPage(page,param)
+    this.startPage(page, param)
 }

@@ -1,0 +1,22 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+    <div style="left: 40px;top: 40px;font-size: 22px;line-height: 32px;">
+        ImageView
+        <br>
+        使用View中的this.html = ""
+        <br>
+        自动识别节点中img标签
+        <br>
+        默认使用懒加载模式，根据图片显示位置来自动处理是否加载图片
+        <br>
+        在img标签中添加view-lazy="0"，关闭懒加载
+        <br>
+        注：图片显示模式在后续版本中有计划
+    </div>
+    <div style="top: 310px;left: 40px;">图片默认使用懒加载</div>
+    <img style="top: 350px;left: 40px;" src="../images/poster.png" >
+    <div style="top: 310px;left: 450px;">图片关闭使用懒加载</div>
+    <img style="top: 350px;left: 450px" view-lazy="0" src="../images/poster.png" >
+</template>

@@ -404,9 +404,9 @@ window.onload = function () {
           this.html = require("../html/home.html");//实际的布局文件
           
           //必须在this.html = "";之后使用
-          this.logView.i("显示绿色的提示信息");
-          this.logView.w("显示黄色的警告信息");
-          this.logView.e("显示红色的错误信息");
+          this.i("显示绿色的提示信息");
+          this.w("显示黄色的警告信息");
+          this.e("显示红色的错误信息");
       }
   
   }
