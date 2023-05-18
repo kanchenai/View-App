@@ -685,6 +685,17 @@ export default class View {
     }
 
     /**
+     * 将ele转化为字符串
+     * @param{String} html
+     * @returns {HTMLCollection}
+     */
+    static eleToStr(ele){
+        var _ele = document.createElement("div");
+        _ele.appendChild(ele)
+        return _ele.innerHTML;
+    }
+
+    /**
      * 获取ele中view-id值为id的节点
      * @param{String} id
      * @param{Element} ele

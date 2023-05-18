@@ -13,8 +13,6 @@ export default class Button extends ItemView {
         this._sizeType = "small";
 
         this._buttonSize = new VSize(0, 0);
-        this._buttonType = "plain";
-
 
         this.props.concat({
             "value": "",
@@ -153,12 +151,14 @@ export default class Button extends ItemView {
 
 
         if (this.ele.className != "item") {
-            //上焦的className
-            this.focusStyle = this.ele.className + " item item_focus";
-            //选中的className
-            this.selectStyle = this.ele.className + " item item_select";
-            //失焦的className
-            this.unFocusStyle = this.ele.className + " item";
+            if(this.ele.className){
+                //上焦的className
+                this.focusStyle = this.ele.className + " item item_focus";
+                //选中的className
+                this.selectStyle = this.ele.className + " item item_select";
+                //失焦的className
+                this.unFocusStyle = this.ele.className + " item";
+            }
 
             this.setUnFocusStyle();
         }

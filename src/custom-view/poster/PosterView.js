@@ -144,12 +144,14 @@ export default class PosterView extends ItemView {
         }
 
         if (this.ele.className != "item") {
-            //上焦的className
-            this.focusStyle = this.ele.className + " item item_focus";
-            //选中的className
-            this.selectStyle = this.ele.className + " item item_select";
-            //失焦的className
-            this.unFocusStyle = this.ele.className + " item";
+            if(this.ele.className){
+                //上焦的className
+                this.focusStyle = this.ele.className + " item item_focus";
+                //选中的className
+                this.selectStyle = this.ele.className + " item item_select";
+                //失焦的className
+                this.unFocusStyle = this.ele.className + " item";
+            }
 
             this.setUnFocusStyle();
         }

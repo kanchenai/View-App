@@ -173,6 +173,33 @@ export default class ViewManager {
             }
         }
     }
+
+    /**
+     * 给节点添加属性
+     * @param{Element} ele
+     * @param{VMap} attributeMap
+     */
+    static addAttributeToEle(ele, attributeMap) {
+        var keys = attributeMap.keys();
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            var value = attributeMap.get(key);
+            ele.setAttribute(key, value);
+        }
+    }
+
+    static addAttributeToHtml(html, attributeMap) {
+        var eleList = View.parseEle(html);
+        if (eleList.length != 1) {
+            console.warn(html + "\n 包含" + eleList.length + "节点,无法添加attribute");
+            return html;
+        }
+
+        var ele = eleList[0];
+        ViewManager.addAttributeToEle(ele, attributeMap);
+
+        return View.eleToStr(ele);
+    }
 }
 
 var customViewBuilder = {}

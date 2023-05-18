@@ -504,10 +504,9 @@ export default class RecycleView extends GroupView {
     }
 
     setAttributeParam() {
-        var firstFocus = super.setAttributeParam()
-
-        var eleStr = this.ele.innerHTML;
-        if (eleStr) {
+        var firstFocus = super.setAttributeParam();
+        if (this.ele.children.length > 0) {
+            var eleStr = this.ele.innerHTML;
             this.template = eleStr;
             this.ele.innerHTML = "";
         }
@@ -607,7 +606,7 @@ export class Adapter {
 
     /**
      * 创建Holder
-     * 可以重写这个方法，修改布局来源(TODO 在这修改无法计算seatSize)
+     * 可以重写这个方法，修改布局来源
      */
     createHolder() {
         return new Holder(this.template, this.recycleView);
