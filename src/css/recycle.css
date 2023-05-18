@@ -6,13 +6,34 @@
 
 .view_bg{
     width: 1280px;
-    height: 400px;
+    height: 200px;
     background: #404040;
     border-radius: 15px;
 }
 
-.group_view{
-    width: 1280px;
-    height: 400px;
+.recycle_view{
+    width: 1200px;
+    height: 120px;
+    left: 40px;
     overflow: hidden;
+}
+
+.item{
+    width: 106px;
+    height: 106px;
+}
+.item .focus,
+.item .bg{
+    width: 100px;
+    height: 100px;
+}
+
+.item .focus{
+    border: 3px solid red;
+}
+
+.item .bg{
+    left: 3px;
+    top: 3px;
+    background: white;
 }

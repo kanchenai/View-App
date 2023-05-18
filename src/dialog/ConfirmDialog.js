@@ -1,10 +1,9 @@
 import LoneDialog from "@core/frame/view/group/LoneDialog";
-import html from "@html/dialog/confirm_dialog.html"
 
 export default class ConfirmDialog extends LoneDialog {
     constructor(viewManager) {
         super(viewManager);
-        this.html = html;
+        this.html = require("@html/dialog/confirm_dialog.html");
 
         this.initView();
         this.setView();
@@ -21,14 +20,13 @@ export default class ConfirmDialog extends LoneDialog {
 
 
     onClickListener(view){
-        console.log("点击",view);
+        // this.page.i(view.id);
         switch (view.id){
             case "cancel":
                 this.hide();
                 break;
             case "confirm":
                 this.hide();
-                this.page.finish();
                 break;
         }
     }

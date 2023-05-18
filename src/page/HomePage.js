@@ -151,6 +151,7 @@ var onClickListenerList1 = function (view) {
             page = "RecyclePage";
             break;
         case 4:
+            page = "DialogPage";
             break;
         case 5:
             break;

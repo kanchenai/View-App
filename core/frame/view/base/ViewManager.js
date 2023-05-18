@@ -188,10 +188,16 @@ export default class ViewManager {
         }
     }
 
+    /**
+     * 给节点结构的字符串添加属性
+     * @param html
+     * @param attributeMap
+     * @return {HTMLCollection|*}
+     */
     static addAttributeToHtml(html, attributeMap) {
         var eleList = View.parseEle(html);
         if (eleList.length != 1) {
-            console.warn(html + "\n 包含" + eleList.length + "节点,无法添加attribute");
+            console.warn(html + "\n 包含" + eleList.length + "个节点,无法添加attribute");
             return html;
         }
 

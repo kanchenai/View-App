@@ -1,0 +1,17 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <button style="left: 150px;top: 40px;" size="300,60" value="布局在当前page的dialog" first-focus id="button_1"></button>
+    <button style="left: 550px;top: 40px;" size="300,60" value="独立布局的dialog" id="button_2"></button>
+
+    <dialog class="dialog" id="dialog_0">
+        <div class="shadow"></div>
+        <div class="bg"></div>
+
+        <button style="left: 500px;top: 390px;" size-type="mini" value-color="black" value="确定" id="confirm"></button>
+        <button style="left: 630px;top: 390px;" size-type="mini" value-color="black" value="取消" id="cancel"></button>
+    </dialog>
+
+</template>

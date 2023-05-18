@@ -5,22 +5,28 @@
     <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
         <div class="title" style="left: 40px;top: 40px;">RecycleView的adapter布局在当前节点内部</div>
         <div class="view_bg" style="top: 80px;"></div>
-        <recycle class="group_view" style="top: 80px;" view-locate="center" first-focus>
+        <recycle class="recycle_view" style="top: 120px;" view-locate="center" view-orientation="h" first-focus id="recycle_0">
+            <item class="item">
+                <div class="focus"></div>
+                <div class="bg"></div>
+            </item>
         </recycle>
 
-        <div class="title" style="left: 40px;top: 520px;">RecycleView的adapter独立布局</div>
-        <div class="view_bg" style="top: 560px;"></div>
-        <recycle class="group_view" style="top: 560px;" view-locate="center">
+        <div class="title" style="left: 40px;top: 320px;">RecycleView的adapter独立布局</div>
+        <div class="view_bg" style="top: 360px;"></div>
+        <recycle class="recycle_view" style="top: 400px;" view-locate="center"  view-orientation="h" id="recycle_1">
         </recycle>
 
-        <div class="title" style="left: 40px;top: 1000px;">RecycleView的adapter布局在当前节点内部，并使用Button</div>
-        <div class="view_bg" style="top: 1040px;"></div>
-        <recycle class="group_view" style="top: 1040px;" view-locate="center">
+        <div class="title" style="left: 40px;top: 600px;">RecycleView的adapter使用Button</div>
+        <div class="view_bg" style="top: 660px;"></div>
+        <recycle class="recycle_view" style="top: 700px;" view-locate="center" view-orientation="h" id="recycle_2">
+            <button size="100,100" value="按钮" focus-color="white" value-color="red"></button>
         </recycle>
 
-        <div class="title" style="left: 40px;top: 1480px;">RecycleView的adapter独立布局，并使用Button</div>
-        <div class="view_bg" style="top: 1520px;"></div>
-        <recycle class="group_view" style="top: 1520px;" view-locate="center">
+        <div class="title" style="left: 40px;top: 880px;">RecycleView的adapter使用Poster</div>
+        <div class="view_bg" style="top: 920px;"></div>
+        <recycle class="recycle_view" style="top: 960px;" view-locate="center" view-orientation="h" id="recycle_3">
+            <poster size="100,100" id="poster"></poster>
         </recycle>
     </group>
 

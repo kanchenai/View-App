@@ -9,6 +9,7 @@ import PosterPage from "@page/PosterPage";
 import ItemPage from "@page/ItemPage";
 import GroupPage from "@page/GroupPage";
 import RecyclePage from "@page/RecyclePage";
+import DialogPage from "@page/DialogPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -19,7 +20,8 @@ export var PageConfig = {
     "ItemPage": ItemPage,
     "GroupPage": GroupPage,
     "FramePage": FramePage,
-    "RecyclePage":RecyclePage,
+    "RecyclePage": RecyclePage,
+    "DialogPage": DialogPage,
     "WaterFallPage": WaterFallPage,
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
