@@ -159,6 +159,15 @@ var onClickListenerList1 = function (view) {
         case 6:
             page = "LogPage";
             break;
+        case 7:
+            page = "PlayerPage";
+            break;
+        case 8:
+            page = "TextPage";
+            break;
+        case 9:
+            page = "ToastPage";
+            break;
     }
 
     this.startPage(page, param)

@@ -17,7 +17,6 @@ export default class ListPage extends Page {
         this.content_list.data = contentListData;
 
         this.toast = new Toast(this);
-
     }
 
     onClickListener(view) {

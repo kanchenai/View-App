@@ -12,6 +12,8 @@ import RecyclePage from "@page/RecyclePage";
 import DialogPage from "@page/DialogPage";
 import ImagePage from "@page/ImagePage";
 import LogPage from "@page/LogPage";
+import TextPage from "@page/TextPage";
+import ToastPage from "@page/ToastPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -26,13 +28,15 @@ export var PageConfig = {
     "DialogPage": DialogPage,
     "ImagePage": ImagePage,
     "LogPage": LogPage,
+    "PlayerPage": PlayerPage,
+    "TextPage": TextPage,
+    "ToastPage": ToastPage,
     "WaterFallPage": WaterFallPage,
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
 
     "ListPage": ListPage,
     "TestPage": TestPage,
-    "PlayerPage": PlayerPage,
 }
 
 /**

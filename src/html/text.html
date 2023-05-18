@@ -1,0 +1,32 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
+        <div class="title" style="left: 40px;top: 40px;">TextView</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <group class="group_view" style="top: 80px;" view-locate="center" first-focus>
+            <div class="second_title">主动执行跑马灯</div>
+            <text class="text" style="width: 170px;top: 70px;" id="text_info">这是一段文字，然后加长加长加长</text>
+            <button style="top: 130px;" size-type="mini" value="执行" id="btn_marquee"></button>
+            <button style="top: 130px;left: 90px;" size-type="mini" value="取消" id="btn_cancel"></button>
+
+            <div class="second_title" style="left: 250px;">ItemView上的跑马灯</div>
+            <div class="second_title" style="left: 250px;top: 30px;">上焦后自动执行</div>
+            <item class="item" style="width: 180px;height: 40px;left: 250px;top: 70px;">
+                <div class="focus" style="width: 180px;height: 40px;"></div>
+                <text class="text" style="width: 170px;left: 5px;top: 5px;">这是一段文字，然后加长加长加长</text>
+            </item>
+
+            <div class="second_title" style="left: 500px;">Poster上的跑马灯</div>
+            <div class="second_title" style="left: 500px;top: 30px;">上焦后自动执行</div>
+            <poster-white style="left: 500px;top: 70px;" size-type="mini" id="poster"></poster-white>
+
+            <div class="second_title" style="left: 750px;">Button上的跑马灯</div>
+            <div class="second_title" style="left: 750px;top: 30px;">上焦后自动执行</div>
+            <button style="left: 750px;top: 70px;" size-type="mini" value="这是一段文字，然后加长加长加长"></button>
+        </group>
+    </group>
+
+</template>

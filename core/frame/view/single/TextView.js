@@ -26,6 +26,9 @@ export default class TextView extends View {
     }
 
     marquee() {
+        if (this.isMarquee) {
+            return;
+        }
         this.judgeMarquee();//判断是否需要跑马灯
         if (!this.canMarquee) {//不需要
             return;
