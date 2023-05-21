@@ -110,7 +110,7 @@ module.exports = {
             template: "./public/index.html",
             filename: "index.html",
             title: require("./package.json").name,//页面标题
-            favicon:"./public/VALogo.png"//页面标题图标
+            favicon:"./public/logo.png"//页面标题图标
         })
     ],
     //运行环境：开发环境、生产换进，npm run *有选择（不传就是默认development开发环境）

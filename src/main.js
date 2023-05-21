@@ -36,5 +36,9 @@ window.onload = function () {
 
     var mode = process.env.NODE_ENV || "production";//获取当前的模式,development:开发模式；production：生产模式
     console.log(mode, new Date().getTime() - start)
+
+    console.log("项目地址：")
+    console.log("github:https://github.com/kanchenai/View-App.git")
+    console.log("gitee:https://gitee.com/kanchenai/View-App.git")
 }
 

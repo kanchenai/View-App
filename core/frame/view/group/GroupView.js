@@ -313,7 +313,7 @@ export default class GroupView extends ScrollView {
         super.setAttributeParam();
 
         var focusable = this.props["view-focusable"];//上是否可以上焦
-        if (focusable == "false" && focusable == "0") {
+        if (focusable == "false" || focusable == "0") {
             this.focusable = false;
         }
 

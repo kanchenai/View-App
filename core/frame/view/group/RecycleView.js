@@ -91,7 +91,7 @@ export default class RecycleView extends GroupView {
          * 焦点或驻留所在的位置index
          * @type {number}
          */
-        this.selectIndex = 0;
+        this._selectIndex = 0;
 
         /**
          * 渲染的基准index
@@ -223,6 +223,15 @@ export default class RecycleView extends GroupView {
 
         this.baseIndex = 0;
         this.render();
+    }
+
+    get selectIndex() {
+        var value = (this._selectIndex + this.data.length) % this.data.length;
+        return value;
+    }
+
+    set selectIndex(value) {
+        this._selectIndex = value;
     }
 
     /**

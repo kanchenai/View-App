@@ -89,7 +89,7 @@ export default class Button extends ItemView {
         super.setFocusStyle();
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
-        if (focusEnlarge != NaN) {
+        if (!isNaN(focusEnlarge)) {
             this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
             this.setStyle("transform", "scale(" + focusEnlarge + "%)");
         }
@@ -99,7 +99,7 @@ export default class Button extends ItemView {
         super.setUnFocusStyle();
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
-        if (focusEnlarge != NaN) {
+        if (!isNaN(focusEnlarge)) {
             this.setStyle("webkitTransform", "scale(100%)");
             this.setStyle("transform", "scale(100%)");
         }
@@ -109,7 +109,7 @@ export default class Button extends ItemView {
         super.setSelectStyle();
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
-        if (focusEnlarge != NaN) {
+        if (!isNaN(focusEnlarge)) {
             this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
             this.setStyle("transform", "scale(" + focusEnlarge + "%)");
         }
