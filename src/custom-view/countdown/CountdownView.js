@@ -85,8 +85,8 @@ export default class CountdownView extends View {
 
     set html(value){
         super.html = value;
-        initStyle(this);
         setValue(this);
+        initStyle(this);
     }
 
     get count() {

@@ -1,12 +1,3 @@
-.bg{
-    border: 1px solid red;
-    width: 118px;
-    height: 58px;
-    border-radius: 7px;
-    left: 1px;
-    top: 1px;
-    z-index: 1;
-}
 .text {
     text-align: center;
     width: 118px;

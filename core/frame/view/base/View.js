@@ -3,6 +3,7 @@ import VSize from "../../util/VSize";
 import Application from "../../app/Application";
 import ViewManager, {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VMap from "@core/frame/util/VMap";
+import State from "@core/frame/util/State";
 
 export default class View {
     /**
@@ -157,6 +158,27 @@ export default class View {
         this.setStyle("visibility", "");
         this.setStyle("display", "none");
         this.callVisibleChangeListener(this, false);
+    }
+
+    /**
+     * 放大
+     * 如果存在无法放大的，用上焦样式设置尺寸
+     * @param scale
+     */
+    enlarge(scale) {
+        //放大
+        this.setStyle("webkitTransform", "scale(" + scale + "%)");
+        this.setStyle("webkitTransition", "-webkit-transform 0.3s");
+        this.setStyle("transform", "scale(" + scale + "%)");
+        this.setStyle("transition", "transform 0.3s");
+    }
+
+    /**
+     * 恢复100%
+     */
+    restoreEnlarge() {
+        this.setStyle("webkitTransform", "scale(100%)");
+        this.setStyle("transform", "scale(100%)");
     }
 
     get listenerLocation() {
@@ -689,7 +711,7 @@ export default class View {
      * @param{String} html
      * @returns {HTMLCollection}
      */
-    static eleToStr(ele){
+    static eleToStr(ele) {
         var _ele = document.createElement("div");
         _ele.appendChild(ele)
         return _ele.innerHTML;

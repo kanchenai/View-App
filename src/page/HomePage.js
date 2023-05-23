@@ -187,6 +187,7 @@ var onClickListenerList2 = function (view) {
             page = "PosterPage";
             break;
         case 2:
+            page = "KeyboardPage";
             break;
         case 3:
             break;

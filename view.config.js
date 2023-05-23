@@ -14,6 +14,7 @@ import ImagePage from "@page/ImagePage";
 import LogPage from "@page/LogPage";
 import TextPage from "@page/TextPage";
 import ToastPage from "@page/ToastPage";
+import KeyboardPage from "@page/KeyboardPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -34,7 +35,7 @@ export var PageConfig = {
     "WaterFallPage": WaterFallPage,
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
-
+    "KeyboardPage": KeyboardPage,
     "ListPage": ListPage,
     "TestPage": TestPage,
 }

@@ -21,6 +21,8 @@ window.onload = function () {
         ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder
     ]);
 
+    // State.UseTransform = false;//动画执行的方式
+
     State.ScrollAnimation = true;//控制滚动动画开关
     //需要在css加载完之后才能启动app
     window.application = new MyApplication("app");

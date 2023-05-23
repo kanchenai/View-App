@@ -1,0 +1,24 @@
+.bg{
+    border: 1px solid red;
+    width: 118px;
+    height: 58px;
+    border-radius: 7px;
+    left: 1px;
+    top: 1px;
+    z-index: 1;
+}
+
+.medium{
+    width: 160px;
+    height: 80px;
+}
+
+.small{
+    width: 120px;
+    height: 60px;
+}
+
+.mini{
+    width: 80px;
+    height: 40px;
+}

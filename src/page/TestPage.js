@@ -65,9 +65,7 @@ var onPosterFocusChangeListener = function (view, hasFocus) {
         poster.fatherView.setStyle("zIndex", num - disNum + 1);
 
         var focusEnlarge = (10 - disNum) * 10;
-
-        poster.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
-        poster.setStyle("transform", "scale(" + focusEnlarge + "%)");
+        poster.enlarge(focusEnlarge)
     }
 
 

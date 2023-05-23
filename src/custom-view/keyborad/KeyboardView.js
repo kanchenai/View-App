@@ -16,8 +16,6 @@ export default class KeyboardView extends RecycleView {
 
         this._sizeType = "small";
 
-        //TODO "focus-enlarge": ""，需要在button外套一层大的div，然后调整margin为负值
-
         this.props.concat({
             "size-type": "",
             "size": "",
@@ -45,7 +43,7 @@ export default class KeyboardView extends RecycleView {
     setAttributeParam() {
         var firstFocus = super.setAttributeParam();
         //T获取大小类型
-        var sizeType = View.parseAttribute("size-type", this.ele);
+        var sizeType = this.props["size-type"];
         if (!sizeType) {
             sizeType = "small";
         }
@@ -117,11 +115,14 @@ class TextAdapter extends Adapter {
 
         var map = new VMap();
         map.set("size", size);
-        map.set("focus-color", keyboardView.props["focus-color"]);
-        map.set("value-color", keyboardView.props["value-color"]);
+        if(keyboardView.props["focus-color"]){
+            map.set("focus-color", keyboardView.props["focus-color"]);
+        }
+        if(keyboardView.props["value-color"]){
+            map.set("value-color", keyboardView.props["value-color"]);
+        }
 
         this._template = ViewManager.addAttributeToHtml(this.template, map);
-        console.log("this._template", this._template);
     }
 
     bindHolder(holder, data) {

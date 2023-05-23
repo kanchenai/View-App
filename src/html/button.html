@@ -51,14 +51,43 @@
             <button style="top: 60px;left: 750px;" value-color="black" value="按钮"></button>
         </group>
 
-<!--        <div class="title" style="left: 40px;top: 600px;">Button带icon</div>-->
-<!--        <div class="view_bg" style="top: 640px;"></div>-->
-<!--        <group class="group_view" style="top: 640px;" view-locate="center">-->
-<!--            <div class="second_title">上焦颜色green</div>-->
-<!--            <button style="top: 60px;" focus-color="green" value="按钮"></button>-->
+        <div class="title" style="left: 40px;top: 600px;">Button带icon</div>
+        <div class="view_bg" style="top: 640px;"></div>
+        <group class="group_view" style="top: 640px;" view-locate="center">
+            <div class="second_title">icon在左边（默认）</div>
+            <button style="top: 60px;" focus-color="yellow" value="按钮">
+                <img src="../images/icon/icon_vip.png" width="28" height="16" id="icon">
+            </button>
 
-<!--        </group>-->
+            <div class="second_title" style="left: 250px;">icon在右边</div>
+            <button style="top: 60px; left: 250px;" focus-color="yellow" value="按钮">
+                <img src="../images/icon/icon_vip.png" width="28" height="16" locate="right" id="icon">
+            </button>
 
-<!--        <div class="title" style="left: 40px;top: 600px;">Button定制背景</div>-->
+            <div class="second_title" style="left: 500px;">icon在中间、radius：20</div>
+            <button style="top: 60px; left: 500px;" size="40,40" radius="20" focus-color="yellow">
+                <img src="../images/icon/icon_vip.png" width="28" height="16" locate="center" id="icon">
+            </button>
+
+            <div class="second_title" style="left: 750px;">icon在左边、mini</div>
+            <button style="top: 60px; left: 750px;font-size: 12px;" size-type="mini" focus-color="yellow" value="按钮">
+                <img src="../images/icon/icon_vip.png" width="28" height="16" id="icon">
+            </button>
+        </group>
+
+        <div class="title" style="left: 40px;top: 880px;">Button定制背景</div>
+        <div class="view_bg" style="top: 920px;"></div>
+        <group class="group_view" style="top: 920px;" view-locate="center">
+            <div class="second_title">定制背景</div>
+            <button style="top: 60px;" focus-color="yellow" value="按钮">
+                <div style="background: #aaaaaa" id="bg"></div>
+            </button>
+
+            <div class="second_title" style="left: 250px;">定制背景、焦点</div>
+            <button style="top: 60px;left: 250px;" value="按钮">
+                <div style="background: #aaaaaa" id="bg"></div>
+                <img src="../images/focus/120x60.png" width="158" height="98" id="focus">
+            </button>
+        </group>
     </group>
 </template>

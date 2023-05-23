@@ -9,7 +9,9 @@ export default class Button extends ItemView {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
 
+        this.bgEle = null;
         this.focusEle = null;
+        this.iconEle = null;
         this._sizeType = "small";
 
         this._buttonSize = new VSize(0, 0);
@@ -21,6 +23,7 @@ export default class Button extends ItemView {
             "focus-enlarge": "",
             "focus-color": "",
             "value-color": "",
+            "radius":"",
         })
     }
 
@@ -51,14 +54,14 @@ export default class Button extends ItemView {
      */
     set html(html) {
         super.html = html;
-
+        setValue(this);//设置值
         initStyle(this);//初始化样式
 
         //绑定TextView和ImageView
         this.bindImage();
         this.bindText();
 
-        setValue(this);//设置值
+
     }
 
     get buttonSize() {
@@ -90,8 +93,7 @@ export default class Button extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
-            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+            this.enlarge(focusEnlarge);
         }
     }
 
@@ -100,8 +102,7 @@ export default class Button extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(100%)");
-            this.setStyle("transform", "scale(100%)");
+            this.restoreEnlarge();
         }
     }
 
@@ -110,8 +111,7 @@ export default class Button extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
-            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+            this.restoreEnlarge();
         }
     }
 
@@ -132,6 +132,15 @@ export default class Button extends ItemView {
             }
         }
 
+        var bgEle = this.findEleById("bg");
+        if (bgEle) {
+            this.bgEle = bgEle;
+            this.bgEle.style.zIndex = "1";
+        } else {
+            this.bgEle = buildDefaultBgEle(this);
+        }
+
+
         var focusEle = this.findEleById("focus");
         if (focusEle) {
             this.focusEle = focusEle;
@@ -149,9 +158,14 @@ export default class Button extends ItemView {
             this.size = new VSize(this.buttonSize.width, this.buttonSize.height);
         }
 
+        var iconEle = this.findEleById("icon");
+        if (iconEle) {
+            this.iconEle = iconEle;
+            this.iconEle.style.zIndex = "3";
+        }
 
         if (this.ele.className != "item") {
-            if(this.ele.className){
+            if (this.ele.className) {
                 //上焦的className
                 this.focusStyle = this.ele.className + " item item_focus";
                 //选中的className
@@ -190,21 +204,24 @@ export class ButtonBuilder extends ViewBuilder {
  * @param button
  */
 var setValue = function (button) {
+    button.ele.appendChild(button.bgEle);
     button.ele.appendChild(button.focusEle);
+    if (button.iconEle) {
+        button.ele.appendChild(button.iconEle);
+    }
 
     var text = button.findViewById("_text");
     text.text = button.props["value"];
 
     var focusColor = button.props["focus-color"];
-    if(focusColor){
-        var bg = button.findEleById("_bg");
-        bg.style.borderColor = focusColor;
+    if (focusColor) {
+        button.bgEle.style.borderColor = focusColor;
         button.focusEle.style.background = focusColor;
 
     }
 
     var valueColor = button.props["value-color"];
-    if(valueColor){
+    if (valueColor) {
         var value = button.findEleById("_text");
         value.style.color = valueColor;
 
@@ -223,6 +240,11 @@ var initStyle = function (button) {
 
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
+
+        if (child == button.iconEle) {
+            continue;
+        }
+
         if (child == button.focusEle) {
             continue;
         }
@@ -246,6 +268,37 @@ var initStyle = function (button) {
     } else {
         button.top = 0;
     }
+
+    if (button.iconEle) {
+        var valueEle = button.findEleById("_text");
+
+        var iconLocate = View.parseAttribute("locate", button.iconEle);
+        var iconWidth = View.getWidth(button.iconEle);
+        var iconHeight = View.getHeight(button.iconEle);
+
+        button.iconEle.style.top = Math.round((button.height - iconHeight) / 2) + "px";
+
+        if (iconLocate == "right") {
+            button.iconEle.style.left = button.width - (left + 8 + iconWidth) + "px";
+
+            valueEle.style.left = 8 + "px";
+            valueEle.style.width = button.width - (left + 8 + iconWidth + 8 + 8) + "px";
+            valueEle.style.textAlign = "right";
+        } else if (iconLocate == "center") {
+            button.iconEle.style.left = (button.width - iconWidth) / 2 + "px";
+        } else {
+            button.iconEle.style.left = left + 8 + "px";
+
+            valueEle.style.left = left + 8 + iconWidth + 8 + "px";
+            valueEle.style.width = button.width - (left + 8 + iconWidth + 8 + 8) + "px";
+            valueEle.style.textAlign = "left";
+        }
+    }
+
+    if(button.props["radius"]){
+        button.bgEle.style.borderRadius = button.props["radius"] + "px";
+        button.focusEle.style.borderRadius = button.props["radius"] + "px";
+    }
 }
 
 var buildDefaultFocusEle = function (button) {
@@ -265,8 +318,29 @@ var buildDefaultFocusEle = function (button) {
             sizeType = "small"
         }
         focusEle.className += " " + sizeType;
-        button.sizeType = sizeType;
     }
 
     return focusEle;
+}
+
+var buildDefaultBgEle = function (button){
+    require("./bg.css")
+    var bg = require("./bg.html");
+
+    var bgEle = View.parseEle(bg)[0];
+
+    var sizeType = button.props["size-type"];
+    var size = button.props["size"];//属性中的宽高
+
+    if (size) {
+        bgEle.style.width = button.buttonSize.width + "px";
+        bgEle.style.height = button.buttonSize.height + "px";
+    } else {
+        if (!sizeType) {
+            sizeType = "small"
+        }
+        bgEle.className += " " + sizeType;
+    }
+
+    return bgEle;
 }

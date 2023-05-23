@@ -83,8 +83,7 @@ export default class PosterWhiteView extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(" + focusEnlarge + "%)");
-            this.setStyle("transform", "scale(" + focusEnlarge + "%)");
+            this.enlarge(focusEnlarge);
         }
     }
 
@@ -93,8 +92,7 @@ export default class PosterWhiteView extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(100%)");
-            this.setStyle("transform", "scale(100%)");
+            this.restoreEnlarge();
         }
     }
 
@@ -103,8 +101,7 @@ export default class PosterWhiteView extends ItemView {
         var focusEnlarge = this.props["focus-enlarge"];
         focusEnlarge = parseInt(focusEnlarge);
         if (!isNaN(focusEnlarge)) {
-            this.setStyle("webkitTransform", "scale(100%)");
-            this.setStyle("transform", "scale(100%)");
+            this.restoreEnlarge();
         }
     }
 
