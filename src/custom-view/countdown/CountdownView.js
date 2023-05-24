@@ -1,10 +1,13 @@
 import View from "@core/frame/view/base/View";
 import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VSize from "@core/frame/util/VSize";
+import bg from "./bg.html";
 
 export default class CountdownView extends View {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
+
+        this.bgEle = null;
 
         this._count = 3;
         this.timer = null;
@@ -14,6 +17,7 @@ export default class CountdownView extends View {
 
         this.props.concat({
             "size-type": "",
+            "size": "",
             "count": "",
             "count-change": ""
         })
@@ -83,7 +87,7 @@ export default class CountdownView extends View {
         this.html = require("./countdown.html");
     }
 
-    set html(value){
+    set html(value) {
         super.html = value;
         setValue(this);
         initStyle(this);
@@ -96,7 +100,7 @@ export default class CountdownView extends View {
     set count(value) {
         this._count = value;
         var countEle = this.findEleById("count")
-        if(countEle){
+        if (countEle) {
             countEle.innerText = this.count;
         }
     }
@@ -116,6 +120,21 @@ export default class CountdownView extends View {
             this.count = parseInt(count);
         }
 
+        var size = this.props["size"];
+        if (size) {
+            var sizeStrs = size.split(",");
+            if (sizeStrs.length == 2) {
+                this.size = new VSize(parseInt(sizeStrs[0]), parseInt(sizeStrs[1]));
+            }
+        }
+
+        var bgEle = this.findEleById("bg");
+        if (bgEle) {
+            this.bgEle = bgEle;
+            this.bgEle.style.zIndex = "";
+        } else {
+            this.bgEle = buildDefaultBgEle(this);
+        }
 
         var countChange = this.props["count-change"];//点击
         if (countChange) {
@@ -143,23 +162,34 @@ export class CountdownViewBuilder extends ViewBuilder {
     }
 }
 
+/**
+ * 设置文字等信息
+ * @param button
+ */
+var setValue = function (countdown) {
+    countdown.ele.appendChild(countdown.bgEle);
+    var countEle = countdown.findEleById("count");
+    countEle.innerText = countdown.count;
+}
 
 var initStyle = function (countdown) {
     var bgEle = countdown.findEleById("bg");
     var countEle = countdown.findEleById("count");
-    bgEle.style.width = countdown.size.width + "px";
-    bgEle.style.height = countdown.size.height + "px";
+    countdown.bgEle.style.width = countdown.size.width + "px";
+    countdown.bgEle.style.height = countdown.size.height + "px";
 
     countEle.style.width = countdown.size.width + "px";
     countEle.style.height = countdown.size.height + "px";
     countEle.style.lineHeight = countdown.size.height + "px";
 }
 
-/**
- * 设置文字等信息
- * @param button
- */
-var setValue = function (countdown) {
-    var countEle = countdown.findEleById("count");
-    countEle.innerText = countdown.count;
+var buildDefaultBgEle = function (countdown) {
+    var bg = require("./bg.html");
+
+    var bgEle = View.parseEle(bg)[0];
+
+    bgEle.style.width = countdown.width + "px";
+    bgEle.style.height = countdown.height + "px";
+
+    return bgEle;
 }

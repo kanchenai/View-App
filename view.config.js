@@ -15,13 +15,16 @@ import LogPage from "@page/LogPage";
 import TextPage from "@page/TextPage";
 import ToastPage from "@page/ToastPage";
 import KeyboardPage from "@page/KeyboardPage";
+import CountdownPage from "@page/CountdownPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
  * 舍去0.4之前版本中需要在Page子类中赋值pageName步骤
  */
 export var PageConfig = {
-    "HomePage": HomePage,
+    "HomePage": HomePage,//首页
+
+    //基础控件的demo
     "ItemPage": ItemPage,
     "GroupPage": GroupPage,
     "FramePage": FramePage,
@@ -32,10 +35,17 @@ export var PageConfig = {
     "PlayerPage": PlayerPage,
     "TextPage": TextPage,
     "ToastPage": ToastPage,
+
+    //基础能力demo
     "WaterFallPage": WaterFallPage,
+
+    //自定义控件demo
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
     "KeyboardPage": KeyboardPage,
+    "CountdownPage":CountdownPage,
+
+    //其他
     "ListPage": ListPage,
     "TestPage": TestPage,
 }

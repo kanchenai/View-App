@@ -44,7 +44,10 @@ export default class HomePage extends Page {
             "RecycleView", "Dialog", "ImageView",
             "LogView", "PlayerView", "TextView",
             "Toast"];
-        this.list_2.data = ["Button", "Poster", "Keyboard", "CountdownView"];
+        this.list_2.data = [
+            "Button", "Poster", "Keyboard",
+            "CountdownView", "CarouselView"
+        ];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
     }
 
@@ -190,6 +193,7 @@ var onClickListenerList2 = function (view) {
             page = "KeyboardPage";
             break;
         case 3:
+            page = "CountdownPage";
             break;
         case 4:
             break;

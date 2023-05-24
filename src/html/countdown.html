@@ -1,0 +1,40 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
+        <div class="title" style="left: 40px;top: 40px;">CountdownView</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <group class="group_view" style="top: 80px;" view-locate="center" first-focus>
+            <div class="second_title">medium(size：60, 60)</div>
+            <countdown style="left: 0px;top:60px;" size-type="medium" count-change="onCountChangeListener" id="countdown_medium"></countdown>
+            <button style="top: 130px;" size-type="mini" value="开始" id="medium"></button>
+
+            <div class="second_title" style="left: 250px;">small(size：50, 50)</div>
+            <countdown style="left: 250px;top:60px;" count-change="onCountChangeListener" id="countdown_small"></countdown>
+            <button style="top: 130px;left: 250px;" size-type="mini" value="开始" id="small"></button>
+
+            <div class="second_title" style="left: 500px;">mini(size：40, 40)</div>
+            <countdown style="left: 500px;top:60px;" size-type="mini" count-change="onCountChangeListener" id="countdown_mini"></countdown>
+            <button style="top: 130px;left: 500px;" size-type="mini" value="开始" id="mini"></button>
+
+            <div class="second_title" style="left: 750px;">指定大小(size：45, 45)</div>
+            <countdown style="left: 750px;top:60px;" size="45,45" count-change="onCountChangeListener" id="countdown_custom_size"></countdown>
+            <button style="top: 130px;left: 750px;" size-type="mini" value="开始" id="custom_size"></button>
+
+        </group>
+
+        <div class="title" style="left: 40px;top: 320px;">其他功能</div>
+        <div class="view_bg" style="top: 360px;"></div>
+        <group class="group_view" style="top: 360px;" view-locate="center">
+            <div class="second_title">定制背景</div>
+            <countdown style="left: 0px;top:60px;color:black;" count-change="onCountChangeListener" id="countdown_custom_bg">
+                <div style="background: white;border-radius: 25px;" id="bg"></div>
+            </countdown>
+            <button style="top: 130px;" size-type="mini" value="开始" id="custom_bg"></button>
+        </group>
+
+
+    </group>
+</template>
