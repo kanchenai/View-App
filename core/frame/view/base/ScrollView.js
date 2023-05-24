@@ -668,7 +668,12 @@ export class Scroller extends View {
         }
         // console.log("纵向滚动速度：" + this.currentSpeedV);
 
-        startScrollVerticalTo(this, y, this.currentSpeedV);
+
+        if(State.UseTransform){//使用transform滚动
+            scrollVerticalTo(this, y, this.currentSpeedV);
+        }else{
+            startScrollVerticalTo(this, y, this.currentSpeedV);
+        }
     }
 
     horizontalTo(x) {
@@ -700,9 +705,11 @@ export class Scroller extends View {
             this.currentSpeedH = speed;
         }
         // console.log("横向滚动速度：" + this.currentSpeedH);
-
-        startScrollHorizontalTo(this, x, this.currentSpeedH);
-        // scrollHorizontalTo(this, x, speed);
+        if(State.UseTransform){//使用transform滚动
+            scrollHorizontalTo(this, x, this.currentSpeedH);
+        }else{
+            startScrollHorizontalTo(this, x, this.currentSpeedH);
+        }
     }
 
     get left() {
@@ -759,13 +766,41 @@ var startScrollVerticalTo = function (scroller, y, speed) {
     }, scroller.cell);
 };
 
-var scrollVerticalTo = function (scroller, y) {
+var scrollVerticalTo = function (scroller, y,speed) {
     var top = scroller.top;
-
     var distance = top - y;
 
-    scroller.setStyle("transform", "translateY(" + distance + "px)")
-    scroller.setStyle("transition", "transform 1s ease")
+    scroller.setStyle("transform", "translateY(" + (0 - distance) + "px)");
+    scroller.setStyle("webkitTransform", "translateY(" + (0 - distance) + "px)");
+    var time = Math.abs(distance) / speed * scroller.cell;
+    scroller.setStyle("transition", "transform " + (time / 1000) + "s ease")
+    scroller.setStyle("webkitTransition", "-webkit-transform " + (time / 1000) + "s ease")
+
+    var index = 0;
+    scroller.vTimer = setInterval(function () {
+        index++;
+        var scrollTop = 0;
+        if (y > top) {
+            scrollTop = top + speed * index;
+        } else {
+            scrollTop = top - speed * index;
+        }
+        //滚动中的scrollLeft有误差，css的平移不是线性的，但这里时用线性计算的
+        scroller.fatherView.callScrollingListener(scroller.fatherView, 0 - scroller.left, 0 - scrollTop);
+    }, scroller.cell);
+
+    scroller.ele.addEventListener('transitionend', function (event) {
+        clearInterval(scroller.vTimer)
+
+        // 在这里执行过渡结束后的操作
+        scroller.top = y;
+        scroller.setStyle("transition", "unset")
+        scroller.setStyle("webkitTransition", "unset")
+        scroller.setStyle("transform", "translateY(0px)")
+        scroller.setStyle("webkitTransform", "translateY(0px)")
+
+        scroller.fatherView.callScrollEndListener(scroller.fatherView, 0 - scroller.left, 0 - scroller.top);
+    })
 }
 
 /**
@@ -805,11 +840,11 @@ var scrollHorizontalTo = function (scroller, x, speed) {
     var left = scroller.left;
     var distance = left - x;
 
-    //TODO 还需要兼容webkitTransform
-
     scroller.setStyle("transform", "translateX(" + (0 - distance) + "px)");
+    scroller.setStyle("webkitTransform", "translateX(" + (0 - distance) + "px)");
     var time = Math.abs(distance) / speed * scroller.cell;
     scroller.setStyle("transition", "transform " + (time / 1000) + "s ease")
+    scroller.setStyle("webkitTransition", "-webkit-transform " + (time / 1000) + "s ease")
 
     var index = 0;
     scroller.hTimer = setInterval(function () {
@@ -832,8 +867,10 @@ var scrollHorizontalTo = function (scroller, x, speed) {
         // 在这里执行过渡结束后的操作
         scroller.left = x;
         scroller.setStyle("transition", "unset")
+        scroller.setStyle("webkitTransition", "unset")
         scroller.setStyle("transform", "translateX(0px)")
+        scroller.setStyle("webkitTransform", "translateX(0px)")
 
-        scroller.fatherView.callScrollEndListener(scroller.fatherView, 0 - x, 0 - scroller.top);
+        scroller.fatherView.callScrollEndListener(scroller.fatherView, 0 - scroller.left, 0 - scroller.top);
     })
 }

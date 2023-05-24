@@ -1,6 +1,6 @@
 {
   "name": "view-app",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "description": "",
   "scripts": {
     "pro": "webpack-dev-server --hot --mode production",
