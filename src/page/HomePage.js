@@ -126,8 +126,10 @@ var onClickListenerList0 = function (view) {
             page = "WaterFallPage";
             break;
         case 4:
+            page = "HorizontalWaterFallPage";
             break;
         case 5:
+            page = "MultiWaterFallPage";
             break;
     }
 

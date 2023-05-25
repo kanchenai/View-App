@@ -1,9 +1,9 @@
-import Fragment from "../../core/frame/view/group/Fragment";
+import Fragment from "@core/frame/view/group/Fragment";
 
 export default class Fragment_1 extends Fragment{
     onCreate() {
         console.log("Fragment_1","-onCreate");
-        this.html = require("../html/fragment/fragment_1.html");
+        this.html = require("@html/fragment/frame/fragment_1");
 
         this.setStyle("background","green");
     }

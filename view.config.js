@@ -16,6 +16,8 @@ import TextPage from "@page/TextPage";
 import ToastPage from "@page/ToastPage";
 import KeyboardPage from "@page/KeyboardPage";
 import CountdownPage from "@page/CountdownPage";
+import HorizontalWaterFallPage from "@page/HorizontalWaterFallPage";
+import MultiWaterFallPage from "@page/MultiWaterFallPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -38,12 +40,14 @@ export var PageConfig = {
 
     //基础能力demo
     "WaterFallPage": WaterFallPage,
+    "HorizontalWaterFallPage": HorizontalWaterFallPage,
+    "MultiWaterFallPage": MultiWaterFallPage,
 
     //自定义控件demo
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
     "KeyboardPage": KeyboardPage,
-    "CountdownPage":CountdownPage,
+    "CountdownPage": CountdownPage,
 
     //其他
     "ListPage": ListPage,

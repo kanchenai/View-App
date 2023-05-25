@@ -667,13 +667,7 @@ export class Scroller extends View {
             this.currentSpeedV = speed;
         }
         // console.log("纵向滚动速度：" + this.currentSpeedV);
-
-
-        if(State.UseTransform){//使用transform滚动
-            scrollVerticalTo(this, y, this.currentSpeedV);
-        }else{
-            startScrollVerticalTo(this, y, this.currentSpeedV);
-        }
+        startScrollVerticalTo(this, y, this.currentSpeedV);
     }
 
     horizontalTo(x) {
@@ -705,11 +699,7 @@ export class Scroller extends View {
             this.currentSpeedH = speed;
         }
         // console.log("横向滚动速度：" + this.currentSpeedH);
-        if(State.UseTransform){//使用transform滚动
-            scrollHorizontalTo(this, x, this.currentSpeedH);
-        }else{
-            startScrollHorizontalTo(this, x, this.currentSpeedH);
-        }
+        startScrollHorizontalTo(this, x, this.currentSpeedH);
     }
 
     get left() {
@@ -766,7 +756,10 @@ var startScrollVerticalTo = function (scroller, y, speed) {
     }, scroller.cell);
 };
 
-var scrollVerticalTo = function (scroller, y,speed) {
+/**
+ * 有兼容问题
+ */
+var scrollVerticalTo = function (scroller, y, speed) {
     var top = scroller.top;
     var distance = top - y;
 
@@ -785,7 +778,7 @@ var scrollVerticalTo = function (scroller, y,speed) {
         } else {
             scrollTop = top - speed * index;
         }
-        //滚动中的scrollLeft有误差，css的平移不是线性的，但这里时用线性计算的
+        //滚动中的scrollLeft有误差，css的平移不是线性的，但这里是用线性计算的
         scroller.fatherView.callScrollingListener(scroller.fatherView, 0 - scroller.left, 0 - scrollTop);
     }, scroller.cell);
 
@@ -836,6 +829,9 @@ var startScrollHorizontalTo = function (scroller, x, speed) {
     }, scroller.cell);
 };
 
+/**
+ * 有兼容问题
+ */
 var scrollHorizontalTo = function (scroller, x, speed) {
     var left = scroller.left;
     var distance = left - x;
@@ -855,10 +851,9 @@ var scrollHorizontalTo = function (scroller, x, speed) {
         } else {
             scrollLeft = left - speed * index;
         }
-        //滚动中的scrollLeft有误差，css的平移不是线性的，但这里时用线性计算的
+        //滚动中的scrollLeft有误差，css的平移不是线性的，但这里是用线性计算的
         scroller.fatherView.callScrollingListener(scroller.fatherView, 0 - scrollLeft, 0 - scroller.top);
     }, scroller.cell);
-
 
 
     scroller.ele.addEventListener('transitionend', function (event) {

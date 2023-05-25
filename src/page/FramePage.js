@@ -1,8 +1,8 @@
 import Page from "../../core/frame/page/Page";
 
-import Fragment_0 from "@fragment/Fragment_0";
-import Fragment_1 from "@fragment/Fragment_1";
-import Fragment_2 from "@fragment/Fragment_2";
+import Fragment_0 from "@fragment/frame/Fragment_0";
+import Fragment_1 from "@fragment/frame/Fragment_1";
+import Fragment_2 from "@fragment/frame/Fragment_2";
 
 export default class FramePage extends Page{
     onCreate(param) {
