@@ -1,0 +1,28 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center" first-focus>
+        <div class="title" style="left: 40px;top: 40px;">CarouselView</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <group class="group_view" style="top: 80px;" view-locate="center" >
+            <div class="second_title">使用默认海报大小</div>
+            <carousel class="carousel" style="top: 60px;" id="carousel"></carousel>
+        </group>
+
+        <div class="view_bg" style="top: 520px;"></div>
+        <group class="group_view" style="top: 520px;" view-locate="center">
+            <div class="second_title">使用默认指定海报大小</div>
+            <carousel class="carousel" style="top: 60px;" poster-size="800,280" id="carousel_custom_size"></carousel>
+        </group>
+
+        <div class="view_bg" style="top: 960px;"></div>
+        <group class="group_view" style="top: 960px;" view-locate="center">
+            <div class="second_title">使用定制海报</div>
+            <carousel class="carousel" style="top: 60px;" poster-size="800,280" id="carousel_custom_poster">
+                <poster-white id="poster"></poster-white>
+            </carousel>
+        </group>
+    </group>
+</template>

@@ -657,9 +657,9 @@ export class Scroller extends View {
         }
 
         var speed = this.speed;
-        if (Math.abs(this.top - y) > 20 * this.speed) {
-            speed = Math.abs(this.top - y) / 20 + 1;
-            speed = parseInt(speed);
+        if (Math.abs(this.top - y) > 15 * this.speed) {
+            speed = Math.abs(this.top - y) / 15 + 1;
+            speed = Math.ceil(speed);
         }
 
         //使用较大的滚动速度
@@ -689,9 +689,9 @@ export class Scroller extends View {
         }
 
         var speed = this.speed;
-        if (Math.abs(this.left - x) > 20 * this.speed) {
-            speed = Math.abs(this.left - x) / 20 + 1;
-            speed = parseInt(speed);
+        if (Math.abs(this.left - x) > 15 * this.speed) {
+            speed = Math.abs(this.left - x) / 15 + 1;
+            speed = Math.ceil(speed);
         }
 
         //使用较大的滚动速度

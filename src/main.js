@@ -12,13 +12,15 @@ import {ButtonBuilder} from "@src/custom-view/button/Button";
 import {PosterViewBuilder} from "@src/custom-view/poster/PosterView";
 import {PosterShadowViewBuilder} from "@src/custom-view/poster-shadow/PosterShadowView";
 import Application from "@core/frame/app/Application";
+import {CarouselViewBuilder} from "@src/custom-view/carousel/CarouselView";
 
 var start = new Date().getTime();
 window.onload = function () {
     //添加自定控件的创建工具
     ViewManager.addCustomViewBuilder([
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
-        ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder
+        ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder,
+        CarouselViewBuilder
     ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关

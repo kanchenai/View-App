@@ -32,12 +32,14 @@ export default class HomePage extends Page {
         this.list_0.onClickListener = onClickListenerList0;
         this.list_1.onClickListener = onClickListenerList1;
         this.list_2.onClickListener = onClickListenerList2;
+        this.list_3.onClickListener = onClickListenerList3;
     }
 
     initUtil() {
         this.list_0.data = [
             "PageName跳转", "跳转带参数", "Page跳转",
             "单瀑布流Page", "横向滚动Page", "多瀑布流Page",
+            "详情页", "搜索页", "播放页", "列表页"
         ];
         this.list_1.data = [
             "ItemView", "GroupView", "FrameView",
@@ -49,33 +51,6 @@ export default class HomePage extends Page {
             "CountdownView", "CarouselView"
         ];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
-    }
-
-    onClickListener(view) {
-        this.i(view.data)
-        if (view.fatherView.fatherView == this.list_2) {
-        } else {
-            var url = "";
-            switch (view.data) {
-                case "Launcher":
-                    url = "http://kanchenai.gitee.io/launcher_page";
-                    break;
-                case "爱奇艺":
-                    url = "http://kanchenai.gitee.io/aiqiyi_page";
-                    break;
-                case "芒果":
-                    url = " http://kanchenai.gitee.io/mango_page";
-                    break;
-                case "直播":
-                    url = "http://kanchenai.gitee.io/live-page";
-                    break;
-            }
-
-            url += "?backUrl=" + encodeURIComponent(location.href);
-
-            this.application.gotoOutside(url);
-        }
-
     }
 
     onResume() {
@@ -198,10 +173,36 @@ var onClickListenerList2 = function (view) {
             page = "CountdownPage";
             break;
         case 4:
+            page = "CarouselPage";
             break;
         case 5:
+            page = "CarouselPage";
             break;
     }
 
     this.startPage(page, param)
+}
+
+var onClickListenerList3 = function (view) {
+    var index = this.list_3.selectIndex;
+
+    var url = "";
+    switch (index) {
+        case 0:
+            url = "http://kanchenai.gitee.io/launcher_page";
+            break;
+        case 1:
+            url = "http://kanchenai.gitee.io/aiqiyi_page";
+            break;
+        case 2:
+            url = " http://kanchenai.gitee.io/mango_page";
+            break;
+        case 3:
+            url = "http://kanchenai.gitee.io/live-page";
+            break;
+    }
+
+    url += "?backUrl=" + encodeURIComponent(location.href);
+
+    this.application.gotoOutside(url);
 }
