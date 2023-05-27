@@ -1,0 +1,38 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+    <drawer id="drawer_right">
+        <group style="width: 300px;height: 720px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
+
+    <drawer slide-from="left" id="drawer_left">
+        <group style="width: 300px;height: 720px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
+
+    <drawer slide-from="bottom" id="drawer_bottom">
+        <group style="width: 1280px;height: 200px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
+
+    <drawer slide-from="top" id="drawer_top">
+        <group style="width: 1280px;height: 200px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
+
+    <group style="width: 1280px;height: 720px;" first-focus>
+        <button style="left: 580px;top: 240px;" value="从上显示" id="fromTop"></button>
+        <button style="left: 580px;top: 360px;" value="从下显示" id="fromBottom"></button>
+
+        <button style="left: 700px;top: 300px;" value="从右显示" id="fromRight"></button>
+        <button style="left: 460px;top: 300px;" value="从左显示" id="fromLeft"></button>
+    </group>
+
+
+</template>

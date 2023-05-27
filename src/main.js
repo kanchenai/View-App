@@ -13,6 +13,7 @@ import {PosterViewBuilder} from "@src/custom-view/poster/PosterView";
 import {PosterShadowViewBuilder} from "@src/custom-view/poster-shadow/PosterShadowView";
 import Application from "@core/frame/app/Application";
 import {CarouselViewBuilder} from "@src/custom-view/carousel/CarouselView";
+import {DrawerViewBuilder} from "@src/custom-view/drawer/DrawerView";
 
 var start = new Date().getTime();
 window.onload = function () {
@@ -20,7 +21,7 @@ window.onload = function () {
     ViewManager.addCustomViewBuilder([
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
         ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder,
-        CarouselViewBuilder
+        CarouselViewBuilder,DrawerViewBuilder
     ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关

@@ -19,6 +19,7 @@ import CountdownPage from "@page/CountdownPage";
 import HorizontalWaterFallPage from "@page/HorizontalWaterFallPage";
 import MultiWaterFallPage from "@page/MultiWaterFallPage";
 import CarouselPage from "@page/CarouselPage";
+import DrawerPage from "@page/DrawerPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -50,6 +51,7 @@ export var PageConfig = {
     "KeyboardPage": KeyboardPage,
     "CountdownPage": CountdownPage,
     "CarouselPage": CarouselPage,
+    "DrawerPage": DrawerPage,
 
     //其他
     "ListPage": ListPage,
