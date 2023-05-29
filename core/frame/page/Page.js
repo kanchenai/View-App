@@ -21,7 +21,7 @@ export default class Page extends GroupView {
         //页面finish时，设置，上回到的页面上获取
         this.backResultData = null;
 
-        //每个页面自带的打印信息空间，显示在页面上，只有开发模式、打包测试版本会显示,正式包中会默认不生效
+        //每个页面自带的打印信息空间，显示在页面上，只有开发模式、打包测试版本会显示,正式包中会默认不显示
         this.logView = null;
     }
 

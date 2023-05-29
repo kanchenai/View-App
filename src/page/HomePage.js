@@ -48,7 +48,8 @@ export default class HomePage extends Page {
             "Toast"];
         this.list_2.data = [
             "Button", "Poster", "Keyboard",
-            "CountdownView", "CarouselView", "DrawerView"
+            "CountdownView", "CarouselView", "DrawerView",
+            "ProgressView","LoadingView","MessageView"
         ];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
     }
@@ -105,6 +106,12 @@ var onClickListenerList0 = function (view) {
             break;
         case 5:
             page = "MultiWaterFallPage";
+            break;
+        case 6:
+            page = "DetailPage";
+            break;
+        case 7:
+            page = "SearchPage";
             break;
     }
 
@@ -179,6 +186,7 @@ var onClickListenerList2 = function (view) {
             page = "DrawerPage";
             break;
         case 6:
+            page = "ProgressPage"
             break;
     }
 

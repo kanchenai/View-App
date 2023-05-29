@@ -1,0 +1,17 @@
+<template>
+  <div class="bg">
+    <img src="../images/bg.jpg" id="bg">
+  </div>
+  <poster style="left: 40px;top: 40px;" view-focusable="false" size="640,360" id="content_poster"></poster>
+  <text style="width: 400px;height: 36px;font-size: 28px;left: 720px;top: 40px;" id="content_name"></text>
+  <div style="width: 400px;height: 136px;font-size: 22px;left: 720px;top: 80px;" id="description"></div>
+  <group style="width: 400px;height: 70px;left: 720px;top: 330px;overflow: hidden;" first-focus>
+    <button value="全屏"></button>
+    <button style="left: 140px;" value="收藏"></button>
+    <button style="left: 280px;" value="订购"></button>
+  </group>
+
+  <recycle style="width: 1200px;height: 300px;left: 40px;top:420px;overflow:hidden;" view-orientation="h" id="recommend_content">
+    <poster-white id="poster"></poster-white>
+  </recycle>
+</template>

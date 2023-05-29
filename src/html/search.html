@@ -1,0 +1,26 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+
+    <div style="width: 385px;height: 50px;left: 40px;top: 60px;background: white;"></div>
+    <div style="width: 365px;height: 50px;left: 50px;top: 60px;line-height: 50px;font-size: 28px;color:#454545;" id="keyword"></div>
+    <div style="width: 385px;height: 1px;left: 40px;top: 120px;background:gray;"></div>
+
+    <keyboard style="left: 40px;top: 130px;" id="keyboard"
+              size-type="medium" focus-color="#de2910"
+              value-color="#ffde00" first-focus></keyboard>
+    <group style="width: 400px;height: 70px;left: 40px;top: 530px;">
+        <button size="190,60" focus-color="#de2910"
+                value-color="#ffde00" value="删除" id="btn_delete"></button>
+        <button size="190,60" focus-color="#de2910"
+                value-color="#ffde00" style="left: 195px;" value="清空" id="btn_clear"></button>
+    </group>
+
+    <div style="width: 1px;height: 620px;left: 465px;top: 50px;background:gray;"></div>
+
+    <div style="width: 400px;height: 50px;left: 505px;top: 50px;font-size: 26px;">搜索结果</div>
+    <recycle style="width: 750px;height: 600px;left: 505px;top: 100px;overflow: hidden;" view-col="3" id="result_list">
+        <poster-white size-type="medium" id="poster"></poster-white>
+    </recycle>
+</template>

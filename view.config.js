@@ -20,6 +20,9 @@ import HorizontalWaterFallPage from "@page/HorizontalWaterFallPage";
 import MultiWaterFallPage from "@page/MultiWaterFallPage";
 import CarouselPage from "@page/CarouselPage";
 import DrawerPage from "@page/DrawerPage";
+import DetailPage from "@page/DetailPage";
+import SearchPage from "@page/SearchPage";
+import ProgressPage from "@page/ProgressPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -44,6 +47,8 @@ export var PageConfig = {
     "WaterFallPage": WaterFallPage,
     "HorizontalWaterFallPage": HorizontalWaterFallPage,
     "MultiWaterFallPage": MultiWaterFallPage,
+    "DetailPage": DetailPage,
+    "SearchPage": SearchPage,
 
     //自定义控件demo
     "ButtonPage": ButtonPage,
@@ -52,6 +57,7 @@ export var PageConfig = {
     "CountdownPage": CountdownPage,
     "CarouselPage": CarouselPage,
     "DrawerPage": DrawerPage,
+    "ProgressPage": ProgressPage,
 
     //其他
     "ListPage": ListPage,

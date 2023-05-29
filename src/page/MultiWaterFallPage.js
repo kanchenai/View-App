@@ -20,6 +20,7 @@ export default class MultiWaterFallPage extends Page {
             new Fragment_0(this.viewManager),
             new Fragment_0(this.viewManager),
             new Fragment_0(this.viewManager),
+            new Fragment_0(this.viewManager),
             new Fragment_0(this.viewManager)
         ]);
     }

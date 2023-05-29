@@ -20,15 +20,15 @@ export default class TestPage extends Page {
     }
 
     onScrollStartListener(scrollView, x, y) {
-        console.log("start", x, y)
+        // console.log("start", x, y)
     }
 
     onScrollingListener(scrollView, x, y) {
-        console.log("scrolling", x, y)
+        // console.log("scrolling", x, y)
     }
 
     onScrollEndListener(scrollView, x, y) {
-        console.log("end", x, y)
+        // console.log("end", x, y)
     }
 }
 
@@ -52,9 +52,6 @@ var onPosterFocusChangeListener = function (view, hasFocus) {
     var num = 6;
     for (var i = selectIndex - num; i <= selectIndex + num; i++) {
         var holder = poster_list.activeHolderMap.get(i);
-        if (!holder) {
-            holder = poster_list.activeHolderMap.get((i + poster_list.data.length) % poster_list.data.length);
-        }
 
         if (!holder) {
             continue;
