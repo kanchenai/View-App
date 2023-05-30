@@ -3,12 +3,42 @@
     <img src="../images/bg.jpg" id="bg">
   </div>
 
-  <progress style="width: 1000px;height: 15px;left: 140px;top: 140px;border-radius: 7px;"
-            progress-color="#ffde00"
-            bg-color=""
-            total="200"
-            id="progress"></progress>
 
-  <button value="+1" id="add" first-focus></button>
-  <button style="left: 130px" value="-1" id="subtract"></button>
+  <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center" first-focus>
+    <div class="title" style="left: 40px;top: 40px;">Progress</div>
+    <div class="view_bg" style="top: 80px;"></div>
+    <group class="group_view" style="top: 80px;" view-locate="center">
+      <div class="second_title">默认样式（bg：gray，progress_bg:#de2910:point:#ffde00）</div>
+      <progress style="width: 1000px;height: 15px;top: 60px;"
+                progress-change="onProgressChangeListener" id="progress"></progress>
+      <button style="top: 100px;" value="+1" id="add"></button>
+      <button style="top: 100px;left: 140px;" value="-1" id="subtract"></button>
+    </group>
+
+    <div class="title" style="left: 40px;top: 320px;">指定颜色</div>
+    <div class="view_bg" style="top: 360px;"></div>
+    <group class="group_view" style="top: 360px;" view-locate="center">
+      <div class="second_title">改变颜色（bg：white，progress_bg:blue:point:yellow）</div>
+      <progress style="width: 1000px;height: 15px;top: 60px;"
+                progress-change="onProgressChangeListener"
+                bg-color="white" progress-color="blue" point-color="yellow"
+                id="progress_custom_color"></progress>
+      <button style="top: 100px;" value="+1" id="add_custom_color"></button>
+      <button style="top: 100px;left: 140px;" value="-1" id="subtract_custom_color"></button>
+    </group>
+
+    <div class="title" style="left: 40px;top: 600px;">定制</div>
+    <div class="view_bg" style="top: 640px;"></div>
+    <group class="group_view" style="top: 640px;" view-locate="center">
+      <progress style="width: 1000px;height: 15px;top: 60px;"
+                total="200" progress-change="onProgressChangeListener" id="progress_custom">
+        <img style="border-radius: 7px;" src="../images/progress_bg.png" id="progress_bg">
+        <div style="background: white;border-radius: 7px;" id="bg"></div>
+        <div style="background: #409eff;" id="point"></div>
+      </progress>
+      <button style="top: 100px;" value="+1" id="add_custom"></button>
+      <button style="top: 100px;left: 140px;" value="-1" id="subtract_custom"></button>
+    </group>
+
+  </group>
 </template>

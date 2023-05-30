@@ -89,14 +89,5 @@ div {
 }
 
 .item_focus {
-    z-index: 100;
-}
-
-.log_view {
-    position: absolute;
-    z-index: 199;
-    width: 100%;
-    height: 35%;
-    overflow: hidden;
-    opacity: 0.8;
+    z-index: 99;
 }

@@ -135,6 +135,8 @@ var initStyle = function (drawer) {
 
     drawer.width = page.width;
     drawer.height = page.height;
+
+    drawer.setStyle("zIndex", "100");
 }
 
 var initSlide = function (drawer) {

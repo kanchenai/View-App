@@ -26,13 +26,47 @@
         </group>
     </drawer>
 
-    <group style="width: 1280px;height: 720px;" first-focus>
-        <button style="left: 580px;top: 240px;" value="从上显示" id="fromTop"></button>
-        <button style="left: 580px;top: 360px;" value="从下显示" id="fromBottom"></button>
+    <drawer id="drawer_custom_shadow">
+        <div style="background: white;opacity: 0.3;" id="shadow"></div>
+        <group style="width: 200px;height: 720px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
 
-        <button style="left: 700px;top: 300px;" value="从右显示" id="fromRight"></button>
-        <button style="left: 460px;top: 300px;" value="从左显示" id="fromLeft"></button>
+    <drawer id="drawer_no_shadow">
+        <div id="shadow"></div>
+        <group style="width: 200px;height: 720px;background: white;" id="content">
+            <button value="按钮"></button>
+        </group>
+    </drawer>
+
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center" first-focus>
+        <div class="title" style="left: 40px;top: 40px;">Drawer</div>
+        <div class="view_bg" style="top: 80px;"></div>
+        <group class="group_view" style="top: 80px;" view-locate="center" first-focus>
+            <div class="second_title">从上显示</div>
+            <button style="top: 60px;" value="显示" id="fromTop"></button>
+
+            <div class="second_title" style="left: 250px;">从下显示</div>
+            <button style="top: 60px;left: 250px;" value="显示" id="fromBottom"></button>
+
+            <div class="second_title" style="left: 500px;">从右显示</div>
+            <button style="top: 60px;left: 500px;" value="显示" id="fromRight"></button>
+
+            <div class="second_title" style="left: 750px;">从左显示</div>
+            <button style="top: 60px;left: 750px;" value="显示" id="fromLeft"></button>
+        </group>
+
+        <div class="title" style="left: 40px;top: 320px;">设置阴影</div>
+        <div class="view_bg" style="top: 360px;"></div>
+        <group class="group_view" style="top: 360px;" view-locate="center">
+            <div class="second_title">定制阴影</div>
+            <button style="top: 60px;" value="显示" id="custom_shadow"></button>
+
+            <div class="second_title" style="left: 250px;">无阴影</div>
+            <button style="top: 60px;left: 250px;" value="显示" id="no_shadow"></button>
+
+        </group>
+
     </group>
-
-
 </template>

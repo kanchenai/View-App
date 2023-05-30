@@ -60,8 +60,6 @@ export default class Button extends ItemView {
         //绑定TextView和ImageView
         this.bindImage();
         this.bindText();
-
-
     }
 
     get buttonSize() {
