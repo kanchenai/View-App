@@ -11,9 +11,11 @@ export default class DrawerView extends GroupView {
         this.shadowEle = null;
 
         this.slideState = "out";
+        this.keyBack = true;//slideState为in时，返回默认收起
 
         this.props.concat({
-            "slide-from": ""
+            "slide-from": "",
+            "key-back": ""
         });
     }
 
@@ -21,14 +23,14 @@ export default class DrawerView extends GroupView {
         this.show();
         var content = this.findViewById("content");
         this.scrollToChild(content);
-
-
         this.requestFocus();
 
-        var drawerView = this;
-        this.pageKeyBack = this.page.key_back_event;
-        this.page.key_back_event = function () {
-            drawerView.slideOut();
+        if (this.keyBack) {
+            var drawerView = this;
+            this.pageKeyBack = this.page.key_back_event;
+            this.page.key_back_event = function () {
+                drawerView.slideOut();
+            }
         }
 
         this.slideState = "in";
@@ -56,7 +58,9 @@ export default class DrawerView extends GroupView {
         this.slideState = "out";
 
         this.frontView.requestFocus();
-        this.page.key_back_event = this.pageKeyBack;
+        if (this.keyBack) {
+            this.page.key_back_event = this.pageKeyBack;
+        }
     }
 
     callScrollEndListener(scrollView, x, y) {
@@ -90,6 +94,12 @@ export default class DrawerView extends GroupView {
         } else {
             this.shadowEle = buildShadowEle();
             this.ele.append(this.shadowEle);
+        }
+
+        var keyBack = this.props["key-back"];
+
+        if (keyBack == "false" || keyBack == "0") {
+            this.keyBack = false;
         }
 
         return firstFocus;

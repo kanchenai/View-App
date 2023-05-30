@@ -2,7 +2,16 @@
     <div>
         <img src="../images/bg.jpg" id="bg">
     </div>
-    <player style="width: 1080px;height: 520px;left:100px;top: 100px" id="player"></player>
+    <player style="width: 1280px;height: 720px;" id="player"></player>
+    <drawer slide-from="bottom" key-back="0" id="progress_drawer">
+        <div id="shadow"></div>
+        <group style="width: 1280px;height: 100px;" id="content">
+            <div style="width: 1280px;height: 100px;background: #454545;opacity: 0.3;"></div>
+            <progress style="width: 1000px;height: 15px;left: 140px;top: 43px;" id="play_progress"></progress>
+            <div style="width: 120px;height: 40px;left: 1150px;top: 30px;line-height: 40px;font-size: 18px;" id="play_info">00:00/00:00</div>
+        </group>
+    </drawer>
+
     <view-item class="item" style="top:224px;left:198px;" first-focus id="btn_play">-</view-item>
     <view-item class="item" style='top:224px;left:18px;'id="btn_back">返回</view-item>
 </template>

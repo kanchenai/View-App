@@ -11,8 +11,9 @@ export default class ListPage extends Page {
         this.html = require("../html/list.html");
 
         this.content_list = this.findViewById("content_list");
-        this.content_list.col = 4;
-        this.content_list.margin.right = 5;
+        this.content_list.col = 6;
+        this.content_list.margin.right = 20;
+        this.content_list.margin.bottom = 20;
         this.content_list.adapter = new ContentAdapter();
         this.content_list.data = contentListData;
 
@@ -59,21 +60,22 @@ export default class ListPage extends Page {
     }
 }
 
+var pic = require("../images/poster.png")
 var contentListData = [
-    {name: "密室大逃脱 第四季", info: "杨幂 大张伟 黄明昊 张国伟"},
-    {name: "乘风破浪 第三季", info: "那英 宁静 张蔷 许茹芸 黄奕 柳翰雅 胡杏儿 钟欣潼"},
-    {name: "向往的生活 第六季", info: "黄磊 何炅 张艺兴 彭昱畅 张子枫"},
-    {name: "你好，星期六", info: "何炅 冯禧"},
-    {name: "披荆斩棘 第二季", info: "杜德伟 温兆伦 任贤齐 陈小春"},
-    {name: "快乐再出发", info: "陈楚生 苏醒 王栎鑫 张远 陆虎"},
-    {name: "中餐厅 第六季", info: "黄晓明 殷桃 尹正 章若楠 陈立农"},
-    {name: "花儿与少年 第四季", info: "张凯丽 刘敏涛 杨幂"},
-    {name: "密室大逃脱 4 大神版", info: "未知"},
-    {name: "爸爸当家", info: "李艾 魏晨 王祖蓝 李亚男"},
-    {name: "向往的生活 6 会员Plus版", info: "黄磊 何炅 张艺兴 彭昱畅 张子枫"},
-    {name: "100道光芒", info: "未知"},
-    {name: "快乐再出发 加更版", info: "陈楚生 苏醒 王栎鑫 张远 陆虎"},
-    {name: "美好年华研习社", info: "汪涵 马可"},
-    {name: "大侦探 第七季", info: "何炅 张若昀 大张伟 王欧 魏晨"},
-    {name: "乘风破浪3 舞台纯享版", info: "那英 宁静 张蔷 许茹芸 黄奕 柳翰雅 胡杏儿 钟欣潼"}
+    {poster:pic,name: "密室大逃脱 第四季", info: "杨幂 大张伟 黄明昊 张国伟"},
+    {poster:pic,name: "乘风破浪 第三季", info: "那英 宁静 张蔷 许茹芸 黄奕 柳翰雅 胡杏儿 钟欣潼"},
+    {poster:pic,name: "向往的生活 第六季", info: "黄磊 何炅 张艺兴 彭昱畅 张子枫"},
+    {poster:pic,name: "你好，星期六", info: "何炅 冯禧"},
+    {poster:pic,name: "披荆斩棘 第二季", info: "杜德伟 温兆伦 任贤齐 陈小春"},
+    {poster:pic,name: "快乐再出发", info: "陈楚生 苏醒 王栎鑫 张远 陆虎"},
+    {poster:pic,name: "中餐厅 第六季", info: "黄晓明 殷桃 尹正 章若楠 陈立农"},
+    {poster:pic,name: "花儿与少年 第四季", info: "张凯丽 刘敏涛 杨幂"},
+    {poster:pic,name: "密室大逃脱 4 大神版", info: "未知"},
+    {poster:pic,name: "爸爸当家", info: "李艾 魏晨 王祖蓝 李亚男"},
+    {poster:pic,name: "向往的生活 6 会员Plus版", info: "黄磊 何炅 张艺兴 彭昱畅 张子枫"},
+    {poster:pic,name: "100道光芒", info: "未知"},
+    {poster:pic,name: "快乐再出发 加更版", info: "陈楚生 苏醒 王栎鑫 张远 陆虎"},
+    {poster:pic,name: "美好年华研习社", info: "汪涵 马可"},
+    {poster:pic,name: "大侦探 第七季", info: "何炅 张若昀 大张伟 王欧 魏晨"},
+    {poster:pic,name: "乘风破浪3 舞台纯享版", info: "那英 宁静 张蔷 许茹芸 黄奕 柳翰雅 胡杏儿 钟欣潼"}
 ]

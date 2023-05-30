@@ -20,15 +20,15 @@
 }
 
 .r_300x170 .txt {
-    top: 180px;
+    top: 245px;
     overflow: hidden;
 }
 .r_300x170 .info {
-    top: 200px;
+    top: 265px;
 }
 
 .txt{
-    width: 288px;
+    width: 176px;
     height: 14px;
     left: 3px;
     font-size: 13px;
@@ -37,7 +37,7 @@
 }
 
 .info{
-    width: 288px;
+    width: 176px;
     height: 12px;
     left: 3px;
     line-height: 12px;

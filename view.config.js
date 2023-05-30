@@ -49,6 +49,7 @@ export var PageConfig = {
     "MultiWaterFallPage": MultiWaterFallPage,
     "DetailPage": DetailPage,
     "SearchPage": SearchPage,
+    "ListPage": ListPage,
 
     //自定义控件demo
     "ButtonPage": ButtonPage,
@@ -60,7 +61,6 @@ export var PageConfig = {
     "ProgressPage": ProgressPage,
 
     //其他
-    "ListPage": ListPage,
     "TestPage": TestPage,
 }
 
