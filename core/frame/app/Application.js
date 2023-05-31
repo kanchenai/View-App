@@ -14,7 +14,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.6.4(2023-05-30)";
+export var version = "0.6.5(2023-05-31)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -58,11 +58,18 @@ export default class Application extends GroupView {
     launch() {
         console.log("app-launch view-app version：" + this.viewVersion);
         this.scroller.init();
-        //获取页面参数信息数据
-        var pageInfoList = this.pageManager.pageInfoList;
-        //TODO 这里应该有一个判断有哪些参数表示是进入app
         //获取地址栏数据
         this.urlParam = Application.parseUrl();//地址栏参数
+        //获取页面参数信息数据
+        var pageInfoList = null;
+        //判断是否强制使用ENTER模式进入app
+        var focusEnter = this.forceEnter(this.urlParam);
+        if(focusEnter){
+            this.clearCache();//清除page缓存
+        }else{
+            pageInfoList = this.pageManager.pageInfoList;
+        }
+
         var param = null;//第一个页面的参数信息
         var firstPage = null;
         if (!pageInfoList || pageInfoList.length == 0) {
@@ -182,18 +189,6 @@ export default class Application extends GroupView {
      * @param{Page} page
      */
     finishPage(page) {
-        // if (page.lifeState == PageLifeState.RUN) {//运行中
-        //     page.pause();
-        // }
-        //
-        // if (page.lifeState == PageLifeState.PAUSE) {//暂停
-        //     page.stop();
-        // }
-        //
-        // if (page.lifeState == PageLifeState.STOP) {//停止
-        //     page.destroy();
-        // }
-
         page.destroy();
 
         if (this.pageList.length == 0) {
@@ -264,6 +259,15 @@ export default class Application extends GroupView {
     getPlayerInstance() {
         console.error("获取播放器方法（getPlayInstance）未重写")
         return this._player;
+    }
+
+    /**
+     * 是否强制以ENTER模式进入app
+     * @param param
+     * @returns {boolean}
+     */
+    forceEnter(param){
+        return false;
     }
 
     /**

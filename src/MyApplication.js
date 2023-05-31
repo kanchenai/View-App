@@ -4,6 +4,20 @@ import LocalData from "@core/frame/util/LocalData";
 import IptvPlayer from "@src/util/IptvPlayer";
 
 export default class MyApplication extends Application {
+
+    /**
+     * 根据参数来判断
+     * @param param
+     * @returns {boolean}
+     */
+    forceEnter(param) {
+        var flag = false;
+        if(param.enter){//当参数中key为enter有值时
+            flag = true;
+        }
+        return flag;
+    }
+
     onLaunch(urlParam) {
         console.log("onLaunch，地址栏参数：", urlParam);
         var backUrl = urlParam.backUrl;
