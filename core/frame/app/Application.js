@@ -6,6 +6,7 @@ import View from "@core/frame/view/base/View";
 import {PageLifeState} from "@core/frame/page/Page";
 import "@core/frame/view/css"
 import {LaunchPage, PageConfig} from "../../../view.config";
+import ViewManager from "@core/frame/view/base/ViewManager";
 
 require("../../css/style.css");
 
@@ -345,6 +346,14 @@ export default class Application extends GroupView {
             t = l[i], n = t.indexOf("="), -1 !== n && (r = t.substr(n + 1), a[t.substr(0, n)] = r);
         }
         return a;
+    }
+
+    /**
+     * 避免先import ViewManager导致异常
+     * @param viewBuilderConstructorList
+     */
+    static addCustomViewBuilder(viewBuilderConstructorList){
+        ViewManager.addCustomViewBuilder(viewBuilderConstructorList)
     }
 }
 

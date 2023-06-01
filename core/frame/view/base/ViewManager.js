@@ -155,6 +155,7 @@ export default class ViewManager {
     }
 
     /**
+     * 在main.js中使用时，import顺序，ViewManager一定要比Application（或子类）晚
      * 添加自定义控件的的builder
      * 需要在创建页面之前执行，一版在main.js中application.launch()之前
      * @param{Array} viewBuilderConstructorList
