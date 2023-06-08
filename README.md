@@ -129,6 +129,28 @@ export default class MyApplication extends Application {
 }
 ```
 
+* 强制使用Enter模式进入app
+
+```javascript
+export default class MyApplication extends Application {
+  /**
+   * 
+   * @param param
+   * @returns {boolean} true:以Enter模式进入；false：根据情况获取进入模式
+   */
+    forceEnter(param) {
+        var flag = false;
+        if (param.enter) {//当参数中key为enter有值时
+            flag = true;
+        }
+        return flag;
+    }
+}
+
+
+```
+
+
 * 全局播放器
 
 ```javascript

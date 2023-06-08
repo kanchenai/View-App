@@ -1,12 +1,6 @@
-import ScrollView, {
-    ScrollCenter,
-    ScrollEnd,
-    ScrollNormal,
-    ScrollStart
-} from "@core/frame/view/base/ScrollView";
+import ScrollView  from "@core/frame/view/base/ScrollView";
 import Keyboard from "@core/frame/app/Keyboard";
 import VPosition from "@core/frame/util/VPosition";
-import View from "@core/frame/view/base/View";
 import ItemView from "@core/frame/view/base/ItemView";
 
 export default class GroupView extends ScrollView {
@@ -19,12 +13,6 @@ export default class GroupView extends ScrollView {
         //上焦前的焦点
         this.frontView = null;
         this.select = false;
-
-        /**
-         * @type{string|object}
-         * @private
-         */
-        this._scrollLocate = ScrollNormal;
 
         //焦点向上的view或方法的命名
         this.nextUp = "";
@@ -44,8 +32,7 @@ export default class GroupView extends ScrollView {
             "view-change": "",
             "view-click": "",
             "view-focus": "",
-            "view-select": "",
-            "view-locate": "",
+            "view-select": ""
         })
     }
 
@@ -282,14 +269,6 @@ export default class GroupView extends ScrollView {
         }
     }
 
-    set scrollLocate(value) {
-        this._scrollLocate = value;
-    }
-
-    get scrollLocate() {
-        return this._scrollLocate;
-    }
-
     /**
      * 加载当前控件绑定的图片资源
      * 就是把图片url设置到对应节点的src
@@ -362,19 +341,6 @@ export default class GroupView extends ScrollView {
 
         if (select == "1" || select == "true") {
             this.select = true;
-        }
-
-        var scrollLocate = this.props["view-locate"];
-        if (scrollLocate == "start") {
-            this.scrollLocate = ScrollStart;
-        } else if (scrollLocate == "center") {
-            this.scrollLocate = ScrollCenter;
-        } else if (scrollLocate == "end") {
-            this.scrollLocate = ScrollEnd;
-        } else {
-            if (scrollLocate) {
-                console.warn("view-locate值 错误")
-            }
         }
 
         return firstFocus;

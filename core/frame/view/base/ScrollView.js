@@ -30,11 +30,18 @@ export default class ScrollView extends View {
         //生成滚动器
         this.scroller = new Scroller(this);
 
+        /**
+         * @type{string|object}
+         * @private
+         */
+        this._scrollLocate = ScrollNormal;
+
         this.props.concat({
             "view-animation": "",
             "view-scrollStart": "",
             "view-scrolling": "",
             "view-scrollEnd": "",
+            "view-locate": "",
         })
     }
 
@@ -478,6 +485,14 @@ export default class ScrollView extends View {
         this.measure();
     }
 
+    set scrollLocate(value) {
+        this._scrollLocate = value;
+    }
+
+    get scrollLocate() {
+        return this._scrollLocate;
+    }
+
     get scrollSpeed() {
         return this.scroller.speed;
     }
@@ -719,6 +734,20 @@ export class Scroller extends View {
     }
 
     setAttributeParam() {
+
+        var scrollLocate = this.props["view-locate"];
+        if (scrollLocate == "start") {
+            this.scrollLocate = ScrollStart;
+        } else if (scrollLocate == "center") {
+            this.scrollLocate = ScrollCenter;
+        } else if (scrollLocate == "end") {
+            this.scrollLocate = ScrollEnd;
+        } else {
+            if (scrollLocate) {
+                console.warn("view-locate值 错误")
+            }
+        }
+
         return false;
     }
 }

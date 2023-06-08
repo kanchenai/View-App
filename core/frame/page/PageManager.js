@@ -128,6 +128,7 @@ export default class PageManager {
      * 清除PageInfo
      */
     clearPageInfo() {
+        this.pageInfoList = [];
         LocalData.setData(this.pageInfoKey, "");
     }
 

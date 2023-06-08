@@ -43,5 +43,9 @@ window.onload = function () {
     console.log("项目地址：")
     console.log("github:https://github.com/kanchenai/View-App.git")
     console.log("gitee:https://gitee.com/kanchenai/View-App.git")
+
+    console.log("View-App介绍说明：")
+    console.log("http://kanchenai.gitee.io/view-api-page")
+
 }
 

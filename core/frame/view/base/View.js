@@ -1,9 +1,8 @@
 import VPosition from "../../util/VPosition";
 import VSize from "../../util/VSize";
 import Application from "../../app/Application";
-import ViewManager, {ViewBuilder} from "@core/frame/view/base/ViewManager";
+import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VMap from "@core/frame/util/VMap";
-import State from "@core/frame/util/State";
 
 export default class View {
     /**

@@ -15,7 +15,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.6.5(2023-05-31)";
+export var version = "0.6.5(2023-06-08)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -67,17 +67,13 @@ export default class Application extends GroupView {
         var focusEnter = this.forceEnter(this.urlParam);
         if(focusEnter){
             this.clearCache();//清除page缓存
-        }else{
-            pageInfoList = this.pageManager.pageInfoList;
         }
-
+        pageInfoList = this.pageManager.pageInfoList;
         var param = null;//第一个页面的参数信息
         var firstPage = null;
         if (!pageInfoList || pageInfoList.length == 0) {
             this.launchMode = LaunchMode.ENTER;
             console.log("当前启动模式：" + this.launchMode);
-            //清理缓存
-            this.clearCache();
             var object = this.onLaunch(this.urlParam)
             firstPage = object.firstPage;
             param = object.param;

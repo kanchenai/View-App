@@ -12,7 +12,7 @@ export default class MyApplication extends Application {
      */
     forceEnter(param) {
         var flag = false;
-        if(param.enter){//当参数中key为enter有值时
+        if(param.enter || param.demo == "1"){//当参数中key为enter有值时，或以demo形式进入
             flag = true;
         }
         return flag;
