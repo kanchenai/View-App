@@ -51,7 +51,7 @@ export var PageConfig = {
     "SearchPage": SearchPage,
     "ListPage": ListPage,
 
-    //自定义控件demo
+    //扩展控件demo
     "ButtonPage": ButtonPage,
     "PosterPage": PosterPage,
     "KeyboardPage": KeyboardPage,

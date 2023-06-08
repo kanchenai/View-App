@@ -275,7 +275,7 @@ export default class View {
      * @param html
      */
     set html(html) {
-        //根据自定义控件的view-type做一层转化
+        //根据扩展控件的view-type做一层转化
         html = ViewBuilder.buildHtml(html);
         this.ele.innerHTML = html;
     }

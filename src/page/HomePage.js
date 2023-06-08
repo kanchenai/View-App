@@ -49,7 +49,8 @@ export default class HomePage extends Page {
         this.list_2.data = [
             "Button", "Poster", "Keyboard",
             "CountdownView", "CarouselView", "DrawerView",
-            "ProgressView","LoadingView","MessageView"
+            "ProgressView",
+            // "LoadingView","MessageView"
         ];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
     }

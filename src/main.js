@@ -17,7 +17,7 @@ import {ProgressViewBuilder} from "@src/custom-view/progress/ProgressView";
 
 var start = new Date().getTime();
 window.onload = function () {
-    //添加自定义控件的创建工具
+    //添加扩展控件的创建工具
     Application.addCustomViewBuilder([
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
         ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder,

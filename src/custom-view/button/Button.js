@@ -3,8 +3,6 @@ import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import View from "@core/frame/view/base/View";
 import VSize from "@core/frame/util/VSize";
 
-import focus from "./focus.html";
-
 export default class Button extends ItemView {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
