@@ -552,6 +552,19 @@ export default class ScrollView extends View {
             this.animation = false;
         }
 
+        var scrollLocate = this.props["view-locate"];
+        if (scrollLocate == "start") {
+            this.scrollLocate = ScrollStart;
+        } else if (scrollLocate == "center") {
+            this.scrollLocate = ScrollCenter;
+        } else if (scrollLocate == "end") {
+            this.scrollLocate = ScrollEnd;
+        } else {
+            if (scrollLocate) {
+                console.warn("view-locate值 错误")
+            }
+        }
+
         var scrollStart = this.props["view-scrollStart"];//开始滚动
         var scrolling = this.props["view-scrolling"];//开始滚动
         var scrollEnd = this.props["view-scrollEnd"];//开始滚动
@@ -734,20 +747,6 @@ export class Scroller extends View {
     }
 
     setAttributeParam() {
-
-        var scrollLocate = this.props["view-locate"];
-        if (scrollLocate == "start") {
-            this.scrollLocate = ScrollStart;
-        } else if (scrollLocate == "center") {
-            this.scrollLocate = ScrollCenter;
-        } else if (scrollLocate == "end") {
-            this.scrollLocate = ScrollEnd;
-        } else {
-            if (scrollLocate) {
-                console.warn("view-locate值 错误")
-            }
-        }
-
         return false;
     }
 }
