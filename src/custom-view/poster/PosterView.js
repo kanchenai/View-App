@@ -12,6 +12,7 @@ export default class PosterView extends ItemView {
         };
 
         this.focusEle = null;
+        this.picEle = null;
 
         this._sizeType = "small";
         this.posterSize = new VSize(0, 0);
@@ -25,8 +26,7 @@ export default class PosterView extends ItemView {
 
     set poster(value) {
         this.data.poster = value;
-        var poster = this.findViewById("_poster");
-        poster.src = this.data.poster;
+        this.picEle.src = this.data.poster;
     }
 
     set data(value) {
@@ -35,8 +35,7 @@ export default class PosterView extends ItemView {
             return;
         }
 
-        var poster = this.findViewById("_poster");
-        poster.src = this.data.poster;
+        this.picEle.src = this.data.poster;
     }
 
     get data() {
@@ -96,18 +95,7 @@ export default class PosterView extends ItemView {
     set ele(value) {
         super.ele = value;
 
-        require("./poster.css")
-        this.html = require("./poster.html");
-    }
-
-    /**
-     * 给对应的ele设置布局
-     * @param html
-     */
-    set html(html) {
-        this.ele.innerHTML = html;
-        this.ele.appendChild(this.focusEle);
-
+        initValue(this);
         initStyle(this);//初始化样式
 
         //绑定TextView和ImageView
@@ -141,6 +129,13 @@ export default class PosterView extends ItemView {
             }
         } else {
             this.focusEle = buildDefaultFocusEle(this);
+        }
+
+        var picEle = this.findEleById("pic");
+        if (picEle) {
+            this.picEle = picEle;
+        } else {
+            this.picEle = buildPicEle();
         }
 
         if (this.ele.className != "item") {
@@ -178,6 +173,13 @@ export class PosterViewBuilder extends ViewBuilder {
     }
 }
 
+var buildPicEle = function (){
+    var html = '<img style="border-radius: 7px;" view-id="pic">';
+    var picEle = View.parseEle(html)[0];
+
+    return picEle;
+}
+
 var buildDefaultFocusEle = function (posterView) {
     var size = posterView.posterSize;
 
@@ -189,6 +191,11 @@ var buildDefaultFocusEle = function (posterView) {
     return focusEle;
 }
 
+var initValue = function (posterView){
+    posterView.ele.appendChild(posterView.focusEle);
+    posterView.ele.appendChild(posterView.picEle);
+}
+
 var initStyle = function (posterView) {
     var width = View.getWidth(posterView.focusEle);
     var height = View.getHeight(posterView.focusEle);
@@ -196,12 +203,10 @@ var initStyle = function (posterView) {
 
     var posterSize = posterView.posterSize;
 
-
-    var poster = posterView.findEleById("_poster");
+    var poster = posterView.picEle;
 
     poster.style.width = posterSize.width + "px";
     poster.style.height = posterSize.height + "px";
-
 
     var left = Math.round((posterView.width - posterSize.width) / 2);
     poster.style.left = left + "px";

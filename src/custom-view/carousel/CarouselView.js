@@ -96,7 +96,7 @@ class PosterAdapter extends Adapter {
 
         var posterSize = carouselView.props["poster-size"]
         var map = new VMap();
-        if(posterSize){
+        if (posterSize) {
             map.set("size", posterSize);
         }
 

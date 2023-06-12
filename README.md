@@ -80,8 +80,8 @@ export default class MyApplication extends Application {
 }
 ```
 
-* 重写onlaunch方法
-  onlaunch方法返回的Page是应用启动的第一个Page
+* 重写onLaunch方法
+  onLaunch方法返回的Page是应用启动的第一个Page
 ```javascript
 export default class MyApplication extends Application {
     onLaunch(urlParam) {

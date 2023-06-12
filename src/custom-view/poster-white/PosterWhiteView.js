@@ -1,17 +1,9 @@
-import ItemView from "@core/frame/view/base/ItemView";
 import View from "@core/frame/view/base/View";
 import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import VSize from "@core/frame/util/VSize";
+import PosterView from "@src/custom-view/poster/PosterView";
 
-/**
- * 海报控件，标题背景为白色
- * 如果外部设置焦点框：
- *  1.需要设置宽高，id为focus
- *  2.下方的文字高度为海报高度的15%，宽度相同
- *  3.控件大小会改成焦点框大小，内部的海报文字自动调整为居中
- *  4.焦点框大小要包含文字部分
- */
-export default class PosterWhiteView extends ItemView {
+export default class PosterWhiteView extends PosterView {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
 
@@ -20,22 +12,17 @@ export default class PosterWhiteView extends ItemView {
             poster: null
         };
 
-        this.focusEle = null;
-
-        this._sizeType = "small";
-
-        this.posterSize = new VSize(0, 0);
+        this.nameBgEle = null;
+        this.nameEle = null;
 
         this.props.concat({
-            "size-type": "",
             "poster-size": "",
-            "focus-enlarge": ""
         })
     }
 
     set name(value) {
         this.data.name = value;
-        var name = this.findViewById("_name");
+        var name = this.findViewById("name");
         name.text = this.data.name;
     }
 
@@ -51,11 +38,10 @@ export default class PosterWhiteView extends ItemView {
             return;
         }
 
-        var name = this.findViewById("_name");
+        var name = this.findViewById("name");
         name.text = this.data.name;
 
-        var poster = this.findViewById("_poster");
-        poster.src = this.data.poster;
+        super.data = value;
     }
 
     get data() {
@@ -115,33 +101,31 @@ export default class PosterWhiteView extends ItemView {
 
     set ele(value) {
         super.ele = value;
-        require("./poster_white.css")
-        this.html = require("./poster_white.html");
+
+        initValue(this);
+        initStyle(this);//初始化样式
+
+        this.bindText();
     }
 
     /**
      * 给对应的ele设置布局
      * @param html
      */
-    set html(html) {
-        this.ele.innerHTML = html;
-        this.ele.appendChild(this.focusEle);
-
-        initStyle(this);//初始化样式
-
-        //绑定TextView和ImageView
-        this.bindImage();
-        this.bindText();
-    }
 
     setAttributeParam() {
         var firstFocus = super.setAttributeParam();
-        var sizeType = this.props["size-type"];
-        if (!sizeType) {
-            sizeType = "small";
-        }
 
-        this.sizeType = sizeType;
+        //父类中的焦点高度在这里不适用，需要重新设置
+        var focusEle = this.findEleById("focus");
+        if (focusEle) {
+            this.focusEle = focusEle;
+            if (this.focusEle.className != "focus") {
+                this.focusEle.className += " focus";
+            }
+        } else {
+            this.focusEle = buildDefaultFocusEle(this);
+        }
 
         var posterSize = this.props["poster-size"];
         if (posterSize) {
@@ -153,28 +137,20 @@ export default class PosterWhiteView extends ItemView {
             }
         }
 
-        var focusEle = this.findEleById("focus");
-        if (focusEle) {
-            this.focusEle = focusEle;
-            if (this.focusEle.className != "focus") {
-                this.focusEle.className += " focus";
-            }
+        var nameBgEle = this.findEleById("name_bg");
+        if (nameBgEle) {
+            this.nameBgEle = nameBgEle;
         } else {
-            this.focusEle = buildDefaultFocusEle(this);
+            this.nameBgEle = buildNameBgEle(this);
         }
 
-        if (this.ele.className != "item") {
-            if(this.ele.className){
-                //上焦的className
-                this.focusStyle = this.ele.className + " item item_focus";
-                //选中的className
-                this.selectStyle = this.ele.className + " item item_select";
-                //失焦的className
-                this.unFocusStyle = this.ele.className + " item";
-            }
-
-            this.setUnFocusStyle();
+        var nameEle = this.findEleById("name");
+        if (nameEle) {
+            this.nameEle = nameEle;
+        } else {
+            this.nameEle = buildNameEle(this);
         }
+
 
         return firstFocus;
     }
@@ -209,34 +185,43 @@ var buildDefaultFocusEle = function (posterWhiteView) {
     return focusEle;
 }
 
-var initStyle = function (posterWhiteView) {
-    var width = View.getWidth(posterWhiteView.focusEle);
-    var height = View.getHeight(posterWhiteView.focusEle);
-    posterWhiteView.size = new VSize(width, height);
+var buildNameBgEle = function (posterView) {
+    var size = posterView.posterSize;
+    var html = '<div style="background: white;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;" view-id="shadow"></div>';
 
+    var nameBgEle = View.parseEle(html)[0];
+    nameBgEle.style.width = size.width + "px";
+    nameBgEle.style.height = posterView.textHeight + "px";
+    return nameBgEle;
+}
+
+var buildNameEle = function (posterWhiteView) {
+    var html = '<div view-type="view-text" style="white-space: nowrap;text-align: center;color: black;" view-id="name"></div>';
+    var nameEle = View.parseEle(html)[0];
+    nameEle.style.fontSize = posterWhiteView.textHeight - 5 + "px";
+    return nameEle;
+}
+
+var initValue = function (posterWhiteView){
+    posterWhiteView.ele.appendChild(posterWhiteView.nameBgEle);
+    posterWhiteView.ele.appendChild(posterWhiteView.nameEle);
+}
+
+var initStyle = function (posterWhiteView) {
     var textHeight = posterWhiteView.textHeight;
     var posterSize = posterWhiteView.posterSize;
 
+    var poster = posterWhiteView.picEle;
+    var name_bg = posterWhiteView.nameBgEle;
+    var name = posterWhiteView.nameEle;
 
-    var poster = posterWhiteView.findEleById("_poster");
-    var name_bg = posterWhiteView.findEleById("_name_bg");
-    var name = posterWhiteView.findEleById("_name");
-
-    poster.style.width = posterSize.width + "px";
-    poster.style.height = posterSize.height + "px";
-
-    name_bg.style.width = posterSize.width + "px";
-    name_bg.style.height = textHeight + "px";
-
-    name.style.width = posterSize.width - 10 + "px";
-    name.style.height = textHeight + "px";
-    name.style.lineHeight = textHeight + "px";
-    name.style.fontSize = textHeight - 5 + "px";
 
     var left = Math.round((posterWhiteView.width - posterSize.width) / 2);
-    poster.style.left = left + "px";
     name_bg.style.left = left + "px";
     name.style.left = left + 5 + "px";
+
+    name.style.width = posterSize.width - 10 + "px";
+    name.style.height = posterWhiteView.textHeight + "px";
 
     if (posterWhiteView.left >= left) {
         posterWhiteView.left -= left;
