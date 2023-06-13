@@ -23,6 +23,7 @@ import DrawerPage from "@page/DrawerPage";
 import DetailPage from "@page/DetailPage";
 import SearchPage from "@page/SearchPage";
 import ProgressPage from "@page/ProgressPage";
+import FocusPage from "@page/FocusPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -59,6 +60,7 @@ export var PageConfig = {
     "CarouselPage": CarouselPage,
     "DrawerPage": DrawerPage,
     "ProgressPage": ProgressPage,
+    "FocusPage": FocusPage,
 
     //其他
     "TestPage": TestPage,

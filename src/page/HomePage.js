@@ -49,7 +49,7 @@ export default class HomePage extends Page {
         this.list_2.data = [
             "Button", "Poster", "Keyboard",
             "CountdownView", "CarouselView", "DrawerView",
-            "ProgressView",
+            "ProgressView", "FocusPage",
             // "LoadingView","MessageView"
         ];
         this.list_3.data = ["Launcher", "爱奇艺", "芒果", "直播"];
@@ -194,6 +194,9 @@ var onClickListenerList2 = function (view) {
             break;
         case 6:
             page = "ProgressPage"
+            break;
+        case 7:
+            page = "FocusPage";
             break;
     }
 

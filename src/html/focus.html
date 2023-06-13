@@ -1,0 +1,26 @@
+<template>
+    <div class="bg">
+        <img src="../images/bg.jpg" id="bg">
+    </div>
+    <group style="width: 1280px;height: 720px;overflow: hidden;" view-locate="center">
+        <div class="title" style="left: 40px;top: 40px;">FocusView</div>
+        <div class="second_title" style="left: 40px;top: 80px;">主要功能是自适应焦点，对于相同布局不同焦点可以做到只改焦点不改其他布局、在文档中不说明^_^</div>
+        <div class="view_bg" style="top: 120px;"></div>
+        <group class="group_view" style="top: 120px;" view-locate="center" first-focus>
+            <div class="second_title">默认焦点</div>
+            <focus style="top: 60px;" size="176,232">
+                <img src="../images/poster.png" width="176" height="202" alt="">
+                <div style="width: 176px;height: 30px;background: white;top: 202px;"></div>
+                <text style="width: 166px;height: 30px;left: 5px;font-size: 18px;color: black;white-space: nowrap;top: 202px;">这是一个跑马灯加长加长加长加长</text>
+            </focus>
+
+            <div class="second_title" style="left: 250px;">自定义焦点</div>
+            <focus style="top: 60px;left: 250px;" size="176,232">
+                <img src="../images/focus/176x232.png" width="214" view-lazy="0" height="270" id="focus">
+                <img src="../images/poster.png" width="176" height="202" alt="">
+                <div style="width: 176px;height: 30px;background: white;top: 202px;"></div>
+                <text style="width: 166px;height: 30px;left: 5px;font-size: 18px;color: black;white-space: nowrap;top: 202px;">这是一个跑马灯加长加长加长加长</text>
+            </focus>
+        </group>
+    </group>
+</template>

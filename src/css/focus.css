@@ -1,0 +1,30 @@
+.title{
+    white-space: nowrap;
+    color: white;
+    font-size: 28px;
+}
+
+.second_title{
+    top: 10px;
+    white-space: nowrap;
+    color: white;
+    font-size: 18px;
+}
+
+.focus_large{
+    width: 150px;
+}
+
+.view_bg{
+    width: 1280px;
+    height: 400px;
+    background: #404040;
+    border-radius: 15px;
+}
+
+.group_view{
+    width: 1200px;
+    height: 400px;
+    left: 40px;
+    overflow: hidden;
+}
