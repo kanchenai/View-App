@@ -131,7 +131,10 @@ export default class Page extends GroupView {
     }
 
     toastInfo(info){
-        this.toast.show(info)
+        if (this.toast) {
+            this.toast.show(info)
+        }
+
     }
 
     /**
