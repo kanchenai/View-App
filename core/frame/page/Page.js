@@ -1,6 +1,7 @@
 import ViewManager from "../view/base/ViewManager";
 import GroupView from "../view/group/GroupView";
 import LogView from "@core/frame/view/single/LogView";
+import Toast from "@core/frame/view/single/Toast";
 
 export default class Page extends GroupView {
     constructor() {
@@ -21,8 +22,11 @@ export default class Page extends GroupView {
         //页面finish时，设置，上回到的页面上获取
         this.backResultData = null;
 
-        //每个页面自带的打印信息空间，显示在页面上，只有开发模式、打包测试版本会显示,正式包中会默认不显示
+        //每个页面自带的打印信息控件，显示在页面上，只有开发模式、打包测试版本会显示,正式包中会默认不显示
         this.logView = null;
+
+        //每个页面自带的toast
+        this.toast = null;
     }
 
     create(param) {
@@ -124,6 +128,10 @@ export default class Page extends GroupView {
         if (this.logView) {
             this.logView.e(info);
         }
+    }
+
+    toastInfo(info){
+        this.toast.show(info)
     }
 
     /**
@@ -277,6 +285,8 @@ export default class Page extends GroupView {
 
         //添加LogView
         this.logView = new LogView(this.viewManager);
+        //添加toast
+        this.toast = new Toast(this);
     }
 
     get html() {
