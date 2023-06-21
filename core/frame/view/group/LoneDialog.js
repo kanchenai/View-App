@@ -3,7 +3,8 @@ import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 
 export default class LoneDialog extends Dialog {
     constructor(viewManager) {
-        super(viewManager);
+        super(viewManager, null);
+        this.listenerLocation = this;
     }
 
     set html(value) {

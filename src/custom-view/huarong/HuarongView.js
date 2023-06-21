@@ -20,6 +20,11 @@ export default class HuarongView extends RecycleView {
         })
     }
 
+    start(){
+        initGame(this);
+        this.render();
+    }
+
     correct() {
         var success = true;
         for (var i = 0; i < this.col * this.col; i++) {
@@ -52,77 +57,39 @@ export default class HuarongView extends RecycleView {
     }
 
     up() {
-        var emptyRow = Math.floor(this.emptyIndex / this.col)
-
-        if (emptyRow >= this.col - 1) {
-            return;
-        }
-
-        this.data[this.emptyIndex] = this.data[this.emptyIndex + this.col];
-        this.emptyIndex = this.emptyIndex + this.col;
-        this.data[this.emptyIndex] = this.col * this.col;
-        this.render()
+        up(this);
+        this.render();
         this.correct();
     }
 
     down() {
-        var emptyRow = Math.floor(this.emptyIndex / this.col)
-
-        if (emptyRow == 0) {
-            return;
-        }
-
-        this.data[this.emptyIndex] = this.data[this.emptyIndex - this.col];
-        this.emptyIndex = this.emptyIndex - this.col;
-        this.data[this.emptyIndex] = this.col * this.col;
+        down(this);
         this.render();
         this.correct();
     }
 
     left() {
-        var emptyCol = this.emptyIndex % this.col;
-
-        if (emptyCol == this.col - 1) {
-            return;
-        }
-
-        this.data[this.emptyIndex] = this.data[this.emptyIndex + 1];
-        this.emptyIndex = this.emptyIndex + 1;
-        this.data[this.emptyIndex] = this.col * this.col;
+        left(this);
         this.render();
         this.correct();
     }
 
     right() {
-        var emptyCol = this.emptyIndex % this.col;
-
-        if (emptyCol == 0) {
-            return;
-        }
-
-        this.data[this.emptyIndex] = this.data[this.emptyIndex - 1];
-        this.emptyIndex = this.emptyIndex - 1;
-        this.data[this.emptyIndex] = this.col * this.col;
+        right(this);
         this.render();
         this.correct();
     }
 
     initData() {
+        this.adapter = new HuarongAdapter(this);
+
         var data = [];
 
         for (var i = 0; i < this.col * this.col; i++) {
             data.push(i + 1)
         }
-        var gameData = [];
-        for (var i = 0; i < this.col * this.col; i++) {
-            var index = Math.floor(Math.random() * data.length)
-            var num = data.splice(index, 1)[0];
-            gameData.push(num);
-            if (num == this.col * this.col) {
-                this.emptyIndex = i;
-            }
-        }
-        this.data = gameData;
+        this.emptyIndex = this.col * this.col - 1;
+        this.data = data;
     }
 
     get pic() {
@@ -247,4 +214,70 @@ class HuarongAdapter extends Adapter {
             button.value = "";
         }
     }
+}
+
+var initGame = function (huarongView) {
+    var time = 30 * huarongView.col;
+
+    for (var i = 0; i < time; i++) {
+        var direction = Math.floor(Math.random() * 5);
+        if (direction == 0) {
+            up(huarongView);
+        } else if (direction == 1) {
+            down(huarongView);
+        } else if (direction == 2) {
+            left(huarongView);
+        } else {
+            right(huarongView);
+        }
+    }
+}
+
+
+var up = function (huarongView) {
+    var emptyRow = Math.floor(huarongView.emptyIndex / huarongView.col)
+
+    if (emptyRow >= huarongView.col - 1) {
+        return;
+    }
+
+    huarongView.data[huarongView.emptyIndex] = huarongView.data[huarongView.emptyIndex + huarongView.col];
+    huarongView.emptyIndex = huarongView.emptyIndex + huarongView.col;
+    huarongView.data[huarongView.emptyIndex] = huarongView.col * huarongView.col;
+}
+
+var down = function (huarongView) {
+    var emptyRow = Math.floor(huarongView.emptyIndex / huarongView.col)
+
+    if (emptyRow == 0) {
+        return;
+    }
+
+    huarongView.data[huarongView.emptyIndex] = huarongView.data[huarongView.emptyIndex - huarongView.col];
+    huarongView.emptyIndex = huarongView.emptyIndex - huarongView.col;
+    huarongView.data[huarongView.emptyIndex] = huarongView.col * huarongView.col;
+}
+
+var left = function (huarongView) {
+    var emptyCol = huarongView.emptyIndex % huarongView.col;
+
+    if (emptyCol == huarongView.col - 1) {
+        return;
+    }
+
+    huarongView.data[huarongView.emptyIndex] = huarongView.data[huarongView.emptyIndex + 1];
+    huarongView.emptyIndex = huarongView.emptyIndex + 1;
+    huarongView.data[huarongView.emptyIndex] = huarongView.col * huarongView.col;
+}
+
+var right = function (huarongView) {
+    var emptyCol = huarongView.emptyIndex % huarongView.col;
+
+    if (emptyCol == 0) {
+        return;
+    }
+
+    huarongView.data[huarongView.emptyIndex] = huarongView.data[huarongView.emptyIndex - 1];
+    huarongView.emptyIndex = huarongView.emptyIndex - 1;
+    huarongView.data[huarongView.emptyIndex] = huarongView.col * huarongView.col;
 }

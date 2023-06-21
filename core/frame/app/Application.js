@@ -15,7 +15,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.6.6(2023-06-14)";
+export var version = "0.6.6(2023-06-21)";
 
 export default class Application extends GroupView {
     constructor(id) {

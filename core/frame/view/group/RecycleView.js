@@ -217,8 +217,8 @@ export default class RecycleView extends GroupView {
         //置空holder
         this.recycleHolderList = [];
         this.activeHolderMap = new VMap();
-        this.ele.html = "";//置空节点
-
+        this.html = "";//置空节点
+        this.seatSize = new VSize(0,0);//重置
         computeSeatSize(this);//获取子控件的占位
 
         this.baseIndex = 0;

@@ -4,9 +4,24 @@
     </div>
     <div style="width: 1280px;height: 80px;font-size: 32px;line-height: 80px;text-align: center;">HuarongView</div>
     <div style="width: 1280px;height: 30px;top: 80px;font-size: 24px;line-height: 30px;text-align: center;">华容道小游戏，不在文档中说明^_^</div>
-    <huarong style="width: 500px;height: 500px;left: 390px;top: 140px;border: 1px solid white"
-             view-col="4" show-num="0"
+    <huarong style="width: 500px;height: 500px;left: 390px;top: 140px;border: 1px solid white;"
+             view-col="4" show-num="1"
              success="onSuccessListener" id="huarong">
         <img src="../images/poster.png" id="pic">
     </huarong>
+
+    <img width="250" style="left: 940px;top: 100px;" id="pic">
+
+    <div style="height: 30px;left: 940px;top: 380px;font-size: 24px;line-height: 30px;white-space: nowrap" id="tips"></div>
+    <div style="height: 30px;left: 940px;top: 420px;font-size: 24px;line-height: 30px;white-space: nowrap;color:#ffde00;" id="tips_1">按返回键结束游戏</div>
+
+    <div style="left: 950px;top: 480px;">
+        <button size="60,60" radius="0" value="-" id="-"></button>
+        <div style="width: 60px;height: 60px;left: 60px;line-height: 60px;text-align: center;background: gray;" id="size">4</div>
+        <button size="60,60" radius="0" style="left: 120px;" value="+" id="+"></button>
+    </div>
+
+    <button style="left: 950px;top: 570px;" value="重置" id="reset" first-focus></button>
+
+    <button style="left: 1090px;top: 570px;" value="开始" id="start"></button>
 </template>

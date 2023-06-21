@@ -41,8 +41,6 @@ export default class GroupView extends ScrollView {
         this.scroller.init();
         //将html设置到节点中
         this.scroller.html = html;
-        //业务层触发的，listenerLocation为this
-        this.listenerLocation = this;
         //构建控件
         this.viewManager.buildView(this);
         //测量滚动器实际大小，并设置
