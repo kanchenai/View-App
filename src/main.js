@@ -16,6 +16,7 @@ import {DrawerViewBuilder} from "@src/custom-view/drawer/DrawerView";
 import {ProgressViewBuilder} from "@src/custom-view/progress/ProgressView";
 import {FocusViewBuilder} from "@src/custom-view/focus/FocusView";
 import {PainterViewBuilder} from "@src/custom-view/painter/PainterView";
+import {HuarongViewBuilder} from "@src/custom-view/huarong/HuarongView";
 
 
 var start = new Date().getTime();
@@ -25,7 +26,7 @@ window.onload = function () {
         KeyboardViewBuilder, CountdownViewBuilder, PosterWhiteViewBuilder,
         ButtonBuilder, PosterViewBuilder, PosterShadowViewBuilder,
         CarouselViewBuilder, DrawerViewBuilder, ProgressViewBuilder,
-        FocusViewBuilder,PainterViewBuilder
+        FocusViewBuilder,PainterViewBuilder,HuarongViewBuilder
     ]);
 
     State.ScrollAnimation = true;//控制滚动动画开关

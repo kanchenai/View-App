@@ -25,6 +25,7 @@ import SearchPage from "@page/SearchPage";
 import ProgressPage from "@page/ProgressPage";
 import FocusPage from "@page/FocusPage";
 import PainterPage from "@page/PainterPage";
+import HuarongPage from "@page/HuarongPage";
 
 /**
  * 定义在App中需要使用到的Page，并给Page设置对应的PageName
@@ -63,6 +64,7 @@ export var PageConfig = {
     "ProgressPage": ProgressPage,
     "FocusPage": FocusPage,
     "PainterPage": PainterPage,
+    "HuarongPage": HuarongPage,
 
     //其他
     "TestPage": TestPage,
