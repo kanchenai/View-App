@@ -217,7 +217,7 @@ class HuarongAdapter extends Adapter {
 }
 
 var initGame = function (huarongView) {
-    var time = 30 * huarongView.col;
+    var time = 300 * huarongView.col;
 
     for (var i = 0; i < time; i++) {
         var direction = Math.floor(Math.random() * 5);

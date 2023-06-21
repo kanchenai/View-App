@@ -63,10 +63,12 @@ export default class HuarongPage extends Page {
                 this.huarong.initData();
                 break;
             case "start":
-                this.gaming = true;
-                this.huarong.start();
-                this.refreshTips();
-                view.hide();
+                if(!this.gaming){
+                    this.gaming = true;
+                    this.huarong.start();
+                    this.refreshTips();
+                    view.hide();
+                }
                 break;
         }
     }
