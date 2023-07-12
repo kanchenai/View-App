@@ -141,6 +141,7 @@ export default class ViewManager {
         } else if (_next.focusable) {//ItemView和GroupView都是View的子类，且只有这两类的对象可以执行上焦操作
             _next.requestFocus();
         } else {
+            //TODO 边界监听
             console.warn("操作值错误！", _next)
         }
     }

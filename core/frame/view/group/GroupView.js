@@ -1,4 +1,4 @@
-import ScrollView  from "@core/frame/view/base/ScrollView";
+import ScrollView from "@core/frame/view/base/ScrollView";
 import Keyboard from "@core/frame/app/Keyboard";
 import VPosition from "@core/frame/util/VPosition";
 import ItemView from "@core/frame/view/base/ItemView";
@@ -226,7 +226,7 @@ export default class GroupView extends ScrollView {
             view.data = this.data[this.childViews.length];
         }
         super.addChild(view);
-        if (view instanceof ItemView || view instanceof GroupView) {
+        if (view.focusable) {//可上焦
             var groupView = this;
             if (!view.nextUp) {
                 view.nextUp = function () {
@@ -310,16 +310,16 @@ export default class GroupView extends ScrollView {
                 right = strs[3];
             }
         }
-        if(up){
+        if (up) {
             this.nextUp = up;
         }
-        if(down){
+        if (down) {
             this.nextDown = down;
         }
-        if(left){
+        if (left) {
             this.nextLeft = left;
         }
-        if(right){
+        if (right) {
             this.nextRight = right;
         }
 

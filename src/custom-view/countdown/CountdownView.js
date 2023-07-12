@@ -93,6 +93,10 @@ export default class CountdownView extends View {
         initStyle(this);
     }
 
+    get html() {
+        return this.ele.innerHTML;
+    }
+
     get count() {
         return this._count;
     }
