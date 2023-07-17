@@ -5,6 +5,18 @@
 * 使用webpack打包
 * 区分开发模式及生产模式
 
+#### 说明文档在线地址
+
+* API在线地址： http://kanchenai.gitee.io/view-api-page
+* Demo效果地址：http://kanchenai.gitee.io/view_page
+
+#### 空项目、初始项目
+
+当前没有创建项目的脚手架，使用一下两个地址拉取空项目，用以创建项目
+
+* github地址：https://github.com/kanchenai/hello-view.git
+* gitee地址：https://gitee.com/kanchenai/hello-view.git
+
 ### 环境及npm命令
 
 * node环境
