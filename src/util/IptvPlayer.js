@@ -2,8 +2,8 @@ import RealPlayer from "@core/frame/player/RealPlayer";
 import PlayInfo from "@core/frame/player/PlayInfo";
 
 export default class IptvPlayer extends RealPlayer {
-    constructor() {
-        super();
+    constructor(stbType) {
+        super(stbType);
         //iptv原生播放器本尊，如果不在盒子上跑，这里会报错，try catch之后切换播放器
         this.mp = new MediaPlayer();
         //播放器对应的id
@@ -101,7 +101,7 @@ export default class IptvPlayer extends RealPlayer {
  */
 var playByJson = function (player, startTime, json) {
     initMediaPlay(player, json);//初始化播放器
-
+    //TODO 更具this.stbType,做出相应的调整
     //调用播放器开始播放的方法
     player.mp.playFromStart();
     setTimeout(function () {//此处为兼容

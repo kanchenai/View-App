@@ -1,8 +1,8 @@
 import RealPlayer from "@core/frame/player/RealPlayer";
 
 export default class AndroidPlayer extends RealPlayer{
-    constructor() {
-        super();
+    constructor(stbType) {
+        super(stbType);
         this.androidKey = "";
         this.player = window[androidKey];
         if(!this.player){

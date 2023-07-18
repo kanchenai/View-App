@@ -2,7 +2,7 @@ import RealPlayer from "@core/frame/player/RealPlayer";
 
 export default class AliWebPlayer extends RealPlayer {
     constructor() {
-        super();
+        super("");
 
         this.divId = "player-con";
         this.isInit = false;//是否已加载js和css文件

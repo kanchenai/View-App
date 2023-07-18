@@ -2,7 +2,8 @@
  * 对接播放器时，需要继承这个类，并重写所有方法
  */
 export default class RealPlayer{
-    constructor() {
+    constructor(stbType) {
+        this.stbType = stbType;
         this.playInfo = null;
     }
 

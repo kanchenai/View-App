@@ -15,7 +15,7 @@ require("../../css/style.css");
  * view-app的版本号
  * @type {string}
  */
-export var version = "0.6.6(2023-06-21)";
+export var version = "0.6.7(2023-07-18)";
 
 export default class Application extends GroupView {
     constructor(id) {
@@ -65,7 +65,7 @@ export default class Application extends GroupView {
         var pageInfoList = null;
         //判断是否强制使用ENTER模式进入app
         var focusEnter = this.forceEnter(this.urlParam);
-        if(focusEnter){
+        if (focusEnter) {
             this.clearCache();//清除page缓存
         }
         pageInfoList = this.pageManager.pageInfoList;
@@ -86,7 +86,7 @@ export default class Application extends GroupView {
             firstPage = this.pageList.pop();
         }
 
-        if(!firstPage){
+        if (!firstPage) {
             firstPage = LaunchPage;
         }
 
@@ -115,15 +115,22 @@ export default class Application extends GroupView {
         //清楚缓存
         this.clearCache();
         //回调
-        this.onDestroy();
+        var delay = this.onDestroy();
 
-        //获取退出app的目标地址
-        var exitUrl = this.exitUrl();
-        if (exitUrl) {
-            location.href = exitUrl;
-        } else {
-            console.error("未定义退出地址");
+        if (!delay) {
+            delay = 1;
         }
+
+        setTimeout(function () {
+            //获取退出app的目标地址
+            var exitUrl = this.exitUrl();
+            if (exitUrl) {
+                location.href = exitUrl;
+            } else {
+                console.error("未定义退出地址");
+            }
+        }, delay);
+
     }
 
     /**
@@ -190,7 +197,7 @@ export default class Application extends GroupView {
 
         if (this.pageList.length == 0) {
             this.keyboard.page = null;//最后一个页面销毁时的保护机制
-            if(this.player){
+            if (this.player) {
                 this.player.page = null;//最后一个页面销毁时的保护机制
             }
 
@@ -216,7 +223,7 @@ export default class Application extends GroupView {
         }
         this.foregroundPage = page;
         this.keyboard.page = null;//保护，防止异常触发
-        if(this.player){
+        if (this.player) {
             this.player.page = null;//保护，防止异常触发
         }
         page.isForeground = true;
@@ -263,7 +270,7 @@ export default class Application extends GroupView {
      * @param param
      * @returns {boolean}
      */
-    forceEnter(param){
+    forceEnter(param) {
         return false;
     }
 
@@ -292,6 +299,7 @@ export default class Application extends GroupView {
     }
 
     onDestroy() {
+        return 0;
     }
 
     /**
@@ -348,7 +356,7 @@ export default class Application extends GroupView {
      * 避免先import ViewManager导致异常
      * @param viewBuilderConstructorList
      */
-    static addCustomViewBuilder(viewBuilderConstructorList){
+    static addCustomViewBuilder(viewBuilderConstructorList) {
         ViewManager.addCustomViewBuilder(viewBuilderConstructorList)
     }
 }
@@ -373,8 +381,8 @@ class ApplicationScroller extends Scroller {
 /**
  * 给对应Page的prototype中赋值pageName值
  */
-(function(){
-    Object.keys(PageConfig).forEach(function (key){
+(function () {
+    Object.keys(PageConfig).forEach(function (key) {
         var page = PageConfig[key];
         page.prototype.pageName = key;
     })

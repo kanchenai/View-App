@@ -43,6 +43,8 @@ export default class MyApplication extends Application {
     onDestroy() {
         // console.log("MyApplication onDestroy")
         // 如果是app+epg，在这里（或exitUrl()）调用退出app的方法
+
+        return 0;//返回一个推出延迟时间（毫秒）
     }
 
     exitUrl() {
@@ -60,7 +62,8 @@ export default class MyApplication extends Application {
     getPlayerInstance() {
         var player = {};
         try {
-            player = new IptvPlayer();
+            var stbType = "";//获取盒子型号
+            player = new IptvPlayer(stbType);//传入盒子型号
         } catch (e) {
             player = new AliWebPlayer();
         }

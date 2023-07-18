@@ -17,6 +17,10 @@
 * github地址：https://github.com/kanchenai/hello-view.git
 * gitee地址：https://gitee.com/kanchenai/hello-view.git
 
+#### 生成页面的工具，可以用在线动态布局，也可以用在项目开发中搭建页面
+
+* github地址：https://github.com/kanchenai/painter.git  初步阶段
+
 ### 环境及npm命令
 
 * node环境
