@@ -20,6 +20,7 @@
 #### 生成页面的工具，可以用在线动态布局，也可以用在项目开发中搭建页面
 
 * github地址：https://github.com/kanchenai/painter.git  初步阶段
+* 效果地址：http://kanchenai.gitee.io/painter_page
 
 ### 环境及npm命令
 
