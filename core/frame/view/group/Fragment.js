@@ -1,5 +1,4 @@
 import GroupView from "./GroupView";
-import State from "../../util/State";
 
 export default class Fragment extends GroupView {
     constructor(viewManager) {
