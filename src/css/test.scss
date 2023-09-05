@@ -1,0 +1,66 @@
+.text{
+    width: 200px;
+    height: 30px;
+    left: 30px;
+    top: 30px;
+    line-height: 30px;
+    font-size: 22px;
+    white-space: nowrap;
+    background: darkorange;
+    color: white;
+}
+
+.recycle_view {
+    left: 50px;
+    top: 250px;
+    background: gray;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    .item,
+    .focus {
+        width: 60px;
+        height: 44px;
+    }
+    .pic{
+        left: 10px;
+        top: 10px;
+    }
+    .pic,
+    .pic img {
+        width: 40px;
+        height: 24px;
+    }
+    .item{
+        background: blue;
+    }
+    .item_focus{
+        background: #f87f41;
+    }
+}
+
+.button{
+    $button-item-width: 100px;
+    $button-item-height: 30px;
+    width: 1280px;
+    height: 50px;
+    .item{
+        width: $button-item-width;
+        height: $button-item-height;
+        background: gray;
+        color: white;
+        line-height: $button-item-height;
+        font-size: 22px;
+        text-align: center;
+    }
+    .item_focus{
+        width: $button-item-width;
+        height: $button-item-height;
+        background: blue;
+    }
+}
+
+.poster_0{
+    top: 30px;
+    left: 450px;
+}
