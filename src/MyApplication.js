@@ -42,7 +42,6 @@ export default class MyApplication extends Application {
 
     onDestroy() {
         // console.log("MyApplication onDestroy")
-        // 如果是app+epg，在这里（或exitUrl()）调用退出app的方法
 
         return 0;//返回一个推出延迟时间（毫秒）
     }
@@ -56,6 +55,9 @@ export default class MyApplication extends Application {
         if (!url || url == "undefined") {//如果都没有
             url = "";//默认的地址
         }
+
+        // 如果是app+epg，在这里调用退出app的方法
+
         return url;
     }
 
