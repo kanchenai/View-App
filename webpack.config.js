@@ -16,6 +16,20 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.scss$/,
+                include: [
+                    path.resolve(__dirname, 'src/css'),
+                    path.resolve(__dirname, 'core/frame/view/css'),
+                    path.resolve(__dirname, 'src/custom-view')
+                ],
+                use: [
+                    MiniCssExtractPlugin.loader, // 提取 CSS 到单独文件
+                    'css-loader', // 处理 CSS 文件
+                    'sass-loader', // 将 SCSS 转换为 CSS
+                    'view-css-loader' 
+                ]
+            },
+            {
                 test: /\.css$/,//也可以是数组
                 exclude: [
                     path.resolve(__dirname, 'src/css'),
