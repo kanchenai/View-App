@@ -1,11 +1,9 @@
 .text {
     text-align: center;
-    width: 118px;
-    height: 58px;
+    width: 120px;
+    height: 60px;
     line-height: 100%;
     color: #dcdfe6;
-    left: 3px;
-    top: 3px;
     z-index: 3;
     white-space: nowrap;
 }
@@ -16,6 +14,21 @@
 
 .item_focus .text{
     color: white;
+}
+
+.medium{
+    width: 160px;
+    height: 80px;
+}
+
+.small{
+    width: 120px;
+    height: 60px;
+}
+
+.mini{
+    width: 80px;
+    height: 40px;
 }
 
 
