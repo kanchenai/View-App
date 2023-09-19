@@ -216,11 +216,23 @@ var setValue = function (button) {
 
     }
 
+    var value = button.findEleById("_text");
     var valueColor = button.props["value-color"];
     if (valueColor) {
-        var value = button.findEleById("_text");
         value.style.color = valueColor;
 
+    }
+
+    var sizeType = button.props["size-type"];
+    var size = button.props["size"];//属性中的宽高
+    if (size) {
+        value.style.width = button.buttonSize.width + "px";
+        value.style.height = button.buttonSize.height + "px";
+    } else {
+        if (!sizeType) {
+            sizeType = "small"
+        }
+        value.className += " " + sizeType;
     }
 }
 
@@ -232,7 +244,7 @@ var initStyle = function (button) {
     var left = Math.round((button.width - buttonSize.width) / 2);
     var top = Math.round((button.height - buttonSize.height) / 2);
 
-    // console.log("initStyle",left,top)
+    console.log("initStyle",left,top)
 
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
@@ -245,10 +257,6 @@ var initStyle = function (button) {
             continue;
         }
 
-        var borderWidth = View.pxToNum(getComputedStyle(child).borderWidth);
-
-        child.style.width = buttonSize.width - borderWidth * 2 + "px";
-        child.style.height = buttonSize.height - borderWidth * 2 + "px";
         child.style.left = left + "px";
         child.style.top = top + "px";
     }
@@ -295,6 +303,8 @@ var initStyle = function (button) {
         button.bgEle.style.borderRadius = button.props["radius"] + "px";
         button.focusEle.style.borderRadius = button.props["radius"] + "px";
     }
+
+
 }
 
 var buildDefaultFocusEle = function (button) {
@@ -329,8 +339,8 @@ var buildDefaultBgEle = function (button){
     var size = button.props["size"];//属性中的宽高
 
     if (size) {
-        bgEle.style.width = button.buttonSize.width + "px";
-        bgEle.style.height = button.buttonSize.height + "px";
+        bgEle.style.width = button.buttonSize.width - 2 + "px";
+        bgEle.style.height = button.buttonSize.height - 2 + "px";
     } else {
         if (!sizeType) {
             sizeType = "small"
