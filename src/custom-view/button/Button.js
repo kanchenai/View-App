@@ -244,7 +244,7 @@ var initStyle = function (button) {
     var left = Math.round((button.width - buttonSize.width) / 2);
     var top = Math.round((button.height - buttonSize.height) / 2);
 
-    console.log("initStyle",left,top)
+    // console.log("initStyle",left,top)
 
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
