@@ -9,6 +9,7 @@
 
 * API在线地址： http://kanchenai.gitee.io/view-api-page
 * Demo效果地址：http://kanchenai.gitee.io/view_page
+![image](public/view_page.png)
 
 #### 空项目、初始项目
 
@@ -21,6 +22,7 @@
 
 * github地址：https://github.com/kanchenai/painter.git  初步阶段
 * 效果地址：http://kanchenai.gitee.io/painter_page
+  ![image](public/painter.png)
 
 ### 环境及npm命令
 
