@@ -37,8 +37,7 @@ window.onload = function () {
     application.launch();
 
     //使用默认Application启动
-    // var application = new Application("app");
-    // application.launch();
+    // new Application("app").launch();
 
     var mode = process.env.NODE_ENV || "production";//获取当前的模式,development:开发模式；production：生产模式
     console.log(mode, new Date().getTime() - start)
