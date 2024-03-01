@@ -139,10 +139,22 @@ module.exports = {
     resolveLoader: {
         modules: [path.resolve(__dirname, "./core/loader"), 'node_modules']//loader先在./core/loader找，然后再在node_modules找
     },
-    // devServer: {//一般使用默认
-    // }
+
     //是否使用devtool:source-map，npm run *有选择是否使用（不传就是默认不使用）
     // devtool: 'source-map',//使用
     // devtool: false,//不使用
     stats: "errors-only",
+
+    devServer:{
+        // host: 'localhost',
+        // port: 8090,
+        // proxy: {
+        //     '/interface/': {
+        //         target: 'http://localhost:8080',// 本地
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //         }
+        //     }
+        // },
+    },// dev环境下，webpack-dev-server 相关配置
 }

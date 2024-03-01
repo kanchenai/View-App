@@ -220,7 +220,7 @@ class TextScroller extends View {
         super(null);
         this.fatherView = fatherView;
         //最小滚动速度
-        this.speed = 2;
+        this.speed = 1;
         //刷新间隔
         this.cell = 20;
 

@@ -3,6 +3,9 @@ import {ViewBuilder} from "@core/frame/view/base/ViewManager";
 import View from "@core/frame/view/base/View";
 import VSize from "@core/frame/util/VSize";
 
+/**
+ * focusEle在创建时size固定，如果修改控件size，需要手动修改focusEle的size
+ */
 export default class FocusView extends ItemView {
     constructor(viewManager, listenerLocation) {
         super(viewManager, listenerLocation);
@@ -61,6 +64,71 @@ export default class FocusView extends ItemView {
         this.bindText();
     }
 
+    get focusBorderInfo() {
+        var width = View.getWidth(this.focusEle);
+        var height = View.getHeight(this.focusEle);
+        var borderHeight = Math.round((height - this.visibleSize.height) / 2);
+        var borderWidth = Math.round((width - this.visibleSize.width) / 2);
+
+        return {
+            width: width,
+            height: height,
+            borderHeight: borderHeight,
+            borderWidth: borderWidth
+        }
+    }
+
+    /**
+     * 获取left
+     */
+    get left() {
+        return View.getLeft(this.ele) + this.focusBorderInfo.borderWidth;
+    }
+
+    set left(value) {
+        let left  = value - this.focusBorderInfo.borderWidth;
+        this.position.left = left;
+        this.setStyle("left", left + "px");
+    }
+
+    /**
+     * 获取top
+     */
+    get top() {
+        return View.getTop(this.ele) + this.focusBorderInfo.borderHeight;
+    }
+
+    set top(value) {
+        let top  = value - this.focusBorderInfo.borderHeight;
+        this.position.top = top;
+        this.setStyle("top", top + "px");
+    }
+
+    /**
+     * 获取width
+     */
+    get width() {
+        return this.visibleSize.width;
+    }
+
+    set width(value) {
+        this.visibleSize.width = value;
+        var width = value + 2 * this.focusBorderInfo.borderWidth;
+        super.setStyle("width", width + "px");
+    }
+
+    /**
+     * 获取height
+     */
+    get height() {
+        return this.visibleSize.height;
+    }
+
+    set height(value) {
+        this.visibleSize.height = value;
+        var height = value + 2 * this.focusBorderInfo.borderHeight;
+        super.setStyle("height", height + "px");
+    }
 
     setAttributeParam() {
         var firstFocus = super.setAttributeParam();
@@ -73,7 +141,7 @@ export default class FocusView extends ItemView {
                 var height = parseInt(sizeStrs[1]);
                 this.visibleSize = new VSize(width, height);
             }
-        }else{
+        } else {
             this.visibleSize = this.size;
         }
 
@@ -89,7 +157,7 @@ export default class FocusView extends ItemView {
         }
 
         if (this.ele.className != "item") {
-            if(this.ele.className){
+            if (this.ele.className) {
                 //上焦的className
                 this.focusStyle = this.ele.className + " item item_focus";
                 //选中的className
@@ -136,33 +204,30 @@ var buildFocusEle = function (view) {
 }
 
 var initStyle = function (view) {
-    var width = View.getWidth(view.focusEle);
-    var height = View.getHeight(view.focusEle);
-    view.size = new VSize(width, height);
+    view.size =  view.visibleSize;
 
-    var left = Math.round((view.width - view.visibleSize.width) / 2);
+    var focusBorderInfo = view.focusBorderInfo;
 
-    if (view.left >= left) {
-        view.left -= left;
+    if (View.getLeft(view.ele) >= focusBorderInfo.borderWidth) {
+        view.left = View.getLeft(view.ele);
     } else {
-        view.left = 0;
+        view.left = focusBorderInfo.borderWidth;
     }
 
-    var top = Math.round((view.height - view.visibleSize.height) / 2);
-    if (view.top >= top) {
-        view.top -= top;
+    if (View.getTop(view.ele) >= focusBorderInfo.borderHeight) {
+        view.top = View.getTop(view.ele);
     } else {
-        view.top = 0;
+        view.top = focusBorderInfo.borderHeight;
     }
 
     var children = view.ele.children;
 
-    for(var i=0;i<children.length;i++){
+    for (var i = 0; i < children.length; i++) {
         var ele = children[i];
-        if(ele == view.focusEle){
+        if (ele == view.focusEle) {
             continue;
         }
-        ele.style.left = View.getLeft(ele) + left + "px";
-        ele.style.top = View.getTop(ele) + top + "px";
+        ele.style.left = View.getLeft(ele) + focusBorderInfo.borderWidth + "px";
+        ele.style.top = View.getTop(ele) + focusBorderInfo.borderHeight + "px";
     }
 }
